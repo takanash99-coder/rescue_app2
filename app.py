@@ -1,5 +1,6 @@
 import json
 import random
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from collections import Counter
@@ -183,6 +184,7 @@ def render_sidebar(questions: List[Dict[str, Any]], logs: List[str]) -> None:
             st.session_state.pos      = 0
             st.session_state.correct  = 0
             st.session_state.answered = False
+            st.session_state.last_choice = None
             st.rerun()
 
         st.divider()
@@ -227,39 +229,77 @@ def render_quiz(questions: List[Dict[str, Any]]) -> None:
     st.write(f"### 問題 {pos + 1}")
     st.write(q["question"])
 
+    labels = [f"{i + 1}. {c}" for i, c in enumerate(q["choices"])]
+
     if not st.session_state.answered:
-        choice = st.radio(
-            "選択肢",
-            [f"{i + 1}. {c}" for i, c in enumerate(q["choices"])],
-            key=f"radio_{current_id}",
-            label_visibility="collapsed",
-        )
-        if st.button("✅ 解答する"):
-            selected_index = int(choice.split(".")[0]) - 1
-            st.session_state.last_choice = selected_index
-            st.session_state.answered    = True
-            if selected_index == q["correct_index"]:
-                st.session_state.correct += 1
-            st.rerun()
+        # 「2つ選べ」判定（問題文に "2つ選べ" が含まれるか）
+        qtext = q["question"]
+        is_multi = bool(re.search(r"2\s*つ\s*選", qtext))
+
+        if not is_multi:
+            # 1つ選べ（従来通り）
+            choice = st.radio(
+                "選択肢",
+                labels,
+                key=f"radio_{current_id}",
+                label_visibility="collapsed",
+            )
+
+            if st.button("✅ 解答する"):
+                selected_index = int(choice.split(".")[0]) - 1
+                st.session_state.last_choice = selected_index
+                st.session_state.answered    = True
+                if selected_index == q["correct_index"]:
+                    st.session_state.correct += 1
+                st.rerun()
+
+        else:
+            # 2つ選べ（最大2つまで選択）
+            selected = st.multiselect(
+                "選択肢（2つ選べ）",
+                labels,
+                default=[],
+                max_selections=2,
+                key=f"multi_{current_id}",
+            )
+
+            if st.button("✅ 解答する"):
+                selected_indices = [int(s.split(".")[0]) - 1 for s in selected]
+                st.session_state.last_choice = selected_indices
+                st.session_state.answered    = True
+
+                # ★ 暫定採点：
+                # データが correct_index（単一）仕様のままなので、
+                # 選んだ2つの中に correct_index が含まれていれば正解扱い
+                if q["correct_index"] in selected_indices:
+                    st.session_state.correct += 1
+                st.rerun()
 
     else:
         correct_idx = q["correct_index"]
         chosen      = st.session_state.last_choice
 
-        if chosen == correct_idx:
+        # chosen が int（1つ選べ） or list（2つ選べ）どちらでも動くようにする
+        if isinstance(chosen, list):
+            is_correct = correct_idx in chosen
+        else:
+            is_correct = (chosen == correct_idx)
+
+        if is_correct:
             st.success("⭕ 正解！")
         else:
             st.error(
                 f"❌ 不正解　（正答: **{correct_idx + 1}. {q['choices'][correct_idx]}**）"
             )
 
-        if q["explanation"]:
+        if q.get("explanation"):
             with st.expander("📖 解説を見る"):
                 st.write(q["explanation"])
 
         if st.button("次の問題 →"):
             st.session_state.pos      += 1
             st.session_state.answered  = False
+            st.session_state.last_choice = None
             st.rerun()
 
 
