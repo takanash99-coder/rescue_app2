@@ -77,6 +77,84 @@ def render_html(content: str) -> None:
     st.markdown(dedent(content).strip(), unsafe_allow_html=True)
 
 
+def render_rank_card_html(rate: float, correct: int, total: int, nick: str, is_partial: bool) -> None:
+    rank_label, bg, fg, msg = get_rank(rate)
+    rank_icon = rank_label.split(" ")[0]
+
+    nick_html = f"<div class='nick-line'>👤 {nick}</div>" if nick else ""
+    partial_html = "<div class='partial-line'>※ 途中中断時点の成績</div>" if is_partial else ""
+
+    html = f"""
+    <!DOCTYPE html>
+    <html lang="ja">
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body {{
+          margin: 0;
+          padding: 0;
+          background: transparent;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }}
+        .rank-card {{
+          border-radius: 24px;
+          padding: 24px 16px;
+          text-align: center;
+          background: {bg};
+          color: {fg};
+          box-sizing: border-box;
+          animation: rankPop .5s ease-out;
+        }}
+        .nick-line {{
+          font-size: .9rem;
+          margin-bottom: .3rem;
+          font-weight: 700;
+        }}
+        .rank-icon {{
+          font-size: 2.5rem;
+          line-height: 1;
+        }}
+        .rank-label {{
+          font-size: 1.6rem;
+          font-weight: 900;
+          margin: .35rem 0;
+        }}
+        .rank-rate {{
+          font-size: 1.05rem;
+          font-weight: 700;
+        }}
+        .rank-msg {{
+          font-size: .95rem;
+          margin-top: .45rem;
+          line-height: 1.6;
+        }}
+        .partial-line {{
+          font-size: .85rem;
+          margin-top: .45rem;
+          opacity: .9;
+        }}
+        @keyframes rankPop {{
+          0%   {{ transform: scale(.5); opacity: 0; }}
+          60%  {{ transform: scale(1.05); }}
+          100% {{ transform: scale(1); opacity: 1; }}
+        }}
+      </style>
+    </head>
+    <body>
+      <div class="rank-card">
+        {nick_html}
+        <div class="rank-icon">{rank_icon}</div>
+        <div class="rank-label">{rank_label}</div>
+        <div class="rank-rate">{rate:.0f}%（{correct}/{total}問正解）</div>
+        <div class="rank-msg">{msg}</div>
+        {partial_html}
+      </div>
+    </body>
+    </html>
+    """
+    components.html(html, height=230)
+
+
 def infer_field_from_filename(filename: str) -> str:
     mapping = {
         "exam_01": "生命倫理と社会保障",
@@ -100,14 +178,57 @@ def normalize_field(raw: Any) -> str:
     return str(raw).strip()
 
 
-def to_3_choices(choices: List[str], correct_index: int) -> Tuple[List[str], int]:
+def normalize_correct_indices(item: Dict[str, Any]) -> List[int]:
+    raw = item.get("correct_indices")
+    if isinstance(raw, list):
+        vals = [v for v in raw if isinstance(v, int)]
+        if vals:
+            return sorted(list(dict.fromkeys(vals)))
+
+    correct_index = item.get("correct_index")
+    if isinstance(correct_index, int):
+        return [correct_index]
+
+    return []
+
+
+def infer_select_count(question_text: str, correct_indices: List[int]) -> int:
+    if len(correct_indices) >= 2:
+        return len(correct_indices)
+    text = str(question_text)
+    if "2つ選べ" in text or "２つ選べ" in text:
+        return 2
+    return 1
+
+
+def to_3_choices_single(
+    choices: List[str], correct_index: int
+) -> Tuple[List[str], int, List[int]]:
     correct = choices[correct_index]
     wrongs = [c for i, c in enumerate(choices) if i != correct_index]
     picked = random.sample(wrongs, min(2, len(wrongs)))
     new_choices = picked + [correct]
     random.shuffle(new_choices)
     new_index = new_choices.index(correct)
-    return new_choices, new_index
+    return new_choices, new_index, [new_index]
+
+
+def to_3_choices_multi(
+    choices: List[str], correct_indices: List[int]
+) -> Tuple[List[str], int, List[int]]:
+    correct_choices = [choices[i] for i in correct_indices if 0 <= i < len(choices)]
+    wrong_choices = [c for i, c in enumerate(choices) if i not in correct_indices]
+
+    if len(correct_choices) < 2 or len(wrong_choices) < 1:
+        first_idx = correct_indices[0] if correct_indices else 0
+        return choices, first_idx, correct_indices
+
+    picked_wrong = random.choice(wrong_choices)
+    new_choices = correct_choices[:2] + [picked_wrong]
+    random.shuffle(new_choices)
+    new_correct_indices = sorted([new_choices.index(c) for c in correct_choices[:2]])
+    first_idx = new_correct_indices[0]
+    return new_choices, first_idx, new_correct_indices
 
 
 def get_rank(rate: float):
@@ -117,81 +238,16 @@ def get_rank(rate: float):
     return RANK_TABLE[-1][2:]
 
 
-def render_rank_card(nick: str, rank_label: str, bg: str, fg: str, msg: str, rate: float, correct: int, total: int) -> None:
-    icon = rank_label.split(" ")[0] if " " in rank_label else rank_label
-    nick_html = f'<div class="rank-nick">👤 {nick}</div>' if nick else ""
-    height = 220 if nick else 195
+def is_answer_correct(selected: Any, correct_indices: List[int], select_count: int) -> bool:
+    if select_count == 1:
+        return isinstance(selected, int) and selected in correct_indices
 
-    html = f"""
-    <!doctype html>
-    <html>
-    <head>
-      <meta charset="utf-8" />
-      <style>
-        html, body {{
-          margin: 0;
-          padding: 0;
-          background: transparent;
-          overflow: hidden;
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }}
-        @keyframes rankPop {{
-          0%   {{ transform: scale(.5); opacity: 0; }}
-          60%  {{ transform: scale(1.08); }}
-          100% {{ transform: scale(1); opacity: 1; }}
-        }}
-        .rank-card {{
-          box-sizing: border-box;
-          width: 100%;
-          border-radius: 24px;
-          padding: 1.5rem 1rem;
-          text-align: center;
-          margin: 0;
-          background: {bg};
-          color: {fg};
-          animation: rankPop .6s ease-out;
-        }}
-        .rank-nick {{
-          font-size: .9rem;
-          margin-bottom: .3rem;
-          font-weight: 700;
-          opacity: .95;
-        }}
-        .rank-icon {{
-          font-size: 2.5rem;
-          line-height: 1.1;
-        }}
-        .rank-label {{
-          font-size: 1.6rem;
-          font-weight: 900;
-          margin: .3rem 0;
-          line-height: 1.25;
-        }}
-        .rank-rate {{
-          font-size: 1.1rem;
-          font-weight: 700;
-          line-height: 1.4;
-        }}
-        .rank-msg {{
-          font-size: .95rem;
-          margin-top: .45rem;
-          line-height: 1.65;
-          font-weight: 600;
-        }}
-      </style>
-    </head>
-    <body>
-      <div class="rank-card">
-        {nick_html}
-        <div class="rank-icon">{icon}</div>
-        <div class="rank-label">{rank_label}</div>
-        <div class="rank-rate">{rate:.0f}%（{correct}/{total}問正解）</div>
-        <div class="rank-msg">{msg}</div>
-      </div>
-    </body>
-    </html>
-    """
-    components.html(html, height=height, scrolling=False)
+    if not isinstance(selected, list):
+        return False
+
+    clean_sel = sorted([v for v in selected if isinstance(v, int)])
+    clean_correct = sorted([v for v in correct_indices if isinstance(v, int)])
+    return clean_sel == clean_correct
 
 
 # =========================================================
@@ -217,7 +273,6 @@ def inject_css() -> None:
                 }
             }
 
-            /* ---------- cover hero ---------- */
             .cover-hero {
                 background: linear-gradient(135deg, #0f766e 0%, #155e75 55%, #1d4ed8 100%);
                 color: white; border-radius: 28px;
@@ -241,7 +296,6 @@ def inject_css() -> None:
             .cover-stat-val { font-size: 1.15rem; font-weight: 900; }
             .cover-stat-lbl { font-size: .78rem; color: rgba(255,255,255,.88); margin-top: .15rem; }
 
-            /* ---------- nickname ---------- */
             .nick-card {
                 background: white; border: 1px solid #d8e2f0; border-radius: 18px;
                 padding: .9rem 1rem; margin-bottom: .8rem;
@@ -250,7 +304,6 @@ def inject_css() -> None:
             .nick-label { font-size: .85rem; font-weight: 700; color: #6b7280; margin-bottom: .3rem; }
             .nick-name { font-size: 1.15rem; font-weight: 800; color: #15253f; }
 
-            /* ---------- generic ---------- */
             .card {
                 background: white; border: 1px solid #d8e2f0;
                 border-radius: 20px; padding: 1rem;
@@ -261,13 +314,11 @@ def inject_css() -> None:
                 margin: 1.2rem 0 .5rem 0;
             }
 
-            /* ---------- buttons ---------- */
             div[data-testid="stButton"] > button {
                 border-radius: 14px !important;
                 font-weight: 700 !important;
             }
 
-            /* ---------- selectors ---------- */
             div[data-testid="stSegmentedControl"] {
                 margin-bottom: .5rem;
             }
@@ -282,7 +333,6 @@ def inject_css() -> None:
                 min-height: 44px !important;
             }
 
-            /* ---------- metric row ---------- */
             .metric-row { display: flex; gap: .6rem; margin-bottom: .8rem; }
             .metric-card {
                 flex: 1; background: white; border: 1px solid #d8e2f0;
@@ -292,7 +342,6 @@ def inject_css() -> None:
             .metric-label { font-size: .78rem; color: #6b7280; }
             .metric-value { font-size: 1.3rem; font-weight: 800; color: #15253f; margin-top: .15rem; }
 
-            /* ---------- progress bar ---------- */
             .progress-wrap { margin-bottom: .8rem; }
             .progress-meta {
                 display: flex; justify-content: space-between;
@@ -304,7 +353,6 @@ def inject_css() -> None:
                 background: linear-gradient(90deg, #0f766e, #1d4ed8); transition: width .3s;
             }
 
-            /* ---------- question ---------- */
             .q-card {
                 background: white; border: 1px solid #d8e2f0;
                 border-radius: 20px; padding: 1.1rem;
@@ -313,22 +361,6 @@ def inject_css() -> None:
             .q-meta { font-size: .82rem; color: #6b7280; margin-bottom: .5rem; }
             .q-text { font-size: 1.05rem; font-weight: 700; line-height: 1.75; color: #15253f; }
 
-            /* ---------- result rank ---------- */
-            @keyframes rankPop {
-                0%   { transform: scale(.5); opacity: 0; }
-                60%  { transform: scale(1.1); }
-                100% { transform: scale(1); opacity: 1; }
-            }
-            .rank-card {
-                border-radius: 24px; padding: 1.5rem 1rem; text-align: center;
-                margin-bottom: 1rem; animation: rankPop .6s ease-out;
-            }
-            .rank-icon { font-size: 2.5rem; }
-            .rank-label { font-size: 1.6rem; font-weight: 900; margin: .3rem 0; }
-            .rank-rate { font-size: 1.1rem; font-weight: 700; }
-            .rank-msg { font-size: .95rem; margin-top: .4rem; line-height: 1.6; }
-
-            /* ---------- bar chart ---------- */
             .bar-row { display: flex; align-items: center; margin-bottom: .45rem; }
             .bar-label { width: 160px; font-size: .85rem; font-weight: 600; color: #15253f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
             .bar-track { flex: 1; height: 14px; background: #e5e7eb; border-radius: 99px; overflow: hidden; margin: 0 .5rem; }
@@ -364,17 +396,20 @@ def load_questions(data_dir: Path) -> List[Dict[str, Any]]:
             for item in raw:
                 if not isinstance(item, dict):
                     continue
+
                 qid = str(item.get("id", "")).strip()
                 question = str(item.get("question", "")).strip()
                 choices = item.get("choices", [])
-                correct_index = item.get("correct_index")
+
                 if not qid or not question:
                     continue
                 if not isinstance(choices, list) or len(choices) < 2:
                     continue
-                if not isinstance(correct_index, int):
+
+                correct_indices = normalize_correct_indices(item)
+                if not correct_indices:
                     continue
-                if not (0 <= correct_index < len(choices)):
+                if any(not (0 <= idx < len(choices)) for idx in correct_indices):
                     continue
 
                 field = normalize_field(item.get("field", ""))
@@ -388,12 +423,16 @@ def load_questions(data_dir: Path) -> List[Dict[str, Any]]:
                 else:
                     diff = "normal"
 
+                select_count = infer_select_count(question, correct_indices)
+
                 questions.append(
                     {
                         "id": qid,
                         "question": question,
                         "choices": [str(c).strip() for c in choices],
-                        "correct_index": correct_index,
+                        "correct_index": correct_indices[0],
+                        "correct_indices": correct_indices,
+                        "select_count": select_count,
                         "explanation": str(item.get("explanation", "")).strip(),
                         "why_wrong": str(item.get("why_wrong", "")).strip(),
                         "field": field,
@@ -402,6 +441,7 @@ def load_questions(data_dir: Path) -> List[Dict[str, Any]]:
                 )
         except Exception:
             continue
+
     return questions
 
 
@@ -492,15 +532,29 @@ def build_quiz(
         pool = [q for q in pool if normalize_field(q.get("field", "")) == field]
     if not pool:
         return []
+
     picked = random.sample(pool, min(count, len(pool)))
     quiz: List[Dict[str, Any]] = []
+
     for q in picked:
         q2 = copy.deepcopy(q)
+
         if difficulty == "easy" and len(q2["choices"]) > 3:
-            q2["choices"], q2["correct_index"] = to_3_choices(
-                q2["choices"], q2["correct_index"]
-            )
+            if q2.get("select_count", 1) == 1:
+                new_choices, new_correct_index, new_correct_indices = to_3_choices_single(
+                    q2["choices"], q2["correct_index"]
+                )
+            else:
+                new_choices, new_correct_index, new_correct_indices = to_3_choices_multi(
+                    q2["choices"], q2["correct_indices"]
+                )
+
+            q2["choices"] = new_choices
+            q2["correct_index"] = new_correct_index
+            q2["correct_indices"] = new_correct_indices
+
         quiz.append(q2)
+
     return quiz
 
 
@@ -771,15 +825,16 @@ def _start_quiz(
     quiz = build_quiz(questions, field, difficulty, count)
     if not quiz:
         st.warning("選択した条件に合う問題がありません。分野や難易度を変えてみてください。")
-    else:
-        st.session_state.quiz_questions = quiz
-        st.session_state.quiz_answers = [None] * len(quiz)
-        st.session_state.quiz_checked = [False] * len(quiz)
-        st.session_state.quiz_index = 0
-        st.session_state.sel_field = field
-        st.session_state.sel_count = count
-        st.session_state.page = "question"
-        st.rerun()
+        return
+
+    st.session_state.quiz_questions = quiz
+    st.session_state.quiz_answers = [None] * len(quiz)
+    st.session_state.quiz_checked = [False] * len(quiz)
+    st.session_state.quiz_index = 0
+    st.session_state.sel_field = field
+    st.session_state.sel_count = count
+    st.session_state.page = "question"
+    st.rerun()
 
 
 # =========================================================
@@ -798,6 +853,7 @@ def render_question_page() -> None:
     q = quiz[idx]
     checked = st.session_state.quiz_checked[idx]
     saved_answer = st.session_state.quiz_answers[idx]
+    select_count = q.get("select_count", 1)
 
     diff_label = st.session_state.sel_difficulty.capitalize()
     diff_flames = DIFFICULTY_FLAMES.get(st.session_state.sel_difficulty, "")
@@ -827,44 +883,81 @@ def render_question_page() -> None:
         """
     )
 
-    if not checked:
-        labels = [f"{i+1}. {c}" for i, c in enumerate(q["choices"])]
-        default_idx = None
-        if saved_answer is not None and 0 <= saved_answer < len(labels):
-            default_idx = saved_answer
+    labels = [f"{i + 1}. {c}" for i, c in enumerate(q["choices"])]
 
-        picked = st.radio(
-            "選択肢",
-            labels,
-            index=default_idx,
-            label_visibility="collapsed",
-            key=f"radio_{q['id']}_{idx}",
-        )
-        if picked:
-            st.session_state.quiz_answers[idx] = labels.index(picked)
+    if not checked:
+        if select_count == 1:
+            default_idx = None
+            if isinstance(saved_answer, int) and 0 <= saved_answer < len(labels):
+                default_idx = saved_answer
+
+            picked = st.radio(
+                "選択肢",
+                labels,
+                index=default_idx,
+                label_visibility="collapsed",
+                key=f"radio_{q['id']}_{idx}",
+            )
+            if picked:
+                st.session_state.quiz_answers[idx] = labels.index(picked)
+
+        else:
+            default_multi: List[str] = []
+            if isinstance(saved_answer, list):
+                default_multi = [
+                    labels[i] for i in saved_answer
+                    if isinstance(i, int) and 0 <= i < len(labels)
+                ]
+
+            picked_multi = st.multiselect(
+                "選択肢",
+                labels,
+                default=default_multi,
+                max_selections=select_count,
+                label_visibility="collapsed",
+                key=f"multi_{q['id']}_{idx}",
+            )
+            st.session_state.quiz_answers[idx] = sorted([labels.index(v) for v in picked_multi])
+
+            st.caption(f"この問題は {select_count}つ選択")
 
         if st.button("✅ チェック（判定する）", use_container_width=True, type="primary"):
-            if st.session_state.quiz_answers[idx] is None:
-                st.warning("選択肢を選んでください。")
+            current_answer = st.session_state.quiz_answers[idx]
+
+            if select_count == 1:
+                if current_answer is None:
+                    st.warning("選択肢を選んでください。")
+                    return
             else:
-                st.session_state.quiz_checked[idx] = True
-                st.rerun()
+                if not isinstance(current_answer, list) or len(current_answer) != select_count:
+                    st.warning(f"選択肢を {select_count}つ選んでください。")
+                    return
+
+            st.session_state.quiz_checked[idx] = True
+            st.rerun()
+
     else:
         sel = saved_answer
-        is_correct = sel == q["correct_index"]
+        is_correct = is_answer_correct(sel, q["correct_indices"], select_count)
 
         if is_correct:
             st.success("✅ 正解！")
         else:
             st.error("❌ 不正解")
 
+        selected_set = set(sel) if isinstance(sel, list) else ({sel} if isinstance(sel, int) else set())
+        correct_set = set(q["correct_indices"])
+
         for i, c in enumerate(q["choices"]):
-            label = f"{i+1}. {c}"
-            if i == q["correct_index"] and i == sel:
+            label = f"{i + 1}. {c}"
+            is_selected = i in selected_set
+            is_correct_choice = i in correct_set
+
+            if is_selected and is_correct_choice:
                 st.success(f"{label}（正解 ✅）")
-            elif i == q["correct_index"]:
+            elif is_correct_choice:
                 st.success(f"{label}（正解）")
-            elif i == sel:
+            elif is_selected:
                 st.error(f"{label}（あなたの解答）")
             else:
                 st.write(label)
@@ -884,32 +977,44 @@ def render_question_page() -> None:
                 st.session_state.quiz_index = idx - 1
                 st.rerun()
         else:
-            if st.button("◀ 表紙へ", use_container_width=True):
-                st.session_state.page = "cover"
-                st.rerun()
+            st.write("")
     with c2:
-        st.write("")
+        if st.button("⏹ 中断して結果を見る", use_container_width=True):
+            finalize_quiz(is_partial=True)
     with c3:
         if checked:
             is_last = idx >= total - 1
             btn_label = "📊 結果を見る" if is_last else "次へ ▶"
             if st.button(btn_label, use_container_width=True, type="primary"):
                 if is_last:
-                    finalize_quiz()
+                    finalize_quiz(is_partial=False)
                 else:
                     st.session_state.quiz_index = idx + 1
                     st.rerun()
 
 
-def finalize_quiz() -> None:
+# =========================================================
+# Finalize
+# =========================================================
+def finalize_quiz(is_partial: bool = False) -> None:
     quiz = st.session_state.quiz_questions
     answers = st.session_state.quiz_answers
+    checked_list = st.session_state.quiz_checked
+
+    target_indices = [i for i, checked in enumerate(checked_list) if checked]
+
+    if not target_indices:
+        st.warning("まだ1問も判定していません。")
+        return
+
     details: List[Dict[str, Any]] = []
     correct_count = 0
 
-    for i, q in enumerate(quiz):
+    for i in target_indices:
+        q = quiz[i]
         sel = answers[i]
-        is_correct = sel == q["correct_index"]
+        is_correct = is_answer_correct(sel, q["correct_indices"], q.get("select_count", 1))
+
         if is_correct:
             correct_count += 1
 
@@ -932,25 +1037,30 @@ def finalize_quiz() -> None:
                 "question": q["question"],
                 "choices": q["choices"],
                 "correct_index": q["correct_index"],
-                "selected_index": sel,
+                "correct_indices": q["correct_indices"],
+                "selected_index": sel if isinstance(sel, int) else None,
+                "selected_indices": sel if isinstance(sel, list) else [],
+                "select_count": q.get("select_count", 1),
                 "is_correct": is_correct,
                 "explanation": q.get("explanation", ""),
                 "why_wrong": q.get("why_wrong", ""),
             }
         )
 
-    total = len(quiz)
-    rate = (correct_count / total * 100) if total else 0
+    total_answered = len(target_indices)
+    rate = (correct_count / total_answered * 100) if total_answered else 0
 
     session_record = {
         "nickname": st.session_state.nickname,
         "field": st.session_state.sel_field,
         "difficulty": st.session_state.sel_difficulty,
-        "count": total,
+        "count": total_answered,
+        "planned_count": len(quiz),
         "correct": correct_count,
         "rate": rate,
         "ts": datetime.now().strftime("%m/%d %H:%M"),
         "details": details,
+        "is_partial": is_partial,
     }
 
     st.session_state.sessions.append(session_record)
@@ -962,10 +1072,14 @@ def finalize_quiz() -> None:
         st.session_state.user_sessions[nick].append(session_record)
 
     user_store = get_user_store()
-    user_store["total_answered"] += total
+    user_store["total_answered"] += total_answered
     user_store["total_correct"] += correct_count
     user_store["sessions"].append(session_record)
 
+    st.session_state.quiz_questions = []
+    st.session_state.quiz_answers = []
+    st.session_state.quiz_checked = []
+    st.session_state.quiz_index = 0
     st.session_state.page = "summary"
     st.rerun()
 
@@ -985,23 +1099,19 @@ def render_summary() -> None:
     rate = session["rate"]
     details = session["details"]
     nick = session.get("nickname", "")
+    planned_count = session.get("planned_count", total)
+    is_partial = session.get("is_partial", False)
 
-    rank_label, bg, fg, msg = get_rank(rate)
-    if rate == 100:
-        st.balloons()
-    elif rate >= 80:
-        st.snow()
+    if not is_partial:
+        if rate == 100:
+            st.balloons()
+        elif rate >= 80:
+            st.snow()
 
-    render_rank_card(
-        nick=nick,
-        rank_label=rank_label,
-        bg=bg,
-        fg=fg,
-        msg=msg,
-        rate=rate,
-        correct=correct,
-        total=total,
-    )
+    render_rank_card_html(rate, correct, total, nick, is_partial)
+
+    if is_partial:
+        st.info(f"この結果は途中中断時点の成績です。回答済み {total} / {planned_count} 問")
 
     wrong = total - correct
     render_html(
@@ -1035,33 +1145,40 @@ def render_summary() -> None:
         short_q = d["question"][:50] + ("…" if len(d["question"]) > 50 else "")
         title = f"{icon} Q{i}. {short_q}"
 
-        with st.expander(title):
-            st.markdown(f"**問題：** {d['question']}")
-            st.markdown("")
-            for ci, c in enumerate(d["choices"]):
-                label = f"{ci+1}. {c}"
-                if ci == d["correct_index"] and ci == d["selected_index"]:
-                    st.success(f"{label}（正解 ✅ あなたの解答）")
-                elif ci == d["correct_index"]:
+        with st.expander(title, expanded=False):
+            st.markdown(f"**問題**  {d['question']}")
+
+            for j, c in enumerate(d["choices"]):
+                label = f"{j + 1}. {c}"
+                is_correct_choice = j in set(d.get("correct_indices", [d["correct_index"]]))
+                selected_indices = set(d.get("selected_indices", []))
+                selected_single = d.get("selected_index")
+                is_selected = j in selected_indices or j == selected_single
+
+                if is_selected and is_correct_choice:
+                    st.success(f"{label}（正解 ✅）")
+                elif is_correct_choice:
                     st.success(f"{label}（正解）")
-                elif ci == d["selected_index"]:
+                elif is_selected:
                     st.error(f"{label}（あなたの解答）")
                 else:
                     st.write(label)
 
             if d.get("explanation"):
-                st.info(f"💡 {d['explanation']}")
+                st.markdown("**💡 解説**")
+                st.info(d["explanation"])
             if not d["is_correct"] and d.get("why_wrong"):
-                st.warning(f"📖 {d['why_wrong']}")
+                st.markdown("**📖 詳しい解説**")
+                st.warning(d["why_wrong"])
 
     st.markdown("")
     c1, c2 = st.columns(2)
     with c1:
-        if st.button("🏠 表紙に戻る", use_container_width=True, type="primary"):
+        if st.button("🏠 表紙へ", use_container_width=True, type="primary"):
             st.session_state.page = "cover"
             st.rerun()
     with c2:
-        if st.button("🗑 履歴をクリア", use_container_width=True):
+        if st.button("🗑 全クリア", use_container_width=True):
             reset_all()
 
 
@@ -1071,19 +1188,7 @@ def render_summary() -> None:
 def render_history() -> None:
     render_html('<div class="section-title">📊 学習履歴</div>')
 
-    nick = st.session_state.nickname.strip()
     user_store = get_user_store()
-
-    if nick:
-        render_html(
-            f"""
-            <div class="nick-card">
-                <div class="nick-label">👤 ニックネーム</div>
-                <div class="nick-name">{nick}</div>
-            </div>
-            """
-        )
-
     total = user_store["total_answered"]
     correct = user_store["total_correct"]
     rate = (correct / total * 100) if total else 0
@@ -1136,7 +1241,7 @@ def render_history() -> None:
     if not has_data:
         st.info("まだ学習データがありません。")
 
-    sessions = st.session_state.user_sessions.get(nick, []) if nick else []
+    sessions = st.session_state.user_sessions.get(st.session_state.nickname, []) if st.session_state.nickname else []
     if sessions:
         render_html('<div class="section-title">■ セッション履歴</div>')
         for s in reversed(sessions[-20:]):
@@ -1144,13 +1249,14 @@ def render_history() -> None:
             diff_flames = DIFFICULTY_FLAMES.get(s["difficulty"], "")
             s_nick = s.get("nickname", "")
             nick_part = f"👤{s_nick}　" if s_nick else ""
+            partial_tag = "（中断）" if s.get("is_partial") else ""
             render_html(
                 f"""
                 <div class="card">
                     {icon} {s["ts"]}　{nick_part}{s["field"]}　
                     {diff_flames} {s["difficulty"].capitalize()}　
                     {s["correct"]}/{s["count"]}問　
-                    <strong>{s["rate"]:.0f}%</strong>
+                    <strong>{s["rate"]:.0f}%</strong> {partial_tag}
                 </div>
                 """
             )
