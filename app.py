@@ -131,16 +131,25 @@ def inject_css() -> None:
             margin: 1.2rem 0 .5rem 0;
         }
 
-        /* ---------- active indicator bar ---------- */
-        .active-bar {
-            height: 4px; background: linear-gradient(90deg, #0f766e, #1d4ed8);
-            border-radius: 99px; margin-top: 2px; margin-bottom: 4px;
-        }
-
         /* ---------- buttons ---------- */
         div[data-testid="stButton"] > button {
             border-radius: 14px !important;
             font-weight: 700 !important;
+        }
+
+        /* ---------- selectors ---------- */
+        div[data-testid="stSegmentedControl"] {
+            margin-bottom: .5rem;
+        }
+        div[data-testid="stSegmentedControl"] button {
+            border-radius: 14px !important;
+            font-weight: 700 !important;
+            min-height: 46px !important;
+        }
+        div[data-testid="stPills"] button {
+            border-radius: 14px !important;
+            font-weight: 700 !important;
+            min-height: 44px !important;
         }
 
         /* ---------- metric row ---------- */
@@ -442,12 +451,10 @@ def generate_advice(weak: List[Dict[str, Any]]) -> str:
 
     lines: List[str] = []
 
-    # ---- メイン診断 ----
     lines.append(f"**{emoji} 「{worst['field']}」** が最も弱い分野です。")
     lines.append(f"正答率 {w_rate:.0f}%（{worst['correct']}/{w_ans}問正解 / {w_wrong}問誤答）")
     lines.append("")
 
-    # ---- 正答率に応じたコメント ----
     if w_rate < 30:
         lines.append("⚠️ **かなり苦手な分野です。** 基礎から見直す必要があります。")
         lines.append("")
@@ -481,7 +488,6 @@ def generate_advice(weak: List[Dict[str, Any]]) -> str:
         lines.append("3. ⏱ 時間を意識して解くスピード練習をする")
         lines.append("4. 📖 テキストの発展内容・補足コラムにも目を通す")
 
-    # ---- 問題数に応じた追加アドバイス ----
     lines.append("")
     if w_ans < 10:
         lines.append(f"💡 まだ {w_ans}問しか解いていません。最低でも20問は解くと傾向が見えてきます。")
@@ -490,7 +496,6 @@ def generate_advice(weak: List[Dict[str, Any]]) -> str:
     else:
         lines.append(f"💡 {w_ans}問分のデータがあります。信頼性の高い分析です。")
 
-    # ---- 2位の分野 ----
     if len(weak) >= 2:
         second = weak[1]
         e2 = FIELD_EMOJI.get(second["field"], "📚")
@@ -500,7 +505,6 @@ def generate_advice(weak: List[Dict[str, Any]]) -> str:
             " この分野もあわせて復習すると効率的です。"
         )
 
-    # ---- 共通の学習テクニック ----
     lines.append("")
     lines.append("---")
     lines.append("**📚 効果的な復習のコツ：**")
@@ -555,7 +559,6 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
         unsafe_allow_html=True,
     )
 
-    # -------- nickname --------
     if not st.session_state.nickname_registered:
         st.markdown(
             '<div class="section-title">■ ニックネーム登録</div>',
@@ -596,71 +599,57 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
                 del st.query_params["nick"]
             st.rerun()
 
-    # -------- difficulty --------
     st.markdown(
         '<div class="section-title">■ 難易度を選ぶ</div>',
         unsafe_allow_html=True,
     )
-    diff_cols = st.columns(3)
-    for i, diff in enumerate(DIFFICULTY_OPTIONS):
-        with diff_cols[i]:
-            is_active = st.session_state.sel_difficulty == diff
-            flames = DIFFICULTY_FLAMES[diff]
-            sub = "3択" if diff == "easy" else "5択"
-            label = f"{flames}  {diff.capitalize()}（{sub}）"
-            if st.button(label, key=f"diff_{diff}", use_container_width=True):
-                st.session_state.sel_difficulty = diff
-                st.rerun()
-            if is_active:
-                st.markdown(
-                    '<div class="active-bar"></div>',
-                    unsafe_allow_html=True,
-                )
+    selected_diff = st.segmented_control(
+        "難易度",
+        DIFFICULTY_OPTIONS,
+        default=st.session_state.sel_difficulty,
+        selection_mode="single",
+        format_func=lambda diff: f"{DIFFICULTY_FLAMES[diff]} {diff.capitalize()}（{'3択' if diff == 'easy' else '5択'}）",
+        label_visibility="collapsed",
+        width="stretch",
+        key="seg_difficulty",
+    )
+    if selected_diff:
+        st.session_state.sel_difficulty = selected_diff
 
-    # -------- field --------
     st.markdown(
         '<div class="section-title">■ 分野を選ぶ</div>',
         unsafe_allow_html=True,
     )
-    cols_per_row = 3
-    for row_start in range(0, len(FIELD_ORDER), cols_per_row):
-        row_fields = FIELD_ORDER[row_start : row_start + cols_per_row]
-        cols = st.columns(cols_per_row)
-        for col_i, field in enumerate(row_fields):
-            with cols[col_i]:
-                is_active = st.session_state.sel_field == field
-                emoji = FIELD_EMOJI.get(field, "📚")
-                short_name = field.replace("00. ", "")
-                label = f"{emoji} {short_name}"
-                if st.button(label, key=f"field_{field}", use_container_width=True):
-                    st.session_state.sel_field = field
-                    st.rerun()
-                if is_active:
-                    st.markdown(
-                        '<div class="active-bar"></div>',
-                        unsafe_allow_html=True,
-                    )
+    selected_field = st.pills(
+        "分野",
+        FIELD_ORDER,
+        default=st.session_state.sel_field,
+        selection_mode="single",
+        format_func=lambda field: f"{FIELD_EMOJI.get(field, '📚')} {field.replace('00. ', '')}",
+        label_visibility="collapsed",
+        width="stretch",
+        key="pill_field",
+    )
+    if selected_field:
+        st.session_state.sel_field = selected_field
 
-    # -------- count --------
     st.markdown(
         '<div class="section-title">■ 問題数</div>',
         unsafe_allow_html=True,
     )
-    count_cols = st.columns(len(COUNT_OPTIONS))
-    for i, cnt in enumerate(COUNT_OPTIONS):
-        with count_cols[i]:
-            is_active = st.session_state.sel_count == cnt
-            label = f"{cnt} 問"
-            if st.button(label, key=f"cnt_{cnt}", use_container_width=True):
-                st.session_state.sel_count = cnt
-                st.rerun()
-            if is_active:
-                st.markdown(
-                    '<div class="active-bar"></div>',
-                    unsafe_allow_html=True,
-                )
+    selected_count = st.segmented_control(
+        "問題数",
+        COUNT_OPTIONS,
+        default=st.session_state.sel_count,
+        selection_mode="single",
+        format_func=lambda cnt: f"{cnt} 問",
+        label_visibility="collapsed",
+        width="stretch",
+        key="seg_count",
+    )
+    if selected_count:
+        st.session_state.sel_count = selected_count
 
-    # -------- start --------
     st.markdown("")
     if st.button(
         "🚀 学習スタート！", use_container_width=True, type="primary"
@@ -672,7 +661,6 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
             st.session_state.sel_count,
         )
 
-    # -------- random 100 --------
     st.markdown("")
     if st.button("🎲 ランダム100問チャレンジ！", use_container_width=True):
         _start_quiz(
@@ -682,7 +670,6 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
             100,
         )
 
-    # -------- bottom --------
     st.markdown("")
     c1, c2 = st.columns(2)
     with c1:
@@ -743,7 +730,6 @@ def render_question_page() -> None:
     field_label = q.get("field", "")
     pct = int((idx / total) * 100)
 
-    # ---- progress ----
     st.markdown(
         f"""
         <div class="progress-wrap">
@@ -759,7 +745,6 @@ def render_question_page() -> None:
         unsafe_allow_html=True,
     )
 
-    # ---- question ----
     st.markdown(
         f"""
         <div class="q-card">
@@ -770,7 +755,6 @@ def render_question_page() -> None:
         unsafe_allow_html=True,
     )
 
-    # ---- choices ----
     if not checked:
         labels = [f"{i+1}. {c}" for i, c in enumerate(q["choices"])]
         default_idx = None
@@ -824,7 +808,6 @@ def render_question_page() -> None:
             st.markdown("**📖 詳しい解説**")
             st.warning(q["why_wrong"])
 
-    # ---- navigation ----
     st.markdown("")
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -902,17 +885,14 @@ def finalize_quiz() -> None:
         "details": details,
     }
 
-    # 直近結果表示用
     st.session_state.sessions.append(session_record)
 
-    # ニックネーム別セッション履歴
     nick = st.session_state.nickname.strip()
     if nick:
         if nick not in st.session_state.user_sessions:
             st.session_state.user_sessions[nick] = []
         st.session_state.user_sessions[nick].append(session_record)
 
-    # ニックネーム別の集計
     user_store = get_user_store()
     user_store["total_answered"] += total
     user_store["total_correct"] += correct_count
@@ -989,7 +969,6 @@ def render_summary() -> None:
     field_label = session["field"]
     st.caption(f"分野：{field_label}　｜　難易度：{diff_flames} {diff_label}")
 
-    # ---- detail ----
     st.markdown(
         '<div class="section-title">■ 全問題の結果</div>',
         unsafe_allow_html=True,
@@ -1021,7 +1000,6 @@ def render_summary() -> None:
             if not d["is_correct"] and d.get("why_wrong"):
                 st.warning(f"📖 {d['why_wrong']}")
 
-    # ---- buttons ----
     st.markdown("")
     c1, c2 = st.columns(2)
     with c1:
@@ -1082,7 +1060,6 @@ def render_history() -> None:
         unsafe_allow_html=True,
     )
 
-    # ---- field bars ----
     st.markdown(
         '<div class="section-title">■ 分野別正答率</div>',
         unsafe_allow_html=True,
@@ -1122,7 +1099,6 @@ def render_history() -> None:
     if not has_data:
         st.info("まだ学習データがありません。")
 
-    # ---- session list ----
     sessions = st.session_state.user_sessions.get(nick, []) if nick else []
     if sessions:
         st.markdown(
@@ -1146,7 +1122,6 @@ def render_history() -> None:
                 unsafe_allow_html=True,
             )
 
-    # ---- buttons ----
     st.markdown("")
     c1, c2 = st.columns(2)
     with c1:
@@ -1214,7 +1189,6 @@ def render_weak(questions: List[Dict[str, Any]]) -> None:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # ---- advice ----
     st.markdown(
         '<div class="section-title">💬 AIからのアドバイス</div>',
         unsafe_allow_html=True,
@@ -1232,6 +1206,10 @@ def render_weak(questions: List[Dict[str, Any]]) -> None:
         ):
             st.session_state.sel_field = worst_field
             st.session_state.sel_difficulty = "easy"
+            st.session_state.sel_count = st.session_state.sel_count
+            st.session_state["pill_field"] = worst_field
+            st.session_state["seg_difficulty"] = "easy"
+
             quiz = build_quiz(
                 questions, worst_field, "easy", st.session_state.sel_count
             )
@@ -1239,6 +1217,10 @@ def render_weak(questions: List[Dict[str, Any]]) -> None:
                 quiz = build_quiz(
                     questions, worst_field, "normal", st.session_state.sel_count
                 )
+                if quiz:
+                    st.session_state.sel_difficulty = "normal"
+                    st.session_state["seg_difficulty"] = "normal"
+
             if quiz:
                 st.session_state.quiz_questions = quiz
                 st.session_state.quiz_answers = [None] * len(quiz)
