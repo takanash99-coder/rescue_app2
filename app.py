@@ -329,6 +329,7 @@ def init_session_state() -> None:
         "question_stats": {},
         "sessions": [],
         "user_sessions": {},
+        "user_stats": {},
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -345,15 +346,37 @@ def reset_all() -> None:
     st.rerun()
 
 
+def get_current_nick() -> str:
+    nick = st.session_state.get("nickname", "").strip()
+    return nick if nick else "__guest__"
+
+
+def get_user_store() -> Dict[str, Any]:
+    nick = get_current_nick()
+    stores = st.session_state.user_stats
+
+    if nick not in stores:
+        stores[nick] = {
+            "total_answered": 0,
+            "total_correct": 0,
+            "field_stats": {},
+            "question_stats": {},
+            "sessions": [],
+        }
+    return stores[nick]
+
+
 def get_field_stat(field: str) -> Dict[str, int]:
-    s = st.session_state.field_stats
+    user_store = get_user_store()
+    s = user_store["field_stats"]
     if field not in s:
         s[field] = {"answered": 0, "correct": 0}
     return s[field]
 
 
 def get_question_stat(qid: str) -> Dict[str, int]:
-    s = st.session_state.question_stats
+    user_store = get_user_store()
+    s = user_store["question_stats"]
     if qid not in s:
         s[qid] = {"seen": 0, "correct": 0, "wrong": 0}
     return s[qid]
@@ -386,11 +409,14 @@ def build_quiz(
 # Weak-field analysis
 # =========================================================
 def analyze_weak_fields() -> List[Dict[str, Any]]:
+    user_store = get_user_store()
+    field_stats = user_store["field_stats"]
+
     results: List[Dict[str, Any]] = []
     for field in FIELD_ORDER:
         if field == "00. 全選択ランダム":
             continue
-        fs = st.session_state.field_stats.get(field)
+        fs = field_stats.get(field)
         if not fs or fs["answered"] == 0:
             continue
         rate = fs["correct"] / fs["answered"] * 100
@@ -492,8 +518,9 @@ def generate_advice(weak: List[Dict[str, Any]]) -> str:
 def render_cover(questions: List[Dict[str, Any]]) -> None:
     total_q = len(questions)
     fields_available = len(set(q["field"] for q in questions if q["field"]))
+    user_store = get_user_store()
     wrong_count = sum(
-        1 for v in st.session_state.question_stats.values() if v.get("wrong", 0) > 0
+        1 for v in user_store["question_stats"].values() if v.get("wrong", 0) > 0
     )
 
     nick = st.session_state.nickname.strip()
@@ -755,7 +782,7 @@ def render_question_page() -> None:
             labels,
             index=default_idx,
             label_visibility="collapsed",
-            key=f"radio_{idx}",
+            key=f"radio_{q['id']}_{idx}",
         )
         if picked:
             st.session_state.quiz_answers[idx] = labels.index(picked)
@@ -849,10 +876,6 @@ def finalize_quiz() -> None:
         if is_correct:
             fs["correct"] += 1
 
-        st.session_state.total_answered += 1
-        if is_correct:
-            st.session_state.total_correct += 1
-
         details.append({
             "id": q["id"],
             "field": q["field"],
@@ -879,13 +902,21 @@ def finalize_quiz() -> None:
         "details": details,
     }
 
+    # 直近結果表示用
     st.session_state.sessions.append(session_record)
 
+    # ニックネーム別セッション履歴
     nick = st.session_state.nickname.strip()
     if nick:
         if nick not in st.session_state.user_sessions:
             st.session_state.user_sessions[nick] = []
         st.session_state.user_sessions[nick].append(session_record)
+
+    # ニックネーム別の集計
+    user_store = get_user_store()
+    user_store["total_answered"] += total
+    user_store["total_correct"] += correct_count
+    user_store["sessions"].append(session_record)
 
     st.session_state.page = "summary"
     st.rerun()
@@ -1014,6 +1045,8 @@ def render_history() -> None:
     )
 
     nick = st.session_state.nickname.strip()
+    user_store = get_user_store()
+
     if nick:
         st.markdown(
             f"""
@@ -1025,8 +1058,8 @@ def render_history() -> None:
             unsafe_allow_html=True,
         )
 
-    total = st.session_state.total_answered
-    correct = st.session_state.total_correct
+    total = user_store["total_answered"]
+    correct = user_store["total_correct"]
     rate = (correct / total * 100) if total else 0
 
     st.markdown(
@@ -1055,10 +1088,12 @@ def render_history() -> None:
         unsafe_allow_html=True,
     )
     has_data = False
+    field_stats = user_store["field_stats"]
+
     for field in FIELD_ORDER:
         if field == "00. 全選択ランダム":
             continue
-        fs = st.session_state.field_stats.get(field)
+        fs = field_stats.get(field)
         if not fs or fs["answered"] == 0:
             continue
         has_data = True
