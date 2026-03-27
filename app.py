@@ -3,13 +3,13 @@ from __future__ import annotations
 import copy
 import json
 import random
-from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from textwrap import dedent
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 # =========================================================
 # Config
@@ -115,6 +115,83 @@ def get_rank(rate: float):
         if lo <= rate <= hi:
             return label, bg, fg, msg
     return RANK_TABLE[-1][2:]
+
+
+def render_rank_card(nick: str, rank_label: str, bg: str, fg: str, msg: str, rate: float, correct: int, total: int) -> None:
+    icon = rank_label.split(" ")[0] if " " in rank_label else rank_label
+    nick_html = f'<div class="rank-nick">👤 {nick}</div>' if nick else ""
+    height = 220 if nick else 195
+
+    html = f"""
+    <!doctype html>
+    <html>
+    <head>
+      <meta charset="utf-8" />
+      <style>
+        html, body {{
+          margin: 0;
+          padding: 0;
+          background: transparent;
+          overflow: hidden;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }}
+        @keyframes rankPop {{
+          0%   {{ transform: scale(.5); opacity: 0; }}
+          60%  {{ transform: scale(1.08); }}
+          100% {{ transform: scale(1); opacity: 1; }}
+        }}
+        .rank-card {{
+          box-sizing: border-box;
+          width: 100%;
+          border-radius: 24px;
+          padding: 1.5rem 1rem;
+          text-align: center;
+          margin: 0;
+          background: {bg};
+          color: {fg};
+          animation: rankPop .6s ease-out;
+        }}
+        .rank-nick {{
+          font-size: .9rem;
+          margin-bottom: .3rem;
+          font-weight: 700;
+          opacity: .95;
+        }}
+        .rank-icon {{
+          font-size: 2.5rem;
+          line-height: 1.1;
+        }}
+        .rank-label {{
+          font-size: 1.6rem;
+          font-weight: 900;
+          margin: .3rem 0;
+          line-height: 1.25;
+        }}
+        .rank-rate {{
+          font-size: 1.1rem;
+          font-weight: 700;
+          line-height: 1.4;
+        }}
+        .rank-msg {{
+          font-size: .95rem;
+          margin-top: .45rem;
+          line-height: 1.65;
+          font-weight: 600;
+        }}
+      </style>
+    </head>
+    <body>
+      <div class="rank-card">
+        {nick_html}
+        <div class="rank-icon">{icon}</div>
+        <div class="rank-label">{rank_label}</div>
+        <div class="rank-rate">{rate:.0f}%（{correct}/{total}問正解）</div>
+        <div class="rank-msg">{msg}</div>
+      </div>
+    </body>
+    </html>
+    """
+    components.html(html, height=height, scrolling=False)
 
 
 # =========================================================
@@ -915,22 +992,15 @@ def render_summary() -> None:
     elif rate >= 80:
         st.snow()
 
-    nick_line = (
-        f"<div style='font-size:.9rem; margin-bottom:.3rem;'>👤 {nick}</div>"
-        if nick
-        else ""
-    )
-
-    render_html(
-        f"""
-        <div class="rank-card" style="background:{bg}; color:{fg};">
-            {nick_line}
-            <div class="rank-icon">{rank_label.split(' ')[0]}</div>
-            <div class="rank-label">{rank_label}</div>
-            <div class="rank-rate">{rate:.0f}%（{correct}/{total}問正解）</div>
-            <div class="rank-msg">{msg}</div>
-        </div>
-        """
+    render_rank_card(
+        nick=nick,
+        rank_label=rank_label,
+        bg=bg,
+        fg=fg,
+        msg=msg,
+        rate=rate,
+        correct=correct,
+        total=total,
     )
 
     wrong = total - correct
