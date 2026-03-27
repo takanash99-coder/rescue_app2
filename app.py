@@ -6,6 +6,7 @@ import random
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
+from textwrap import dedent
 from typing import Any, Dict, List, Optional, Tuple
 
 import streamlit as st
@@ -52,167 +53,30 @@ FIELD_EMOJI: Dict[str, str] = {
 
 DIFFICULTY_OPTIONS = ["easy", "normal", "hard"]
 DIFFICULTY_FLAMES = {"easy": "🔥", "normal": "🔥🔥", "hard": "🔥🔥🔥"}
-DIFFICULTY_LABEL = {"easy": "Easy（3択）", "normal": "Normal（5択）", "hard": "Hard（5択）"}
+DIFFICULTY_LABEL = {
+    "easy": "Easy（3択）",
+    "normal": "Normal（5択）",
+    "hard": "Hard（5択）",
+}
 
 COUNT_OPTIONS = [5, 10, 15, 20]
 
 RANK_TABLE = [
-    (100, 100, "🏆 神",         "#fbbf24", "#92400e", "完璧！ あなたは神！ 全問正解おめでとう！"),
-    (80,  99,  "✨ 秀才",       "#60a5fa", "#1e3a5f", "素晴らしい！ この調子で合格を掴み取ろう！"),
-    (60,  79,  "🎓 合格点",     "#34d399", "#064e3b", "合格ライン！ あと一歩、詰めていこう！"),
-    (30,  59,  "📖 基本に戻れ",  "#fcd34d", "#78350f", "基礎を固め直せば、まだまだ伸びる！"),
-    (0,   29,  "💪 ここから伸びる", "#fb923c", "#7c2d12", "ここが土台！ 繰り返せば必ず上がる！"),
+    (100, 100, "🏆 神", "#fbbf24", "#92400e", "完璧！ あなたは神！ 全問正解おめでとう！"),
+    (80, 99, "✨ 秀才", "#60a5fa", "#1e3a5f", "素晴らしい！ この調子で合格を掴み取ろう！"),
+    (60, 79, "🎓 合格点", "#34d399", "#064e3b", "合格ライン！ あと一歩、詰めていこう！"),
+    (30, 59, "📖 基本に戻れ", "#fcd34d", "#78350f", "基礎を固め直せば、まだまだ伸びる！"),
+    (0, 29, "💪 ここから伸びる", "#fb923c", "#7c2d12", "ここが土台！ 繰り返せば必ず上がる！"),
 ]
-
-
-# =========================================================
-# CSS
-# =========================================================
-def inject_css() -> None:
-    st.markdown(
-        """
-        <style>
-        .stApp { background: #f7f9fc; }
-        header[data-testid="stHeader"] { height: 0rem !important; background: transparent !important; }
-        .block-container {
-            max-width: 780px;
-            padding-top: 2.5rem !important;
-            padding-bottom: 3rem !important;
-        }
-        @media (max-width: 768px) {
-            .block-container {
-                padding-top: 3rem !important;
-                padding-left: 0.9rem !important;
-                padding-right: 0.9rem !important;
-            }
-        }
-
-        /* ---------- cover hero ---------- */
-        .cover-hero {
-            background: linear-gradient(135deg, #0f766e 0%, #155e75 55%, #1d4ed8 100%);
-            color: white; border-radius: 28px;
-            padding: 1.6rem 1.3rem 1.4rem; margin-bottom: 1rem;
-            box-shadow: 0 18px 36px rgba(15,118,110,.18);
-        }
-        .cover-badge {
-            display: inline-block; background: rgba(255,255,255,.18);
-            border: 1px solid rgba(255,255,255,.22); color: white;
-            border-radius: 999px; padding: .28rem .7rem;
-            font-size: .82rem; font-weight: 700; margin-bottom: .9rem;
-        }
-        .cover-title { font-size: 2rem; font-weight: 900; line-height: 1.3; margin: 0 0 .3rem 0; }
-        .cover-lead { font-size: .95rem; line-height: 1.7; color: rgba(255,255,255,.92); }
-        .cover-stats { display: flex; gap: .6rem; margin-top: .9rem; }
-        .cover-stat {
-            flex: 1; background: rgba(255,255,255,.14);
-            border: 1px solid rgba(255,255,255,.18);
-            border-radius: 16px; padding: .7rem .5rem; text-align: center;
-        }
-        .cover-stat-val { font-size: 1.15rem; font-weight: 900; }
-        .cover-stat-lbl { font-size: .78rem; color: rgba(255,255,255,.88); margin-top: .15rem; }
-
-        /* ---------- nickname ---------- */
-        .nick-card {
-            background: white; border: 1px solid #d8e2f0; border-radius: 18px;
-            padding: .9rem 1rem; margin-bottom: .8rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,.03);
-        }
-        .nick-label { font-size: .85rem; font-weight: 700; color: #6b7280; margin-bottom: .3rem; }
-        .nick-name { font-size: 1.15rem; font-weight: 800; color: #15253f; }
-
-        /* ---------- generic ---------- */
-        .card {
-            background: white; border: 1px solid #d8e2f0;
-            border-radius: 20px; padding: 1rem;
-            box-shadow: 0 6px 18px rgba(0,0,0,.03); margin-bottom: .8rem;
-        }
-        .section-title {
-            font-size: 1.1rem; font-weight: 800; color: #15253f;
-            margin: 1.2rem 0 .5rem 0;
-        }
-
-        /* ---------- buttons ---------- */
-        div[data-testid="stButton"] > button {
-            border-radius: 14px !important;
-            font-weight: 700 !important;
-        }
-
-        /* ---------- selectors ---------- */
-        div[data-testid="stSegmentedControl"] {
-            margin-bottom: .5rem;
-        }
-        div[data-testid="stSegmentedControl"] button {
-            border-radius: 14px !important;
-            font-weight: 700 !important;
-            min-height: 46px !important;
-        }
-        div[data-testid="stPills"] button {
-            border-radius: 14px !important;
-            font-weight: 700 !important;
-            min-height: 44px !important;
-        }
-
-        /* ---------- metric row ---------- */
-        .metric-row { display: flex; gap: .6rem; margin-bottom: .8rem; }
-        .metric-card {
-            flex: 1; background: white; border: 1px solid #d8e2f0;
-            border-radius: 16px; padding: .7rem .5rem; text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,.03);
-        }
-        .metric-label { font-size: .78rem; color: #6b7280; }
-        .metric-value { font-size: 1.3rem; font-weight: 800; color: #15253f; margin-top: .15rem; }
-
-        /* ---------- progress bar ---------- */
-        .progress-wrap { margin-bottom: .8rem; }
-        .progress-meta {
-            display: flex; justify-content: space-between;
-            font-size: .82rem; color: #6b7280; margin-bottom: .3rem;
-        }
-        .progress-bar { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
-        .progress-fill {
-            height: 100%; border-radius: 99px;
-            background: linear-gradient(90deg, #0f766e, #1d4ed8); transition: width .3s;
-        }
-
-        /* ---------- question ---------- */
-        .q-card {
-            background: white; border: 1px solid #d8e2f0;
-            border-radius: 20px; padding: 1.1rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,.04); margin-bottom: .8rem;
-        }
-        .q-meta { font-size: .82rem; color: #6b7280; margin-bottom: .5rem; }
-        .q-text { font-size: 1.05rem; font-weight: 700; line-height: 1.75; color: #15253f; }
-
-        /* ---------- result rank ---------- */
-        @keyframes rankPop {
-            0%   { transform: scale(.5); opacity: 0; }
-            60%  { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .rank-card {
-            border-radius: 24px; padding: 1.5rem 1rem; text-align: center;
-            margin-bottom: 1rem; animation: rankPop .6s ease-out;
-        }
-        .rank-icon { font-size: 2.5rem; }
-        .rank-label { font-size: 1.6rem; font-weight: 900; margin: .3rem 0; }
-        .rank-rate { font-size: 1.1rem; font-weight: 700; }
-        .rank-msg { font-size: .95rem; margin-top: .4rem; line-height: 1.6; }
-
-        /* ---------- bar chart ---------- */
-        .bar-row { display: flex; align-items: center; margin-bottom: .45rem; }
-        .bar-label { width: 160px; font-size: .85rem; font-weight: 600; color: #15253f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .bar-track { flex: 1; height: 14px; background: #e5e7eb; border-radius: 99px; overflow: hidden; margin: 0 .5rem; }
-        .bar-fill { height: 100%; border-radius: 99px; transition: width .3s; }
-        .bar-pct { width: 48px; font-size: .82rem; font-weight: 700; color: #15253f; text-align: right; }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
 
 # =========================================================
 # Helpers
 # =========================================================
+def render_html(content: str) -> None:
+    st.markdown(dedent(content).strip(), unsafe_allow_html=True)
+
+
 def infer_field_from_filename(filename: str) -> str:
     mapping = {
         "exam_01": "生命倫理と社会保障",
@@ -251,6 +115,153 @@ def get_rank(rate: float):
         if lo <= rate <= hi:
             return label, bg, fg, msg
     return RANK_TABLE[-1][2:]
+
+
+# =========================================================
+# CSS
+# =========================================================
+def inject_css() -> None:
+    st.markdown(
+        dedent(
+            """
+            <style>
+            .stApp { background: #f7f9fc; }
+            header[data-testid="stHeader"] { height: 0rem !important; background: transparent !important; }
+            .block-container {
+                max-width: 780px;
+                padding-top: 2.5rem !important;
+                padding-bottom: 3rem !important;
+            }
+            @media (max-width: 768px) {
+                .block-container {
+                    padding-top: 3rem !important;
+                    padding-left: 0.9rem !important;
+                    padding-right: 0.9rem !important;
+                }
+            }
+
+            /* ---------- cover hero ---------- */
+            .cover-hero {
+                background: linear-gradient(135deg, #0f766e 0%, #155e75 55%, #1d4ed8 100%);
+                color: white; border-radius: 28px;
+                padding: 1.6rem 1.3rem 1.4rem; margin-bottom: 1rem;
+                box-shadow: 0 18px 36px rgba(15,118,110,.18);
+            }
+            .cover-badge {
+                display: inline-block; background: rgba(255,255,255,.18);
+                border: 1px solid rgba(255,255,255,.22); color: white;
+                border-radius: 999px; padding: .28rem .7rem;
+                font-size: .82rem; font-weight: 700; margin-bottom: .9rem;
+            }
+            .cover-title { font-size: 2rem; font-weight: 900; line-height: 1.3; margin: 0 0 .3rem 0; }
+            .cover-lead { font-size: .95rem; line-height: 1.7; color: rgba(255,255,255,.92); }
+            .cover-stats { display: flex; gap: .6rem; margin-top: .9rem; }
+            .cover-stat {
+                flex: 1; background: rgba(255,255,255,.14);
+                border: 1px solid rgba(255,255,255,.18);
+                border-radius: 16px; padding: .7rem .5rem; text-align: center;
+            }
+            .cover-stat-val { font-size: 1.15rem; font-weight: 900; }
+            .cover-stat-lbl { font-size: .78rem; color: rgba(255,255,255,.88); margin-top: .15rem; }
+
+            /* ---------- nickname ---------- */
+            .nick-card {
+                background: white; border: 1px solid #d8e2f0; border-radius: 18px;
+                padding: .9rem 1rem; margin-bottom: .8rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,.03);
+            }
+            .nick-label { font-size: .85rem; font-weight: 700; color: #6b7280; margin-bottom: .3rem; }
+            .nick-name { font-size: 1.15rem; font-weight: 800; color: #15253f; }
+
+            /* ---------- generic ---------- */
+            .card {
+                background: white; border: 1px solid #d8e2f0;
+                border-radius: 20px; padding: 1rem;
+                box-shadow: 0 6px 18px rgba(0,0,0,.03); margin-bottom: .8rem;
+            }
+            .section-title {
+                font-size: 1.1rem; font-weight: 800; color: #15253f;
+                margin: 1.2rem 0 .5rem 0;
+            }
+
+            /* ---------- buttons ---------- */
+            div[data-testid="stButton"] > button {
+                border-radius: 14px !important;
+                font-weight: 700 !important;
+            }
+
+            /* ---------- selectors ---------- */
+            div[data-testid="stSegmentedControl"] {
+                margin-bottom: .5rem;
+            }
+            div[data-testid="stSegmentedControl"] button {
+                border-radius: 14px !important;
+                font-weight: 700 !important;
+                min-height: 46px !important;
+            }
+            div[data-testid="stPills"] button {
+                border-radius: 14px !important;
+                font-weight: 700 !important;
+                min-height: 44px !important;
+            }
+
+            /* ---------- metric row ---------- */
+            .metric-row { display: flex; gap: .6rem; margin-bottom: .8rem; }
+            .metric-card {
+                flex: 1; background: white; border: 1px solid #d8e2f0;
+                border-radius: 16px; padding: .7rem .5rem; text-align: center;
+                box-shadow: 0 4px 12px rgba(0,0,0,.03);
+            }
+            .metric-label { font-size: .78rem; color: #6b7280; }
+            .metric-value { font-size: 1.3rem; font-weight: 800; color: #15253f; margin-top: .15rem; }
+
+            /* ---------- progress bar ---------- */
+            .progress-wrap { margin-bottom: .8rem; }
+            .progress-meta {
+                display: flex; justify-content: space-between;
+                font-size: .82rem; color: #6b7280; margin-bottom: .3rem;
+            }
+            .progress-bar { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
+            .progress-fill {
+                height: 100%; border-radius: 99px;
+                background: linear-gradient(90deg, #0f766e, #1d4ed8); transition: width .3s;
+            }
+
+            /* ---------- question ---------- */
+            .q-card {
+                background: white; border: 1px solid #d8e2f0;
+                border-radius: 20px; padding: 1.1rem;
+                box-shadow: 0 8px 20px rgba(0,0,0,.04); margin-bottom: .8rem;
+            }
+            .q-meta { font-size: .82rem; color: #6b7280; margin-bottom: .5rem; }
+            .q-text { font-size: 1.05rem; font-weight: 700; line-height: 1.75; color: #15253f; }
+
+            /* ---------- result rank ---------- */
+            @keyframes rankPop {
+                0%   { transform: scale(.5); opacity: 0; }
+                60%  { transform: scale(1.1); }
+                100% { transform: scale(1); opacity: 1; }
+            }
+            .rank-card {
+                border-radius: 24px; padding: 1.5rem 1rem; text-align: center;
+                margin-bottom: 1rem; animation: rankPop .6s ease-out;
+            }
+            .rank-icon { font-size: 2.5rem; }
+            .rank-label { font-size: 1.6rem; font-weight: 900; margin: .3rem 0; }
+            .rank-rate { font-size: 1.1rem; font-weight: 700; }
+            .rank-msg { font-size: .95rem; margin-top: .4rem; line-height: 1.6; }
+
+            /* ---------- bar chart ---------- */
+            .bar-row { display: flex; align-items: center; margin-bottom: .45rem; }
+            .bar-label { width: 160px; font-size: .85rem; font-weight: 600; color: #15253f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .bar-track { flex: 1; height: 14px; background: #e5e7eb; border-radius: 99px; overflow: hidden; margin: 0 .5rem; }
+            .bar-fill { height: 100%; border-radius: 99px; transition: width .3s; }
+            .bar-pct { width: 48px; font-size: .82rem; font-weight: 700; color: #15253f; text-align: right; }
+            </style>
+            """
+        ).strip(),
+        unsafe_allow_html=True,
+    )
 
 
 # =========================================================
@@ -300,16 +311,18 @@ def load_questions(data_dir: Path) -> List[Dict[str, Any]]:
                 else:
                     diff = "normal"
 
-                questions.append({
-                    "id": qid,
-                    "question": question,
-                    "choices": [str(c).strip() for c in choices],
-                    "correct_index": correct_index,
-                    "explanation": str(item.get("explanation", "")).strip(),
-                    "why_wrong": str(item.get("why_wrong", "")).strip(),
-                    "field": field,
-                    "difficulty": diff,
-                })
+                questions.append(
+                    {
+                        "id": qid,
+                        "question": question,
+                        "choices": [str(c).strip() for c in choices],
+                        "correct_index": correct_index,
+                        "explanation": str(item.get("explanation", "")).strip(),
+                        "why_wrong": str(item.get("why_wrong", "")).strip(),
+                        "field": field,
+                        "difficulty": diff,
+                    }
+                )
         except Exception:
             continue
     return questions
@@ -429,12 +442,14 @@ def analyze_weak_fields() -> List[Dict[str, Any]]:
         if not fs or fs["answered"] == 0:
             continue
         rate = fs["correct"] / fs["answered"] * 100
-        results.append({
-            "field": field,
-            "answered": fs["answered"],
-            "correct": fs["correct"],
-            "rate": rate,
-        })
+        results.append(
+            {
+                "field": field,
+                "answered": fs["answered"],
+                "correct": fs["correct"],
+                "rate": rate,
+            }
+        )
     results.sort(key=lambda x: x["rate"])
     return results
 
@@ -534,7 +549,7 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
         else "分野別 × 難易度別で効率よく国試対策"
     )
 
-    st.markdown(
+    render_html(
         f"""
         <div class="cover-hero">
             <div class="cover-badge">🚑 EMT NATIONAL EXAM APP</div>
@@ -555,15 +570,11 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
                 </div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
     if not st.session_state.nickname_registered:
-        st.markdown(
-            '<div class="section-title">■ ニックネーム登録</div>',
-            unsafe_allow_html=True,
-        )
+        render_html('<div class="section-title">■ ニックネーム登録</div>')
         c1, c2 = st.columns([3, 1])
         with c1:
             name_input = st.text_input(
@@ -583,14 +594,13 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
                 else:
                     st.warning("入力してね")
     else:
-        st.markdown(
+        render_html(
             f"""
             <div class="nick-card">
                 <div class="nick-label">👤 ニックネーム</div>
                 <div class="nick-name">{st.session_state.nickname}</div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
         if st.button("✏️ ニックネーム変更", key="change_nick"):
             st.session_state.nickname = ""
@@ -599,10 +609,7 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
                 del st.query_params["nick"]
             st.rerun()
 
-    st.markdown(
-        '<div class="section-title">■ 難易度を選ぶ</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">■ 難易度を選ぶ</div>')
     selected_diff = st.segmented_control(
         "難易度",
         DIFFICULTY_OPTIONS,
@@ -616,10 +623,7 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
     if selected_diff:
         st.session_state.sel_difficulty = selected_diff
 
-    st.markdown(
-        '<div class="section-title">■ 分野を選ぶ</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">■ 分野を選ぶ</div>')
     selected_field = st.pills(
         "分野",
         FIELD_ORDER,
@@ -633,10 +637,7 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
     if selected_field:
         st.session_state.sel_field = selected_field
 
-    st.markdown(
-        '<div class="section-title">■ 問題数</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">■ 問題数</div>')
     selected_count = st.segmented_control(
         "問題数",
         COUNT_OPTIONS,
@@ -651,9 +652,7 @@ def render_cover(questions: List[Dict[str, Any]]) -> None:
         st.session_state.sel_count = selected_count
 
     st.markdown("")
-    if st.button(
-        "🚀 学習スタート！", use_container_width=True, type="primary"
-    ):
+    if st.button("🚀 学習スタート！", use_container_width=True, type="primary"):
         _start_quiz(
             questions,
             st.session_state.sel_field,
@@ -694,9 +693,7 @@ def _start_quiz(
 ) -> None:
     quiz = build_quiz(questions, field, difficulty, count)
     if not quiz:
-        st.warning(
-            "選択した条件に合う問題がありません。分野や難易度を変えてみてください。"
-        )
+        st.warning("選択した条件に合う問題がありません。分野や難易度を変えてみてください。")
     else:
         st.session_state.quiz_questions = quiz
         st.session_state.quiz_answers = [None] * len(quiz)
@@ -730,7 +727,7 @@ def render_question_page() -> None:
     field_label = q.get("field", "")
     pct = int((idx / total) * 100)
 
-    st.markdown(
+    render_html(
         f"""
         <div class="progress-wrap">
             <div class="progress-meta">
@@ -741,18 +738,16 @@ def render_question_page() -> None:
                 <div class="progress-fill" style="width:{pct}%"></div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
-    st.markdown(
+    render_html(
         f"""
         <div class="q-card">
             <div class="q-meta">問題ID：{q["id"]}</div>
             <div class="q-text">{q["question"]}</div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
     if not checked:
@@ -771,11 +766,7 @@ def render_question_page() -> None:
         if picked:
             st.session_state.quiz_answers[idx] = labels.index(picked)
 
-        if st.button(
-            "✅ チェック（判定する）",
-            use_container_width=True,
-            type="primary",
-        ):
+        if st.button("✅ チェック（判定する）", use_container_width=True, type="primary"):
             if st.session_state.quiz_answers[idx] is None:
                 st.warning("選択肢を選んでください。")
             else:
@@ -825,9 +816,7 @@ def render_question_page() -> None:
         if checked:
             is_last = idx >= total - 1
             btn_label = "📊 結果を見る" if is_last else "次へ ▶"
-            if st.button(
-                btn_label, use_container_width=True, type="primary"
-            ):
+            if st.button(btn_label, use_container_width=True, type="primary"):
                 if is_last:
                     finalize_quiz()
                 else:
@@ -859,17 +848,19 @@ def finalize_quiz() -> None:
         if is_correct:
             fs["correct"] += 1
 
-        details.append({
-            "id": q["id"],
-            "field": q["field"],
-            "question": q["question"],
-            "choices": q["choices"],
-            "correct_index": q["correct_index"],
-            "selected_index": sel,
-            "is_correct": is_correct,
-            "explanation": q.get("explanation", ""),
-            "why_wrong": q.get("why_wrong", ""),
-        })
+        details.append(
+            {
+                "id": q["id"],
+                "field": q["field"],
+                "question": q["question"],
+                "choices": q["choices"],
+                "correct_index": q["correct_index"],
+                "selected_index": sel,
+                "is_correct": is_correct,
+                "explanation": q.get("explanation", ""),
+                "why_wrong": q.get("why_wrong", ""),
+            }
+        )
 
     total = len(quiz)
     rate = (correct_count / total * 100) if total else 0
@@ -930,7 +921,7 @@ def render_summary() -> None:
         else ""
     )
 
-    st.markdown(
+    render_html(
         f"""
         <div class="rank-card" style="background:{bg}; color:{fg};">
             {nick_line}
@@ -939,12 +930,11 @@ def render_summary() -> None:
             <div class="rank-rate">{rate:.0f}%（{correct}/{total}問正解）</div>
             <div class="rank-msg">{msg}</div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
     wrong = total - correct
-    st.markdown(
+    render_html(
         f"""
         <div class="metric-row">
             <div class="metric-card">
@@ -960,8 +950,7 @@ def render_summary() -> None:
                 <div class="metric-value">{rate:.0f}%</div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
     diff_flames = DIFFICULTY_FLAMES.get(session["difficulty"], "")
@@ -969,16 +958,11 @@ def render_summary() -> None:
     field_label = session["field"]
     st.caption(f"分野：{field_label}　｜　難易度：{diff_flames} {diff_label}")
 
-    st.markdown(
-        '<div class="section-title">■ 全問題の結果</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">■ 全問題の結果</div>')
 
     for i, d in enumerate(details, 1):
         icon = "✅" if d["is_correct"] else "❌"
-        short_q = d["question"][:50] + (
-            "…" if len(d["question"]) > 50 else ""
-        )
+        short_q = d["question"][:50] + ("…" if len(d["question"]) > 50 else "")
         title = f"{icon} Q{i}. {short_q}"
 
         with st.expander(title):
@@ -1003,9 +987,7 @@ def render_summary() -> None:
     st.markdown("")
     c1, c2 = st.columns(2)
     with c1:
-        if st.button(
-            "🏠 表紙に戻る", use_container_width=True, type="primary"
-        ):
+        if st.button("🏠 表紙に戻る", use_container_width=True, type="primary"):
             st.session_state.page = "cover"
             st.rerun()
     with c2:
@@ -1017,30 +999,26 @@ def render_summary() -> None:
 # Page: History
 # =========================================================
 def render_history() -> None:
-    st.markdown(
-        '<div class="section-title">📊 学習履歴</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">📊 学習履歴</div>')
 
     nick = st.session_state.nickname.strip()
     user_store = get_user_store()
 
     if nick:
-        st.markdown(
+        render_html(
             f"""
             <div class="nick-card">
                 <div class="nick-label">👤 ニックネーム</div>
                 <div class="nick-name">{nick}</div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
     total = user_store["total_answered"]
     correct = user_store["total_correct"]
     rate = (correct / total * 100) if total else 0
 
-    st.markdown(
+    render_html(
         f"""
         <div class="metric-row">
             <div class="metric-card">
@@ -1056,14 +1034,10 @@ def render_history() -> None:
                 <div class="metric-value">{rate:.1f}%</div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
-    st.markdown(
-        '<div class="section-title">■ 分野別正答率</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">■ 分野別正答率</div>')
     has_data = False
     field_stats = user_store["field_stats"]
 
@@ -1076,14 +1050,8 @@ def render_history() -> None:
         has_data = True
         f_rate = fs["correct"] / fs["answered"] * 100
         emoji = FIELD_EMOJI.get(field, "📚")
-        color = (
-            "#059669"
-            if f_rate >= 60
-            else "#dc2626"
-            if f_rate < 40
-            else "#d97706"
-        )
-        st.markdown(
+        color = "#059669" if f_rate >= 60 else "#dc2626" if f_rate < 40 else "#d97706"
+        render_html(
             f"""
             <div class="bar-row">
                 <div class="bar-label">{emoji} {field}</div>
@@ -1092,8 +1060,7 @@ def render_history() -> None:
                 </div>
                 <div class="bar-pct">{f_rate:.0f}%</div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
     if not has_data:
@@ -1101,16 +1068,13 @@ def render_history() -> None:
 
     sessions = st.session_state.user_sessions.get(nick, []) if nick else []
     if sessions:
-        st.markdown(
-            '<div class="section-title">■ セッション履歴</div>',
-            unsafe_allow_html=True,
-        )
+        render_html('<div class="section-title">■ セッション履歴</div>')
         for s in reversed(sessions[-20:]):
             icon = "🟢" if s["rate"] >= 60 else "🔴"
             diff_flames = DIFFICULTY_FLAMES.get(s["difficulty"], "")
             s_nick = s.get("nickname", "")
             nick_part = f"👤{s_nick}　" if s_nick else ""
-            st.markdown(
+            render_html(
                 f"""
                 <div class="card">
                     {icon} {s["ts"]}　{nick_part}{s["field"]}　
@@ -1118,8 +1082,7 @@ def render_history() -> None:
                     {s["correct"]}/{s["count"]}問　
                     <strong>{s["rate"]:.0f}%</strong>
                 </div>
-                """,
-                unsafe_allow_html=True,
+                """
             )
 
     st.markdown("")
@@ -1137,42 +1100,31 @@ def render_history() -> None:
 # Page: Weak Analysis
 # =========================================================
 def render_weak(questions: List[Dict[str, Any]]) -> None:
-    st.markdown(
-        '<div class="section-title">🧠 AI 苦手分野分析</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">🧠 AI 苦手分野分析</div>')
 
     weak = analyze_weak_fields()
 
     if not weak:
-        st.info(
-            "まだ十分な学習データがありません。いくつかの分野を学習してから確認しましょう。"
-        )
+        st.info("まだ十分な学習データがありません。いくつかの分野を学習してから確認しましょう。")
         if st.button("🏠 表紙へ", use_container_width=True):
             st.session_state.page = "cover"
             st.rerun()
         return
 
-    st.markdown(
+    render_html(
         """
         <div class="card">
             <div style="font-weight:800; color:#dc2626; margin-bottom:.5rem;">
                 ⚠️ あなたの苦手分野
             </div>
-        """,
-        unsafe_allow_html=True,
+        </div>
+        """
     )
 
     for i, w in enumerate(weak[:3], 1):
         emoji = FIELD_EMOJI.get(w["field"], "📚")
-        color = (
-            "#dc2626"
-            if w["rate"] < 40
-            else "#d97706"
-            if w["rate"] < 60
-            else "#059669"
-        )
-        st.markdown(
+        color = "#dc2626" if w["rate"] < 40 else "#d97706" if w["rate"] < 60 else "#059669"
+        render_html(
             f"""
             <div class="bar-row">
                 <div class="bar-label">
@@ -1183,40 +1135,26 @@ def render_weak(questions: List[Dict[str, Any]]) -> None:
                 </div>
                 <div class="bar-pct">{w['rate']:.0f}%</div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown(
-        '<div class="section-title">💬 AIからのアドバイス</div>',
-        unsafe_allow_html=True,
-    )
+    render_html('<div class="section-title">💬 AIからのアドバイス</div>')
     advice = generate_advice(weak)
     st.markdown(advice)
 
     st.markdown("")
     if weak:
         worst_field = weak[0]["field"]
-        if st.button(
-            f"🔥 「{worst_field}」を今すぐ学習",
-            use_container_width=True,
-            type="primary",
-        ):
+        if st.button(f"🔥 「{worst_field}」を今すぐ学習", use_container_width=True, type="primary"):
             st.session_state.sel_field = worst_field
             st.session_state.sel_difficulty = "easy"
             st.session_state.sel_count = st.session_state.sel_count
             st.session_state["pill_field"] = worst_field
             st.session_state["seg_difficulty"] = "easy"
 
-            quiz = build_quiz(
-                questions, worst_field, "easy", st.session_state.sel_count
-            )
+            quiz = build_quiz(questions, worst_field, "easy", st.session_state.sel_count)
             if not quiz:
-                quiz = build_quiz(
-                    questions, worst_field, "normal", st.session_state.sel_count
-                )
+                quiz = build_quiz(questions, worst_field, "normal", st.session_state.sel_count)
                 if quiz:
                     st.session_state.sel_difficulty = "normal"
                     st.session_state["seg_difficulty"] = "normal"
@@ -1246,9 +1184,7 @@ def main() -> None:
     questions = load_questions(DATA_DIR)
 
     if not questions:
-        st.error(
-            "問題データを読み込めませんでした。data フォルダを確認してください。"
-        )
+        st.error("問題データを読み込めませんでした。data フォルダを確認してください。")
         return
 
     page = st.session_state.page
