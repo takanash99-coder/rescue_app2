@@ -1,0 +1,4 @@
+問48 生成失敗
+question: ワクチン接種による集団免疫の主な目的として適切なのはどれか。1つ選べ。
+error: BadRequestError('Error code: 400 - {\'error\': {\'message\': "We could not parse the JSON body of your request. (HINT: This likely means you aren\'t using your HTTP library correctly. The OpenAI API expects a JSON payload, but what was sent was not valid JSON. If you have trouble figuring out how to fix this, please contact us through our help center at help.openai.com.)", \'type\': \'invalid_request_error\', \'param\': None, \'code\': None}}')
+

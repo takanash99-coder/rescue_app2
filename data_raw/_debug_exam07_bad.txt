@@ -1,3 +1,0 @@
-===== block#1 q=? :: NO_QUESTION_LABEL, NO_CHOICES_LABEL, CHOICES=0, BAD_ANSWER_FORMAT, BAD_DIFFICULTY_FORMAT =====
-________________________________________
-

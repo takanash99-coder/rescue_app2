@@ -1,0 +1,4 @@
+問58 生成失敗
+question: 消防法に基づく傷病者搬送の運用に関して、円滑な受け入れに資する考え方として最も適切なのはどれか。1つ選べ。
+error: BadRequestError('Error code: 400 - {\'error\': {\'message\': "We could not parse the JSON body of your request. (HINT: This likely means you aren\'t using your HTTP library correctly. The OpenAI API expects a JSON payload, but what was sent was not valid JSON. If you have trouble figuring out how to fix this, please contact us through our help center at help.openai.com.)", \'type\': \'invalid_request_error\', \'param\': None, \'code\': None}}')
+
