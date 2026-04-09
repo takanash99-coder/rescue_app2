@@ -366,6 +366,21 @@ def inject_css() -> None:
             .bar-track { flex: 1; height: 14px; background: #e5e7eb; border-radius: 99px; overflow: hidden; margin: 0 .5rem; }
             .bar-fill { height: 100%; border-radius: 99px; transition: width .3s; }
             .bar-pct { width: 48px; font-size: .82rem; font-weight: 700; color: #15253f; text-align: right; }
+
+            /* ここを追加 */
+            div[role="radiogroup"] label,
+            div[role="radiogroup"] p,
+            .stRadio label,
+            .stRadio p {
+                color: #15253f !important;
+                -webkit-text-fill-color: #15253f !important;
+                opacity: 1 !important;
+            }
+
+            div[role="radiogroup"] {
+                color: #15253f !important;
+            }
+            
             </style>
             """
         ).strip(),

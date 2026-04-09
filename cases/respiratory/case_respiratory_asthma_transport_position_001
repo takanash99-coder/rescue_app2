@@ -1,0 +1,829 @@
+{
+  "case_id": "case_respiratory_asthma_transport_position_001",
+  "version": "1.0",
+  "title": "夜間の呼吸困難を呈した気管支喘息増悪",
+  "category": "respiratory",
+  "difficulty": "normal",
+  "algorithm_type": "PEMEC",
+  "overview": "夜間に呼吸困難が出現し、自宅で気管支拡張薬を吸入したが改善しない50歳女性の症例。肥満と高血圧の既往があり、喘息増悪に対する評価、低酸素への対応、搬送体位の判断が重要となる。搬送中は呼吸仕事量の増大に注意し、呼吸しやすい体位を維持しながら観察を継続する。",
+  "patient_profile": {
+    "age": 50,
+    "sex": "female",
+    "chief_complaint": "夜間の息苦しさ",
+    "background": [
+      "高血圧で近医通院中",
+      "気管支喘息で近医通院中",
+      "肥満（身長150cm、体重80kg）",
+      "夜間に気管支拡張薬を吸入したが改善しない"
+    ]
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "flags": [
+      "suspected_asthma_exacerbation",
+      "mild_hypoxemia",
+      "obesity",
+      "hypertension"
+    ],
+    "danger_tags": [
+      "respiratory_distress",
+      "worsening_possible_during_transport"
+    ],
+    "time_pressure": "middle"
+  },
+  "ideal_flow": {
+    "max_ideal_score": 100,
+    "summary": [
+      "呼吸困難を主訴とする喘息増悪を想定し、到着前から酸素投与や搬送準備を意識する",
+      "初期評価で気道・呼吸を優先し、会話状況や呼吸仕事量、SpO2を確認する",
+      "既往歴、吸入薬使用歴、発症時刻、増悪因子を収集し、喘息増悪として評価する",
+      "低酸素と呼吸困難の持続から搬送優先と判断する",
+      "全身観察で喘鳴、呼吸補助筋使用、起坐呼吸傾向などを確認する",
+      "医療機関へ喘息増悪、低酸素、肥満、高血圧、呼吸状態を的確にファーストコールする",
+      "車内では起坐位を保持し、酸素投与と継続観察を行い、呼吸状態悪化に備える"
+    ]
+  },
+  "result_rank": {
+    "excellent": {
+      "score_min": 90,
+      "label": "Excellent"
+    },
+    "good": {
+      "score_min": 75,
+      "label": "Good"
+    },
+    "normal": {
+      "score_min": 50,
+      "label": "Normal"
+    },
+    "bad": {
+      "score_min": 0,
+      "label": "Bad"
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_1",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "呼吸困難症例として重症化リスクを想定し、到着前準備を整える。",
+      "skippable": false,
+      "narrative": "夜間、自宅から『息苦しくて吸入してもよくならない』と救急要請が入った。通報時点で意識はあるが会話が苦しそうとの情報がある。",
+      "visible_data": {
+        "dispatch_info": [
+          "50歳女性",
+          "主訴：息苦しさ",
+          "自宅で気管支拡張薬を吸入したが改善なし",
+          "喘息の既往あり"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q1",
+          "type": "single_choice",
+          "prompt": "プレアライバルコールの段階で最も適切な準備はどれか。",
+          "options": [
+            {
+              "option_id": "q1_o1",
+              "text": "呼吸困難症例として酸素投与と呼吸評価を優先する準備をする",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "prepare_respiratory_management",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "prearrival_respiratory_focus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "喘息既往があり吸入無効の呼吸困難では、到着直後から呼吸評価と酸素投与を考えた準備が適切である。"
+            },
+            {
+              "option_id": "q1_o2",
+              "text": "まずは高血圧発作を最優先に想定して降圧の準備をする",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": -5,
+              "life_delta": 0,
+              "action_tag": "focus_on_hypertension_only",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "misfocused_hypertension"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_respiratory_focus"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "この時点で最優先は呼吸困難への対応であり、血圧のみを主軸に考えるのは不適切である。"
+            },
+            {
+              "option_id": "q1_o3",
+              "text": "症状が軽い可能性もあるため、通常装備のみで向かう",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": -8,
+              "life_delta": -2,
+              "action_tag": "underestimate_case",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "undertriage_risk"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "insufficient_preparation"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "吸入しても改善しない呼吸困難は増悪リスクがあり、軽症と決めつけるべきではない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_2",
+      "phase": "初期評価",
+      "scene_goal": "気道・呼吸・循環を迅速に評価し、呼吸障害を優先課題として把握する。",
+      "skippable": false,
+      "narrative": "現場到着。傷病者は苦しそうな表情で座位を保っている。意識は清明に近く、呼びかけに応じるが会話はやや途切れがちである。",
+      "visible_data": {
+        "consciousness": "JCS1",
+        "respiratory_rate": "24/分",
+        "pulse": "92/分・整",
+        "blood_pressure": "180/92mmHg",
+        "spo2": "92%"
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q2",
+          "type": "single_choice",
+          "prompt": "初期評価で最も優先して捉えるべき異常はどれか。",
+          "options": [
+            {
+              "option_id": "q2_o1",
+              "text": "呼吸困難と低酸素を伴う呼吸障害",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "identify_breathing_problem",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "breathing_problem_identified"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "SpO2 92％で呼吸困難を訴えており、呼吸障害を優先して評価・対応するのが基本である。"
+            },
+            {
+              "option_id": "q2_o2",
+              "text": "血圧高値のみを重症所見として最優先に扱う",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": -5,
+              "life_delta": -1,
+              "action_tag": "overfocus_bp",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "bp_overfocus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_breathing_priority"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "高血圧は重要な情報だが、現時点での主問題は呼吸困難と低酸素である。"
+            },
+            {
+              "option_id": "q2_o3",
+              "text": "脈拍が整であるため緊急性は低いと判断する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": -8,
+              "life_delta": -2,
+              "action_tag": "underestimate_due_to_stable_pulse",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "underestimated_severity"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_transport_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "脈拍整であっても呼吸困難と低酸素があれば緊急性を否定できない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_3",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "喘息増悪の裏付けとなる病歴・治療歴・現在の呼吸状態を整理する。",
+      "skippable": false,
+      "narrative": "本人から『いつもの発作より苦しい』『吸入しても楽にならない』との訴えが得られる。家族から高血圧と喘息で通院中との情報がある。",
+      "visible_data": {
+        "history": [
+          "高血圧",
+          "気管支喘息"
+        ],
+        "current_medication": [
+          "気管支拡張薬を自宅で吸入"
+        ],
+        "body_habitus": "肥満（150cm、80kg）"
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q3",
+          "type": "multiple_choice",
+          "prompt": "この場面で重点的に収集すべき情報を2つ選べ。",
+          "options": [
+            {
+              "option_id": "q3_o1",
+              "text": "吸入薬使用後の反応",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "check_response_to_inhaler",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "checked_inhaler_response"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "自宅での吸入が無効であれば喘息増悪の重症度判断に役立つ。"
+            },
+            {
+              "option_id": "q3_o2",
+              "text": "発症時刻と増悪経過",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "check_onset_course",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "checked_onset_course"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "発症からの経過は増悪スピードや搬送先連絡時の重要情報となる。"
+            },
+            {
+              "option_id": "q3_o3",
+              "text": "最近の旅行歴のみ",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": -3,
+              "life_delta": 0,
+              "action_tag": "irrelevant_history_focus",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "irrelevant_history"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "必要性がゼロではないが、この時点の重点情報としては優先度が低い。"
+            },
+            {
+              "option_id": "q3_o4",
+              "text": "普段の喘息治療内容と既往歴",
+              "is_correct": true,
+              "score_delta": 3,
+              "ideal_score_delta": 3,
+              "life_delta": 0,
+              "action_tag": "check_asthma_history",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "checked_asthma_history"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "喘息既往や普段の治療状況は増悪評価に有用である。"
+            },
+            {
+              "option_id": "q3_o5",
+              "text": "学生時代の運動歴",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": -3,
+              "life_delta": 0,
+              "action_tag": "nonessential_questioning",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "nonessential_questioning"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "time_loss"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "呼吸困難の現場で優先すべき情報ではない。"
+            }
+          ],
+          "selection_rule": {
+            "min": 2,
+            "max": 2
+          }
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_4",
+      "phase": "活動方針の再判断",
+      "scene_goal": "呼吸困難と低酸素が持続する症例として搬送優先の方針を決定する。",
+      "skippable": false,
+      "narrative": "吸入後も症状は軽快せず、SpO2は92％のままである。傷病者は『横になると余計に苦しい』と訴えている。",
+      "visible_data": {
+        "reassessment": [
+          "呼吸困難持続",
+          "低酸素持続",
+          "自力会話は可能だが苦しそう",
+          "仰臥位で苦痛増強の訴え"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q4",
+          "type": "single_choice",
+          "prompt": "この時点で最も適切な活動方針はどれか。",
+          "options": [
+            {
+              "option_id": "q4_o1",
+              "text": "呼吸管理を継続しつつ搬送優先とする",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "decide_transport_priority",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "transport_priority_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "delayed_transport_risk"
+                ]
+              },
+              "rationale": "吸入無効で低酸素が続いており、現場滞在を延ばさず搬送優先が妥当である。"
+            },
+            {
+              "option_id": "q4_o2",
+              "text": "その場で長時間経過観察し、改善を待つ",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": -8,
+              "life_delta": -4,
+              "action_tag": "delay_transport",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "transport_delayed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "respiratory_worsening_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "改善しない呼吸困難で現場滞在を長引かせるのは不適切である。"
+            },
+            {
+              "option_id": "q4_o3",
+              "text": "血圧高値のみを理由に安静臥床を優先する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": -6,
+              "life_delta": -2,
+              "action_tag": "supine_rest_for_bp",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "inappropriate_rest_focus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "orthopnea_ignored"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "呼吸困難患者では体位や呼吸管理を優先して考えるべきである。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_5",
+      "phase": "全身観察",
+      "scene_goal": "喘息増悪を支持する身体所見と、呼吸困難を増悪させる体位の影響を把握する。",
+      "skippable": false,
+      "narrative": "全身観察では努力呼吸がみられ、座位保持を望んでいる。仰臥位を試みると苦しさが増す様子がある。",
+      "visible_data": {
+        "inspection": [
+          "努力呼吸あり",
+          "会話は可能だが息継ぎを要する",
+          "座位保持を希望",
+          "仰臥位で呼吸苦増強"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q5",
+          "type": "single_choice",
+          "prompt": "全身観察所見として、搬送体位の判断に最も重要なのはどれか。",
+          "options": [
+            {
+              "option_id": "q5_o1",
+              "text": "座位の方が呼吸しやすく、仰臥位で苦痛が増すこと",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "recognize_orthopnea",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "orthopnea_recognized"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "体位で呼吸苦が変化する所見は、搬送時の姿勢選択に直結する。"
+            },
+            {
+              "option_id": "q5_o2",
+              "text": "脈拍が100/分未満であること",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": -3,
+              "life_delta": 0,
+              "action_tag": "focus_on_pulse_only",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "pulse_only_focus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "脈拍も重要だが、搬送体位判断には呼吸苦と体位依存性の方が重要である。"
+            },
+            {
+              "option_id": "q5_o3",
+              "text": "高血圧の既往があること",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": -3,
+              "life_delta": 0,
+              "action_tag": "focus_history_over_observation",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "history_over_observation"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "既往は参考情報だが、搬送体位は現在の呼吸状態に基づいて判断する。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_6",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "喘息増悪と低酸素を評価し、医療機関へ必要情報を簡潔に伝える。",
+      "skippable": false,
+      "narrative": "搬送準備を進めながら医療機関へ連絡する。傷病者は依然として呼吸苦を訴えるが、意識は保たれている。",
+      "visible_data": {
+        "assessment": [
+          "喘息既往あり",
+          "吸入無効の呼吸困難",
+          "SpO2 92％",
+          "肥満あり",
+          "高血圧あり"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q6",
+          "type": "template_select",
+          "prompt": "ファーストコールとして最も適切な内容はどれか。",
+          "options": [
+            {
+              "option_id": "q6_o1",
+              "text": "50歳女性、喘息既往あり。吸入後も改善しない呼吸困難で、JCS1、RR24、SpO2 92％、BP180/92。酸素投与下で搬送中。",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "first_call_asthma_exacerbation",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "appropriate_first_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "年齢、主訴、既往、経過、意識、呼吸、SpO2、血圧、現在対応を含み、受け入れ側が状況を把握しやすい。"
+            },
+            {
+              "option_id": "q6_o2",
+              "text": "50歳女性です。高血圧があります。これから向かいます。",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": -6,
+              "life_delta": 0,
+              "action_tag": "insufficient_first_call",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "poor_first_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_quality_low"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "呼吸困難の程度やバイタル、既往、現状対応が不足しており不十分である。"
+            },
+            {
+              "option_id": "q6_o3",
+              "text": "体重が重いので搬送に時間がかかります。詳細は到着後に説明します。",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": -8,
+              "life_delta": 0,
+              "action_tag": "irrelevant_first_call",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "irrelevant_first_call_content"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_quality_low"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "受け入れ判断に必要な臨床情報が抜けており、優先順位が不適切である。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_7",
+      "phase": "車内活動",
+      "scene_goal": "呼吸しやすい体位を維持し、搬送中の呼吸状態悪化を防ぎながら継続観察する。",
+      "skippable": false,
+      "narrative": "車内でも傷病者は『横になると苦しい』と訴えている。酸素投与と継続観察を行いながら、適切な体位で搬送する必要がある。",
+      "visible_data": {
+        "transport_status": [
+          "呼吸困難持続",
+          "仰臥位で苦痛増強",
+          "自発呼吸あり",
+          "酸素化維持が課題"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q7",
+          "type": "single_choice",
+          "prompt": "搬送中に適切な体位はどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q7_o1",
+              "text": "仰臥位",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": -8,
+              "life_delta": -5,
+              "action_tag": "transport_supine",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "supine_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "dyspnea_worsened_by_position"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "仰臥位は呼吸苦を増強しやすく、この症例では不適切である。"
+            },
+            {
+              "option_id": "q7_o2",
+              "text": "起坐位",
+              "is_correct": true,
+              "score_delta": 20,
+              "ideal_score_delta": 20,
+              "life_delta": 0,
+              "action_tag": "transport_sitting",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "proper_transport_position"
+                ],
+                "remove_flags": [
+                  "dyspnea_worsened_by_position"
+                ],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "起坐位は横隔膜運動を助け、喘息増悪や起坐呼吸傾向のある傷病者で呼吸を保ちやすい。"
+            },
+            {
+              "option_id": "q7_o3",
+              "text": "側臥位",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": -4,
+              "life_delta": -2,
+              "action_tag": "transport_lateral",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "lateral_position_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "suboptimal_position"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "誤嚥予防などには有効なこともあるが、本症例の呼吸苦軽減には第一選択ではない。"
+            },
+            {
+              "option_id": "q7_o4",
+              "text": "頭部高位",
+              "is_correct": false,
+              "score_delta": 2,
+              "ideal_score_delta": -2,
+              "life_delta": 0,
+              "action_tag": "transport_head_elevated",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "head_elevated_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "less_than_optimal_position"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "頭部高位は仰臥位よりましだが、この症例ではより呼吸しやすい起坐位が適切である。"
+            },
+            {
+              "option_id": "q7_o5",
+              "text": "足側高位",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": -8,
+              "life_delta": -4,
+              "action_tag": "transport_trendelenburg",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "feet_elevated_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "respiratory_compromise_by_position"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "足側高位は呼吸困難を悪化させる恐れがあり不適切である。"
+            }
+          ]
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event_01_position_related_dyspnea",
+          "trigger_flags": [
+            "supine_selected"
+          ],
+          "narrative": "搬送中、仰臥位にすると『さらに苦しい』と訴え、呼吸数が増加する。",
+          "visible_data_update": {
+            "respiratory_rate": "28/分",
+            "spo2": "90%"
+          },
+          "effects": {
+            "life_delta": -5,
+            "add_flags": [
+              "position_related_worsening"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hypoxemia_progression"
+            ],
+            "remove_danger_tags": []
+          }
+        },
+        {
+          "event_id": "event_02_sitting_stabilization",
+          "trigger_flags": [
+            "proper_transport_position"
+          ],
+          "narrative": "起坐位を保持すると、傷病者は『少し楽です』と話し、呼吸状態は大きく悪化せず搬送できている。",
+          "visible_data_update": {
+            "respiratory_rate": "22/分",
+            "spo2": "93%"
+          },
+          "effects": {
+            "life_delta": 0,
+            "add_flags": [
+              "position_optimized"
+            ],
+            "remove_flags": [
+              "worsening_possible_during_transport"
+            ],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "respiratory_distress"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、気管支拡張薬吸入後も改善しない喘息増悪による呼吸困難を想定した。低酸素と起坐呼吸傾向を見抜き、搬送優先で進めながら、車内では起坐位を選択することが重要である。",
+    "ideal_actions": [
+      "呼吸困難症例として到着前から呼吸管理を意識した",
+      "初期評価で呼吸障害を優先して捉えた",
+      "吸入反応や発症経過を確認した",
+      "現場停滞を避けて搬送優先とした",
+      "体位で呼吸苦が変化することを観察した",
+      "ファーストコールで呼吸状態と既往を的確に伝えた",
+      "車内で起坐位を保持した"
+    ],
+    "good_points": [
+      "主訴に引きずられず、呼吸評価を主軸にできた",
+      "SpO2低下と努力呼吸から緊急性を適切に捉えた",
+      "搬送中の体位を症状に合わせて選べた"
+    ],
+    "common_pitfalls": [
+      "高血圧に注目しすぎて呼吸障害への対応が遅れる",
+      "仰臥位で搬送して呼吸苦を増悪させる",
+      "吸入後無効でも現場で様子を見すぎる"
+    ],
+    "scoring_message": {
+      "excellent": "呼吸困難の本質を見抜き、評価・搬送・体位選択まで一貫して適切に対応できている。",
+      "good": "概ね適切に対応できている。搬送体位の意義をさらに明確に意識するとより良い。",
+      "normal": "大きな流れは追えているが、呼吸困難症例での体位と搬送優先の判断を再確認したい。",
+      "bad": "呼吸困難症例での優先順位や体位選択が不十分である。呼吸評価と起坐位の意義を復習したい。"
+    }
+  }
+}

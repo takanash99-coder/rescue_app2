@@ -1,48 +1,80 @@
 {
-  "case_id": "case_stroke_001",
-  "version": "1.0.0",
-  "title": "突然倒れ、右片麻痺を呈した高齢男性",
-  "category": "neuro",
-  "difficulty": "standard",
+  "case_id": "case_psychiatric_gas_suicide_001",
+  "version": "2.0.0",
+  "title": "浴室内のガス発生が疑われる自殺企図傷病者",
+  "category": "psychiatric",
+  "difficulty": "hard",
+  "algorithm_type": "PEMEC",
   "overview": {
     "learning_objectives": [
-      "脳卒中を疑う初期判断ができる",
-      "神経学的異常所見を拾い上げられる",
-      "適切な搬送先選定と病院連絡ができる",
-      "不要な現場滞在を避け、迅速搬送を優先できる"
+      "現場安全を最優先に判断できる",
+      "危険表示のある密閉空間を有毒ガス現場として扱える",
+      "救急隊単独で進入せず、消防隊応援要請を判断できる",
+      "救出後にABC評価と酸素投与を適切に行える",
+      "危険情報を含めた病院連絡ができる",
+      "搬送中の呼吸・意識の悪化に対応できる"
     ],
     "target_level": "EMT student",
-    "estimated_time_min": 12,
+    "estimated_time_min": 14,
     "keywords": [
-      "stroke",
-      "intracerebral_hemorrhage",
-      "hemiparesis",
-      "gaze_deviation",
-      "altered_consciousness"
+      "psychiatric",
+      "suicide_attempt",
+      "toxic_gas",
+      "scene_safety",
+      "secondary_disaster"
     ]
   },
   "patient_profile": {
-    "age": 67,
-    "sex": "male",
-    "setting": "自宅居間",
-    "chief_complaint": "突然倒れて反応がおかしい",
+    "age": 30,
+    "sex": "female",
+    "setting": "アパート1階浴室",
+    "chief_complaint": "浴室内で反応がない",
     "background": {
       "past_history": [
-        "高血圧"
+        "うつ病"
       ],
       "medications": [
-        "降圧薬内服中"
+        "抗うつ薬の可能性あり（詳細不明）"
       ],
       "allergies": [],
-      "adl": "自立"
+      "adl": "不明",
+      "social_background": {
+        "living_situation": "単身生活の可能性",
+        "finder": "友人",
+        "prearrival_context": "連絡が取れず心配した友人が訪問"
+      }
     }
   },
   "initial_state": {
-    "life": 80,
+    "life": 65,
     "max_life": 100,
-    "flags": [],
-    "danger_tags": [],
+    "flags": [
+      "possible_toxic_gas",
+      "bathroom_locked",
+      "possible_suicide_attempt",
+      "scene_not_safe",
+      "single_ambulance_unit"
+    ],
+    "danger_tags": [
+      "secondary_disaster",
+      "unsafe_entry",
+      "delayed_rescue_support",
+      "toxic_exposure",
+      "scene_assessment_error"
+    ],
     "time_pressure": "high"
+  },
+  "ideal_flow": {
+    "max_ideal_score": 100,
+    "summary": [
+      "プレアライバル段階で異臭や精神科既往、自殺企図の可能性を確認する",
+      "現場到着後は『危険！ガス発生中』の表示を真実として扱い、現場安全を最優先にする",
+      "救急隊単独では進入せず、消防隊を応援要請する",
+      "危険区域を設定し、通報者や周囲を近づけない",
+      "消防隊の安全管理下で救助後、ABC評価と高濃度酸素投与を行う",
+      "病院へ危険情報・救出経過・意識呼吸状態を簡潔に伝える",
+      "車内では呼吸状態と意識レベルの変化を継続観察し、悪化時は追加連絡する"
+    ]
   },
   "result_rank": [
     {
@@ -70,603 +102,546 @@
     {
       "scene_id": 1,
       "phase": "通報内容＋プレアライバルコール",
-      "narrative": "67歳男性。自宅で突然倒れた。妻からの通報。『急にしゃべらなくなって、右手足が動いていない感じです』とのこと。",
+      "scene_goal": "異臭・危険物・精神科既往など、現場危険評価に必要な情報を集める。",
+      "skippable": false,
+      "narrative": "指令情報は『30歳女性、浴室内、急病人。応答なし』。通報者は友人で、玄関は開いており室内に入ったところ本人はおらず、浴室ドア越しに人影が見えるが反応がないという。単隊で救急出場となった。",
       "visible_data": {
-        "caller": "妻",
-        "reported_onset": "約10分前",
-        "reported_symptoms": [
-          "突然の意識障害",
-          "右手足が動かない",
-          "ろれつ不良の可能性"
+        "dispatch_info": [
+          "30歳女性",
+          "浴室内にいる可能性",
+          "応答なし",
+          "友人が通報",
+          "アパート1階",
+          "単隊出場"
         ]
       },
       "media": [],
       "questions": [
         {
           "question_id": "S1-Q1",
-          "type": "single_choice",
-          "prompt": "出場前の時点で最も強く疑うべき病態はどれか。",
+          "type": "multiple_choice",
+          "prompt": "出場途上で通報者から追加で聴取または確認しておくべき内容として適切なものを2つ選べ。",
           "options": [
             {
               "option_id": "A",
-              "text": "脳卒中",
+              "text": "室内や浴室周辺で異臭や煙のようなものがないか確認する",
               "is_correct": true,
-              "score_delta": 10,
-              "life_delta": 0,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 2,
+              "action_tag": "hazard_check",
+              "next_scene_id": 2,
               "status_effect": {
                 "add_flags": [
-                  "stroke_suspected"
+                  "hazard_info_checked"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "突然発症の意識障害と片麻痺は脳卒中を最優先に考える。"
+              "rationale": "有毒ガスや化学物質の関与を示す情報は現場安全判断に重要である。"
             },
             {
               "option_id": "B",
-              "text": "感冒による全身倦怠",
-              "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -10,
+              "text": "本人の精神科既往や自殺企図の可能性に関する情報を確認する",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "suicide_risk_check",
+              "next_scene_id": 2,
               "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "stroke_missed"
+                "add_flags": [
+                  "suicide_risk_recognized"
                 ],
+                "remove_flags": [],
+                "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "症状の急激さと局在神経症状から不適切。"
+              "rationale": "精神科既往や自殺企図の可能性は現場リスク評価と方針決定に有用である。"
             },
             {
               "option_id": "C",
-              "text": "単純酩酊",
+              "text": "浴室ドアをすぐに破壊して中へ入るよう指示する",
               "is_correct": false,
               "score_delta": -5,
-              "life_delta": -10,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "unsafe_entry_instruction",
+              "next_scene_id": 2,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "stroke_missed"
+                  "unsafe_entry",
+                  "secondary_disaster"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "片麻痺を酩酊で説明するのは危険。"
+              "rationale": "危険物質の有無が不明な状況での無防備な進入は危険である。"
             },
             {
               "option_id": "D",
-              "text": "胃腸炎",
+              "text": "通報者だけで救助活動を継続するよう指示する",
               "is_correct": false,
               "score_delta": -5,
-              "life_delta": -10,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "unsafe_bystander_use",
+              "next_scene_id": 2,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "stroke_missed"
+                  "secondary_disaster"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "神経脱落症状と整合しない。"
-            }
-          ],
-          "multiple_select_count": null,
-          "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
-        },
-        {
-          "question_id": "S1-Q2",
-          "type": "multiple_choice",
-          "prompt": "プレアライバルコールで優先して確認すべき内容を2つ選べ。",
-          "options": [
-            {
-              "option_id": "A",
-              "text": "最終健常確認時刻",
-              "is_correct": true,
-              "score_delta": 5,
-              "life_delta": 0,
-              "status_effect": {
-                "add_flags": [
-                  "last_known_well_checked"
-                ],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "脳卒中対応では発症時刻または最終健常時刻が重要。"
+              "rationale": "一般人を危険環境へ近づけるのは不適切である。"
             },
             {
-              "option_id": "B",
-              "text": "現在の呼吸の有無",
-              "is_correct": true,
-              "score_delta": 5,
-              "life_delta": 0,
-              "status_effect": {
-                "add_flags": [
-                  "breathing_checked"
-                ],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "重症度判断の基本であり、CPA除外が必要。"
-            },
-            {
-              "option_id": "C",
-              "text": "今朝の朝食内容",
+              "option_id": "E",
+              "text": "玄関外で待機し、浴室には近づきすぎないよう指示する",
               "is_correct": false,
               "score_delta": 0,
-              "life_delta": 0,
+              "ideal_score_delta": 0,
+              "life_delta": 1,
+              "action_tag": "bystander_safety_only",
+              "next_scene_id": 2,
               "status_effect": {
-                "add_flags": [],
+                "add_flags": [
+                  "bystander_protected"
+                ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "初期段階では優先度が低い。"
-            },
-            {
-              "option_id": "D",
-              "text": "部屋の掃除状況",
-              "is_correct": false,
-              "score_delta": -2,
-              "life_delta": 0,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "評価に不要。"
+              "rationale": "安全確保としてはよいが、設問は追加聴取または確認内容を問うものであり優先選択ではない。"
             }
           ],
           "multiple_select_count": 2,
           "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
+          "template_group": null
         }
       ]
     },
     {
       "scene_id": 2,
       "phase": "初期評価",
-      "narrative": "現場到着。患者は仰臥位で倒れている。呼びかけに開眼せず、痛み刺激で顔をしかめる程度。",
+      "scene_goal": "危険表示を真実として扱い、現場安全を最優先に判断する。",
+      "skippable": false,
+      "narrative": "現場到着後、友人の案内で浴室前へ移動する。浴室ドアは施錠され、曇りガラス越しに人影が見える。ドアには手書きで『危険！ガス発生中』と書かれた紙が貼られている。呼びかけても反応はない。",
       "visible_data": {
-        "consciousness": "JCS100",
-        "airway": "開通",
-        "breathing": "自発呼吸あり",
-        "circulation": "橈骨動脈触知可"
+        "scene_findings": [
+          "浴室ドア施錠",
+          "曇りガラス越しに人影あり",
+          "応答なし",
+          "『危険！ガス発生中』の張り紙あり"
+        ],
+        "crew_status": [
+          "救急隊単隊",
+          "防火衣・化学防護装備なし"
+        ]
       },
-      "media": [],
+      "media": [
+        {
+          "type": "text_hint",
+          "content": "浴室ドアに『危険！ガス発生中』と記載された張り紙"
+        }
+      ],
       "questions": [
         {
           "question_id": "S2-Q1",
           "type": "single_choice",
-          "prompt": "初期評価で最も優先すべき流れはどれか。",
+          "prompt": "救急隊が直ちに行うべき対応はどれか。",
           "options": [
             {
               "option_id": "A",
-              "text": "気道・呼吸・循環を確認し、その後に神経所見を評価する",
-              "is_correct": true,
-              "score_delta": 10,
-              "life_delta": 0,
+              "text": "警察へ通報する",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "police_first",
+              "next_scene_id": 3,
               "status_effect": {
-                "add_flags": [
-                  "primary_survey_done"
-                ],
+                "add_flags": [],
                 "remove_flags": [],
-                "add_danger_tags": [],
+                "add_danger_tags": [
+                  "delayed_rescue_support"
+                ],
                 "remove_danger_tags": []
               },
-              "rationale": "重症者ではまずABC評価が基本となる。"
+              "rationale": "警察連携が必要となる可能性はあるが、直ちに必要なのは危険環境に対応できる消防隊の応援要請である。"
             },
             {
               "option_id": "B",
-              "text": "既往歴を詳しく聴取してから呼吸を確認する",
+              "text": "鍵を壊し救出する",
               "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -5,
+              "score_delta": -8,
+              "ideal_score_delta": 0,
+              "life_delta": -12,
+              "action_tag": "unsafe_entry",
+              "next_scene_id": 3,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "airway_delay"
+                  "unsafe_entry",
+                  "secondary_disaster",
+                  "toxic_exposure"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "問診より先に生命維持評価が必要。"
+              "rationale": "有毒ガス発生が示唆される状況での即時進入は極めて危険である。"
             },
             {
               "option_id": "C",
-              "text": "片麻痺の有無だけを先に確認する",
+              "text": "状況を再聴取する",
               "is_correct": false,
-              "score_delta": -3,
-              "life_delta": -5,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "relisten_only",
+              "next_scene_id": 3,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "airway_delay"
+                  "delayed_rescue_support"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "神経所見は重要だが、ABCより先ではない。"
+              "rationale": "再聴取は有用だが、まず危険環境への対応体制を整える必要がある。"
             },
             {
               "option_id": "D",
-              "text": "家族に詳しい経過を聞き続ける",
+              "text": "進入可能な窓を探す",
               "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -5,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "alternate_unsafe_entry",
+              "next_scene_id": 3,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "airway_delay"
+                  "unsafe_entry",
+                  "secondary_disaster"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "重症対応の優先順位として不適切。"
+              "rationale": "別経路からの進入も危険環境への接近であり不適切である。"
+            },
+            {
+              "option_id": "E",
+              "text": "消防隊を応援要請する",
+              "is_correct": true,
+              "score_delta": 15,
+              "ideal_score_delta": 15,
+              "life_delta": 8,
+              "action_tag": "fire_support_request",
+              "next_scene_id": 3,
+              "status_effect": {
+                "add_flags": [
+                  "fire_support_requested",
+                  "scene_hazard_escalated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "delayed_rescue_support"
+                ]
+              },
+              "rationale": "危険ガス発生が疑われるため、直ちに消防隊へ応援要請し安全管理下で救助体制を整える。"
             }
           ],
           "multiple_select_count": null,
           "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
-        },
-        {
-          "question_id": "S2-Q2",
-          "type": "single_choice",
-          "prompt": "この時点で最も適切な判断はどれか。",
-          "options": [
-            {
-              "option_id": "A",
-              "text": "ABCを保ちながら、脳卒中を念頭に迅速評価へ進む",
-              "is_correct": true,
-              "score_delta": 10,
-              "life_delta": 0,
-              "status_effect": {
-                "add_flags": [
-                  "rapid_neuro_focus"
-                ],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "生命維持評価後は時間依存性疾患として迅速に進める。"
-            },
-            {
-              "option_id": "B",
-              "text": "現場で長時間観察し、変化を待つ",
-              "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -10,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "unsafe_transport"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "現場滞在の長期化は不利益。"
-            },
-            {
-              "option_id": "C",
-              "text": "脳卒中は緊急性が低いので搬送を急がない",
-              "is_correct": false,
-              "score_delta": -10,
-              "life_delta": -15,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "stroke_missed",
-                  "unsafe_transport"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "脳卒中は時間依存性の高い救急疾患。"
-            },
-            {
-              "option_id": "D",
-              "text": "まず家族へ今後の説明を十分に行う",
-              "is_correct": false,
-              "score_delta": -3,
-              "life_delta": -5,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "unsafe_transport"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "説明は必要だが、優先順位としては搬送判断が先。"
-            }
-          ],
-          "multiple_select_count": null,
-          "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
+          "template_group": null
         }
       ]
     },
     {
       "scene_id": 3,
       "phase": "情報収集＋バイタル評価",
-      "narrative": "妻から『テレビを見ていて急に倒れた』と聴取。顔面はやや左を向き、右上下肢の動きが乏しい。",
+      "scene_goal": "安全に接触できない段階では、バイタル未確認を許容しつつ危険評価と背景情報を集める。",
+      "skippable": false,
+      "narrative": "現時点では浴室内へ安全に進入できず、傷病者のバイタルは未確認である。友人から追加聴取すると、本人は最近抑うつ状態が強く、『消えたい』と話していたという。室内には洗剤様の臭いがわずかにするとの情報がある。",
       "visible_data": {
-        "vitals": {
-          "respiratory_rate": 30,
-          "pulse": 46,
-          "pulse_rhythm": "整",
-          "blood_pressure": "198/104 mmHg",
-          "spo2": "96%（室内気）"
+        "patient_status": {
+          "consciousness": "不明",
+          "breathing": "不明",
+          "circulation": "不明"
         },
-        "history": {
-          "onset": "突然",
-          "last_known_well": "約10分前",
-          "trauma": "なし"
-        }
+        "additional_history": [
+          "うつ病の既往あり",
+          "最近抑うつ状態が悪化",
+          "希死念慮を示唆する発言あり",
+          "室内に洗剤様の臭いがある"
+        ]
       },
       "media": [],
       "questions": [
         {
           "question_id": "S3-Q1",
           "type": "multiple_choice",
-          "prompt": "脳卒中を支持する所見として適切なものを2つ選べ。",
+          "prompt": "この時点で考慮すべき事項として適切なものを2つ選べ。",
           "options": [
             {
               "option_id": "A",
-              "text": "突然発症",
+              "text": "化学物質混合による有毒ガス発生の可能性",
               "is_correct": true,
-              "score_delta": 5,
-              "life_delta": 0,
+              "score_delta": 8,
+              "ideal_score_delta": 8,
+              "life_delta": 2,
+              "action_tag": "chemical_hazard_recognition",
+              "next_scene_id": 4,
               "status_effect": {
                 "add_flags": [
-                  "sudden_onset_recognized"
+                  "chemical_hazard_suspected"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
-                "remove_danger_tags": []
+                "remove_danger_tags": [
+                  "scene_assessment_error"
+                ]
               },
-              "rationale": "脳卒中は突然発症が典型。"
+              "rationale": "張り紙と臭気情報から有毒ガス発生を想定すべきである。"
             },
             {
               "option_id": "B",
-              "text": "右上下肢の運動障害",
+              "text": "自殺企図の可能性",
               "is_correct": true,
-              "score_delta": 5,
-              "life_delta": 0,
+              "score_delta": 7,
+              "ideal_score_delta": 7,
+              "life_delta": 1,
+              "action_tag": "suicide_attempt_recognition",
+              "next_scene_id": 4,
               "status_effect": {
                 "add_flags": [
-                  "focal_deficit_recognized"
+                  "suicide_attempt_suspected"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "局在神経症状として重要。"
+              "rationale": "精神科既往と希死念慮、閉鎖空間、張り紙から自殺企図を考慮する。"
             },
             {
               "option_id": "C",
-              "text": "数週間続く微熱",
+              "text": "ただちに低血糖としてブドウ糖投与を考える",
               "is_correct": false,
-              "score_delta": -2,
-              "life_delta": 0,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "premature_treatment",
+              "next_scene_id": 4,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
-                "add_danger_tags": [],
+                "add_danger_tags": [
+                  "premature_treatment"
+                ],
                 "remove_danger_tags": []
               },
-              "rationale": "本症例の中核所見ではない。"
+              "rationale": "安全に接触できず評価もできない段階で特定治療を想定するのは不適切である。"
             },
             {
               "option_id": "D",
-              "text": "膝の擦過傷",
+              "text": "友人に浴室前まで近づいて様子を見てもらう",
               "is_correct": false,
-              "score_delta": -2,
-              "life_delta": 0,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "unsafe_bystander_approach",
+              "next_scene_id": 4,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
-                "add_danger_tags": [],
+                "add_danger_tags": [
+                  "secondary_disaster"
+                ],
                 "remove_danger_tags": []
               },
-              "rationale": "局在神経所見とはいえない。"
+              "rationale": "一般人を危険環境に近づけてはならない。"
+            },
+            {
+              "option_id": "E",
+              "text": "張り紙は本人の冗談の可能性が高いと判断する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "ignore_warning_sign",
+              "next_scene_id": 4,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "scene_assessment_error",
+                  "unsafe_entry"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "危険表示は真実として扱い、安全側で判断する必要がある。"
             }
           ],
           "multiple_select_count": 2,
           "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
-        },
-        {
-          "question_id": "S3-Q2",
-          "type": "single_choice",
-          "prompt": "このバイタルと病態から最も考えやすいものはどれか。",
-          "options": [
-            {
-              "option_id": "A",
-              "text": "頭蓋内圧亢進を伴う脳出血の可能性",
-              "is_correct": true,
-              "score_delta": 10,
-              "life_delta": 0,
-              "status_effect": {
-                "add_flags": [
-                  "ich_considered"
-                ],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "高血圧、意識障害、徐脈、呼吸異常は脳出血や頭蓋内圧亢進を示唆する。"
-            },
-            {
-              "option_id": "B",
-              "text": "単なる疲労",
-              "is_correct": false,
-              "score_delta": -8,
-              "life_delta": -10,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "stroke_missed"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "生命危機的な神経症状を見落としている。"
-            },
-            {
-              "option_id": "C",
-              "text": "整形外科的疼痛のみ",
-              "is_correct": false,
-              "score_delta": -8,
-              "life_delta": -10,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "stroke_missed"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "神経学的異常所見を説明できない。"
-            },
-            {
-              "option_id": "D",
-              "text": "脱水のみ",
-              "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -8,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "stroke_missed"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "局在神経所見との整合性が低い。"
-            }
-          ],
-          "multiple_select_count": null,
-          "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
+          "template_group": null
         }
       ]
     },
     {
       "scene_id": 4,
       "phase": "活動方針の再判断",
-      "narrative": "患者は依然JCS100。右片麻痺が明らかで、脳卒中対応可能施設への搬送判断が求められる。",
+      "scene_goal": "危険区域を設定し、消防隊の安全管理下で救助へ移行する準備を整える。",
+      "skippable": false,
+      "narrative": "消防隊応援要請を実施した。救急隊のみでの進入は危険であり、現場を一時的に統制する必要がある。近隣住民への影響も考えられる。",
       "visible_data": {
-        "key_findings": [
-          "突然発症",
-          "意識障害",
-          "右片麻痺",
-          "左共同偏視疑い",
-          "高血圧",
-          "徐脈"
+        "current_problem_list": [
+          "有毒ガス発生の疑い",
+          "浴室内に要救助者あり",
+          "救急隊単独では安全進入困難",
+          "周囲への曝露拡大リスク"
         ]
       },
       "media": [],
       "questions": [
         {
           "question_id": "S4-Q1",
-          "type": "single_choice",
-          "prompt": "この時点での最も適切な活動方針はどれか。",
+          "type": "ranking",
+          "prompt": "この時点での活動方針として適切な優先順位に並べよ。",
           "options": [
             {
               "option_id": "A",
-              "text": "脳卒中対応可能な医療機関へ迅速搬送する",
+              "text": "隊員・通報者の安全距離を確保し危険区域を設定する",
               "is_correct": true,
-              "score_delta": 15,
-              "life_delta": 5,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 2,
+              "action_tag": "secure_hazard_zone",
+              "next_scene_id": 5,
               "status_effect": {
                 "add_flags": [
-                  "proper_destination_selected"
+                  "hazard_zone_secured"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": [
-                  "unsafe_transport"
+                  "secondary_disaster"
                 ]
               },
-              "rationale": "時間依存性疾患のため、適切な搬送先へ迅速搬送が重要。"
+              "rationale": "まず二次災害防止のため安全管理を行う。"
             },
             {
               "option_id": "B",
-              "text": "近いだけの医療機関へ搬送する",
-              "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -10,
+              "text": "消防隊到着まで現場情報を整理し共有する",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "prepare_scene_info",
+              "next_scene_id": 5,
               "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "inappropriate_destination"
+                "add_flags": [
+                  "scene_info_prepared"
                 ],
+                "remove_flags": [],
+                "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "脳卒中対応能力を考慮しないのは不適切。"
+              "rationale": "危険物質対応では情報共有が極めて重要である。"
             },
             {
               "option_id": "C",
-              "text": "現場で改善を待つ",
-              "is_correct": false,
-              "score_delta": -10,
-              "life_delta": -15,
+              "text": "消防隊の安全管理下で救助活動へ移行する準備をする",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 2,
+              "action_tag": "coordinated_rescue_plan",
+              "next_scene_id": 5,
               "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "unsafe_transport"
+                "add_flags": [
+                  "coordinated_rescue_plan"
                 ],
+                "remove_flags": [],
+                "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "現場滞在延長は予後を悪化させうる。"
+              "rationale": "消防隊到着後に安全管理下で救助・救急活動へつなげる。"
             },
             {
               "option_id": "D",
-              "text": "まず家族だけ病院へ向かわせる",
+              "text": "救急隊だけで浴室ドア破壊を実施する",
               "is_correct": false,
-              "score_delta": -3,
-              "life_delta": -5,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "forced_unsafe_entry",
+              "next_scene_id": 5,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "inappropriate_destination"
+                  "unsafe_entry",
+                  "toxic_exposure"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "患者対応の本質的解決にならない。"
+              "rationale": "危険環境下での単独進入は不適切である。"
+            },
+            {
+              "option_id": "E",
+              "text": "近隣住民への注意喚起を行わず通常活動を続ける",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "ignore_exposure_risk",
+              "next_scene_id": 5,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "scene_assessment_error"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "必要に応じて周囲への危険周知も検討すべきである。"
             }
           ],
           "multiple_select_count": null,
-          "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
+          "ranking_correct_order": [
+            "A",
+            "B",
+            "C",
+            "E",
+            "D"
+          ],
+          "template_group": null
         }
       ]
     },
     {
       "scene_id": 5,
       "phase": "全身観察",
-      "narrative": "搬送準備中に全身観察を行う。外傷所見はなく、神経所見が目立つ。",
+      "scene_goal": "消防隊の安全管理下で救出後、直ちに安全区域でABC評価と初期対応を行う。",
+      "skippable": false,
+      "narrative": "消防隊到着後、換気や安全確認のもとで浴室内へ進入し救出した。傷病者は浴槽脇に座り込むような体位で倒れている。反応は鈍く、呼吸はあるが弱い。皮膚はやや蒼白で、明らかな外傷はない。",
       "visible_data": {
-        "general_observation": [
-          "外傷所見なし",
-          "発汗なし",
-          "チアノーゼなし"
+        "post_rescue_observation": {
+          "consciousness": "刺激にわずかに反応",
+          "breathing": "自発呼吸あり、やや浅い",
+          "pulse": "触知あり",
+          "skin": "蒼白"
+        },
+        "external_findings": [
+          "明らかな外傷なし",
+          "衣服や身体に著しい汚染は目立たない"
         ]
       },
       "media": [],
@@ -674,359 +649,522 @@
         {
           "question_id": "S5-Q1",
           "type": "multiple_choice",
-          "prompt": "全身観察でこの症例において特に重要な観察項目を2つ選べ。",
+          "prompt": "救出後の全身観察と初期対応として適切なものを2つ選べ。",
           "options": [
             {
               "option_id": "A",
-              "text": "左右差を意識した運動麻痺の確認",
+              "text": "安全区域で気道・呼吸・循環の評価を行う",
               "is_correct": true,
-              "score_delta": 5,
-              "life_delta": 0,
+              "score_delta": 8,
+              "ideal_score_delta": 8,
+              "life_delta": 3,
+              "action_tag": "abc_assessment",
+              "next_scene_id": 6,
               "status_effect": {
                 "add_flags": [
-                  "motor_deficit_checked"
+                  "abc_assessed"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "片麻痺評価は重要。"
+              "rationale": "救出後は標準的なABC評価を直ちに行う。"
             },
             {
               "option_id": "B",
-              "text": "顔面・眼球偏位などの局在所見の確認",
+              "text": "必要に応じて高濃度酸素投与を開始する",
               "is_correct": true,
-              "score_delta": 5,
-              "life_delta": 0,
+              "score_delta": 8,
+              "ideal_score_delta": 8,
+              "life_delta": 4,
+              "action_tag": "oxygen_start",
+              "next_scene_id": 6,
               "status_effect": {
                 "add_flags": [
-                  "gaze_checked"
+                  "oxygen_started"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": []
               },
-              "rationale": "共同偏視などは脳病変を支持する。"
+              "rationale": "吸入性有毒ガス曝露が疑われるため酸素投与は重要である。"
             },
             {
               "option_id": "C",
-              "text": "靴のブランド確認",
+              "text": "先に警察事情聴取を優先し観察は後回しにする",
               "is_correct": false,
-              "score_delta": -2,
-              "life_delta": 0,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "police_before_care",
+              "next_scene_id": 6,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
-                "add_danger_tags": [],
+                "add_danger_tags": [
+                  "missed_priority"
+                ],
                 "remove_danger_tags": []
               },
-              "rationale": "評価に不要。"
+              "rationale": "傷病者の医学的評価が最優先である。"
             },
             {
               "option_id": "D",
-              "text": "腕時計の価格確認",
+              "text": "張り紙の内容から死亡確実と判断し観察を省略する",
               "is_correct": false,
-              "score_delta": -2,
-              "life_delta": 0,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "premature_death_assumption",
+              "next_scene_id": 6,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
-                "add_danger_tags": [],
+                "add_danger_tags": [
+                  "scene_assessment_error",
+                  "missed_priority"
+                ],
                 "remove_danger_tags": []
               },
-              "rationale": "観察項目ではない。"
+              "rationale": "救出後に反応や呼吸がある以上、適切な救急観察が必要である。"
+            },
+            {
+              "option_id": "E",
+              "text": "友人に身体観察を手伝わせる",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "bystander_assist_care",
+              "next_scene_id": 6,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "secondary_disaster"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "一般人を処置や観察に関与させるべきではない。"
             }
           ],
           "multiple_select_count": 2,
           "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
+          "template_group": null
         }
       ]
     },
     {
       "scene_id": 6,
-      "phase": "車内活動（詳細観察・重点観察）",
-      "narrative": "車内で再評価。患者は左共同偏視、右上下肢麻痺、Babinski徴候陽性を認める。",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "危険情報、救出経過、現在の意識呼吸状態を整理して病院へファーストコールする。",
+      "skippable": false,
+      "narrative": "安全区域で初期対応後、搬送先医療機関へ連絡する。傷病者は30歳女性、浴室内に閉じこもり『危険！ガス発生中』の張り紙があった。消防隊応援要請後に安全管理下で救出した。意識障害があり、有毒ガス吸入による急性中毒または窒息性障害が疑われる。",
       "visible_data": {
-        "detailed_findings": [
-          "左共同偏視",
-          "右上下肢麻痺",
-          "Babinski徴候陽性"
+        "handover_points": [
+          "30歳女性",
+          "うつ病既往あり",
+          "浴室内に閉鎖",
+          "『危険！ガス発生中』の張り紙あり",
+          "消防隊応援要請後に救出",
+          "意識障害あり",
+          "有毒ガス吸入疑い"
         ]
       },
       "media": [],
       "questions": [
         {
           "question_id": "S6-Q1",
-          "type": "single_choice",
-          "prompt": "これらの所見から最も疑うべき病態はどれか。",
+          "type": "template_select",
+          "prompt": "この症例の病院連絡として最も適切なテンプレートを1つ選べ。",
           "options": [
             {
               "option_id": "A",
-              "text": "脳卒中、特に脳出血",
+              "text": "30歳女性。浴室で倒れていました。精神疾患があるようなので、精神科診察をお願いします。",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "poor_handover",
+              "next_scene_id": 7,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "poor_handover"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "現場危険情報と医学的重症度が不足している。"
+            },
+            {
+              "option_id": "B",
+              "text": "30歳女性。浴室に閉じこもり、ドアに『危険！ガス発生中』の張り紙がありました。消防隊応援要請後、安全管理下で救出しています。うつ病既往があり、自殺企図が疑われます。現在は意識障害があり、有毒ガス吸入を疑って搬送中です。受け入れ準備をお願いします。",
               "is_correct": true,
               "score_delta": 15,
-              "life_delta": 0,
+              "ideal_score_delta": 15,
+              "life_delta": 5,
+              "action_tag": "first_call_complete",
+              "next_scene_id": 7,
               "status_effect": {
                 "add_flags": [
-                  "final_stroke_assessment_correct"
+                  "first_call_done",
+                  "excellent_handover"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": [
-                  "stroke_missed"
+                  "poor_handover"
                 ]
               },
-              "rationale": "局在神経所見と生命兆候から脳出血を強く疑う。"
-            },
-            {
-              "option_id": "B",
-              "text": "虫垂炎",
-              "is_correct": false,
-              "score_delta": -10,
-              "life_delta": -10,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "stroke_missed"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "所見と一致しない。"
+              "rationale": "現場危険、救出経過、精神背景、現在の状態が整理されており適切である。"
             },
             {
               "option_id": "C",
-              "text": "単純な脱水",
+              "text": "30歳女性。浴室で反応がなく、たぶん死亡です。詳細は到着してから伝えます。",
               "is_correct": false,
-              "score_delta": -8,
-              "life_delta": -10,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "premature_death_report",
+              "next_scene_id": 7,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "stroke_missed"
+                  "poor_handover",
+                  "scene_assessment_error"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "局在神経所見を説明できない。"
+              "rationale": "不適切な断定であり、受け入れ準備に必要な情報も不足する。"
             },
             {
               "option_id": "D",
-              "text": "腰痛症",
+              "text": "30歳女性。玄関が開いていたので事件の可能性があります。警察対応を優先してください。",
               "is_correct": false,
-              "score_delta": -8,
-              "life_delta": -10,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "non_medical_handover",
+              "next_scene_id": 7,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "stroke_missed"
+                  "poor_handover"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "神経所見との整合性がない。"
+              "rationale": "搬送先には医学的評価に必要な情報を優先して伝える。"
+            },
+            {
+              "option_id": "E",
+              "text": "30歳女性。浴室ドアが閉まっていたので、鍵を壊して救出しました。いまは詳しく分かりません。",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "unsafe_and_poor_handover",
+              "next_scene_id": 7,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "poor_handover",
+                  "unsafe_entry"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "危険環境への不適切対応を含み、申し送り内容としても不足している。"
             }
           ],
           "multiple_select_count": null,
           "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
-        },
-        {
-          "question_id": "S6-Q2",
-          "type": "single_choice",
-          "prompt": "搬送中の対応として最も適切なのはどれか。",
-          "options": [
-            {
-              "option_id": "A",
-              "text": "呼吸循環と神経所見を継続観察し、迅速に搬送する",
-              "is_correct": true,
-              "score_delta": 10,
-              "life_delta": 5,
-              "status_effect": {
-                "add_flags": [
-                  "monitoring_appropriate"
-                ],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "状態変化に注意しつつ搬送優先。"
-            },
-            {
-              "option_id": "B",
-              "text": "血圧が高いので現場判断で急激に下げる",
-              "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -10,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "blood_pressure_mismanagement"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "不適切な血圧介入は危険。"
-            },
-            {
-              "option_id": "C",
-              "text": "神経所見の再評価は不要",
-              "is_correct": false,
-              "score_delta": -5,
-              "life_delta": -5,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [
-                  "neuro_assessment_omission"
-                ],
-                "remove_danger_tags": []
-              },
-              "rationale": "経過変化の把握が重要。"
-            },
-            {
-              "option_id": "D",
-              "text": "患者を刺激し続けて覚醒を促す",
-              "is_correct": false,
-              "score_delta": -3,
-              "life_delta": -3,
-              "status_effect": {
-                "add_flags": [],
-                "remove_flags": [],
-                "add_danger_tags": [],
-                "remove_danger_tags": []
-              },
-              "rationale": "本質的対応ではなく、状態悪化の評価も妨げうる。"
-            }
-          ],
-          "multiple_select_count": null,
-          "ranking_correct_order": [],
-          "template_group": null,
-          "branch_next_scene": null
+          "template_group": "hospital_handover"
         }
       ]
     },
     {
       "scene_id": 7,
-      "phase": "病院連絡",
-      "narrative": "脳卒中対応可能施設へ連絡する。必要情報を簡潔に伝える場面。",
+      "phase": "車内活動",
+      "scene_goal": "有毒ガス吸入を念頭に、呼吸状態と意識レベルを継続再評価し、悪化時は追加連絡する。",
+      "skippable": false,
+      "narrative": "車内収容後、傷病者は開眼しないが痛み刺激で顔をしかめる。吸入性有毒ガス曝露を念頭に置きつつ、意識と呼吸状態の変化に注意する。",
       "visible_data": {
-        "handover_focus": [
-          "発症時刻",
-          "意識レベル",
-          "片麻痺",
-          "共同偏視",
-          "バイタル",
-          "搬送予定時間"
+        "vital_signs": {
+          "blood_pressure": "108/64 mmHg",
+          "heart_rate": "112 /min",
+          "respiratory_rate": "24 /min",
+          "spo2": "92%（室内気）"
+        },
+        "focused_assessment": [
+          "意識障害あり",
+          "有毒ガス吸入の可能性",
+          "自殺企図の可能性",
+          "再評価継続が必要"
         ]
       },
+      "dynamic_events": [
+        {
+          "event_id": "EVT-7-1",
+          "trigger_flags": [
+            "oxygen_started"
+          ],
+          "narrative": "搬送開始後、傷病者の呼吸がさらに浅くなり、SpO2は88%まで低下した。呼名への反応も乏しくなっている。",
+          "visible_data_update": {
+            "respiratory_rate": "28 /min",
+            "spo2": "88%（酸素投与中）",
+            "consciousness": "痛み刺激でわずかに反応"
+          },
+          "effects": {
+            "life_delta": -8,
+            "add_flags": [
+              "condition_worsened",
+              "respiratory_deterioration"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_failure_risk"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ],
       "media": [],
       "questions": [
         {
           "question_id": "S7-Q1",
-          "type": "template_select",
-          "prompt": "最も適切な病院連絡テンプレートを選べ。",
+          "type": "single_choice",
+          "prompt": "搬送中に最も重点的に観察すべきものはどれか。",
           "options": [
             {
               "option_id": "A",
-              "text": "67歳男性、約10分前に突然発症。JCS100、血圧198/104、脈拍46整、呼吸数30。左共同偏視、右上下肢麻痺、Babinski徴候陽性あり。脳卒中、特に脳出血を疑い搬送中。到着まで約8分です。",
+              "text": "呼吸状態と意識レベルの変化",
               "is_correct": true,
-              "score_delta": 20,
-              "life_delta": 5,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 4,
+              "action_tag": "monitor_resp_consciousness",
+              "next_scene_id": null,
               "status_effect": {
                 "add_flags": [
-                  "handover_complete"
+                  "resp_and_consciousness_monitored"
                 ],
                 "remove_flags": [],
                 "add_danger_tags": [],
                 "remove_danger_tags": [
-                  "inappropriate_destination"
+                  "toxic_exposure"
                 ]
               },
-              "rationale": "必要情報が簡潔かつ十分に含まれている。"
+              "rationale": "有毒ガス吸入では呼吸障害と意識障害の進行に注意する。"
             },
             {
               "option_id": "B",
-              "text": "高齢男性です。ちょっと様子がおかしいです。たぶん脳の病気です。よろしくお願いします。",
+              "text": "友人の心理的動揺の程度",
               "is_correct": false,
-              "score_delta": -10,
-              "life_delta": -10,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "wrong_focus_friend",
+              "next_scene_id": null,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "inadequate_handover"
+                  "missed_priority"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "年齢、発症時刻、神経所見、バイタルが不足している。"
+              "rationale": "通報者対応も必要だが、重点観察の最優先ではない。"
             },
             {
               "option_id": "C",
-              "text": "67歳男性。既往は高血圧です。普段は元気です。今日はテレビを見ていました。詳しくは着いてから話します。",
+              "text": "玄関ドアの施錠状況",
               "is_correct": false,
-              "score_delta": -8,
-              "life_delta": -5,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "irrelevant_scene_detail",
+              "next_scene_id": null,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "inadequate_handover"
+                  "missed_priority"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "病院側が必要とする中核情報が不足。"
+              "rationale": "現病態の評価に直結しない。"
             },
             {
               "option_id": "D",
-              "text": "意識障害の患者です。受け入れお願いします。",
+              "text": "浴室内の張り紙の筆跡",
               "is_correct": false,
-              "score_delta": -8,
-              "life_delta": -5,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "investigative_focus",
+              "next_scene_id": null,
               "status_effect": {
                 "add_flags": [],
                 "remove_flags": [],
                 "add_danger_tags": [
-                  "inadequate_handover"
+                  "missed_priority"
                 ],
                 "remove_danger_tags": []
               },
-              "rationale": "病院前情報として不十分。"
+              "rationale": "捜査的要素であり、搬送中の重点観察ではない。"
+            },
+            {
+              "option_id": "E",
+              "text": "近隣住民からの聞き込み",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "external_focus",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_priority"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "搬送中は傷病者観察を優先する。"
             }
           ],
           "multiple_select_count": null,
           "ranking_correct_order": [],
-          "template_group": "hospital_handover",
-          "branch_next_scene": null
+          "template_group": null
+        },
+        {
+          "question_id": "S7-Q2",
+          "type": "single_choice",
+          "prompt": "搬送中にSpO2低下と反応低下が進行した。最も適切な対応はどれか。",
+          "options": [
+            {
+              "option_id": "A",
+              "text": "呼吸と意識を再評価し、酸素投与を継続しながら病院へ状態悪化を追加連絡して搬送を継続する",
+              "is_correct": true,
+              "score_delta": 12,
+              "ideal_score_delta": 12,
+              "life_delta": 6,
+              "action_tag": "reassess_and_update_hospital",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "reassessment_done",
+                  "condition_change_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "respiratory_failure_risk"
+                ]
+              },
+              "rationale": "有毒ガス吸入では呼吸・意識の変化を再評価し、状態悪化は医療機関へ追加連絡する。"
+            },
+            {
+              "option_id": "B",
+              "text": "酸素投与は不要なので中止し、刺激を続けて覚醒を促す",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "stop_oxygen_inappropriately",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "respiratory_failure_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "呼吸状態悪化が疑われる場面で酸素投与を中止するのは不適切である。"
+            },
+            {
+              "option_id": "C",
+              "text": "病院への追加連絡は不要で、そのまま到着を待つ",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "omit_condition_update",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "poor_handover"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "搬送中の状態変化は受け入れ準備に影響するため追加連絡が望ましい。"
+            },
+            {
+              "option_id": "D",
+              "text": "呼吸の観察はやめ、精神疾患の背景聴取を優先する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "history_over_abc",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_priority"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "搬送中は背景聴取よりABC再評価が優先である。"
+            }
+          ],
+          "multiple_select_count": null,
+          "ranking_correct_order": [],
+          "template_group": null
         }
       ]
     }
   ],
   "debriefing": {
-    "summary": "本症例は突然発症の意識障害と右片麻痺、左共同偏視、Babinski徴候陽性、高血圧と徐脈を伴うことから、脳卒中、特に脳出血を強く疑う症例である。現場ではABC評価を押さえつつ、神経所見の把握、発症時刻確認、適切な搬送先選定、簡潔で要点を押さえた病院連絡が重要となる。",
+    "summary": "本症例は、精神科既往を有する若年女性の浴室内自殺企図を背景に、有毒ガス発生が疑われる現場での安全管理を問う症例である。救急隊単独での無防備な進入は二次災害につながるため、直ちに消防隊を応援要請し、安全管理下で救助活動を行うことが重要である。救出後はABC評価と酸素投与、意識・呼吸の継続観察を行い、現場危険情報も含めて医療機関へ正確に申し送る。",
+    "ideal_actions": [
+      "危険表示を真実として扱う",
+      "救急隊単独では進入しない",
+      "消防隊を直ちに応援要請する",
+      "危険区域を設定し、通報者や周囲の安全を確保する",
+      "救出後は安全区域でABC評価を行う",
+      "高濃度酸素投与を開始する",
+      "病院へ危険情報と現在状態を簡潔に伝える",
+      "搬送中の呼吸・意識悪化を再評価し、追加連絡する"
+    ],
     "good_points": [
-      "脳卒中を早期に疑えた",
-      "発症時刻や神経所見を押さえられた",
-      "脳卒中対応可能施設への搬送判断ができた",
-      "病院連絡で必要情報を整理できた"
+      "現場危険を早期に認識できた",
+      "二次災害防止を優先できた",
+      "消防隊応援要請を適切に行えた",
+      "救出後のABC評価と酸素投与ができた",
+      "危険情報を含めて病院連絡ができた",
+      "搬送中の容態変化に対応できた"
     ],
     "common_pitfalls": [
-      "片麻痺を見逃して他疾患と誤認する",
-      "現場滞在が長くなる",
-      "神経所見の再評価を怠る",
-      "病院連絡で発症時刻や局在所見が抜ける"
+      "危険表示を軽視して進入する",
+      "一般人や通報者を危険区域に近づける",
+      "消防隊応援要請が遅れる",
+      "救出後のABC評価が遅れる",
+      "病院連絡で危険情報が抜ける",
+      "搬送中の呼吸悪化を見逃す"
     ],
-    "danger_tag_feedback": {
-      "stroke_missed": "脳卒中を疑う視点が不足していた。突然発症と片麻痺は見逃さない。",
-      "airway_delay": "神経所見に気を取られ、ABC評価が遅れていた。",
-      "unsafe_transport": "時間依存性疾患であり、迅速搬送の意識が必要。",
-      "inappropriate_destination": "搬送先は近さだけでなく対応能力で選ぶ。",
-      "blood_pressure_mismanagement": "高血圧への短絡的対応は危険。慎重な判断が必要。",
-      "neuro_assessment_omission": "神経所見は経時的変化をみることが大切。",
-      "inadequate_handover": "病院連絡は発症時刻・意識・局在所見・バイタルを簡潔に。"
+    "scoring_message": {
+      "excellent": "理想の活動にかなり近い。現場安全、応援要請、救出後対応、病院連絡まで一連の流れが適切。",
+      "good": "大きな流れは良好。危険区域設定や搬送中再評価の精度を上げるとさらによい。",
+      "normal": "危険性には気づいているが、現場統制や申し送り内容に改善の余地がある。",
+      "bad": "現場安全より救助を優先してしまっている。二次災害防止の原則を再確認したい。"
     }
   }
 }

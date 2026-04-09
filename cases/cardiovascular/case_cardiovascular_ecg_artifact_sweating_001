@@ -1,0 +1,1177 @@
+{
+  "case_id": "case_cardiovascular_ecg_artifact_sweating_001",
+  "version": "1.0",
+  "title": "胸痛と著明な発汗を伴う心電図アーチファクト疑い",
+  "category": "cardiovascular",
+  "difficulty": "medium",
+  "algorithm_type": "PEMEC",
+  "overview": "60歳男性。突然の胸痛を訴え家族が救急要請した。救急隊到着時は軽度意識障害、頻呼吸、頻脈を認め、全身発汗が著明である。心電図モニター装着後、異常波形が表示されたが、発汗による電極接触不良・アーチファクトを見抜けるかがポイントとなる。胸痛症例としてACSを念頭に置きつつ、まず波形の信頼性を確保し、正確な評価と搬送判断につなげる症例。",
+  "patient_profile": {
+    "age": 60,
+    "sex": "male",
+    "chief_complaint": "突然の胸痛",
+    "background": [
+      "自宅で安静中に突然胸痛が出現",
+      "家族が119番通報",
+      "冷汗ではなく全身発汗が著明",
+      "既往歴詳細は現時点で不明"
+    ]
+  },
+  "initial_state": {
+    "life": 88,
+    "max_life": 100,
+    "flags": [
+      "chest_pain",
+      "heavy_sweating",
+      "tachycardia",
+      "ecg_artifact_possible"
+    ],
+    "danger_tags": [
+      "acs_possible",
+      "misinterpretation_risk"
+    ],
+    "time_pressure": "high"
+  },
+  "ideal_flow": {
+    "max_ideal_score": 100,
+    "summary": [
+      "胸痛症例として初期評価を行い、ACSを常に念頭に置く",
+      "著明な発汗に注目し、心電図波形の信頼性を疑う",
+      "アーチファクトを考えて電極接触状態を改善する",
+      "汗を拭き、必要に応じて電極貼付状態を調整する",
+      "再度モニター波形を確認し、真の不整脈かアーチファクトかを評価する",
+      "バイタルサインと症状を総合して重症度判断する",
+      "胸痛症例として搬送優先で活動する",
+      "ファーストコールで胸痛、発汗、モニター再評価結果を適切に伝える",
+      "搬送中も胸痛の増悪や循環変動に注意する"
+    ]
+  },
+  "result_rank": {
+    "excellent": {
+      "score_range": [90, 100],
+      "label": "Excellent"
+    },
+    "good": {
+      "score_range": [75, 89],
+      "label": "Good"
+    },
+    "normal": {
+      "score_range": [50, 74],
+      "label": "Normal"
+    },
+    "bad": {
+      "score_range": [0, 49],
+      "label": "Bad"
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene1",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "突然の胸痛症例として重症度を意識し、必要資器材を準備する。",
+      "skippable": false,
+      "narrative": "出動指令。『60歳男性。突然胸が痛いと言って苦しみ出した。汗がすごい』と家族から通報があった。現場は自宅。胸痛症例として迅速な対応が求められる。",
+      "visible_data": {
+        "dispatch_info": [
+          "60歳男性",
+          "突然の胸痛",
+          "発汗著明",
+          "自宅内発症"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q1_1",
+          "type": "multiple_choice",
+          "prompt": "出場前に優先して準備する資器材として適切なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q1_1_o1",
+              "text": "心電図モニター",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "prepare_ecg_monitor",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [
+                  "ecg_prepared"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛症例では心電図評価が重要である。"
+            },
+            {
+              "option_id": "q1_1_o2",
+              "text": "酸素投与資器材",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "prepare_oxygen",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [
+                  "oxygen_prepared"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛・呼吸促迫があり、必要時にすぐ対応できるようにする。"
+            },
+            {
+              "option_id": "q1_1_o3",
+              "text": "分娩介助セット",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "irrelevant_obstetric_equipment",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "poor_preparation"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "症例と関連がない。"
+            },
+            {
+              "option_id": "q1_1_o4",
+              "text": "外傷固定具一式",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "overfocus_trauma",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "外傷情報はなく優先度が低い。"
+            },
+            {
+              "option_id": "q1_1_o5",
+              "text": "精神安定を目的に紙袋を準備する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "misjudge_psychogenic",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [
+                  "psychogenic_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_bias"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "突然の胸痛はまず循環器疾患を考えるべき。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene2",
+      "phase": "初期評価",
+      "scene_goal": "胸痛症例としてABCと循環器リスクを評価する。",
+      "skippable": false,
+      "narrative": "現場到着。60歳男性が前かがみで胸部を押さえている。呼びかけには応じるが顔面苦悶様で、全身の発汗が著しい。会話は可能である。",
+      "visible_data": {
+        "mental_status": "JCS1",
+        "respiratory_rate": "28/分",
+        "pulse": "120/分",
+        "blood_pressure": "130/80mmHg",
+        "spo2": "98%",
+        "general": "全身発汗著明"
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q2_1",
+          "type": "single_choice",
+          "prompt": "この時点での活動上の判断として最も適切なのはどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q2_1_o1",
+              "text": "胸痛症例として循環器疾患を念頭に評価を進める",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "recognize_cardiac_emergency",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "cardiac_cause_considered"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "突然の胸痛と著明な発汗は循環器疾患をまず疑う。"
+            },
+            {
+              "option_id": "q2_1_o2",
+              "text": "発汗が多いので熱中症として対応する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "misjudge_heatstroke",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_differential_heatstroke"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛の急性発症からは循環器疾患の優先度が高い。"
+            },
+            {
+              "option_id": "q2_1_o3",
+              "text": "緊張が原因と考え安心させるのみとする",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "psychogenic_misinterpretation",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "psychogenic_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "acs_possible"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "症状の重さから不適切。"
+            },
+            {
+              "option_id": "q2_1_o4",
+              "text": "バイタルが保たれているので緊急性は低いと判断する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "underestimate_due_to_bp",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "severity_underestimated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "undertriage_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛と著明な発汗は重症病態の可能性がある。"
+            },
+            {
+              "option_id": "q2_1_o5",
+              "text": "現場で十分休ませてから再評価する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "delay_due_to_observation",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "scene_time_prolonged"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "treatment_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛症例では迅速な評価が必要。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene3",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "胸痛症例の病歴とモニター波形の信頼性を評価する。",
+      "skippable": false,
+      "narrative": "本人は『胸の真ん中が急に痛くなった。締め付けられる感じだ』と訴える。全身の発汗が著しく、前胸部の皮膚も湿っている。心電図モニターを装着すると異常な基線動揺を伴う波形が表示された。",
+      "visible_data": {
+        "history": [
+          "突然発症の胸痛",
+          "締め付けられるような痛み",
+          "全身発汗が著明"
+        ],
+        "repeat_vitals": {
+          "JCS": "1",
+          "RR": "28/分",
+          "HR": "120/分",
+          "BP": "130/80mmHg",
+          "SpO2": "98%"
+        }
+      },
+      "media": [
+        {
+          "media_id": "ecg_artifact_sweating_001",
+          "type": "image",
+          "label": "心電図モニター波形",
+          "path": "media/ecg_artifact_sweating_001.png",
+          "description": "著明な基線動揺を伴う心電図モニター波形。発汗によるアーチファクトを疑う所見。",
+          "source_note": "国家試験図版を直接使用せず、参考図をもとに新規作成したオリジナル画像。"
+        }
+      ],
+      "questions": [
+        {
+          "question_id": "q3_1",
+          "type": "single_choice",
+          "prompt": "心電図モニター波形を確認した。このときの対応として適切なのはどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q3_1_o1",
+              "text": "汗を拭く",
+              "is_correct": true,
+              "score_delta": 12,
+              "ideal_score_delta": 12,
+              "life_delta": 3,
+              "action_tag": "wipe_sweat_for_ecg_accuracy",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [
+                  "sweat_removed"
+                ],
+                "remove_flags": [
+                  "ecg_artifact_possible"
+                ],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "misinterpretation_risk"
+                ]
+              },
+              "rationale": "著明な発汗による電極接触不良・アーチファクトが疑われ、まず汗を拭いて接触を改善する。"
+            },
+            {
+              "option_id": "q3_1_o2",
+              "text": "保温をする",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "warm_patient_first",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "ecg_error_persists"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "保温がただちに波形改善につながるとは限らず優先度が低い。"
+            },
+            {
+              "option_id": "q3_1_o3",
+              "text": "緊張をやわらげる",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "relaxation_first",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [
+                  "psychogenic_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_bias"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "波形異常の原因としてまず接触不良やアーチファクトを考える。"
+            },
+            {
+              "option_id": "q3_1_o4",
+              "text": "高周波フィルタを使用する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "use_filter_instead_of_fixing_source",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [
+                  "artifact_source_not_corrected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "misinterpretation_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "まずはアーチファクトの原因そのものを除去する。"
+            },
+            {
+              "option_id": "q3_1_o5",
+              "text": "周辺の電気器具の電源コードを抜く",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "suspect_power_interference_first",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "ecg_error_persists"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "今回の状況では著明な発汗による接触不良をまず考える。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene4",
+      "phase": "活動方針の再判断",
+      "scene_goal": "アーチファクトを除去しても胸痛症例としての危険性を見失わず、搬送優先で再評価する。",
+      "skippable": false,
+      "narrative": "前胸部の汗を拭き、電極の接触状態を整えて再評価する。波形は先ほどより安定し、著明な基線動揺は減少した。胸痛と発汗は持続している。",
+      "visible_data": {
+        "current_status": [
+          "アーチファクトは軽減",
+          "胸痛持続",
+          "発汗持続",
+          "頻脈持続"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q4_1",
+          "type": "single_choice",
+          "prompt": "この時点で最も適切な活動方針はどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q4_1_o1",
+              "text": "波形が改善したので異常なしとして現場待機する",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "false_reassurance_after_artifact_fix",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "underestimate_after_artifact_fix"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "acs_possible"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "波形が整っても胸痛症例としての危険性は残る。"
+            },
+            {
+              "option_id": "q4_1_o2",
+              "text": "胸痛症例として再評価を続けつつ搬送を優先する",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 3,
+              "action_tag": "prioritize_transport_after_ecg_correction",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "transport_priority_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "undertriage_risk"
+                ]
+              },
+              "rationale": "胸痛と発汗が持続しており循環器疾患を念頭に搬送優先とする。"
+            },
+            {
+              "option_id": "q4_1_o3",
+              "text": "汗を拭いたので処置は終了し家族観察とする",
+              "is_correct": false,
+              "score_delta": -7,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "stop_care_after_surface_fix",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "care_stopped_too_early"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "treatment_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "汗を拭くのは評価精度向上の一手であり、症例解決ではない。"
+            },
+            {
+              "option_id": "q4_1_o4",
+              "text": "精神的緊張が原因と判断し、会話中心で様子を見る",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "psychogenic_fixation",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "psychogenic_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_bias"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "症状が循環器疾患を示唆している。"
+            },
+            {
+              "option_id": "q4_1_o5",
+              "text": "外部ノイズ対策のため家電確認を最優先する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "overfocus_environmental_noise",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_artifact_focus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "scene_time_prolonged"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "本症例では発汗による接触不良対応が優先される。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene5",
+      "phase": "全身観察",
+      "scene_goal": "胸痛に伴う循環器重症所見を全身観察で確認する。",
+      "skippable": false,
+      "narrative": "全身観察を行う。顔面は苦悶様で、冷感を伴う湿潤皮膚を認める。呼吸はやや速く、胸痛は持続している。放散痛について確認すると左肩へ広がる感じがあるという。",
+      "visible_data": {
+        "general": [
+          "顔面苦悶様",
+          "湿潤皮膚",
+          "全身発汗持続"
+        ],
+        "symptoms": [
+          "胸痛持続",
+          "左肩への放散感あり"
+        ],
+        "breathing": [
+          "呼吸数28/分"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q5_1",
+          "type": "multiple_choice",
+          "prompt": "循環器重症病態を支持する情報として重要なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q5_1_o1",
+              "text": "突然発症の胸痛",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "recognize_sudden_chest_pain",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [
+                  "sudden_onset_pain_identified"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "acs_possible"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "急性冠症候群などを示唆する重要な所見。"
+            },
+            {
+              "option_id": "q5_1_o2",
+              "text": "著明な発汗",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "recognize_diaphoresis",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [
+                  "diaphoresis_identified"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "循環器重症例でしばしばみられる重要所見。"
+            },
+            {
+              "option_id": "q5_1_o3",
+              "text": "SpO2が98%であること",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "overfocus_normal_spo2",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "false_reassurance"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "酸素化が保たれていても重症循環器疾患は否定できない。"
+            },
+            {
+              "option_id": "q5_1_o4",
+              "text": "家族がそばにいること",
+              "is_correct": false,
+              "score_delta": -1,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "focus_on_nonclinical_context",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "重症度判断の直接所見ではない。"
+            },
+            {
+              "option_id": "q5_1_o5",
+              "text": "会話ができること",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "underestimate_by_conversation",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [
+                  "severity_underestimated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "undertriage_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "会話可能でも重症ACSはありうる。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene6",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "胸痛症例として病院へ要点を整理して伝え、搬送と継続評価につなげる。",
+      "skippable": false,
+      "narrative": "胸痛と著明な発汗を伴う60歳男性で、心電図モニター初回波形は発汗によるアーチファクトが疑われた。電極接触改善後に再評価を継続しながら搬送する。受け入れ先へファーストコールを行う。",
+      "visible_data": {
+        "summary_for_call": [
+          "60歳男性",
+          "突然の胸痛",
+          "意識JCS1",
+          "RR 28/分、HR 120/分、BP 130/80mmHg、SpO2 98%",
+          "全身発汗著明",
+          "初回モニター波形は発汗によるアーチファクト疑い",
+          "胸痛症例として搬送中"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q6_1",
+          "type": "template_select",
+          "prompt": "ファーストコールとして最も適切な内容を選べ。",
+          "options": [
+            {
+              "option_id": "q6_1_o1",
+              "text": "60歳男性。突然の胸痛と著明な発汗あり。意識JCS1、呼吸数28、脈拍120、血圧130/80、SpO2 98%。初回モニターは発汗によるアーチファクトが疑われ、接触改善後に再評価中。循環器疾患を念頭に搬送中。",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 2,
+              "action_tag": "appropriate_first_call_chest_pain_artifact",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "first_call_completed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "病態、重症度、波形評価の経過が適切に共有されている。"
+            },
+            {
+              "option_id": "q6_1_o2",
+              "text": "波形が乱れていたので重篤な不整脈として搬送します。",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "artifact_misreported_as_arrhythmia",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_hospital_impression"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "miscommunication_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "波形の信頼性確認前に不整脈と断定してはいけない。"
+            },
+            {
+              "option_id": "q6_1_o3",
+              "text": "胸痛はありますが、汗を拭いたらよくなったので軽症です。",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "undertriage_after_sweat_wipe",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "undertriage"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "inappropriate_destination_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "汗を拭いて波形が安定しても胸痛自体の重症度は変わらない。"
+            },
+            {
+              "option_id": "q6_1_o4",
+              "text": "緊張による過換気が疑われます。",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "wrong_psychogenic_first_call",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "psychogenic_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_bias"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "症候と年齢から不適切。"
+            },
+            {
+              "option_id": "q6_1_o5",
+              "text": "周辺の電気器具に問題があるようです。",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "overfocus_environment",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_artifact_focus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_quality_low"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "本質は胸痛症例としての評価と搬送である。"
+            }
+          ]
+        },
+        {
+          "question_id": "q6_2",
+          "type": "multiple_choice",
+          "prompt": "この場面で優先して行うべき対応として適切なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q6_2_o1",
+              "text": "胸痛の性状と経過を継続的に確認する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 1,
+              "action_tag": "reassess_chest_pain",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "pain_reassessed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "症状変化は重症度判断に重要。"
+            },
+            {
+              "option_id": "q6_2_o2",
+              "text": "モニター波形の再確認を行う",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 1,
+              "action_tag": "recheck_ecg_after_contact_fix",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "ecg_rechecked"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "misinterpretation_risk"
+                ]
+              },
+              "rationale": "アーチファクト改善後の再確認が必要。"
+            },
+            {
+              "option_id": "q6_2_o3",
+              "text": "波形が乱れていたことを根拠に除細動の準備を最優先する",
+              "is_correct": false,
+              "score_delta": -7,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "prepare_defib_for_artifact",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "artifact_misinterpretation"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "unsafe_intervention_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "アーチファクトを真性不整脈と誤認している。"
+            },
+            {
+              "option_id": "q6_2_o4",
+              "text": "発汗が落ち着くまでモニターを外す",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "remove_monitor",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "monitoring_insufficient"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "loss_of_monitoring"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛症例では継続監視が重要。"
+            },
+            {
+              "option_id": "q6_2_o5",
+              "text": "家族への説明のみを優先する",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "family_communication_over_monitoring",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "monitoring_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "まず患者の継続評価が優先。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene7",
+      "phase": "車内活動",
+      "scene_goal": "搬送中も胸痛、循環動態、モニター波形を継続評価し、真の悪化に備える。",
+      "skippable": false,
+      "narrative": "搬送中も胸痛は持続しているが、モニター波形は接触改善後おおむね安定している。本人は『まだ痛い』と訴えている。突然の循環変動に備え、継続監視が必要である。",
+      "visible_data": {
+        "transport_status": {
+          "JCS": "1",
+          "RR": "26/分",
+          "HR": "112/分",
+          "BP": "128/78mmHg",
+          "SpO2": "98%"
+        },
+        "clinical_course": [
+          "胸痛持続",
+          "発汗はやや持続",
+          "モニター波形は安定"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q7_1",
+          "type": "single_choice",
+          "prompt": "搬送中の対応として最も適切なのはどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q7_1_o1",
+              "text": "波形が整ったのでモニター監視を終了する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "stop_monitoring_after_artifact_fix",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "monitoring_insufficient"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "loss_of_monitoring"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸痛症例では継続的な監視が必要。"
+            },
+            {
+              "option_id": "q7_1_o2",
+              "text": "胸痛、意識、循環動態、モニター波形を継続評価する",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 3,
+              "action_tag": "continuous_transport_reassessment",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "continuous_monitoring_done"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "loss_of_monitoring"
+                ]
+              },
+              "rationale": "胸痛症例では搬送中の再評価が非常に重要。"
+            },
+            {
+              "option_id": "q7_1_o3",
+              "text": "汗が落ち着いてきたので軽症と判断する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "underestimate_by_sweat_change",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "premature_reassurance"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "undertriage_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "症状が持続しており軽症判断は不適切。"
+            },
+            {
+              "option_id": "q7_1_o4",
+              "text": "アーチファクトは解消したので病院連絡内容を訂正する必要はない",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "do_not_update_handoff",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "handoff_incomplete"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "miscommunication_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "必要に応じて評価更新を共有することが望ましい。"
+            },
+            {
+              "option_id": "q7_1_o5",
+              "text": "胸痛の性状は変わらないので再聴取は不要とする",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "skip_reassessment_of_symptoms",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "symptom_reassessment_missing"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "clinical_change_missed"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "症状変化の把握は重要である。"
+            }
+          ]
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event7_1",
+          "trigger_flags": [
+            "monitoring_insufficient"
+          ],
+          "narrative": "搬送中、患者が急に顔色不良となり『さらに苦しい』と訴える。脈拍は140/分に上昇し、血圧は100/64mmHgへ低下したが、監視が不十分で変化の把握が遅れる。",
+          "visible_data_update": {
+            "HR": "140/分",
+            "BP": "100/64mmHg",
+            "general": "顔色不良増悪"
+          },
+          "effects": {
+            "life_delta": -8,
+            "add_flags": [
+              "hemodynamic_worsening"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "acs_possible",
+              "circulatory_instability"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "突然の胸痛と著明な発汗を伴う60歳男性であり、循環器緊急症を念頭に活動する症例である。心電図モニター波形が乱れていても、著明な発汗によるアーチファクトを疑い、まず汗を拭いて波形の信頼性を確保することが重要である。一方で、アーチファクト対応に気を取られすぎず、胸痛症例としての重症度判断と搬送優先を維持する必要がある。",
+    "ideal_actions": [
+      "突然の胸痛症例として循環器疾患を優先的に考える",
+      "著明な発汗から電極接触不良によるアーチファクトを疑う",
+      "汗を拭いて電極接触を改善する",
+      "波形を再確認して真の不整脈との鑑別を行う",
+      "胸痛・発汗・バイタルを総合して重症度判断する",
+      "胸痛症例として搬送優先で活動する",
+      "ファーストコールで胸痛、発汗、波形再評価結果を適切に伝える",
+      "搬送中も胸痛と循環動態を継続評価する"
+    ],
+    "good_points": [
+      "アーチファクトを疑えた",
+      "汗を拭いて波形の信頼性を高められた",
+      "胸痛症例としての危険性を見失わなかった",
+      "搬送優先で活動できた",
+      "搬送中の再評価を継続できた"
+    ],
+    "common_pitfalls": [
+      "波形異常をそのまま重篤な不整脈と決めつける",
+      "フィルタや電気器具対策を先に考える",
+      "汗を拭いた後に安心して胸痛評価を緩める",
+      "正常SpO2や会話可能を理由に軽症と判断する",
+      "アーチファクト対策に気を取られて搬送判断が遅れる"
+    ],
+    "scoring_message": {
+      "excellent": "心電図アーチファクトを適切に見抜きつつ、胸痛症例としての本質を見失わない非常に良い活動だった。",
+      "good": "概ね適切に対応できている。次は再評価と病院連絡の精度をさらに高めたい。",
+      "normal": "アーチファクトへの対応はできたが、胸痛症例としての重症度判断や継続評価にやや弱さがある。",
+      "bad": "波形解釈または活動優先順位に課題がある。アーチファクトの見抜き方と胸痛対応を再確認したい。"
+    },
+    "excellent": {
+      "message": "図に引っ張られず、患者を見て判断できている。かなり実践的。",
+      "advice": [
+        "波形だけでなく症状・発汗・接触状態をセットで見る習慣を維持する。"
+      ]
+    },
+    "good": {
+      "message": "良い流れで対応できている。あと一歩、再評価と伝達の質を磨きたい。",
+      "advice": [
+        "アーチファクト修正後の所見変化を簡潔に共有する意識を持つ。"
+      ]
+    },
+    "normal": {
+      "message": "大枠は押さえられているが、波形に目を奪われやすい。",
+      "advice": [
+        "モニターは参考情報。まず患者の症状と状況を優先して考える。"
+      ]
+    },
+    "bad": {
+      "message": "モニター波形の見え方に引っ張られて、本来の胸痛症例評価が弱くなっている。",
+      "advice": [
+        "著明な発汗時はまず電極接触不良を疑う。",
+        "波形異常を見ても、いきなり重篤不整脈と断定せず信頼性を確認する。"
+      ]
+    }
+  }
+}

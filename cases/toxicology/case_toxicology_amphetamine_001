@@ -1,0 +1,912 @@
+{
+  "case_id": "case_toxicology_amphetamine_001",
+  "version": "1.0",
+  "title": "薬物乱用者の事情聴取中に反応低下を呈したアンフェタミン暴露疑い",
+  "category": "toxicology",
+  "difficulty": "medium",
+  "algorithm_type": "PEMEC",
+  "overview": "45歳男性。薬物乱用者として警察が事情聴取中、反応が鈍くなったため救急要請となった。到着時、意識障害、頻呼吸、頻脈、高血圧、発汗、散瞳を認める。交感神経刺激症候群を示唆する所見から、アンフェタミン系薬物暴露を疑い、興奮・循環器合併症・体温上昇・外傷リスクに注意しながら評価と搬送を進める症例。",
+  "patient_profile": {
+    "age": 45,
+    "sex": "male",
+    "occupation": "不明",
+    "background": [
+      "薬物乱用歴が疑われている",
+      "警察による事情聴取中に反応が鈍くなった",
+      "警察官から救急要請"
+    ]
+  },
+  "initial_state": {
+    "life": 95,
+    "max_life": 100,
+    "flags": [],
+    "danger_tags": [
+      "possible_stimulant_intoxication",
+      "agitation_risk",
+      "cardiovascular_complication_risk",
+      "hyperthermia_risk"
+    ],
+    "time_pressure": "high"
+  },
+  "ideal_flow": {
+    "max_ideal_score": 100,
+    "summary": [
+      "現場安全を確認し、警察と連携して暴力・逃走・急変リスクに備える",
+      "ABCと意識レベルを優先評価し、呼吸循環の不安定化兆候を見逃さない",
+      "バイタルサイン、体温、瞳孔、発汗、皮膚所見から中毒症候群を整理する",
+      "交感神経刺激症候群を示す所見からアンフェタミン系薬物を鑑別上位に置く",
+      "低酸素、低血糖、外傷、けいれん、胸痛、不整脈など合併症を確認する",
+      "早期に搬送方針を決定し、医療機関へ薬物中毒疑いとして適切に第一報する",
+      "搬送中は興奮、体温上昇、循環器合併症、意識変化の再評価を継続する"
+    ]
+  },
+  "result_rank": {
+    "excellent": {
+      "score_min": 90,
+      "label": "Excellent"
+    },
+    "good": {
+      "score_min": 75,
+      "label": "Good"
+    },
+    "normal": {
+      "score_min": 55,
+      "label": "Normal"
+    },
+    "bad": {
+      "score_min": 0,
+      "label": "Bad"
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_1",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "薬物中毒と現場危険性を想定し、出場前に安全と初動方針を整理する",
+      "skippable": false,
+      "narrative": "『45歳男性、薬物乱用者として警察が事情聴取中に反応が鈍くなった。様子がおかしいため救急要請』との通報。現場は警察官立ち会い下であり、興奮や急変の可能性があると説明される。",
+      "visible_data": {
+        "dispatch_info": [
+          "薬物乱用者の可能性",
+          "警察官が現場にいる",
+          "事情聴取中に反応低下",
+          "中毒・興奮・外傷リスクあり"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q1_1",
+          "type": "multiple_choice",
+          "prompt": "出場前に優先して共有すべき内容を2つ選べ。",
+          "options": [
+            {
+              "option_id": "q1_1_o1",
+              "text": "現場安全と暴力・逃走リスクを警察と連携して確認する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "coordinate_scene_safety_with_police",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "scene_safety_coordinated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "薬物中毒疑いでは現場安全の確保が重要である。"
+            },
+            {
+              "option_id": "q1_1_o2",
+              "text": "薬物事案なので身体評価より身元確認を優先する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "prioritize_identity_over_medical_assessment",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "medical_priority_error"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_assessment"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "まず優先すべきは医学的評価と安全確保である。"
+            },
+            {
+              "option_id": "q1_1_o3",
+              "text": "中毒症候群の把握を念頭にABCとバイタル評価を準備する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "prepare_toxidrome_assessment",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "toxidrome_assessment_ready"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "薬物中毒では症候群の整理が現場判断に役立つ。"
+            },
+            {
+              "option_id": "q1_1_o4",
+              "text": "警察がいるので救急隊の安全確認は不要と判断する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "omit_own_safety_assessment",
+              "next_scene_id": "scene_2",
+              "status_effect": {
+                "add_flags": [
+                  "safety_check_omitted"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "crew_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "警察立会いでも救急隊自身の安全確認は必要。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_2",
+      "phase": "初期評価",
+      "scene_goal": "ABCと意識状態を確認し、直ちに介入が必要な異常を見つける",
+      "skippable": false,
+      "narrative": "患者は落ち着かない様子で反応が鈍い。呼びかけには開眼するが受け答えは遅い。明らかな気道閉塞や大量出血はない。",
+      "visible_data": {
+        "general_impression": "反応鈍い、落ち着かない",
+        "airway": "開通",
+        "breathing": "呼吸数36/分、努力呼吸軽度",
+        "circulation": "脈拍124/分、整。皮膚湿潤",
+        "disability": "JCS20"
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q2_1",
+          "type": "single_choice",
+          "prompt": "この時点で最も適切な判断はどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q2_1_o1",
+              "text": "呼吸と循環の異常を伴う中毒疑いとして緊急性高く評価を進める",
+              "is_correct": true,
+              "score_delta": 8,
+              "ideal_score_delta": 8,
+              "life_delta": 0,
+              "action_tag": "recognize_urgent_toxidrome",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "primary_assessment_completed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "頻呼吸、頻脈、高血圧、意識障害があり緊急性は高い。"
+            },
+            {
+              "option_id": "q2_1_o2",
+              "text": "会話できるため軽症と考え、警察聴取を優先させる",
+              "is_correct": false,
+              "score_delta": -8,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "underestimate_severity",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "undertriage"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_transport"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "中毒では会話可能でも急変しうる。"
+            },
+            {
+              "option_id": "q2_1_o3",
+              "text": "散瞳があるためオピオイド中毒を最優先に考える",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "misread_pupil_sign",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_toxidrome_direction"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "misdiagnosis_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "オピオイドなら通常は縮瞳、呼吸抑制が主体である。"
+            },
+            {
+              "option_id": "q2_1_o4",
+              "text": "まず拘束を強めて観察は後回しにする",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "restrain_without_assessment",
+              "next_scene_id": "scene_3",
+              "status_effect": {
+                "add_flags": [
+                  "assessment_delayed_by_restraint"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "agitation_worsening"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "安全配慮は必要だが、医学的評価を遅らせてはならない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_3",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "中毒症候群を整理し、合併症を見逃さないための情報収集を行う",
+      "skippable": false,
+      "narrative": "警察官から『事情聴取中に急に落ち着きがなくなり、その後ぼんやりしてきた』と情報が得られる。患者は多量の発汗を認め、瞳孔は散大している。",
+      "visible_data": {
+        "vital_signs": {
+          "blood_pressure": "200/110 mmHg",
+          "heart_rate": "124 /min",
+          "respiratory_rate": "36 /min",
+          "spo2": "95 %",
+          "temperature": "37.8 ℃",
+          "blood_glucose": "112 mg/dL"
+        },
+        "exam_hints": [
+          "異常発汗",
+          "瞳孔散大",
+          "頻呼吸",
+          "頻脈",
+          "高血圧"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q3_1",
+          "type": "multiple_choice",
+          "prompt": "この場面で中毒評価として重要な確認項目を2つ選べ。",
+          "options": [
+            {
+              "option_id": "q3_1_o1",
+              "text": "体温上昇や筋強剛、けいれんの有無",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "check_stimulant_complications",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "hyperthermia_and_seizure_checked"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "アンフェタミン系では高体温やけいれんが重症化のサインとなる。"
+            },
+            {
+              "option_id": "q3_1_o2",
+              "text": "胸痛、不整脈、動悸など循環器症状の有無",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "check_cardiovascular_complications",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "cardiovascular_complications_checked"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "交感神経刺激により循環器合併症の危険が高い。"
+            },
+            {
+              "option_id": "q3_1_o3",
+              "text": "縮瞳と徐呼吸があるかだけを確認する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "opioid_only_focus",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "narrow_wrong_focus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_stimulant_pattern"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "本症例は交感神経刺激症候群の所見が目立つ。"
+            },
+            {
+              "option_id": "q3_1_o4",
+              "text": "血糖は中毒と無関係なので測定不要である",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "omit_glucose_check",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "glucose_check_omitted"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_metabolic_cause"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "意識障害では低血糖などの除外が必要。"
+            },
+            {
+              "option_id": "q3_1_o5",
+              "text": "使用薬物の種類、最終使用時刻、摂取経路",
+              "is_correct": true,
+              "score_delta": 4,
+              "ideal_score_delta": 4,
+              "life_delta": 0,
+              "action_tag": "obtain_substance_history",
+              "next_scene_id": "scene_4",
+              "status_effect": {
+                "add_flags": [
+                  "substance_history_checked"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "薬物の推定と病態進行予測に有用である。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_4",
+      "phase": "活動方針の再判断",
+      "scene_goal": "中毒症候群から原因薬物を推定し、搬送優先の方針を固める",
+      "skippable": false,
+      "narrative": "患者は散瞳、著明な発汗、頻呼吸、頻脈、高血圧を示している。呼吸抑制や縮瞳はなく、アルコール臭も明らかではない。",
+      "visible_data": {
+        "reassessment_points": [
+          "JCS20",
+          "RR 36/分",
+          "HR 124/分",
+          "BP 200/110 mmHg",
+          "SpO2 95%",
+          "発汗著明",
+          "瞳孔散大"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q4_1",
+          "type": "single_choice",
+          "prompt": "この傷病者が暴露した可能性が最も高いのはどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q4_1_o1",
+              "text": "トルエン",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "select_toluene",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_agent_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "トルエンでは中枢抑制や不整脈などが問題となるが、本例の所見とは合いにくい。"
+            },
+            {
+              "option_id": "q4_1_o2",
+              "text": "ヘロイン",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "select_heroin",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "opioid_misclassification"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "wrong_treatment_direction"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "ヘロインなら縮瞳、呼吸抑制、意識低下がより典型的である。"
+            },
+            {
+              "option_id": "q4_1_o3",
+              "text": "モルヒネ",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "select_morphine",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "opioid_misclassification"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "wrong_treatment_direction"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "モルヒネ中毒も縮瞳・徐呼吸が主体で、本例と逆方向である。"
+            },
+            {
+              "option_id": "q4_1_o4",
+              "text": "エタノール",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "select_ethanol",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "alcohol_misclassification"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "エタノールでは高血圧・散瞳・著明発汗は典型的ではない。"
+            },
+            {
+              "option_id": "q4_1_o5",
+              "text": "アンフェタミン",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "identify_amphetamine_exposure",
+              "next_scene_id": "scene_5",
+              "status_effect": {
+                "add_flags": [
+                  "amphetamine_identified"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "possible_stimulant_intoxication"
+                ]
+              },
+              "rationale": "散瞳、発汗、頻脈、高血圧、頻呼吸は交感神経刺激作用をもつアンフェタミンに合致する。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_5",
+      "phase": "全身観察",
+      "scene_goal": "中毒による全身への影響と外傷・合併症の有無を確認する",
+      "skippable": false,
+      "narrative": "患者の体表は汗で湿っている。外表に明らかな外傷はない。四肢の振戦が軽度みられ、落ち着きがない。胸部痛の訴えははっきりしないが、会話は散漫である。",
+      "visible_data": {
+        "physical_exam": [
+          "全身発汗著明",
+          "瞳孔散大",
+          "軽度振戦",
+          "外表に大きな外傷なし",
+          "会話散漫"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q5_1",
+          "type": "multiple_choice",
+          "prompt": "この場面で重要な観察を2つ選べ。",
+          "options": [
+            {
+              "option_id": "q5_1_o1",
+              "text": "体温上昇の有無を確認する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "assess_temperature",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "temperature_checked"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "交感神経刺激薬では高体温が重症化のサインとなる。"
+            },
+            {
+              "option_id": "q5_1_o2",
+              "text": "胸痛や不整脈を示唆する訴え・所見を確認する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "assess_chest_pain_arrhythmia",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "chest_pain_and_arrhythmia_checked"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "アンフェタミン系では循環器イベントの危険がある。"
+            },
+            {
+              "option_id": "q5_1_o3",
+              "text": "散瞳があるので身体観察は不要である",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "omit_full_exam",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "full_exam_omitted"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_complications"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "原因推定後も全身状態の再評価は不可欠である。"
+            },
+            {
+              "option_id": "q5_1_o4",
+              "text": "アルコール臭がないので搬送は不要と判断する",
+              "is_correct": false,
+              "score_delta": -8,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "non_transport_based_on_smell",
+              "next_scene_id": "scene_6",
+              "status_effect": {
+                "add_flags": [
+                  "unsafe_non_transport_considered"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "critical_disposition_error"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "重度の中毒疑いであり搬送は必須である。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_6",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "中毒症候群を整理して医療機関へ適切に第一報し、搬送を具体化する",
+      "skippable": false,
+      "narrative": "患者は交感神経刺激症候群を強く示しており、アンフェタミン系薬物暴露が疑われる。意識障害、著明な頻脈・高血圧が持続しているため、早期搬送が必要である。",
+      "visible_data": {
+        "assessment_summary": [
+          "JCS20",
+          "RR 36/分",
+          "HR 124/分 整",
+          "BP 200/110 mmHg",
+          "SpO2 95%",
+          "発汗著明",
+          "瞳孔散大",
+          "アンフェタミン系中毒疑い"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q6_1",
+          "type": "template_select",
+          "prompt": "医療機関へのファーストコールとして最も適切な内容を選べ。",
+          "options": [
+            {
+              "option_id": "q6_1_o1",
+              "text": "45歳男性、薬物乱用疑い。事情聴取中に反応低下。JCS20、RR36、HR124、BP200/110、SpO2 95%。発汗著明、散瞳あり。アンフェタミン系中毒を疑い、循環器合併症と高体温に注意して搬送したい。",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "appropriate_first_call_stimulant_intoxication",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "first_call_completed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "所見、重症度、推定原因、懸念点が簡潔に整理されている。"
+            },
+            {
+              "option_id": "q6_1_o2",
+              "text": "薬物中毒っぽい患者です。詳細は不明ですが受け入れをお願いします。",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "vague_first_call",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "poor_hospital_handoff"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "acceptance_delay_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "要点が乏しく受入判断に不十分である。"
+            },
+            {
+              "option_id": "q6_1_o3",
+              "text": "散瞳なのでオピオイド中毒は否定できず、ナロキソン前提で搬送したい。",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "opioid_first_call_error",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_agent_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "misleading_handoff"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "所見はオピオイドよりアンフェタミン系に合致する。"
+            },
+            {
+              "option_id": "q6_1_o4",
+              "text": "警察案件のため身体情報は省略し、事情聴取内容だけを伝える。",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "omit_medical_details",
+              "next_scene_id": "scene_7",
+              "status_effect": {
+                "add_flags": [
+                  "medical_report_omitted"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_failure"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "医療情報が第一報の中心であるべき。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene_7",
+      "phase": "車内活動",
+      "scene_goal": "搬送中の興奮・高体温・循環器急変に注意して再評価を継続する",
+      "skippable": false,
+      "narrative": "搬送開始後、患者は時折落ち着きなく体を動かし、発汗が続いている。呼吸は速く、脈拍も高いままである。",
+      "visible_data": {
+        "transport_status": [
+          "頻呼吸持続",
+          "頻脈持続",
+          "発汗持続",
+          "意識レベルやや変動",
+          "興奮増悪の可能性"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q7_1",
+          "type": "multiple_choice",
+          "prompt": "搬送中の対応として適切なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q7_1_o1",
+              "text": "バイタル、意識、体温変化を繰り返し観察する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "repeat_monitoring",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "transport_monitoring_done"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "中毒では搬送中の急変監視が重要である。"
+            },
+            {
+              "option_id": "q7_1_o2",
+              "text": "胸痛、不整脈、けいれん、高体温の出現に注意する",
+              "is_correct": true,
+              "score_delta": 6,
+              "ideal_score_delta": 6,
+              "life_delta": 0,
+              "action_tag": "watch_for_major_complications",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "major_complications_monitored"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "アンフェタミン中毒で致命的となりうる合併症である。"
+            },
+            {
+              "option_id": "q7_1_o3",
+              "text": "中毒原因は推定できたので以後の観察は不要とする",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "stop_reassessment",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "monitoring_stopped"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_transport_deterioration"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "推定診断後こそ病態変化の監視が重要。"
+            },
+            {
+              "option_id": "q7_1_o4",
+              "text": "水分を強く勧めて様子を見るのみとする",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "minimal_support_only",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "insufficient_transport_management"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "care_underestimation"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "重症中毒疑いであり、観察と搬送が優先される。"
+            }
+          ]
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event_7_1",
+          "trigger_flags": [
+            "monitoring_stopped"
+          ],
+          "narrative": "搬送中、患者は突然強い不穏を示し、脈拍上昇と発汗増悪がみられた。",
+          "visible_data_update": {
+            "heart_rate": "140 /min",
+            "mental_status": "不穏増強"
+          },
+          "effects": {
+            "life_delta": -8,
+            "add_flags": [
+              "transport_agitation_worsened"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "acute_cardiovascular_instability"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、頻呼吸、頻脈、高血圧、発汗、散瞳を呈する交感神経刺激症候群からアンフェタミン暴露を疑うケースである。オピオイド中毒との対比として、縮瞳や呼吸抑制がない点が重要であり、循環器合併症や高体温への警戒が必要となる。",
+    "ideal_actions": [
+      "現場安全を警察と連携して確保する",
+      "ABCと意識レベルを初期評価する",
+      "バイタル、血糖、瞳孔、発汗などから中毒症候群を整理する",
+      "アンフェタミン系薬物を鑑別上位に置く",
+      "体温上昇、けいれん、胸痛、不整脈など重症合併症を確認する",
+      "中毒疑いとして適切にファーストコールを行う",
+      "搬送中も循環・意識・高体温の変化を継続監視する"
+    ],
+    "good_points": [
+      "中毒症候群から原因薬物を推定できた",
+      "オピオイド中毒との違いを見分けられた",
+      "搬送中の重症合併症に注意を向けられた"
+    ],
+    "common_pitfalls": [
+      "意識低下だけを見てオピオイド中毒と誤る",
+      "警察案件に引っ張られて医学的評価を後回しにする",
+      "高血圧・頻脈・高体温の危険性を軽視する",
+      "原因薬物を推定した後に再評価を止めてしまう"
+    ],
+    "scoring_message": {
+      "excellent": "いい流れ。アンフェタミン中毒の所見を正しく拾い、急変リスクまで意識できている。",
+      "good": "ほぼ良好。原因薬物の推定はできているので、搬送中の合併症監視をさらに丁寧にしたい。",
+      "normal": "大枠はつかめているが、オピオイドやアルコールに引っ張られる場面があった。中毒症候群で整理すると強い。",
+      "bad": "今回は所見の組み合わせを外した。散瞳・発汗・頻脈・高血圧なら、まず交感神経刺激薬を疑う流れを押さえよう。"
+    }
+  }
+}

@@ -1,0 +1,1265 @@
+{
+  "case_id": "case_respiratory_anaphylaxis_exercise_food_001",
+  "version": "1.0",
+  "title": "食後運動後に発症したアナフィラキシー疑い",
+  "category": "respiratory",
+  "difficulty": "medium",
+  "algorithm_type": "PEMEC",
+  "overview": "18歳女性。朝食にパンを食べた後にランニングを開始し、気分不良が出現したため友人が救急要請した。救急隊到着時、意識障害、頻呼吸、頻脈、低血圧、低酸素血症、皮膚紅潮を認める。食物依存性運動誘発アナフィラキシーを含むアナフィラキシーを疑い、酸素投与、重症度判断、アドレナリン筋肉内投与、静脈路確保の指示要請、迅速搬送、病院連絡を適切に進める症例。",
+  "patient_profile": {
+    "age": 18,
+    "sex": "female",
+    "chief_complaint": "ランニング中の気分不良",
+    "background": [
+      "朝食にパンを摂取後ランニングを開始",
+      "運動中に気分不良が出現",
+      "友人が119番通報",
+      "自己注射用アドレナリンは所持していない"
+    ]
+  },
+  "initial_state": {
+    "life": 85,
+    "max_life": 100,
+    "flags": [
+      "suspected_anaphylaxis",
+      "post_food_exercise",
+      "shock_state",
+      "hypoxemia"
+    ],
+    "danger_tags": [
+      "airway_risk",
+      "circulatory_collapse_risk"
+    ],
+    "time_pressure": "high"
+  },
+  "ideal_flow": {
+    "max_ideal_score": 100,
+    "summary": [
+      "食後運動後の経過と皮膚症状、低血圧、低酸素血症からアナフィラキシーを疑う",
+      "ABCを優先し、高流量酸素投与を開始する",
+      "気道狭窄徴候、喘鳴、嗄声、口唇舌浮腫の有無を確認する",
+      "ショック所見を重くみて搬送優先と判断する",
+      "アドレナリン筋肉内投与を速やかに実施または指示要請する",
+      "静脈路確保の指示要請を行う",
+      "反応、呼吸、循環の再評価を継続する",
+      "アナフィラキシー疑いとして適切にファーストコールする",
+      "搬送中の再増悪に備える"
+    ]
+  },
+  "result_rank": {
+    "excellent": {
+      "score_range": [90, 100],
+      "label": "Excellent"
+    },
+    "good": {
+      "score_range": [75, 89],
+      "label": "Good"
+    },
+    "normal": {
+      "score_range": [50, 74],
+      "label": "Normal"
+    },
+    "bad": {
+      "score_range": [0, 49],
+      "label": "Bad"
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "scene1",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "通報内容から重症度とアナフィラキシーの可能性を想起し、必要資器材を準備する。",
+      "skippable": false,
+      "narrative": "出動指令。『18歳女性。朝食にパンを食べた後、ランニング中に急に気分が悪くなった。呼びかけに反応はあるがぼんやりしている』との内容である。現場は公園のジョギングコース。友人が付き添っている。",
+      "visible_data": {
+        "dispatch_info": [
+          "18歳女性",
+          "食後運動中に発症",
+          "意識低下あり",
+          "屋外活動中"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q1_1",
+          "type": "multiple_choice",
+          "prompt": "出場前に優先して準備する資器材として適切なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q1_1_o1",
+              "text": "酸素投与資器材",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "prepare_oxygen",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [
+                  "oxygen_prepared"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "低酸素血症や呼吸障害が想定されるため酸素投与準備が必要。"
+            },
+            {
+              "option_id": "q1_1_o2",
+              "text": "アドレナリン筋肉内投与に備えた薬剤・器材",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "prepare_im_adrenaline",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [
+                  "adrenaline_prepared"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "アナフィラキシーが疑われるため、早期アドレナリン投与に備える。"
+            },
+            {
+              "option_id": "q1_1_o3",
+              "text": "分娩介助セット",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "irrelevant_obstetric_preparation",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "poor_preparation"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "本症例の病態把握からは不要。優先度が低い。"
+            },
+            {
+              "option_id": "q1_1_o4",
+              "text": "外傷固定具一式を最優先で準備する",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "overfocus_trauma",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "外傷情報はなく、まずは内因性重症病態を想定する。"
+            },
+            {
+              "option_id": "q1_1_o5",
+              "text": "病歴聴取は不要と判断し、搬送のみを考える",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "ignore_history_importance",
+              "next_scene_id": "scene2",
+              "status_effect": {
+                "add_flags": [
+                  "history_underestimated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "食後運動後という病歴はアナフィラキシー認識に極めて重要。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene2",
+      "phase": "初期評価",
+      "scene_goal": "ABCを優先して評価し、重症度を即座に判断する。",
+      "skippable": false,
+      "narrative": "現場到着。18歳女性がベンチにもたれるように座っている。呼びかけで開眼するが反応は鈍い。顔面と体幹に紅潮を認める。会話は単語レベルで、息苦しさを訴えている。",
+      "visible_data": {
+        "mental_status": "JCS20",
+        "respiratory_rate": "28/分・整",
+        "pulse": "135/分・整",
+        "blood_pressure": "80/60mmHg",
+        "spo2": "90%（室内気）",
+        "skin": "紅潮"
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q2_1",
+          "type": "single_choice",
+          "prompt": "この時点で最も強く疑う病態はどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q2_1_o1",
+              "text": "熱中症",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "misjudge_heatstroke",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_differential_heatstroke"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "運動中発症ではあるが、食後発症、紅潮、ショックからアナフィラキシーを優先する。"
+            },
+            {
+              "option_id": "q2_1_o2",
+              "text": "アナフィラキシー",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 0,
+              "action_tag": "recognize_anaphylaxis",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "anaphylaxis_recognized"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "食後運動後、皮膚症状、呼吸症状、循環不全がそろっており最も適切。"
+            },
+            {
+              "option_id": "q2_1_o3",
+              "text": "過換気症候群",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "misjudge_hyperventilation",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_differential_hyperventilation"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "shock_overlooked"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "低血圧、低酸素血症、皮膚症状を説明できず不適切。"
+            },
+            {
+              "option_id": "q2_1_o4",
+              "text": "低血糖",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "misjudge_hypoglycemia",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_differential_hypoglycemia"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "鑑別には挙がるが、現状ではアナフィラキシーの所見が優位。"
+            },
+            {
+              "option_id": "q2_1_o5",
+              "text": "単純失神",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "misjudge_syncope",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_differential_syncope"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "circulatory_collapse_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "頻脈、低酸素血症、皮膚症状から単純失神ではない。"
+            }
+          ]
+        },
+        {
+          "question_id": "q2_2",
+          "type": "single_choice",
+          "prompt": "酸素投与を開始した後に、行う処置として最も適切なのはどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q2_2_o1",
+              "text": "静脈路確保の指示要請をする",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 4,
+              "action_tag": "request_iv_access",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "iv_request_made"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショックを伴うアナフィラキシーでは酸素投与後、静脈路確保を速やかに進める。"
+            },
+            {
+              "option_id": "q2_2_o2",
+              "text": "喉頭鏡で異物の有無を確認する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "unnecessary_laryngoscopy",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "airway_misfocus"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "treatment_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "異物誤嚥を示す状況ではなく、侵襲的確認は優先されない。"
+            },
+            {
+              "option_id": "q2_2_o3",
+              "text": "声門上気道デバイスの指示要請をする",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "premature_sga_request",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "procedure_priority_error"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "現時点で自発呼吸はあり、まずは薬物治療と循環管理が優先。"
+            },
+            {
+              "option_id": "q2_2_o4",
+              "text": "バッグ・バルブ・マスク人工呼吸を行う",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "premature_bvm",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "自発呼吸は保たれており、ただちにBVMを行う状況ではない。"
+            },
+            {
+              "option_id": "q2_2_o5",
+              "text": "アドレナリン1mg静脈内投与の指示要請をする",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "wrong_epinephrine_route_dose",
+              "next_scene_id": "scene3",
+              "status_effect": {
+                "add_flags": [
+                  "unsafe_drug_concept"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "drug_administration_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "1mg静注はCPA対応の用量であり、本症例では不適切。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene3",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "アナフィラキシーを裏付ける病歴と進行する徴候を把握する。",
+      "skippable": false,
+      "narrative": "友人から『朝、パンを食べてから一緒に走っていた。少しして顔が赤くなって、苦しいと言って座り込んだ』と聴取できた。本人は『息がしづらい、気持ち悪い』と訴える。口唇に軽度腫脹を認める。",
+      "visible_data": {
+        "history": [
+          "朝食後にランニング",
+          "顔面紅潮が先行",
+          "呼吸苦あり",
+          "自己注射用アドレナリンなし"
+        ],
+        "additional_findings": [
+          "口唇軽度腫脹",
+          "悪心あり"
+        ],
+        "repeat_vitals": {
+          "JCS": "20",
+          "RR": "30/分",
+          "HR": "138/分",
+          "BP": "78/56mmHg",
+          "SpO2": "94%（酸素投与下）"
+        }
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q3_1",
+          "type": "multiple_choice",
+          "prompt": "アナフィラキシーを支持する情報として重要なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q3_1_o1",
+              "text": "食後に運動して発症したこと",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 0,
+              "action_tag": "identify_trigger_timing",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [
+                  "trigger_pattern_identified"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "食物摂取後の運動は食物依存性運動誘発アナフィラキシーを示唆する。"
+            },
+            {
+              "option_id": "q3_1_o2",
+              "text": "皮膚紅潮や口唇腫脹があること",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "identify_skin_mucosal_signs",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [
+                  "skin_mucosal_signs_identified"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "皮膚・粘膜症状はアナフィラキシー診断の重要所見。"
+            },
+            {
+              "option_id": "q3_1_o3",
+              "text": "運動中であったことだけで熱中症と確定できること",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "premature_heatstroke_fixation",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [
+                  "heatstroke_fixation"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "diagnostic_bias"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "運動中発症のみで熱中症と断定するのは不適切。"
+            },
+            {
+              "option_id": "q3_1_o4",
+              "text": "若年女性であること",
+              "is_correct": false,
+              "score_delta": -1,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "focus_on_nonessential_demographics",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "診断補助として弱く、優先すべき情報ではない。"
+            },
+            {
+              "option_id": "q3_1_o5",
+              "text": "失神歴が不明なこと",
+              "is_correct": false,
+              "score_delta": -1,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "focus_on_low_yield_history",
+              "next_scene_id": "scene4",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "重要度は低く、現在の病態把握には直結しない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene4",
+      "phase": "活動方針の再判断",
+      "scene_goal": "ショックを伴うアナフィラキシーとして搬送優先・薬剤治療優先の方針を決定する。",
+      "skippable": false,
+      "narrative": "酸素投与下でも血圧低下と頻脈が続いている。顔色は不良で、本人は『苦しい』と繰り返す。アナフィラキシーショックとして早急な対応が必要である。",
+      "visible_data": {
+        "current_status": [
+          "ショック持続",
+          "呼吸苦持続",
+          "皮膚・粘膜症状あり",
+          "原因として食後運動が疑わしい"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q4_1",
+          "type": "single_choice",
+          "prompt": "この時点で最も適切な活動方針はどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q4_1_o1",
+              "text": "現場で十分な観察を完了してから搬送を開始する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "delay_transport",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "transport_delayed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "circulatory_collapse_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショック状態であり、現場滞在を延ばすべきではない。"
+            },
+            {
+              "option_id": "q4_1_o2",
+              "text": "アナフィラキシーショックとして処置を進めつつ搬送を優先する",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 4,
+              "action_tag": "prioritize_treat_and_transport",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "transport_priority_selected"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "diagnostic_delay"
+                ]
+              },
+              "rationale": "ショックを伴うため処置と搬送を同時並行で進めるべき。"
+            },
+            {
+              "option_id": "q4_1_o3",
+              "text": "経過観察のため現場待機し、自然軽快を期待する",
+              "is_correct": false,
+              "score_delta": -8,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "observe_without_intervention",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "critical_delay"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "life_threatening_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "アナフィラキシーは急速に悪化しうるため不適切。"
+            },
+            {
+              "option_id": "q4_1_o4",
+              "text": "精神的要因を疑い安心させることを主とする",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "psychogenic_misinterpretation",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [
+                  "psychogenic_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "shock_overlooked"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "明らかなショック所見があり精神的要因主軸は誤り。"
+            },
+            {
+              "option_id": "q4_1_o5",
+              "text": "まず病院選定のみを行い、処置は搬送後に任せる",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "defer_prehospital_treatment",
+              "next_scene_id": "scene5",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "treatment_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "現場・搬送中に必要な初期治療を遅らせてはならない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene5",
+      "phase": "全身観察",
+      "scene_goal": "気道・呼吸・循環に関わる全身所見を再確認し、薬剤投与適応を強固にする。",
+      "skippable": false,
+      "narrative": "全身観察を進める。胸部聴診で軽度の喘鳴を認める。咽頭違和感を訴え、嗄声が出始めている。冷汗はなく、皮膚はびまん性に紅潮している。",
+      "visible_data": {
+        "airway": [
+          "嗄声あり",
+          "咽頭違和感あり",
+          "口唇腫脹あり"
+        ],
+        "breathing": [
+          "軽度喘鳴あり",
+          "呼吸数増加"
+        ],
+        "circulation": [
+          "血圧低下持続",
+          "頻脈持続"
+        ],
+        "skin": [
+          "全身紅潮"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q5_1",
+          "type": "multiple_choice",
+          "prompt": "この場面で重症化徴候として重要な所見を2つ選べ。",
+          "options": [
+            {
+              "option_id": "q5_1_o1",
+              "text": "嗄声",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "recognize_upper_airway_involvement",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [
+                  "upper_airway_involvement"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "airway_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "上気道浮腫進行の可能性を示す重要所見。"
+            },
+            {
+              "option_id": "q5_1_o2",
+              "text": "喘鳴",
+              "is_correct": true,
+              "score_delta": 5,
+              "ideal_score_delta": 5,
+              "life_delta": 1,
+              "action_tag": "recognize_lower_airway_involvement",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [
+                  "lower_airway_involvement"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "respiratory_failure_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "下気道収縮を示し、呼吸障害進行のサインとなる。"
+            },
+            {
+              "option_id": "q5_1_o3",
+              "text": "若年であること",
+              "is_correct": false,
+              "score_delta": -1,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "focus_on_age_only",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "重症度判断の直接所見ではない。"
+            },
+            {
+              "option_id": "q5_1_o4",
+              "text": "運動歴があること",
+              "is_correct": false,
+              "score_delta": -1,
+              "ideal_score_delta": 0,
+              "life_delta": 0,
+              "action_tag": "focus_on_background_only",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "誘因把握には重要だが、進行する重症化徴候そのものではない。"
+            },
+            {
+              "option_id": "q5_1_o5",
+              "text": "ベンチに座れていること",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "underestimate_severity_by_posture",
+              "next_scene_id": "scene6",
+              "status_effect": {
+                "add_flags": [
+                  "severity_underestimated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "clinical_underestimation"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "座位保持できてもショック・気道浮腫が進行している可能性がある。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene6",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "アナフィラキシーショックとして病院へファーストコールし、必要な特定行為を確実に進める。",
+      "skippable": false,
+      "narrative": "アナフィラキシーショックと判断し、搬送を開始する。病院へファーストコールを行い、処置内容と重症度を伝える必要がある。現時点で血圧低下と呼吸症状は持続している。",
+      "visible_data": {
+        "summary_for_call": [
+          "18歳女性",
+          "食後運動後に発症",
+          "意識JCS20",
+          "BP 78/56mmHg前後",
+          "SpO2低下あり、酸素投与中",
+          "紅潮、口唇腫脹、喘鳴、嗄声あり",
+          "アナフィラキシーショック疑い"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q6_1",
+          "type": "template_select",
+          "prompt": "ファーストコールとして最も適切な内容を選べ。",
+          "options": [
+            {
+              "option_id": "q6_1_o1",
+              "text": "18歳女性。食後運動後に発症。意識障害、低血圧、頻脈、低酸素血症、皮膚紅潮、口唇腫脹、喘鳴を認め、アナフィラキシーショックを疑う。酸素投与中で、静脈路確保とアドレナリン投与対応を進めつつ搬送中。",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 2,
+              "action_tag": "appropriate_first_call_anaphylaxis",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "first_call_completed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "重症度、疑い病態、現状、処置、搬送方針が簡潔に整理されている。"
+            },
+            {
+              "option_id": "q6_1_o2",
+              "text": "18歳女性。ランニング中に気分不良あり。詳細不明だが搬送します。",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "vague_first_call",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "poor_first_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_quality_low"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "病態・重症度・必要な受け入れ準備が伝わらない。"
+            },
+            {
+              "option_id": "q6_1_o3",
+              "text": "若年女性で過換気と思われます。経過観察目的で搬送します。",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "wrong_first_call_diagnosis",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "wrong_hospital_impression"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "receiving_preparation_mismatch"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "病態を誤認しており受け入れ準備に支障が出る。"
+            },
+            {
+              "option_id": "q6_1_o4",
+              "text": "アドレナリン1mg静注が必要なショックです。",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "unsafe_drug_message",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "unsafe_dose_impression"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "drug_administration_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "CPA対応用量を前提とした不適切な伝達。"
+            },
+            {
+              "option_id": "q6_1_o5",
+              "text": "症状は軽快しているので一般外来で対応可能と思われます。",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "undertriage_first_call",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "undertriage"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "inappropriate_destination_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショック持続中であり過小評価は危険。"
+            }
+          ]
+        },
+        {
+          "question_id": "q6_2",
+          "type": "multiple_choice",
+          "prompt": "この場面で優先して進めるべき特定行為・処置として適切なものを2つ選べ。",
+          "options": [
+            {
+              "option_id": "q6_2_o1",
+              "text": "アドレナリン筋肉内投与",
+              "is_correct": true,
+              "score_delta": 8,
+              "ideal_score_delta": 8,
+              "life_delta": 8,
+              "action_tag": "perform_im_adrenaline",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "im_adrenaline_administered"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "circulatory_collapse_risk"
+                ]
+              },
+              "rationale": "アナフィラキシーの第一選択であり、早期投与が重要。"
+            },
+            {
+              "option_id": "q6_2_o2",
+              "text": "静脈路確保",
+              "is_correct": true,
+              "score_delta": 8,
+              "ideal_score_delta": 8,
+              "life_delta": 5,
+              "action_tag": "perform_iv_access",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "iv_secured"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショック管理やその後の治療に重要。"
+            },
+            {
+              "option_id": "q6_2_o3",
+              "text": "アドレナリン1mg静脈内投与",
+              "is_correct": false,
+              "score_delta": -8,
+              "ideal_score_delta": 0,
+              "life_delta": -8,
+              "action_tag": "unsafe_iv_adrenaline_1mg",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "unsafe_drug_choice"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "drug_administration_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "本症例では不適切な投与経路・用量。"
+            },
+            {
+              "option_id": "q6_2_o4",
+              "text": "喉頭鏡で喉頭展開を試みる",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -4,
+              "action_tag": "invasive_airway_without_indication",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "procedure_priority_error"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "現時点ではまず薬物治療と適切な気道監視が優先。"
+            },
+            {
+              "option_id": "q6_2_o5",
+              "text": "アレルゲン検索を現場で詳細に続ける",
+              "is_correct": false,
+              "score_delta": -3,
+              "ideal_score_delta": 0,
+              "life_delta": -2,
+              "action_tag": "excessive_on_scene_history",
+              "next_scene_id": "scene7",
+              "status_effect": {
+                "add_flags": [
+                  "scene_time_prolonged"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "treatment_delay"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "原因検索よりも救命的処置の優先度が高い。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scene_id": "scene7",
+      "phase": "車内活動",
+      "scene_goal": "搬送中の反応、呼吸、循環の再評価を継続し、再増悪に備える。",
+      "skippable": false,
+      "narrative": "搬送開始後、アドレナリン筋肉内投与と静脈路確保を行った。数分後、意識はやや改善し、呼吸苦も少し軽減したが、なお再増悪の可能性がある。",
+      "visible_data": {
+        "post_treatment_vitals": {
+          "JCS": "10",
+          "RR": "24/分",
+          "HR": "118/分",
+          "BP": "92/64mmHg",
+          "SpO2": "97%（酸素投与下）"
+        },
+        "clinical_course": [
+          "会話が少し成立するようになった",
+          "紅潮は残存",
+          "再増悪に注意が必要"
+        ]
+      },
+      "media": [],
+      "questions": [
+        {
+          "question_id": "q7_1",
+          "type": "single_choice",
+          "prompt": "搬送中に最も重要な対応はどれか。1つ選べ。",
+          "options": [
+            {
+              "option_id": "q7_1_o1",
+              "text": "改善したため観察を終了し、記録作業を優先する",
+              "is_correct": false,
+              "score_delta": -5,
+              "ideal_score_delta": 0,
+              "life_delta": -5,
+              "action_tag": "stop_monitoring_too_early",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "monitoring_insufficient"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "rebound_risk_unchecked"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "アナフィラキシーは再増悪しうるため継続監視が必要。"
+            },
+            {
+              "option_id": "q7_1_o2",
+              "text": "気道、呼吸、循環を反復評価し、再増悪や再投与の必要性に備える",
+              "is_correct": true,
+              "score_delta": 10,
+              "ideal_score_delta": 10,
+              "life_delta": 4,
+              "action_tag": "continuous_reassessment",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "continuous_monitoring_done"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "airway_risk",
+                  "respiratory_failure_risk"
+                ]
+              },
+              "rationale": "改善後も再悪化に備えた反復評価が最重要。"
+            },
+            {
+              "option_id": "q7_1_o3",
+              "text": "運動誘発失神と考え、酸素投与を中止する",
+              "is_correct": false,
+              "score_delta": -6,
+              "ideal_score_delta": 0,
+              "life_delta": -6,
+              "action_tag": "stop_oxygen_inappropriately",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "oxygen_stopped_early"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "hypoxemia"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "病態の過小評価であり不適切。"
+            },
+            {
+              "option_id": "q7_1_o4",
+              "text": "病院到着まで病名を説明しないよう家族対応のみ行う",
+              "is_correct": false,
+              "score_delta": -2,
+              "ideal_score_delta": 0,
+              "life_delta": -1,
+              "action_tag": "communication_over_monitoring",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "重要なのは患者の再評価と安全管理。"
+            },
+            {
+              "option_id": "q7_1_o5",
+              "text": "血圧が上がったので重症ではないと判断する",
+              "is_correct": false,
+              "score_delta": -4,
+              "ideal_score_delta": 0,
+              "life_delta": -3,
+              "action_tag": "underestimate_after_partial_response",
+              "next_scene_id": null,
+              "status_effect": {
+                "add_flags": [
+                  "premature_reassurance"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "rebound_risk_unchecked"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "一時的改善のみで安心はできず、継続評価が必要。"
+            }
+          ]
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event7_1",
+          "trigger_flags": [
+            "monitoring_insufficient"
+          ],
+          "narrative": "搬送中、患者が再び『息がしづらい』と訴え、喘鳴が増強する。SpO2が92％まで低下し、脈拍は130/分に再上昇した。",
+          "visible_data_update": {
+            "RR": "30/分",
+            "HR": "130/分",
+            "SpO2": "92%（酸素投与下）",
+            "wheezing": "増強"
+          },
+          "effects": {
+            "life_delta": -8,
+            "add_flags": [
+              "rebound_anaphylaxis"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_failure_risk",
+              "circulatory_collapse_risk"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "食後運動後に皮膚症状、呼吸症状、低血圧を認める若年女性であり、アナフィラキシーショックを早期に認識することが重要な症例である。酸素投与、アドレナリン筋肉内投与、静脈路確保、搬送優先、反復評価が鍵となる。",
+    "ideal_actions": [
+      "食後運動後発症から食物依存性運動誘発アナフィラキシーを含めて考える",
+      "ABCを優先し高流量酸素を投与する",
+      "ショック所見を重くみて搬送優先とする",
+      "静脈路確保の指示要請・実施を行う",
+      "アドレナリン筋肉内投与を速やかに行う",
+      "嗄声、喘鳴、口唇腫脹など気道狭窄徴候を把握する",
+      "ファーストコールで病態、重症度、処置内容を明確に伝える",
+      "搬送中も再増悪に備えて反復評価する"
+    ],
+    "good_points": [
+      "アナフィラキシーを早期に疑えた",
+      "ショックとして重症度判断できた",
+      "静脈路確保を優先できた",
+      "ファーストコールで重症度を適切に共有できた",
+      "搬送中の再評価を継続できた"
+    ],
+    "common_pitfalls": [
+      "過換気症候群や熱中症と誤認する",
+      "CPA用量のアドレナリン静注を考えてしまう",
+      "現場で観察や原因検索を続けすぎて搬送が遅れる",
+      "一時的改善で安心して監視を弱める",
+      "気道浮腫の進行徴候を軽視する"
+    ],
+    "scoring_message": {
+      "excellent": "アナフィラキシーショックを正確に認識し、処置と搬送の優先順位づけが非常に適切だった。",
+      "good": "概ね適切に対応できている。次は気道狭窄徴候と再増悪への備えをさらに意識したい。",
+      "normal": "基本対応はできているが、診断の確信や処置優先順位にやや迷いがある。",
+      "bad": "重症アナフィラキシーの認識または優先処置に課題がある。ABCとショック対応を再確認したい。"
+    },
+    "excellent": {
+      "message": "救命的な判断が早く、現場から搬送中まで一貫して適切だった。かなり強い。",
+      "advice": [
+        "今後は再投与判断や二相性反応も意識するとさらに完成度が上がる。"
+      ]
+    },
+    "good": {
+      "message": "対応の軸は良い。あと一歩、気道・循環の悪化予測を前倒しで考えたい。",
+      "advice": [
+        "嗄声や喘鳴を見た時点で気道リスクをより強く意識する。"
+      ]
+    },
+    "normal": {
+      "message": "大きな流れは押さえられているが、アナフィラキシーの初動が少し遅い。",
+      "advice": [
+        "皮膚症状＋呼吸症状＋循環不全の組み合わせを見たら即アナフィラキシーを想起する。"
+      ]
+    },
+    "bad": {
+      "message": "病態認識の遅れが致命的になりうる症例だった。",
+      "advice": [
+        "若年者でもショックは起こる。食後運動後の急変、紅潮、低血圧は見逃さない。",
+        "アドレナリン静注1mgはCPA対応であり、この症例には不適切であることを整理する。"
+      ]
+    }
+  }
+}
