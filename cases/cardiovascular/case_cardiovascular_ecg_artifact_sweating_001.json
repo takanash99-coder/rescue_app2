@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "title": "胸痛と著明な発汗を伴う心電図アーチファクト疑い",
   "category": "cardiovascular",
-  "difficulty": "medium",
+  "difficulty": "Normal",
   "algorithm_type": "PEMEC",
   "estimated_time": "約12分",
   "keywords": [

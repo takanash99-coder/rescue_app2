@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "title": "構音障害とめまいを伴う心房細動合併脳卒中疑い",
   "category": "neuro",
-  "difficulty": "medium",
+  "difficulty": "Easy",
   "algorithm_type": "PEMEC",
   "estimated_time": "約12分",
   "keywords": [

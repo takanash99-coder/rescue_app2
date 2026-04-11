@@ -3,7 +3,7 @@
   "version": "2.0",
   "title": "夜間の呼吸困難を呈した気管支喘息増悪",
   "category": "respiratory",
-  "difficulty": "normal",
+  "difficulty": "Normal",
   "algorithm_type": "PEMEC",
   "estimated_time": 10,
   "keywords": [

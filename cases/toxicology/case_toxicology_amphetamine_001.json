@@ -3,7 +3,7 @@
   "version": "2.0",
   "title": "薬物乱用者の事情聴取中に反応低下を呈したアンフェタミン暴露疑い",
   "category": "toxicology",
-  "difficulty": "medium",
+  "difficulty": "Normal",
   "algorithm_type": "PEMEC",
   "estimated_time": 11,
   "keywords": [

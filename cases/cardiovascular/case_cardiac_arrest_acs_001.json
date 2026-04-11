@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "title": "胸痛後に心室細動となり心拍再開した心肺停止傷病者",
   "category": "cardiovascular",
-  "difficulty": "hard",
+  "difficulty": "Normal",
   "algorithm_type": "PEMEC",
   "estimated_time": "約15分",
   "keywords": [
