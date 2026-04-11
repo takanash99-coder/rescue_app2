@@ -1,0 +1,581 @@
+{
+  "case_id": "case_cardiovascular_myocarditis_bradyarrhythmia_position_001",
+  "version": "2.0.0",
+  "title": "高熱後に胸痛・呼吸困難と徐脈性不整脈を呈した心筋炎疑い症例",
+  "category": "cardiovascular",
+  "difficulty": "hard",
+  "algorithm_type": "PEMEC",
+  "estimated_time": "約15分",
+  "keywords": [
+    "myocarditis",
+    "bradyarrhythmia",
+    "acute_heart_failure",
+    "jugular_venous_distension",
+    "transport_position"
+  ],
+  "header": {
+    "overview": {
+      "学習目標": [
+        "高熱後の胸痛・呼吸困難から重症循環器疾患を疑える",
+        "若年でも心筋炎による急性心不全を想起できる",
+        "徐脈性不整脈と重篤な循環不全を見抜ける",
+        "搬送優先の判断を適切に行える",
+        "呼吸苦軽減を意識した搬送体位を選択できる",
+        "ファーストコールで重症度と想定病態を簡潔に伝えられる",
+        "搬送中のCPA移行リスクを継続監視できる"
+      ],
+      "対象": "EMT student",
+      "想定時間": "15分"
+    }
+  },
+  "patient_profile": {
+    "age": 22,
+    "sex": "male",
+    "setting": "自宅",
+    "chief_complaint": "高熱後の胸痛と呼吸困難",
+    "background": {
+      "past_history": [],
+      "medications": [],
+      "allergies": [],
+      "adl": "発症前は自立",
+      "social_background": {
+        "witness": "家族あり",
+        "activity_before_event": "自宅療養中に胸痛と呼吸困難が増悪し、起き上がれなくなった"
+      },
+      "notes": [
+        "10日前から40℃台の発熱、頭痛、下痢が持続",
+        "徐々に倦怠感が増悪",
+        "胸部症状出現後は仰臥位のまま動けない"
+      ]
+    }
+  },
+  "state_flags": [
+    "fever_history",
+    "chest_pain",
+    "dyspnea",
+    "possible_myocarditis"
+  ],
+  "ideal_flow": [
+    "プレアライバルで重症循環器疾患を想定して準備する",
+    "初期評価で呼吸循環不全を伴う重症例と判断する",
+    "感染後経過、胸痛、呼吸困難、徐脈、不整、低血圧、頸静脈怒張から心筋炎を疑う",
+    "活動方針を搬送優先に再判断する",
+    "全身観察で心不全・循環不全所見を整理する",
+    "心電図異常を踏まえて心筋炎による急性心不全を評価し、搬送中体位として起座位を選ぶ",
+    "搬送中は呼吸苦と循環動態悪化、CPA移行に備えて継続監視する"
+  ],
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "min_score": 0,
+      "max_score": 54
+    },
+    {
+      "rank": "Normal",
+      "min_score": 55,
+      "max_score": 74
+    },
+    {
+      "rank": "Good",
+      "min_score": 75,
+      "max_score": 89
+    },
+    {
+      "rank": "Excellent",
+      "min_score": 90,
+      "max_score": 100
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "場面 1",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "高熱後の胸痛・呼吸困難から重症循環器疾患を想定して出場準備する",
+      "ideal_flow": [
+        "重症循環器疾患を疑う",
+        "致死性不整脈やCPA移行に備える",
+        "モニターとパッド準備を意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "prepare_for_critical_cardiac_case",
+      "text": "『息子が高熱を出していたが、今日は胸が痛くて息が苦しいと言って起き上がれない』と家族から119番通報。10日前から40℃台の発熱、頭痛、下痢が続いていたという。",
+      "visible_data": {
+        "dispatch_info": [
+          "22歳男性",
+          "10日前から40℃台の発熱",
+          "頭痛・下痢あり",
+          "胸痛と呼吸困難が出現",
+          "動けない"
+        ],
+        "environment": [
+          "自宅",
+          "家族同席"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前に特に意識しておくべき点を2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "重症循環器疾患の可能性を考える",
+          "ideal": true,
+          "score_delta": 5,
+          "action_tag": "anticipate_serious_cardiac_disease",
+          "feedback": "若年者でも高熱後に胸痛・呼吸困難を呈する場合は、心筋炎など重症心疾患を疑う必要がある。"
+        },
+        {
+          "id": "B",
+          "label": "モニター・除細動パッド装着を念頭に準備する",
+          "ideal": true,
+          "score_delta": 5,
+          "action_tag": "prepare_monitor_and_pads",
+          "feedback": "徐脈性不整脈やCPA移行の可能性があるため、モニターとパッド準備が重要である。"
+        },
+        {
+          "id": "C",
+          "label": "消化器感染症として下痢の性状聴取を最優先にする",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "focus_on_gastroenteritis",
+          "feedback": "下痢はあるが、現時点では胸痛・呼吸困難・動けないという重症循環器病態が優先される。"
+        },
+        {
+          "id": "D",
+          "label": "単純脱水と考えて輸液器材のみを優先準備する",
+          "ideal": false,
+          "score_delta": -1,
+          "action_tag": "simple_dehydration_bias",
+          "feedback": "ショックの原因を単純脱水と決めつけるのは危険である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "場面 2",
+      "phase": "初期評価",
+      "scene_goal": "意識障害、頻呼吸、胸痛を伴う重症例としてABCを迅速に評価する",
+      "ideal_flow": [
+        "重症感を把握する",
+        "呼吸循環不全として全体像を捉える"
+      ],
+      "ideal_score_delta": 8,
+      "action_tag": "recognize_critical_abc_status",
+      "text": "傷病者は自宅で仰臥位。顔色不良で、会話は成立しにくい。呼吸は速く、息苦しさを訴える様子があるが、自力で起き上がれない。",
+      "visible_data": {
+        "general_impression": [
+          "顔色不良",
+          "仰臥位から動けない",
+          "反応鈍い",
+          "重症感あり"
+        ],
+        "airway_breathing_circulation": [
+          "気道は開通",
+          "呼吸は速い",
+          "循環不安定が疑われる"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で最も優先して捉えるべき状態はどれか。",
+      "options": [
+        {
+          "id": "A",
+          "label": "重症の呼吸循環不全",
+          "ideal": true,
+          "score_delta": 8,
+          "action_tag": "recognize_respiratory_circulatory_failure",
+          "feedback": "意識障害、頻呼吸、胸痛、動けない状態から重症の呼吸循環不全として把握することが重要である。"
+        },
+        {
+          "id": "B",
+          "label": "発熱持続による単純な感冒",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "underestimate_as_cold",
+          "feedback": "現状は明らかな重症例であり、感冒レベルではない。"
+        },
+        {
+          "id": "C",
+          "label": "下痢による軽度脱水",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "mild_dehydration_bias",
+          "feedback": "胸痛、呼吸困難、意識障害、循環不安定を軽度脱水だけでは説明しにくい。"
+        },
+        {
+          "id": "D",
+          "label": "過換気症候群",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "psychogenic_hyperventilation_bias",
+          "feedback": "胸痛、低血圧、徐脈、不整、頸静脈怒張を説明できず不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "場面 3",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "感染後経過と重篤な徐脈性循環不全所見から心原性病態を疑う",
+      "ideal_flow": [
+        "ショック状態を認識する",
+        "徐脈性不整脈を認識する",
+        "単純感染症として片づけない"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "identify_bradycardic_shock_pattern",
+      "text": "観察では意識JCS10。呼吸数36/分、脈拍48/分で不整、収縮期血圧56mmHg（触診）、SpO2 95％。外頸静脈は張っている。前胸部痛と呼吸困難は持続している。",
+      "visible_data": {
+        "vital_signs": {
+          "JCS": "10",
+          "respiratory_rate": "36/分",
+          "pulse": "48/分・不整",
+          "systolic_bp": "56mmHg（触診）",
+          "SpO2": "95%"
+        },
+        "additional_info": [
+          "前胸部痛あり",
+          "呼吸困難あり",
+          "外頸静脈怒張あり",
+          "10日前から高熱・頭痛・下痢"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この時点で強く示唆される所見を2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "重篤な循環不全",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "identify_severe_circulatory_failure",
+          "feedback": "収縮期血圧56mmHg、意識障害は重篤な循環不全を示す。"
+        },
+        {
+          "id": "B",
+          "label": "徐脈性不整脈",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "identify_bradyarrhythmia",
+          "feedback": "脈拍48/分で不整は、循環不全に関与する徐脈性不整脈を疑う所見である。"
+        },
+        {
+          "id": "C",
+          "label": "単純な発熱性頻脈",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "mistake_as_febrile_tachycardia",
+          "feedback": "実際は徐脈であり、頻脈として扱うのは誤りである。"
+        },
+        {
+          "id": "D",
+          "label": "単純な呼吸器感染症",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "mistake_as_simple_respiratory_infection",
+          "feedback": "胸痛、頸静脈怒張、徐脈、不整、循環不全があり、単純感染症では説明不十分である。"
+        },
+        {
+          "id": "E",
+          "label": "安定した経過観察可能例",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "assume_stable_case",
+          "feedback": "明らかな重症例であり、安定例ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "場面 4",
+      "phase": "活動方針の再判断",
+      "scene_goal": "重症心原性病態として搬送優先を判断する",
+      "ideal_flow": [
+        "重症心疾患を想定する",
+        "現場滞在を長引かせない",
+        "搬送優先を明確にする"
+      ],
+      "ideal_score_delta": 8,
+      "action_tag": "decide_transport_priority",
+      "text": "胸痛と呼吸困難は持続し、循環動態も不安定である。若年者だが、心筋炎などの重症心疾患が強く疑われる。現場での長時間滞在は危険である。",
+      "visible_data": {
+        "clinical_summary": [
+          "重症循環不全",
+          "徐脈性不整脈",
+          "胸痛",
+          "呼吸困難",
+          "頸静脈怒張"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "A",
+          "label": "搬送優先として対応を進める",
+          "ideal": true,
+          "score_delta": 8,
+          "action_tag": "decide_transport_priority",
+          "feedback": "心筋炎などの重症心疾患が疑われ、迅速搬送が必要である。"
+        },
+        {
+          "id": "B",
+          "label": "現場で十分に様子をみてから搬送する",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "delay_transport",
+          "feedback": "循環不安定があり、現場滞在の長期化は危険である。"
+        },
+        {
+          "id": "C",
+          "label": "感染症疑いとして発熱対応を優先する",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "focus_on_fever_only",
+          "feedback": "現在の優先は感染対策より呼吸循環不全への対応である。"
+        },
+        {
+          "id": "D",
+          "label": "経過観察目的で安静保持のみとする",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "observe_only",
+          "feedback": "この症例は経過観察レベルではなく、緊急搬送が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "場面 5",
+      "phase": "全身観察",
+      "scene_goal": "心不全・循環不全を支持する所見を整理し、酸素投与の反応を評価する",
+      "ideal_flow": [
+        "頸静脈怒張を重視する",
+        "酸素投与後も呼吸困難が持続している点を重視する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "recognize_heart_failure_signs",
+      "text": "除細動パッドを装着し、酸素投与を開始した。SpO2は99％に上昇したが、息苦しさは持続し、意識も改善しない。外頸静脈怒張が目立つ。",
+      "visible_data": {
+        "head_to_toe": [
+          "外頸静脈怒張あり",
+          "呼吸困難持続",
+          "意識障害持続",
+          "酸素投与後SpO2 99％"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この症例で心原性病態を支持する所見を2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "外頸静脈怒張",
+          "ideal": true,
+          "score_delta": 5,
+          "action_tag": "identify_jvd",
+          "feedback": "うっ血性所見として重要であり、心機能低下を示唆する。"
+        },
+        {
+          "id": "B",
+          "label": "酸素投与後も持続する呼吸困難",
+          "ideal": true,
+          "score_delta": 5,
+          "action_tag": "identify_persistent_dyspnea",
+          "feedback": "酸素化が改善しても呼吸苦が続くことは、心不全などの病態評価に重要である。"
+        },
+        {
+          "id": "C",
+          "label": "若年であること",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "age_reassurance_bias",
+          "feedback": "若年でも重症心疾患は起こりうる。"
+        },
+        {
+          "id": "D",
+          "label": "SpO2が99％まで上がったことだけ",
+          "ideal": false,
+          "score_delta": -1,
+          "action_tag": "overfocus_on_spo2",
+          "feedback": "酸素化改善だけでは、循環器病態の重症度評価として不十分である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "場面 6",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "心電図異常と心不全所見を踏まえ、搬送中体位として起座位を選択して医療機関へ連絡する",
+      "ideal_flow": [
+        "心筋炎に伴う急性心不全を疑う",
+        "搬送体位として起座位を選ぶ",
+        "重症度と想定病態を要点化して連絡する"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": "position_and_first_call",
+      "text": "感染後の経過、胸痛、呼吸困難、徐脈性不整脈、低血圧、外頸静脈怒張から、心筋炎に伴う急性心不全・刺激伝導障害が疑われる。除細動パッド装着、酸素投与後も呼吸苦が持続しており、搬送中体位の判断が重要である。",
+      "visible_data": {
+        "assessment": [
+          "心筋炎疑い",
+          "徐脈性不整脈",
+          "急性心不全疑い",
+          "循環不安定",
+          "CPA移行リスクあり"
+        ],
+        "first_call_key_points": [
+          "22歳男性",
+          "高熱後の胸痛・呼吸困難",
+          "JCS10、脈拍48/分不整、収縮期血圧56mmHg",
+          "頸静脈怒張あり",
+          "心筋炎に伴う急性心不全疑い"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene6_ecg",
+          "type": "image",
+          "path": "media/ecg_myocarditis_bradyarrhythmia_001.png",
+          "label": "心電図モニター波形",
+          "description": "徐脈性不整脈を示唆する再構成モニター画像。背景や構図は変更し、刺激伝導障害を疑う要点のみが分かるよう簡略化している。",
+          "source_note": "既存図版を直接使用せず、所見の本質のみを残して構図・背景を変更したオリジナル再構成画像。"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "搬送中の適切な体位はどれか。1つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "仰臥位",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "select_supine_position",
+          "feedback": "この症例では呼吸困難と心不全所見が前面にあり、搬送中は呼吸苦軽減を優先する。"
+        },
+        {
+          "id": "B",
+          "label": "起座位",
+          "ideal": true,
+          "score_delta": 10,
+          "action_tag": "select_sitting_position",
+          "feedback": "急性心不全を疑う呼吸困難例では、搬送中は起座位が呼吸苦軽減に有効である。"
+        },
+        {
+          "id": "C",
+          "label": "回復体位",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "select_recovery_position",
+          "feedback": "この症例で優先される体位ではなく、呼吸循環管理もしにくい。"
+        },
+        {
+          "id": "D",
+          "label": "足側高位",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "select_trendelenburg_like_position",
+          "feedback": "心不全を疑う呼吸困難例では呼吸を悪化させうる。"
+        },
+        {
+          "id": "E",
+          "label": "ファウラー位",
+          "ideal": false,
+          "score_delta": -1,
+          "action_tag": "select_fowler_position",
+          "feedback": "上半身挙上の考え方は近いが、この設問では最も適切なのは起座位である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "場面 7",
+      "phase": "車内活動",
+      "scene_goal": "起座位で呼吸苦軽減を図りつつ、不整脈と循環動態悪化を監視する",
+      "ideal_flow": [
+        "起座位で呼吸苦軽減を図る",
+        "徐脈性不整脈と循環動態を継続監視する",
+        "CPA移行を常に警戒する",
+        "必要時は追加連絡を行う"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": "transport_monitoring_for_impending_arrest",
+      "text": "車内収容後も呼吸困難は持続し、徐脈性不整脈も続いている。意識は改善せず、胸部症状も残る。起座位で呼吸苦軽減を図りながら、CPA移行を常に警戒する必要がある。",
+      "visible_data": {
+        "transport_status": [
+          "呼吸困難持続",
+          "徐脈性不整脈持続",
+          "意識改善なし",
+          "胸部症状残存"
+        ]
+      },
+      "dynamic_events": [
+        {
+          "trigger": "scene_start",
+          "description": "監視が不十分な場合、搬送中に反応がさらに低下し、脈拍は触れにくくなる。呼吸状態も悪化し、CPA移行が切迫する。",
+          "visible_data_update": {
+            "consciousness": "反応さらに低下",
+            "pulse": "さらに微弱",
+            "breathing": "呼吸状態悪化"
+          }
+        }
+      ],
+      "media": [],
+      "type": "template_select",
+      "prompt": "搬送中の重点管理として最も適切な内容を選べ。",
+      "templates": [
+        {
+          "id": "A",
+          "label": "起座位を保ち、呼吸状態・意識・脈拍とモニター波形を継続監視する。徐脈性不整脈の悪化やCPA移行に備え、必要時は追加連絡する。",
+          "ideal": true,
+          "score_delta": 10,
+          "action_tag": "continuous_transport_monitoring",
+          "feedback": "呼吸苦軽減とCPA移行警戒を両立した適切な車内活動である。"
+        },
+        {
+          "id": "B",
+          "label": "SpO2が保たれているため、搬送中の監視は最小限でよい。",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "minimize_monitoring_due_to_spo2",
+          "feedback": "酸素化が保たれていても、循環動態と不整脈の悪化は十分ありうる。"
+        },
+        {
+          "id": "C",
+          "label": "若年であるためCPA移行の危険は低く、症状観察のみでよい。",
+          "ideal": false,
+          "score_delta": -5,
+          "action_tag": "age_based_undertriage",
+          "feedback": "若年でも心筋炎による急変はあり、油断は危険である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "高熱後に胸痛、呼吸困難、徐脈、不整、低血圧、頸静脈怒張を呈する若年者では、心筋炎に伴う急性心不全や刺激伝導障害を強く疑う。若いから大丈夫という先入観は危険であり、重症循環器疾患として搬送優先で対応する。搬送中は呼吸苦軽減のため起座位を選び、徐脈性不整脈の悪化やCPA移行を継続監視することが重要である。",
+    "ideal_actions": [
+      "高熱後の胸痛・呼吸困難から心筋炎を疑う",
+      "重篤な循環不全と徐脈性不整脈を認識する",
+      "搬送優先を判断する",
+      "頸静脈怒張と持続する呼吸困難を重視する",
+      "搬送中体位として起座位を選ぶ",
+      "ファーストコールで重症度と想定病態を簡潔に伝える",
+      "搬送中はCPA移行を警戒して継続監視する"
+    ],
+    "good_points": [
+      "若年でも重症循環器疾患を疑えた",
+      "徐脈性ショックを見抜けた",
+      "起座位を選択できた",
+      "搬送中の急変リスクを意識できた"
+    ],
+    "cautions": [
+      "若年だから軽症と決めつけない",
+      "発熱や下痢に引っ張られて感染症だけに固定しない",
+      "SpO2の改善だけで安心しない",
+      "搬送中もCPA移行を常に警戒する"
+    ]
+  }
+}

@@ -1,0 +1,903 @@
+{
+  "case_id": "trauma_necrotizing_soft_tissue_infection_septic_shock_001",
+  "version": "2.0",
+  "title": "右下肢壊死性軟部組織感染症から敗血症性ショックを呈した症例",
+  "category": "special_population",
+  "difficulty": "hard",
+  "algorithm_type": "PEMEC",
+  "estimated_time": 11,
+  "keywords": [
+    "壊死性筋膜炎",
+    "壊死性軟部組織感染症",
+    "敗血症性ショック",
+    "右下肢腫脹",
+    "重症感染症"
+  ],
+  "overview": "69歳女性。自室で倒れているところを家族が発見し救急要請となった。現場では高度意識障害、頻呼吸、頻脈性不整脈、低血圧、発熱、低酸素血症を認める。数日前から右大腿の痛みと腫脹があり、右下肢には広範な皮膚壊死、水疱、びらん、暗赤色〜紫色変化を認める。重症軟部組織感染症を背景とした敗血症性ショックを見抜けるかがテーマの症例。",
+  "patient_profile": {
+    "age": 69,
+    "sex": "female",
+    "chief_complaint": "意識障害",
+    "background": [
+      "数日前から右大腿痛",
+      "数日前から右大腿腫脹"
+    ],
+    "setting": "自宅"
+  },
+  "initial_state": {
+    "life": 72,
+    "max_life": 100,
+    "score": 0,
+    "flags": [
+      "altered_consciousness",
+      "tachypnea",
+      "tachyarrhythmia",
+      "hypotension",
+      "fever",
+      "right_leg_severe_infection"
+    ],
+    "danger_tags": [
+      "septic_shock",
+      "necrotizing_soft_tissue_infection",
+      "circulatory_collapse",
+      "impending_cardiac_arrest"
+    ],
+    "time_pressure": 9
+  },
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "score_max": 49,
+      "life_min": 0,
+      "life_max": 49,
+      "summary": "局所病変と全身ショックを結びつけられず、重症感染症の見立てが遅れている。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 50,
+      "score_max": 74,
+      "life_min": 50,
+      "life_max": 69,
+      "summary": "ショックは認識できているが、感染源としての右下肢病変の重みづけがやや弱い。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 75,
+      "score_max": 89,
+      "life_min": 70,
+      "life_max": 84,
+      "summary": "壊死性軟部組織感染症を疑い、敗血症性ショックとして搬送優先で適切に対応できている。"
+    },
+    {
+      "rank": "Excellent",
+      "score_min": 90,
+      "score_max": 100,
+      "life_min": 85,
+      "life_max": 100,
+      "summary": "右下肢感染所見と全身性ショックを的確に統合し、敗血症性ショックとして一貫した判断ができている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容の整理",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "高齢者の意識障害として重症ショックを想定して出場準備する。",
+      "ideal_flow": [
+        "意識障害の高齢者として重症例を想定する",
+        "ショックの可能性を考える",
+        "感染症も視野に入れる",
+        "局所症状を無視しない"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_assessment",
+        "shock_recognition",
+        "infection_consideration"
+      ],
+      "text": "家族から『母が自室で倒れていて反応が悪い』と119番通報があった。数日前から右大腿の痛みと腫れを訴えていたという。",
+      "visible_data": {
+        "dispatch_information": [
+          "69歳女性",
+          "自室で倒れている",
+          "反応が悪い",
+          "数日前から右大腿痛",
+          "数日前から右大腿腫脹"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前に特に意識しておくべき点を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q1_o1",
+          "text": "ショックを伴う重症例の可能性を考える",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shock_considered"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害で倒れている高齢者は、まず重症ショックを想定して備える必要がある。"
+        },
+        {
+          "option_id": "q1_o2",
+          "text": "感染症や軟部組織病変の可能性も視野に入れる",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "infection_considered"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "数日前からの大腿痛・腫脹は感染症や壊死性病変の重要な手掛かりになる。"
+        },
+        {
+          "option_id": "q1_o3",
+          "text": "右下肢症状は関係ないと判断し、意識障害だけを考える",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "missed_infection_clue"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "source_control_delay"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "病歴の局所症状は全身状態悪化の原因推定に重要。"
+        },
+        {
+          "option_id": "q1_o4",
+          "text": "軽い熱中症の可能性を第一に考える",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "premature_closure"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "misjudgment"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現時点で熱中症を示す情報は乏しく、局所感染徴候の方が重要。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "初期評価",
+      "scene_goal": "高度意識障害と循環不全を伴うショックとして把握する。",
+      "ideal_flow": [
+        "重症感を把握する",
+        "意識障害を確認する",
+        "ショックバイタルを確認する",
+        "重症ショックとして扱う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "abc",
+        "initial_assessment",
+        "severe_shock"
+      ],
+      "text": "傷病者は自室床上に臥位。反応は乏しく、JCS100。呼吸数32/分、脈拍140/分不整、血圧80/30mmHg、体温38.5℃、SpO2 90％。",
+      "visible_data": {
+        "vital_signs": {
+          "JCS": "100",
+          "RR": 32,
+          "HR": "140/分・不整",
+          "BP": "80/30",
+          "BT": "38.5",
+          "SpO2": 90
+        },
+        "general_impression": [
+          "重症感あり",
+          "反応乏しい",
+          "頻呼吸",
+          "ショックバイタル"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も優先して捉えるべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q2_o1",
+          "text": "呼吸循環不全を伴う重症ショック",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "severe_shock_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "高度意識障害、低血圧、頻呼吸、頻脈、低酸素血症から重症ショックとして把握すべき。"
+        },
+        {
+          "option_id": "q2_o2",
+          "text": "単なる脱水",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_sepsis"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "ここまでのバイタル異常は単純脱水では説明しにくい。"
+        },
+        {
+          "option_id": "q2_o3",
+          "text": "軽症の発熱性疾患",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "premature_closure"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "shock_overlooked"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "明らかなショック状態であり軽症ではない。"
+        },
+        {
+          "option_id": "q2_o4",
+          "text": "整形外科的疾患のみ",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "missed_systemic_deterioration"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_shock"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "局所症状だけでなく、全身性ショックの把握が必須。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "局所所見の整理",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "右下肢病変と数日前からの疼痛腫脹を全身状態悪化の原因として結びつける。",
+      "ideal_flow": [
+        "右大腿痛・腫脹の経過を重視する",
+        "右下肢の皮膚色調変化を確認する",
+        "水疱・びらんを確認する",
+        "重篤な感染病変として捉える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "history_taking",
+        "local_exam",
+        "necrotizing_infection"
+      ],
+      "text": "家族によると、数日前から右大腿の痛みと腫脹を訴えていたという。右下肢には広範な暗赤色〜紫色変化、水疱、びらん、壊死を疑う皮膚所見がみられる。",
+      "visible_data": {
+        "history": [
+          "数日前から右大腿痛",
+          "数日前から右大腿腫脹"
+        ],
+        "local_findings": [
+          "右下肢に広範な暗赤色〜紫色変化",
+          "水疱形成",
+          "皮膚びらん",
+          "壊死を疑う所見"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene3_leg",
+          "type": "image",
+          "path": "media/leg_necrotizing_soft_tissue_infection_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像として扱う。右下肢の腫脹、色調変化、水疱・びらんが分かればよい。",
+          "caption": "右下肢の皮膚所見"
+        }
+      ],
+      "type": "multiple_choice",
+      "prompt": "この時点で特に重視すべき情報を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q3_o1",
+          "text": "数日前からの右大腿痛・腫脹",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "local_history_emphasized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "進行性の疼痛・腫脹は重症軟部組織感染症を疑う重要な経過。"
+        },
+        {
+          "option_id": "q3_o2",
+          "text": "壊死や水疱を伴う重篤な右下肢病変",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "necrotizing_infection_signs_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "皮膚壊死、水疱、変色は壊死性軟部組織感染症を示唆する。"
+        },
+        {
+          "option_id": "q3_o3",
+          "text": "不整脈だけを原因と考える",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "missed_infectious_source"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "misdiagnosis"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "不整脈は結果として起こりうるが、原因病態としては感染性ショックを考えるべき。"
+        },
+        {
+          "option_id": "q3_o4",
+          "text": "右下肢所見は古い外傷痕とみなす",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "critical_clue_ignored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "source_control_delay"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "この局所所見を見落とすと病態把握を大きく外す。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "感染源を伴う敗血症性ショックとして搬送優先を判断する。",
+      "ideal_flow": [
+        "感染源を伴うショックとして捉える",
+        "現場滞在の長期化を避ける",
+        "局所処置に偏りすぎない",
+        "搬送優先とする"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "transport_priority",
+        "septic_shock",
+        "critical_illness"
+      ],
+      "text": "高度意識障害、頻呼吸、低血圧、発熱に加え、右下肢に壊死性軟部組織感染症を疑う所見がある。循環動態は不安定で、現場滞在の長期化は危険である。",
+      "visible_data": {
+        "clinical_summary": [
+          "JCS100",
+          "RR32/分",
+          "HR140/分・不整",
+          "BP80/30mmHg",
+          "BT38.5℃",
+          "重篤な右下肢感染病変"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q4_o1",
+          "text": "重症感染症によるショックを疑い、搬送優先とする",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "transport_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "この症例は感染源を伴う重症ショックであり、迅速搬送が必要。"
+        },
+        {
+          "option_id": "q4_o2",
+          "text": "局所処置を十分行ってから搬送する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "scene_delay"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "circulatory_collapse_progression"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現場で時間をかけるより、速やかな搬送が優先される。"
+        },
+        {
+          "option_id": "q4_o3",
+          "text": "不整脈対応のみを優先する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "narrow_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_septic_source"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "不整脈は全身状態悪化の一部であり、原因病態は感染性ショックの可能性が高い。"
+        },
+        {
+          "option_id": "q4_o4",
+          "text": "神経原性ショックを第一に考える",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "wrong_shock_category"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "diagnostic_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高熱と感染源所見があり、神経原性ショックは考えにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "全身観察",
+      "phase": "全身観察",
+      "scene_goal": "局所病変と全身性炎症反応のつながりを整理する。",
+      "ideal_flow": [
+        "右下肢の広範な色調変化を確認する",
+        "水疱・びらんを確認する",
+        "全身の発熱とショックを整理する",
+        "感染源＋全身悪化の構図をつかむ"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "secondary_survey",
+        "infectious_source",
+        "systemic_response"
+      ],
+      "text": "右下肢には広範な暗赤色〜紫色変化と腫脹、水疱、びらん、壊死を疑う部位がみられる。重篤な軟部組織感染症を疑う所見である。全身では発熱、頻呼吸、低血圧、意識障害が持続している。",
+      "visible_data": {
+        "secondary_survey": [
+          "右下肢の広範な皮膚変色",
+          "水疱形成",
+          "びらん",
+          "壊死疑い",
+          "発熱持続",
+          "ショックバイタル持続"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene5_leg",
+          "type": "image",
+          "path": "media/leg_necrotizing_soft_tissue_infection_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像として扱う。腫脹と色調の濃淡、びらん・水疱が分かればよい。",
+          "caption": "右下肢の重篤な感染所見"
+        }
+      ],
+      "type": "multiple_choice",
+      "prompt": "この症例で敗血症性ショックを支持する所見を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q5_o1",
+          "text": "発熱とショックバイタルの併存",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "systemic_infection_pattern_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "発熱に加え低血圧、頻呼吸、意識障害があり、敗血症性ショックを強く疑う。"
+        },
+        {
+          "option_id": "q5_o2",
+          "text": "壊死性軟部組織感染症を疑う右下肢所見",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "infectious_source_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "明らかな感染源候補があることが病態把握の決め手になる。"
+        },
+        {
+          "option_id": "q5_o3",
+          "text": "血圧低下だけ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "incomplete_reasoning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "血圧低下単独ではショック分類に十分ではない。"
+        },
+        {
+          "option_id": "q5_o4",
+          "text": "不整脈があることだけ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "incomplete_reasoning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "不整脈だけではショックの本態を説明しきれない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病態の判断",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "右下肢感染を感染源とした敗血症性ショックを選択して申し送る。",
+      "ideal_flow": [
+        "感染源を右下肢と捉える",
+        "全身炎症反応とショックを統合する",
+        "敗血症性ショックを選ぶ",
+        "病院へ重症感染症として申し送る"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": [
+        "shock_category",
+        "first_call",
+        "sepsis"
+      ],
+      "text": "69歳女性。高度意識障害、頻呼吸、頻脈性不整脈、低血圧、発熱があり、右下肢には壊死性軟部組織感染症を疑う重篤な皮膚所見を認める。全身状態は感染に伴うショックとして説明しやすい。",
+      "visible_data": {
+        "first_call_points": [
+          "69歳女性",
+          "JCS100、RR32/分、HR140/分不整、BP80/30mmHg、BT38.5℃、SpO2 90％",
+          "数日前から右大腿痛・腫脹",
+          "右下肢に広範な壊死性軟部組織感染症疑い",
+          "重症感染症に伴うショック疑い"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene6_leg",
+          "type": "image",
+          "path": "media/leg_necrotizing_soft_tissue_infection_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像として扱う。現場観察での右下肢の重篤な感染所見が分かればよい。",
+          "caption": "右下肢の写真"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "この傷病者の病態として最も考えられるのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q6_o1",
+          "text": "心原性ショック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shock_category_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_sepsis"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "不整脈はあるが、発熱と重篤な感染源所見があり第一には考えにくい。"
+        },
+        {
+          "option_id": "q6_o2",
+          "text": "敗血症性ショック",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "septic_shock_identified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_sepsis"
+            ]
+          },
+          "rationale": "高熱、意識障害、低血圧、頻呼吸に加え、壊死性軟部組織感染症を疑う右下肢所見があり、敗血症性ショックが最も考えやすい。"
+        },
+        {
+          "option_id": "q6_o3",
+          "text": "神経原性ショック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shock_category_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "diagnostic_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "神経損傷を示す情報がなく、感染所見と発熱が前面にある。"
+        },
+        {
+          "option_id": "q6_o4",
+          "text": "心外閉塞・拘束性ショック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shock_category_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "diagnostic_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "この症例では感染源と全身炎症所見の方が整合的。"
+        },
+        {
+          "option_id": "q6_o5",
+          "text": "アナフィラキシーショック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shock_category_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "diagnostic_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "皮疹や急性アレルギー反応の情報はなく、局所感染病変が明らか。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "車内活動",
+      "phase": "車内活動",
+      "scene_goal": "敗血症性ショックとして循環動態悪化を監視しながら搬送する。",
+      "ideal_flow": [
+        "意識レベルを継続監視する",
+        "血圧・脈拍・呼吸を継続監視する",
+        "循環虚脱進行を警戒する",
+        "CPA移行を警戒する"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": [
+        "transport_monitoring",
+        "hemodynamics",
+        "septic_shock_progression"
+      ],
+      "text": "搬送中も意識障害とショックバイタルは持続している。右下肢感染病変を感染源とする敗血症性ショックとして、循環虚脱やCPA移行を警戒する必要がある。",
+      "visible_data": {
+        "transport_monitoring": [
+          "意識レベルの変化",
+          "血圧の推移",
+          "脈拍と不整の変化",
+          "呼吸状態の変化",
+          "右下肢病変の進行所見"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "搬送中に特に継続すべき観察を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q7_o1",
+          "text": "意識レベルの変化",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "ショック進行評価として重要。"
+        },
+        {
+          "option_id": "q7_o2",
+          "text": "血圧・脈拍・呼吸など循環呼吸動態",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hemodynamics_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "敗血症性ショックでは循環動態悪化を継続監視する必要がある。"
+        },
+        {
+          "option_id": "q7_o3",
+          "text": "写真の色調だけを繰り返し確認する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "局所所見も大切だが、全身管理が優先。"
+        },
+        {
+          "option_id": "q7_o4",
+          "text": "右下肢の写真撮影だけを優先する",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "scene_documentation_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_deterioration"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "記録よりも循環呼吸の継続監視が優先される。"
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event_1",
+          "trigger_flags": [
+            "missed_sepsis",
+            "scene_delay",
+            "shock_category_error"
+          ],
+          "narrative": "搬送中、反応はさらに低下し、橈骨動脈の触知はより微弱となった。感染性ショックの進行が疑われる。",
+          "visible_data_update": {
+            "reassessment": [
+              "反応さらに低下",
+              "末梢循環悪化",
+              "循環虚脱進行疑い"
+            ]
+          },
+          "effects": {
+            "life_delta": -8,
+            "add_flags": [
+              "septic_shock_worsening"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "impending_cardiac_arrest"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、数日前からの右大腿痛・腫脹と、右下肢の広範な色調変化、水疱、びらん、壊死を疑う所見から、壊死性軟部組織感染症を背景とした敗血症性ショックを見抜く症例である。局所所見だけでなく、発熱、低血圧、頻呼吸、意識障害という全身ショック所見を統合して判断することが重要である。",
+    "ideal_actions": [
+      "プレアライバルで重症感染症によるショックを想定する",
+      "初期評価で呼吸循環不全を伴う重症ショックと判断する",
+      "右下肢の異常所見を全身状態悪化の原因として結びつける",
+      "病歴の右大腿痛・腫脹を重視する",
+      "活動方針を搬送優先とする",
+      "scene6で病態として敗血症性ショックを選択する",
+      "scene7で循環動態悪化とCPA移行を警戒して継続監視する"
+    ],
+    "good_points": [
+      "局所感染所見と全身ショックを結びつけられている",
+      "不整脈などの部分所見に引っ張られず全体像で判断できている",
+      "搬送優先の判断ができている"
+    ],
+    "cautions": [
+      "右下肢所見を古い外傷や局所疾患だけで片づけない",
+      "不整脈だけに注目して病態全体を見失わない",
+      "現場で局所処置に時間をかけすぎない",
+      "敗血症性ショックの進行を過小評価しない"
+    ]
+  }
+}

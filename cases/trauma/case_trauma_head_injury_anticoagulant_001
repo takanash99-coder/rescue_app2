@@ -1,0 +1,849 @@
+{
+  "case_id": "trauma_head_injury_anticoagulant_001",
+  "version": "2.0",
+  "title": "転倒後頭部打撲、高齢者頭部外傷で抗凝固薬内服確認が重要な症例",
+  "category": "trauma",
+  "difficulty": "normal",
+  "algorithm_type": "JPTEC",
+  "estimated_time": 9,
+  "keywords": [
+    "頭部外傷",
+    "高齢者",
+    "抗凝固薬",
+    "健忘",
+    "頭蓋内出血"
+  ],
+  "overview": "81歳女性。食後につまずいて転倒し頭部を打撲した。前頭部挫創と右手関節痛があり、転倒時の記憶がない。高齢者頭部外傷として頭蓋内出血を念頭に置き、医療機関には内服薬のうち抗凝固薬情報を最優先で伝達する症例。",
+  "patient_profile": {
+    "age": 81,
+    "sex": "female",
+    "chief_complaint": "転倒後の頭部打撲、前頭部挫創、右手首痛",
+    "background": [
+      "糖尿病",
+      "心臓手術の既往",
+      "内服加療中"
+    ]
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [
+      "head_trauma",
+      "amnesia",
+      "forehead_laceration",
+      "right_wrist_pain",
+      "elderly"
+    ],
+    "danger_tags": [
+      "intracranial_hemorrhage_risk",
+      "occult_deterioration"
+    ],
+    "time_pressure": 2
+  },
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "score_max": 49,
+      "life_min": 0,
+      "life_max": 49,
+      "summary": "高齢者頭部外傷としての危険性を軽く見ており、抗凝固薬情報の重要性を外している。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 50,
+      "score_max": 74,
+      "life_min": 50,
+      "life_max": 69,
+      "summary": "頭部外傷の評価はできているが、健忘や抗凝固薬の優先度づけがやや弱い。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 75,
+      "score_max": 89,
+      "life_min": 70,
+      "life_max": 84,
+      "summary": "頭蓋内出血リスクを意識し、搬送優先と抗凝固薬確認を適切に進められている。"
+    },
+    {
+      "rank": "Excellent",
+      "score_min": 90,
+      "score_max": 100,
+      "life_min": 85,
+      "life_max": 100,
+      "summary": "高齢者頭部外傷、健忘、抗凝固薬内服の3点を的確に結びつけ、搬送前連絡と継続観察まで一貫して適切に対応できている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容の整理",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "高齢者転倒頭部外傷として必要資器材と初期方針を整理する。",
+      "ideal_flow": [
+        "高齢者頭部外傷として捉える",
+        "頸椎保護を意識する",
+        "外傷初期評価を想定する",
+        "創部出血対応も準備する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_assessment",
+        "trauma_preparation",
+        "bleeding_control"
+      ],
+      "text": "家族から『食事後につまずいて転んで頭をぶつけた。額が切れている。本人は転んだことを覚えていない』と通報があった。高齢女性で、既往に糖尿病と心臓手術歴があり、普段から薬を飲んでいるという。",
+      "visible_data": {
+        "dispatch_information": [
+          "81歳女性",
+          "転倒後の頭部打撲",
+          "前頭部出血あり",
+          "転倒時の記憶なし",
+          "既往：糖尿病、心臓手術"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前の準備として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "q1_o1",
+          "text": "頸椎保護や外傷初期評価を意識して対応準備する",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "trauma_mindset_ready"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "転倒機転のある高齢者頭部外傷では外傷初期評価と頸椎への配慮が必要。"
+        },
+        {
+          "option_id": "q1_o2",
+          "text": "頭部外傷と出血対応を考え創傷処置物品を準備する",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bleeding_control_ready"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭部挫創による出血や観察に備えた準備は妥当。"
+        },
+        {
+          "option_id": "q1_o3",
+          "text": "軽症と思われるため、特段の外傷対応は不要と判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_head_injury"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高齢者頭部外傷は軽症外観でも頭蓋内出血を否定できない。"
+        },
+        {
+          "option_id": "q1_o4",
+          "text": "創部だけを問題と考え、頭部外傷評価は後回しにする",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "narrow_assessment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "intracranial_hemorrhage_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭部打撲後の健忘があり、創部のみへの注目は危険。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "初期評価",
+      "scene_goal": "ABCと意識状態を確認し、頭部外傷としての重症化リスクを把握する。",
+      "ideal_flow": [
+        "ABCを確認する",
+        "意識状態を確認する",
+        "バイタルが安定でも安心しない",
+        "高齢者頭部外傷として評価を進める"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "abc",
+        "initial_assessment",
+        "head_injury_risk"
+      ],
+      "text": "現場到着。傷病者は自宅内で座位。呼びかけには応答し、会話可能。前頭部に約5cmの挫創を認める。呼吸数24/分、脈拍92/分整、血圧142/62mmHg、SpO2 96%。JCS1。",
+      "visible_data": {
+        "general_appearance": "会話可能、軽度の見当識の曖昧さあり",
+        "vital_signs": {
+          "JCS": "1",
+          "RR": 24,
+          "HR": 92,
+          "BP": "142/62",
+          "SpO2": 96
+        },
+        "physical_findings": [
+          "前頭部約5cm挫創"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な判断はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q2_o1",
+          "text": "バイタルが大きく崩れていないため、頭蓋内病変の可能性は低いと判断する",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "underestimate_head_injury"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "occult_deterioration"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高齢者では初期バイタルが保たれていても頭蓋内出血を否定できない。"
+        },
+        {
+          "option_id": "q2_o2",
+          "text": "高齢者の頭部外傷かつ健忘ありとして、頭蓋内出血の可能性を考えて評価を進める",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "head_bleed_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "高齢、頭部打撲、受傷時健忘は頭蓋内出血を疑う重要所見。"
+        },
+        {
+          "option_id": "q2_o3",
+          "text": "手首痛が主訴なので、整形外傷のみを優先して評価する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "missed_neuro_risk"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "intracranial_hemorrhage_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "四肢痛はあっても、頭部外傷と健忘の評価が優先。"
+        },
+        {
+          "option_id": "q2_o4",
+          "text": "会話可能なので受傷機転や服薬情報の聴取は不要とする",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "history_missing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "medication_risk_unknown"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭部外傷では受傷機転や内服歴が搬送先判断にも重要。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "受傷状況、健忘、既往、内服薬を整理する。",
+      "ideal_flow": [
+        "転倒機転を確認する",
+        "健忘の有無を確認する",
+        "既往歴を確認する",
+        "抗凝固薬を含む内服歴を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "history_taking",
+        "amnesia",
+        "medication_review"
+      ],
+      "text": "家族によると、食事後に立ち上がって歩き出した際につまずいて前方へ転倒した。傷病者本人は転倒の瞬間を覚えていない。糖尿病と心臓手術の既往があり、毎日内服薬を飲んでいるという。",
+      "visible_data": {
+        "history": [
+          "食後につまずき転倒",
+          "前方へ転倒し頭部打撲",
+          "本人は転倒時の記憶なし",
+          "糖尿病あり",
+          "心臓手術歴あり",
+          "内服薬あり"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この段階で特に重要な追加確認項目を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q3_o1",
+          "text": "抗凝固薬や抗血小板薬を含む内服内容",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "medication_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "medication_risk_unknown"
+            ]
+          },
+          "rationale": "高齢者頭部外傷では抗凝固・抗血小板薬の確認が極めて重要。"
+        },
+        {
+          "option_id": "q3_o2",
+          "text": "受傷前後の意識消失や健忘の有無",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "amnesia_confirmed"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識消失や健忘は頭部外傷重症度の判断材料になる。"
+        },
+        {
+          "option_id": "q3_o3",
+          "text": "その日の食事内容の詳細",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "assessment_delay"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "食事内容より受傷機転、神経症状、内服薬確認が優先。"
+        },
+        {
+          "option_id": "q3_o4",
+          "text": "普段の趣味活動",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "assessment_delay"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "搬送前評価としては優先度が低い。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "頭部外傷と内服リスクを踏まえ搬送優先方針を固める。",
+      "ideal_flow": [
+        "高齢者頭部外傷として再評価する",
+        "健忘を重視する",
+        "抗凝固薬リスクを考える",
+        "搬送優先とする"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "transport_priority",
+        "head_injury",
+        "anticoagulant_risk"
+      ],
+      "text": "傷病者は会話可能だが、転倒時の記憶が曖昧である。前頭部挫創と右手関節痛がある。高齢者で既往に心疾患術後があり、内服薬確認の重要性が高い。",
+      "visible_data": {
+        "risk_summary": [
+          "高齢者頭部外傷",
+          "受傷時健忘あり",
+          "内服薬による出血リスクの可能性",
+          "頭蓋内出血の遅発的悪化に注意"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "最も適切な活動方針はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q4_o1",
+          "text": "創部処置後に自宅で経過観察を勧める",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -10,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_nontransport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_intracranial_bleed"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高齢者頭部外傷と健忘があり、自宅経過観察は不適切。"
+        },
+        {
+          "option_id": "q4_o2",
+          "text": "頭部外傷として搬送を優先し、医療機関へ神経症状と内服歴を伝える準備を進める",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "transport_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭蓋内出血リスク評価と医療機関連携を進めるのが適切。"
+        },
+        {
+          "option_id": "q4_o3",
+          "text": "右手関節痛が強いので整形外科的評価を最優先にする",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "priority_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_head_injury"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "四肢損傷より頭部外傷リスク対応が優先。"
+        },
+        {
+          "option_id": "q4_o4",
+          "text": "現在安定しているため、医療機関への詳細連絡は不要と判断する",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "poor_handoff_preparation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "handoff_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭部外傷と抗血栓薬関連情報は搬送前連絡で重要。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "全身観察",
+      "phase": "全身観察",
+      "scene_goal": "頭部以外の外傷と神経学的悪化所見を見逃さない。",
+      "ideal_flow": [
+        "頭部創を確認する",
+        "四肢損傷を確認する",
+        "神経学的悪化所見を確認する",
+        "頭部外傷以外の合併損傷も整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "secondary_survey",
+        "neurological_assessment",
+        "associated_injuries"
+      ],
+      "text": "全身観察では前頭部挫創のほか、右手関節の圧痛を認める。明らかな麻痺や呼吸循環の破綻はない。会話は可能だが転倒前後の記憶がはっきりしない。",
+      "visible_data": {
+        "secondary_survey": [
+          "前頭部挫創 約5cm",
+          "右手関節痛・圧痛",
+          "明らかな四肢麻痺なし",
+          "会話可能",
+          "受傷時健忘あり"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "全身観察で特に重視すべき点を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q5_o1",
+          "text": "瞳孔、意識、麻痺など神経学的変化の有無",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "neuro_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭蓋内病変の早期兆候把握に重要。"
+        },
+        {
+          "option_id": "q5_o2",
+          "text": "頭部外傷以外の合併損傷の有無",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "associated_injury_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "転倒機転では四肢損傷などの併発評価も必要。"
+        },
+        {
+          "option_id": "q5_o3",
+          "text": "髪型の乱れ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "重症度判断には結びつかない。"
+        },
+        {
+          "option_id": "q5_o4",
+          "text": "食器の片付け状況",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "現場状況の一部として参考にはなるが、ここでの優先評価ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病院連絡での最重要情報",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "医療機関へ伝えるべき最重要内服情報を選択する。",
+      "ideal_flow": [
+        "高齢者頭部外傷として連絡する",
+        "健忘ありを伝える",
+        "内服薬情報を整理する",
+        "抗凝固薬を最優先で伝える"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": [
+        "first_call",
+        "medication_priority",
+        "anticoagulant"
+      ],
+      "text": "搬送先選定のため医療機関へ連絡する。高齢の頭部外傷で受傷時健忘があり、既往として糖尿病と心臓手術歴がある。家族からは普段複数の薬を飲んでいると聞いている。",
+      "visible_data": {
+        "hospital_contact_points": [
+          "81歳女性",
+          "転倒による頭部打撲",
+          "前頭部挫創あり",
+          "転倒時健忘あり",
+          "既往：糖尿病、心臓手術",
+          "内服歴あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊が医療機関に伝える内服薬の情報として最も大切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q6_o1",
+          "text": "利尿薬",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "missed_key_medication"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "underreported_bleeding_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "重要な薬剤情報ではあるが、頭部外傷で最優先なのは出血リスクに直結する薬。"
+        },
+        {
+          "option_id": "q6_o2",
+          "text": "降圧薬",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "missed_key_medication"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "underreported_bleeding_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "一般的な既往把握には有用だが、頭部外傷での最重要情報ではない。"
+        },
+        {
+          "option_id": "q6_o3",
+          "text": "抗凝固薬",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "anticoagulant_reported"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "underreported_bleeding_risk"
+            ]
+          },
+          "rationale": "高齢者頭部外傷では抗凝固薬内服は頭蓋内出血リスク評価と受け入れ準備に直結する最重要情報。"
+        },
+        {
+          "option_id": "q6_o4",
+          "text": "亜硝酸薬",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "missed_key_medication"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "underreported_bleeding_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "心疾患既往の参考情報だが、頭部外傷の緊急評価としては優先度が落ちる。"
+        },
+        {
+          "option_id": "q6_o5",
+          "text": "経口糖尿病薬",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "missed_key_medication"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "underreported_bleeding_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "基礎情報として有用でも、頭部外傷時の最優先伝達事項ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "車内活動",
+      "phase": "車内活動",
+      "scene_goal": "搬送中に神経学的悪化を監視しつつ情報を整理して引き継ぐ。",
+      "ideal_flow": [
+        "意識レベル変化に注意する",
+        "新たな神経症状に注意する",
+        "創部出血とバイタルを追う",
+        "抗凝固薬情報を整理して引き継ぐ"
+      ],
+      "ideal_score_delta": 18,
+      "action_tag": [
+        "transport_monitoring",
+        "neurological_followup",
+        "handoff_preparation"
+      ],
+      "text": "搬送を開始した。傷病者は会話可能だが、受傷時の記憶は不明瞭なままである。前頭部創の圧迫止血を継続し、頭部外傷として経過観察する。",
+      "visible_data": {
+        "transport_monitoring": [
+          "意識レベルの変化に注意",
+          "頭痛、嘔吐、麻痺、瞳孔不同に注意",
+          "創部出血の再増悪確認",
+          "内服薬情報の整理"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "搬送中に特に継続すべき観察を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q7_o1",
+          "text": "意識レベルや新たな神経症状の出現",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "neuro_monitoring_continued"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭蓋内出血の進行を疑う変化を見逃さないことが重要。"
+        },
+        {
+          "option_id": "q7_o2",
+          "text": "創部出血やバイタルサインの変化",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vital_monitoring_continued"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷管理の基本として継続的観察が必要。"
+        },
+        {
+          "option_id": "q7_o3",
+          "text": "食後に何を食べたかの詳細",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "搬送中の重点観察ではない。"
+        },
+        {
+          "option_id": "q7_o4",
+          "text": "右手の利き手かどうかだけを確認する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "必要性はあるが、この症例での最優先監視項目ではない。"
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event_1",
+          "trigger_flags": [
+            "missed_key_medication"
+          ],
+          "narrative": "搬送中、家族が『血液をサラサラにする薬も飲んでいる』と思い出したが、まだ医療機関へ十分共有されていない。",
+          "visible_data_update": {
+            "family_additional_info": [
+              "抗凝固薬内服の可能性あり"
+            ]
+          },
+          "effects": {
+            "life_delta": -3,
+            "add_flags": [
+              "delayed_anticoagulant_recognition"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "handoff_delay"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "高齢者の頭部外傷では、初期バイタルが安定していても頭蓋内出血を否定できない。特に受傷時健忘があり、心臓手術歴などから抗凝固薬内服が疑われる場合は、出血リスクの高い症例として搬送先へ最優先で共有する必要がある。",
+    "ideal_actions": [
+      "高齢者頭部外傷として重症化リスクを意識する",
+      "受傷時健忘や神経症状を確認する",
+      "抗凝固薬を含む内服薬情報を確認する",
+      "医療機関へ頭部外傷と抗凝固薬情報を優先伝達する",
+      "搬送中も神経学的変化を継続監視する"
+    ],
+    "good_points": [
+      "高齢者頭部外傷を軽く見ていない",
+      "健忘の重要性を捉えられている",
+      "抗凝固薬情報を搬送前連絡の最重要事項として扱えている"
+    ],
+    "cautions": [
+      "会話可能でも頭蓋内出血を否定しない",
+      "創部だけに注目して頭部外傷評価を後回しにしない",
+      "手関節痛など副次損傷に意識を取られすぎない",
+      "抗凝固薬情報の聞き漏らし・伝え漏れをしない"
+    ]
+  }
+}

@@ -1,0 +1,850 @@
+{
+  "case_id": "respiratory_copd_hyperoxia_consciousness_001",
+  "version": "2.0",
+  "title": "在宅酸素増量後に意識障害を呈したCOPD患者の高酸素血症誘発症例",
+  "category": "respiratory",
+  "difficulty": "hard",
+  "algorithm_type": "PEMEC",
+  "estimated_time": 11,
+  "keywords": [
+    "COPD",
+    "在宅酸素療法",
+    "CO2ナルコーシス",
+    "換気不全",
+    "SpO2の罠"
+  ],
+  "overview": "88歳女性。COPDに対して在宅酸素療法中。前日に酸素流量を1L/分から3L/分へ増量した後、自室で意識消失しているところを家族が発見した。現場では高度意識障害、徐呼吸、頻脈を認めるがSpO2は93％で保たれている。COPD患者での過度な酸素投与により、低酸素刺激の減弱と換気抑制を介して意識障害をきたした病態を見抜けるかがテーマの症例。",
+  "patient_profile": {
+    "age": 88,
+    "sex": "female",
+    "chief_complaint": "意識障害",
+    "background": [
+      "COPD",
+      "在宅酸素療法中"
+    ],
+    "setting": "自宅"
+  },
+  "initial_state": {
+    "life": 78,
+    "max_life": 100,
+    "score": 0,
+    "flags": [
+      "copd",
+      "home_oxygen_therapy",
+      "oxygen_flow_increased",
+      "altered_consciousness"
+    ],
+    "danger_tags": [
+      "co2_narcosis",
+      "hypoventilation",
+      "respiratory_failure"
+    ],
+    "time_pressure": 8
+  },
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "score_max": 49,
+      "life_min": 0,
+      "life_max": 49,
+      "summary": "SpO2に引っ張られて換気不全を見逃し、病態把握と搬送判断が不十分である。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 50,
+      "score_max": 74,
+      "life_min": 50,
+      "life_max": 69,
+      "summary": "COPD背景には気づいているが、高二酸化炭素血症との結びつけや継続観察がやや弱い。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 75,
+      "score_max": 89,
+      "life_min": 70,
+      "life_max": 84,
+      "summary": "酸素投与歴と徐呼吸からCO2ナルコーシスを疑い、搬送優先で適切に対応できている。"
+    },
+    {
+      "rank": "Excellent",
+      "score_min": 90,
+      "score_max": 100,
+      "life_min": 85,
+      "life_max": 100,
+      "summary": "SpO2の数値に惑わされず、換気不全・CO2貯留を見抜いて一貫して適切に評価・搬送・監視できている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容の整理",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "在宅酸素療法中の高齢COPD患者として呼吸不全を想定して出場準備する。",
+      "ideal_flow": [
+        "在宅酸素療法中の呼吸器疾患重症例を想定する",
+        "呼吸不全による意識障害を考える",
+        "酸素機器設定の確認を意識する",
+        "SpO2だけで軽症と決めない"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_assessment",
+        "respiratory_failure_anticipation",
+        "home_oxygen_check"
+      ],
+      "text": "家族から『母が自室で意識を失っている。普段は酸素をしている』と通報があった。88歳女性でCOPDがあり、在宅酸素療法中という。",
+      "visible_data": {
+        "dispatch_information": [
+          "88歳女性",
+          "自室で意識消失",
+          "COPDあり",
+          "在宅酸素療法中"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前に意識しておくべき点を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q1_o1",
+          "text": "呼吸不全による意識障害の可能性を考える",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "respiratory_failure_considered"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "在宅酸素療法中のCOPD患者では換気不全による意識障害を考える必要がある。"
+        },
+        {
+          "option_id": "q1_o2",
+          "text": "酸素機器の設定や変更歴を確認する意識を持つ",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_setting_check_planned"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "在宅酸素流量の変更は病態悪化の手掛かりとなる。"
+        },
+        {
+          "option_id": "q1_o3",
+          "text": "SpO2が高いはずなので重症ではないと考える",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "spo2_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "undertriage"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "COPDではSpO2だけで重症度を判断すると危険。"
+        },
+        {
+          "option_id": "q1_o4",
+          "text": "心停止対応だけを想定し、呼吸病態は考えない",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "narrow_preparation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害ではあるが、背景の呼吸器疾患評価が重要。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "初期評価",
+      "scene_goal": "意識障害と徐呼吸から換気低下を伴う重症例として把握する。",
+      "ideal_flow": [
+        "意識障害の重症度を把握する",
+        "呼吸数低下を重くみる",
+        "SpO2に安心しない",
+        "換気低下を伴う呼吸不全を疑う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "initial_assessment",
+        "hypoventilation_recognition",
+        "consciousness_assessment"
+      ],
+      "text": "傷病者は自室のベッド上で反応が乏しい。呼吸は浅く遅い。JCS100、呼吸数10/分、脈拍120/分、血圧140/84mmHg、体温36.4℃、SpO2 93％。",
+      "visible_data": {
+        "vital_signs": {
+          "JCS": "100",
+          "RR": 10,
+          "HR": 120,
+          "BP": "140/84",
+          "BT": "36.4",
+          "SpO2": 93
+        },
+        "general_impression": [
+          "反応乏しい",
+          "呼吸数低下",
+          "在宅酸素装着中"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も重視すべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q2_o1",
+          "text": "換気低下を伴う呼吸不全",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hypoventilation_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "徐呼吸と意識障害は換気不全による高二酸化炭素血症を疑う重要所見。"
+        },
+        {
+          "option_id": "q2_o2",
+          "text": "SpO2が93％あるので呼吸状態は安定している",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "spo2_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_hypercapnia"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "酸素化がある程度保たれていても換気不全は進行しうる。"
+        },
+        {
+          "option_id": "q2_o3",
+          "text": "体温が平熱なので呼吸器疾患は否定的である",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "temperature_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "発熱の有無はこの病態把握の中心ではない。"
+        },
+        {
+          "option_id": "q2_o4",
+          "text": "循環は保たれているので意識障害は軽症と判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_respiratory_support"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "JCS100は重度の意識障害であり軽症ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "追加情報の収集",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "酸素流量増量の事実を拾い、病態との関連を考える。",
+      "ideal_flow": [
+        "COPDと在宅酸素療法の背景を確認する",
+        "酸素流量変更の有無を確認する",
+        "変更時期を確認する",
+        "意識障害との時間的関係をつなげる"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "history_taking",
+        "oxygen_setting_review",
+        "cause_identification"
+      ],
+      "text": "家族によると、前日から息苦しさを心配して酸素流量を1L/分から3L/分に増やしていたという。普段は在宅酸素療法を継続している。",
+      "visible_data": {
+        "history": [
+          "COPDで在宅酸素療法中",
+          "昨日、酸素流量を1L/分から3L/分へ増量",
+          "その後、自室で意識消失"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この時点で特に重要な情報を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q3_o1",
+          "text": "COPDで在宅酸素療法中であること",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "copd_background_emphasized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "基礎疾患と治療背景は病態理解の中心になる。"
+        },
+        {
+          "option_id": "q3_o2",
+          "text": "酸素流量を増量していたこと",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_increase_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "酸素投与量増加は意識障害の誘因推定に直結する。"
+        },
+        {
+          "option_id": "q3_o3",
+          "text": "体温が36.4℃であることだけ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "参考情報ではあるが、この症例の核心ではない。"
+        },
+        {
+          "option_id": "q3_o4",
+          "text": "血圧が保たれていることだけ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "循環は保たれていても換気不全は重症化しうる。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "高二酸化炭素血症を疑い搬送優先で管理する。",
+      "ideal_flow": [
+        "重度意識障害を重くみる",
+        "徐呼吸を換気不全として捉える",
+        "非搬送や酸素増量継続を避ける",
+        "搬送優先で換気状態を監視する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "transport_decision",
+        "hypercapnia_management",
+        "reassessment"
+      ],
+      "text": "重度意識障害と徐呼吸があり、COPD患者で酸素流量増量後という情報がそろった。SpO2は93％だが安心できる状態ではない。",
+      "visible_data": {
+        "clinical_summary": [
+          "JCS100",
+          "呼吸数10/分",
+          "COPD",
+          "在宅酸素療法中",
+          "酸素流量増量後"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "最も適切な活動方針はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q4_o1",
+          "text": "SpO2が低くないため自宅で様子を見る",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -10,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_nontransport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "worsening_hypercapnia"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "重度意識障害があり、非搬送は不適切。"
+        },
+        {
+          "option_id": "q4_o2",
+          "text": "高二酸化炭素血症を疑い、搬送優先で換気状態を監視する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "transport_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "COPD患者の酸素増量後意識障害では高二酸化炭素血症を強く疑う。"
+        },
+        {
+          "option_id": "q4_o3",
+          "text": "酸素流量をさらに上げて様子を見る",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_excess_worsened"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hypercapnia_progression"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "過度の酸素投与が病態悪化に関与している可能性がある。"
+        },
+        {
+          "option_id": "q4_o4",
+          "text": "循環器疾患のみを疑って呼吸評価を後回しにする",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "assessment_misdirection"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_hypercapnia"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "この症例では呼吸性病態評価が中心。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "全身観察",
+      "phase": "全身観察",
+      "scene_goal": "酸素化と換気は別に評価すべきことを整理する。",
+      "ideal_flow": [
+        "徐呼吸と浅呼吸を確認する",
+        "高度意識障害を再確認する",
+        "SpO2と換気を分けて考える",
+        "CO2貯留を意識する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": [
+        "secondary_survey",
+        "ventilation_assessment",
+        "co2_retention"
+      ],
+      "text": "呼吸は遅く浅い。SpO2は93％だが、意識障害は高度である。胸郭運動は小さく、換気量低下が疑われる。",
+      "visible_data": {
+        "secondary_survey": [
+          "徐呼吸",
+          "浅呼吸",
+          "高度意識障害",
+          "SpO2 93％"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この場面で重視すべき考え方を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q5_o1",
+          "text": "SpO2が保たれていても換気不全は否定できない",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "ventilation_vs_oxygenation_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "酸素化と換気は別であり、高二酸化炭素血症はSpO2だけでは評価できない。"
+        },
+        {
+          "option_id": "q5_o2",
+          "text": "徐呼吸と意識障害はCO2貯留を疑う所見である",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "co2_retention_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "徐呼吸と意識障害の組み合わせはCO2ナルコーシスを示唆する。"
+        },
+        {
+          "option_id": "q5_o3",
+          "text": "SpO2が90％を超えているので呼吸観察は不要である",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "spo2_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "worsening_hypoventilation"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO2だけ見て満足するとこの症例の肝を外す。"
+        },
+        {
+          "option_id": "q5_o4",
+          "text": "意識障害は高齢だから仕方ないと判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "age_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_critical_illness"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高齢のせいにせず、病態で考える必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病態評価と申し送り",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "意識障害の誘因として過度な酸素化を見抜き、適切に申し送る。",
+      "ideal_flow": [
+        "COPDと在宅酸素療法歴を伝える",
+        "酸素流量増量の経過を伝える",
+        "徐呼吸と意識障害を伝える",
+        "高二酸化炭素血症疑いを共有する"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": [
+        "cause_assessment",
+        "first_call",
+        "hyperoxia_trigger"
+      ],
+      "text": "COPD患者で在宅酸素療法中、前日に酸素流量を増量した後から意識障害を呈している。徐呼吸があり、SpO2は93％。意識障害の誘因を整理して医療機関へ伝える場面である。",
+      "visible_data": {
+        "first_call_points": [
+          "88歳女性",
+          "COPDで在宅酸素療法中",
+          "酸素流量を1L/分から3L/分へ増量",
+          "JCS100、RR10/分、HR120/分、SpO2 93％",
+          "高二酸化炭素血症疑い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に意識障害を生じさせた誘引はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q6_o1",
+          "text": "呼吸筋力の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cause_misidentified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_oxygen_trigger"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "背景因子にはなりうるが、この設問で問われる直接の誘引ではない。"
+        },
+        {
+          "option_id": "q6_o2",
+          "text": "死腔換気の増加",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cause_misidentified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_oxygen_trigger"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "COPD病態の一部ではあるが、今回の誘因として最重要ではない。"
+        },
+        {
+          "option_id": "q6_o3",
+          "text": "全身代謝の亢進",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cause_misidentified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_oxygen_trigger"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "今回の経過とは合致しない。"
+        },
+        {
+          "option_id": "q6_o4",
+          "text": "酸素飽和度の上昇",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hyperoxia_trigger_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_oxygen_trigger"
+            ]
+          },
+          "rationale": "COPD患者に過度な酸素投与を行うと低酸素刺激が減弱し、換気抑制からCO2貯留と意識障害を生じうる。"
+        },
+        {
+          "option_id": "q6_o5",
+          "text": "代謝性アシドーシス",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cause_misidentified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_oxygen_trigger"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "この症例の誘因としては不適切。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "車内活動と継続観察",
+      "phase": "車内活動",
+      "scene_goal": "高二酸化炭素血症悪化に注意しながら呼吸状態を継続監視する。",
+      "ideal_flow": [
+        "SpO2だけで安心しない",
+        "意識レベルの変化を追う",
+        "呼吸数と呼吸パターンを追う",
+        "換気不全増悪に備える"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": [
+        "transport_monitoring",
+        "consciousness_monitoring",
+        "respiratory_pattern_monitoring"
+      ],
+      "text": "搬送中も意識障害は続いている。呼吸数は少なく、換気不全の進行に注意が必要である。SpO2だけで安心せず、呼吸パターンと意識レベルを継続して追う。",
+      "visible_data": {
+        "transport_monitoring": [
+          "意識レベルの推移",
+          "呼吸数・呼吸パターン",
+          "SpO2の推移",
+          "換気不全増悪の有無"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "搬送中に特に継続すべき観察を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q7_o1",
+          "text": "意識レベルの変化",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "CO2貯留悪化の指標として重要。"
+        },
+        {
+          "option_id": "q7_o2",
+          "text": "呼吸数と呼吸パターン",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "resp_pattern_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "換気不全の進行を早期に捉えるために必須。"
+        },
+        {
+          "option_id": "q7_o3",
+          "text": "体温だけを繰り返し測定する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "この症例の中心観察項目ではない。"
+        },
+        {
+          "option_id": "q7_o4",
+          "text": "SpO2だけを見て安心する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "spo2_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_hypoventilation"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO2だけでは換気評価にならず、この症例の肝を外す。"
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event_1",
+          "trigger_flags": [
+            "spo2_bias",
+            "oxygen_excess_worsened"
+          ],
+          "narrative": "搬送中、呼吸はさらに浅くなり反応性も低下してきた。SpO2は大きく下がっていないが、換気不全の悪化が疑われる。",
+          "visible_data_update": {
+            "reassessment": [
+              "呼吸さらに浅い",
+              "反応低下",
+              "SpO2だけでは評価不能"
+            ]
+          },
+          "effects": {
+            "life_delta": -6,
+            "add_flags": [
+              "hypercapnia_worsening"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "impending_respiratory_arrest"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "COPD患者では酸素投与の増量により低酸素刺激が弱まり、換気抑制を介してCO2貯留が進行し、意識障害をきたすことがある。SpO2がある程度保たれていても安心できず、酸素化と換気を分けて考えることが重要である。",
+    "ideal_actions": [
+      "在宅酸素療法中のCOPD患者として評価した",
+      "意識障害と徐呼吸から換気不全を疑った",
+      "酸素流量増量の情報を拾った",
+      "SpO2と換気を分けて考えた",
+      "誘因として酸素飽和度上昇を選択した"
+    ],
+    "good_points": [
+      "酸素投与量の変化に注目できた",
+      "CO2ナルコーシスを疑えた",
+      "SpO2偏重に陥らなかった"
+    ],
+    "cautions": [
+      "SpO2が保たれているので安心してしまう",
+      "高齢だから意識障害があっても仕方ないと考える",
+      "酸素流量増量を病態悪化の原因として結びつけられない"
+    ]
+  }
+}

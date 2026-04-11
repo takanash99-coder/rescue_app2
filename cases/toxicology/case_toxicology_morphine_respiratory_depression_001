@@ -1,0 +1,927 @@
+{
+  "case_id": "toxicology_morphine_respiratory_depression_001",
+  "version": "2.0",
+  "title": "在宅緩和ケア中のモルヒネ増量後に意識低下を呈した症例",
+  "category": "toxicology",
+  "difficulty": "hard",
+  "algorithm_type": "PEMEC",
+  "estimated_time": 11,
+  "keywords": [
+    "緩和ケア",
+    "モルヒネ",
+    "オピオイド中毒",
+    "呼吸抑制",
+    "縮瞳"
+  ],
+  "overview": "74歳男性。末期直腸がんで在宅療養中。中心静脈ラインから塩酸モルヒネ投与を受けていたが、疼痛コントロール不良のため投与量が連日増量されていた。意識レベルが低下し、訪問看護師から救急要請となった。縮瞳、低血圧、意識障害を伴い、オピオイド過量投与による呼吸抑制を見抜けるかがテーマの症例。",
+  "patient_profile": {
+    "age": 74,
+    "sex": "male",
+    "background": "末期直腸がんで在宅療養中",
+    "past_history": [
+      "末期直腸がん",
+      "在宅中心静脈ライン管理"
+    ],
+    "medications": [
+      "塩酸モルヒネ（中心静脈ラインから投与）"
+    ],
+    "setting": "自宅"
+  },
+  "initial_state": {
+    "life": 85,
+    "max_life": 100,
+    "score": 0,
+    "flags": [
+      "home_care_patient",
+      "central_venous_line",
+      "possible_opioid_overdose"
+    ],
+    "danger_tags": [
+      "respiratory_depression",
+      "altered_mental_status",
+      "shock"
+    ],
+    "time_pressure": 7
+  },
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "score_max": 54,
+      "life_min": 0,
+      "life_max": 54,
+      "summary": "終末期背景に引っ張られ、急性可逆性の呼吸抑制を見逃している。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 55,
+      "score_max": 74,
+      "life_min": 55,
+      "life_max": 69,
+      "summary": "オピオイド過量投与は疑えているが、呼吸抑制への対応や継続評価がやや不十分である。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 75,
+      "score_max": 89,
+      "life_min": 70,
+      "life_max": 84,
+      "summary": "縮瞳・意識障害・増量歴からオピオイド中毒を捉え、搬送優先で概ね適切に対応できている。"
+    },
+    {
+      "rank": "Excellent",
+      "score_min": 90,
+      "score_max": 100,
+      "life_min": 85,
+      "life_max": 100,
+      "summary": "呼吸抑制を早期に見抜き、病態理解・搬送判断・呼吸パターン認識・搬送中再評価まで一貫して優れている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容の整理",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "在宅終末期患者の意識障害で、薬剤性呼吸抑制を想定して準備する。",
+      "ideal_flow": [
+        "在宅緩和ケア中の意識障害として捉える",
+        "オピオイド過量投与を考える",
+        "呼吸管理資器材を準備する",
+        "呼吸抑制を前提に初動を整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_assessment",
+        "opioid_overdose_preparation",
+        "airway_preparation"
+      ],
+      "text": "『在宅療養中の父がぐったりして反応が悪い』と家族から119番通報。末期直腸がんで在宅療養中、中心静脈ラインから痛み止めを投与しているという。訪問看護師も現場に向かっている。",
+      "visible_data": {
+        "dispatch_info": [
+          "74歳男性",
+          "末期直腸がんで在宅療養中",
+          "中心静脈ラインあり",
+          "鎮痛薬投与中",
+          "反応低下"
+        ],
+        "environment": [
+          "自宅",
+          "家族同席",
+          "訪問看護師要請済み"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前に特に意識しておくべき点を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q1_o1",
+          "text": "オピオイド過量投与による呼吸抑制の可能性を考える",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "opioid_overdose_considered"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "モルヒネ増量後の意識低下では、まず薬剤性呼吸抑制を想定する。"
+        },
+        {
+          "option_id": "q1_o2",
+          "text": "呼吸管理資器材を準備して向かう",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_equipment_ready"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害と低換気に備え、呼吸管理資器材の準備が重要である。"
+        },
+        {
+          "option_id": "q1_o3",
+          "text": "外傷患者として固定具を優先準備する",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "trauma_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "現時点では外傷より薬剤性呼吸抑制への対応準備が優先される。"
+        },
+        {
+          "option_id": "q1_o4",
+          "text": "CPA前提で除細動準備のみを優先する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cardiac_arrest_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "CPA情報はなく、まずは呼吸抑制の評価と対応が先である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "初期評価",
+      "scene_goal": "ABCのうち特に呼吸の質と回数を最優先に確認する。",
+      "ideal_flow": [
+        "ABCを確認する",
+        "特に呼吸状態を優先評価する",
+        "呼吸数と深さを捉える",
+        "情報収集より先に生命危機へ対応する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": [
+        "abc",
+        "breathing_priority",
+        "initial_assessment"
+      ],
+      "text": "現場は自宅寝室。傷病者はベッド上で開眼なく、呼びかけと痛み刺激にも反応乏しい。中心静脈ラインが接続され、薬液ポンプが作動している。家族は『痛みが強くて薬が少しずつ増えていた』と話す。",
+      "visible_data": {
+        "general_impression": [
+          "反応不良",
+          "ベッド上臥床",
+          "中心静脈ライン接続中"
+        ],
+        "airway_breathing_circulation": [
+          "気道は一応開通",
+          "呼吸は遅く浅い印象",
+          "皮膚はやや冷感"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で最も優先して確認・対応すべきものはどれか。",
+      "options": [
+        {
+          "option_id": "q2_o1",
+          "text": "呼吸状態の詳細評価",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "breathing_prioritized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "オピオイド過量投与では呼吸抑制が生命危機の中心である。"
+        },
+        {
+          "option_id": "q2_o2",
+          "text": "家族への詳細な既往歴聴取",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "delayed_breathing_assessment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "assessment_delay"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "情報収集より先に、ABCとくに呼吸評価が必要である。"
+        },
+        {
+          "option_id": "q2_o3",
+          "text": "疼痛評価スケールの確認",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "priority_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現状では疼痛評価より生命危機への対応が優先される。"
+        },
+        {
+          "option_id": "q2_o4",
+          "text": "体位変換のみで様子を見る",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_compromise"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "観察のみでは不十分で、呼吸抑制の定量評価が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル整理",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "縮瞳、意識障害、低血圧、増量歴からオピオイド中毒を強く疑う。",
+      "ideal_flow": [
+        "増量歴を確認する",
+        "瞳孔所見を確認する",
+        "血圧と意識障害を整理する",
+        "オピオイド過量投与と呼吸抑制を結びつける"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "history_taking",
+        "vitals_review",
+        "opioid_toxidrome"
+      ],
+      "text": "訪問看護師から『ここ数日、かかりつけ医の指示でモルヒネ量が増えていた』との情報が得られた。観察では意識JCS100、瞳孔は両側1mm。脈拍60/分整、血圧72/40mmHg、SpO2 96％である。",
+      "visible_data": {
+        "vital_signs": {
+          "JCS": "100",
+          "pupils": "両側1mm",
+          "pulse": "60/分・整",
+          "blood_pressure": "72/40mmHg",
+          "SpO2": "96%"
+        },
+        "additional_info": [
+          "モルヒネ投与量が日々増量",
+          "中心静脈ラインから投与中"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この時点で強く疑うべき病態を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q3_o1",
+          "text": "オピオイド過量投与",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "opioid_toxicity_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "縮瞳、意識障害、薬剤増量歴はオピオイド過量投与を示唆する。"
+        },
+        {
+          "option_id": "q3_o2",
+          "text": "呼吸抑制",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "respiratory_depression_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO2が保たれていても、オピオイドでは低換気が進行しうる。"
+        },
+        {
+          "option_id": "q3_o3",
+          "text": "交感神経刺激薬中毒",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "wrong_toxicology_direction"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "散瞳や頻脈主体ではなく、本症例とは合致しない。"
+        },
+        {
+          "option_id": "q3_o4",
+          "text": "脳卒中",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "stroke_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "鑑別には入るが、薬剤増量歴と縮瞳がより強い手掛かりである。"
+        },
+        {
+          "option_id": "q3_o5",
+          "text": "高度脱水",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "血圧低下はあるが、主病態を説明するには不十分である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "終末期背景に引っ張られず、急性可逆性の呼吸抑制として搬送優先を判断する。",
+      "ideal_flow": [
+        "終末期背景と急性可逆性病態を切り分ける",
+        "低血圧と呼吸抑制を重くみる",
+        "看取り前提で止まらない",
+        "搬送優先を選ぶ"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": [
+        "transport_decision",
+        "reversible_cause",
+        "family_communication"
+      ],
+      "text": "家族は『もうがんも末期なので家でみたい気持ちもあるが、このまま息が止まりそうで怖い』と不安を訴える。傷病者は反応乏しく、低血圧も持続している。",
+      "visible_data": {
+        "clinical_summary": [
+          "意識障害",
+          "縮瞳",
+          "低血圧",
+          "薬剤増量後",
+          "呼吸抑制疑い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "q4_o1",
+          "text": "搬送優先として対応を進める",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "transport_priority_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "急性の薬剤性呼吸抑制とショックが疑われ、搬送優先が妥当である。"
+        },
+        {
+          "option_id": "q4_o2",
+          "text": "看取りを前提に自宅で経過観察する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -8,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "transport_delay"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "可逆性のある急性病態を見逃すことになる。"
+        },
+        {
+          "option_id": "q4_o3",
+          "text": "家族の判断がつくまで介入を控える",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "decision_delay"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "ongoing_respiratory_depression"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "説明は必要だが、介入と搬送準備は同時に進めるべきである。"
+        },
+        {
+          "option_id": "q4_o4",
+          "text": "疼痛コントロール不良として鎮痛継続を優先する",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -8,
+          "status_effect": {
+            "add_flags": [
+              "critical_misjudgment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "worsening_overdose"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現状では鎮痛強化ではなく、過量投与による呼吸抑制是正の視点が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "全身観察",
+      "phase": "全身観察",
+      "scene_goal": "他原因も意識しつつ、オピオイド中毒を支持する所見を整理する。",
+      "ideal_flow": [
+        "外傷の有無を確認する",
+        "皮膚・発汗所見を確認する",
+        "縮瞳と意識障害を結びつける",
+        "オピオイド中毒を支持する所見を整理する"
+      ],
+      "ideal_score_delta": 8,
+      "action_tag": [
+        "secondary_survey",
+        "opioid_supportive_findings",
+        "exclusion"
+      ],
+      "text": "全身観察を進める。明らかな外傷なし。皮膚は冷感があり、発汗は目立たない。呼びかけへの反応は乏しいまま。家族は『昨日より眠そうだった』と話す。",
+      "visible_data": {
+        "head_to_toe": [
+          "明らかな外傷なし",
+          "発汗目立たず",
+          "皮膚やや冷感",
+          "反応低下持続"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この症例でオピオイド中毒を支持する所見を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q5_o1",
+          "text": "両側1mmの縮瞳",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "miosis_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "オピオイド中毒の典型所見の一つである。"
+        },
+        {
+          "option_id": "q5_o2",
+          "text": "意識レベルJCS100",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cns_depression_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "中枢抑制による意識障害は重要な中毒所見である。"
+        },
+        {
+          "option_id": "q5_o3",
+          "text": "著明な散瞳",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_pupil_interpretation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "本症例は縮瞳であり、散瞳ではない。"
+        },
+        {
+          "option_id": "q5_o4",
+          "text": "著明な頻脈",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "脈拍は60/分整であり、頻脈主体ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "呼吸パターン評価",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "再構築した呼吸図を使って緩徐呼吸を見抜き、オピオイド性呼吸抑制を確認する。",
+      "ideal_flow": [
+        "オピオイド過量投与を前提に呼吸型を見る",
+        "低換気の呼吸型を選ぶ",
+        "A＝緩徐呼吸と結びつける",
+        "scene7の搬送中対応につなげる"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "respiratory_pattern_recognition",
+        "opioid_respiratory_depression",
+        "teaching_point"
+      ],
+      "text": "評価をまとめる。モルヒネ増量後の意識障害、縮瞳、低血圧からオピオイド過量投与が強く疑われる。ここで呼吸パターン図を用いて、現在の病態に一致する呼吸型を確認する。",
+      "visible_data": {
+        "assessment": [
+          "オピオイド過量投与疑い",
+          "呼吸抑制疑い",
+          "意識障害",
+          "低血圧"
+        ],
+        "teaching_point": [
+          "SpO2が保たれていても低換気は進行しうる",
+          "図は病態理解と搬送中評価の共通言語として使う"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene6_resp_pattern",
+          "type": "image",
+          "path": "media/respiratory_pattern_morphine_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。緩徐呼吸Aが識別できればよい。",
+          "caption": "呼吸パターン図（再構築版）"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "この病態で認められる呼吸パターンは図のどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q6_o1",
+          "text": "A",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "correct_resp_pattern_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "Aは呼吸回数が低下した緩徐呼吸であり、オピオイド性呼吸抑制に合致する。"
+        },
+        {
+          "option_id": "q6_o2",
+          "text": "B",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "resp_pattern_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "recognition_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "Bは浅く速い呼吸であり、本症例の低換気とは異なる。"
+        },
+        {
+          "option_id": "q6_o3",
+          "text": "C",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "resp_pattern_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "recognition_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "Cは規則的で比較的回数の保たれた呼吸である。"
+        },
+        {
+          "option_id": "q6_o4",
+          "text": "D",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "resp_pattern_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "recognition_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "Dは不規則性が強く、本症例の基本パターンとは異なる。"
+        },
+        {
+          "option_id": "q6_o5",
+          "text": "E",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "resp_pattern_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "recognition_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "Eは無呼吸を挟む不規則呼吸で、典型的なオピオイド性緩徐呼吸ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "車内活動と病院連絡",
+      "phase": "車内活動",
+      "scene_goal": "scene6で選んだAの呼吸像を実車内の再評価に結びつけ、低換気進行へ対応しながら適切に申し送る。",
+      "ideal_flow": [
+        "A＝緩徐呼吸を実際の観察に結びつける",
+        "換気補助準備を行う",
+        "意識・呼吸の反復再評価を行う",
+        "重症中毒として病院へ簡潔に申し送る"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": [
+        "transport_monitoring",
+        "ventilatory_support_preparation",
+        "first_call"
+      ],
+      "text": "車内収容後も反応は乏しい。scene6で確認したとおり、呼吸はAに相当する緩徐呼吸で、胸郭の動きも小さい。家族からは『最近、眠っている時間が長かった』という追加情報が得られる。図で学んだ呼吸の遅さを、実際の換気不全リスクとして行動に移す場面である。",
+      "visible_data": {
+        "transport_status": [
+          "意識障害持続",
+          "Aに相当する緩徐呼吸",
+          "胸郭運動小",
+          "低血圧持続",
+          "換気不全進行に注意"
+        ],
+        "first_call_key_points": [
+          "末期直腸がん在宅療養中",
+          "モルヒネ増量後の意識低下",
+          "JCS100、瞳孔1mm、血圧72/40mmHg",
+          "緩徐呼吸による呼吸抑制疑い"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene7_resp_pattern_recall",
+          "type": "image",
+          "path": "media/respiratory_pattern_morphine_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。scene6で用いた呼吸パターン図の再掲。",
+          "caption": "scene6で確認した呼吸パターン図"
+        }
+      ],
+      "type": "multiple_choice",
+      "prompt": "scene6でAと判断したことを踏まえ、搬送中に特に重要な対応を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q8_o1",
+          "text": "換気補助を念頭に呼吸数・胸郭運動・意識レベルを反復評価する",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "repeat_reassessment_done"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "緩徐呼吸は換気不全進行のサインであり、反復再評価が重要である。"
+        },
+        {
+          "option_id": "q8_o2",
+          "text": "バッグ・バルブ・マスクなど換気補助準備を整える",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "ventilatory_support_prepared"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸抑制が進行した場合に備え、換気補助準備が必要である。"
+        },
+        {
+          "option_id": "q8_o3",
+          "text": "SpO2が96％なので呼吸観察は最小限でよい",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "spo2_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_hypoventilation"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO2が保たれていても低換気は進行しうる。"
+        },
+        {
+          "option_id": "q8_o4",
+          "text": "終末期なので再評価は控え、静かに搬送することを優先する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "palliative_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "undertriage"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "終末期背景があっても、急性可逆性の呼吸抑制では再評価を止めてはならない。"
+        }
+      ],
+      "templates": [
+        {
+          "template_id": "q9_o1",
+          "text": "在宅療養中の74歳男性。モルヒネ増量後に意識低下。JCS100、瞳孔1mm、血圧72/40mmHg、緩徐呼吸を認め、オピオイド過量投与による呼吸抑制疑いで搬送中です。",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "effective_first_call"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸パターンの判定結果を病態評価として具体的に連絡できている。"
+        },
+        {
+          "template_id": "q9_o2",
+          "text": "末期がんなので看取り搬送になるかもしれません。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "insufficient_first_call"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "現在の急性病態が伝わらず不十分である。"
+        },
+        {
+          "template_id": "q9_o3",
+          "text": "詳細は到着してから説明します。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "poor_communication"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "handoff_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "重症中毒では早期連絡による受け入れ準備が重要である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、在宅緩和ケア中にモルヒネが増量された後の意識障害から、オピオイド過量投与による呼吸抑制を見抜く症例である。終末期背景に引っ張られず、縮瞳・意識障害・低血圧・緩徐呼吸という可逆性病態として捉え、搬送優先と換気不全への備えを行うことが重要である。",
+    "ideal_actions": [
+      "プレアライバルで薬剤性呼吸抑制の可能性を意識する",
+      "初期評価で呼吸を最優先に評価する",
+      "縮瞳・意識障害・モルヒネ増量歴からオピオイド過量投与を疑う",
+      "活動方針を搬送優先に再判断する",
+      "全身観察で他原因を除外しつつ中毒所見を整理する",
+      "scene6で呼吸パターンAを選択する",
+      "scene7で換気補助準備と反復再評価を継続する"
+    ],
+    "good_points": [
+      "終末期背景に引きずられず急性可逆性病態として捉えられた",
+      "縮瞳と意識障害をオピオイド中毒に結びつけられた",
+      "SpO2が保たれていても低換気を疑えた",
+      "搬送中の換気補助準備と継続観察を意識できた"
+    ],
+    "cautions": [
+      "緩和ケア中だからといって急性増悪を見過ごさない",
+      "SpO2のみで呼吸状態を判断しない",
+      "家族説明で止まりすぎて搬送判断を遅らせない",
+      "縮瞳を見落として病態推定を誤らない"
+    ]
+  }
+}

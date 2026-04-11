@@ -1,0 +1,576 @@
+{
+  "case_id": "case_psychiatric_dissociative_amnesia_001",
+  "version": "2.0.0",
+  "title": "強い心理的ストレス後に発症した解離性健忘疑い",
+  "category": "psychiatric",
+  "difficulty": "medium",
+  "algorithm_type": "PEMEC",
+  "estimated_time": "約12分",
+  "keywords": [
+    "dissociative_amnesia",
+    "acute_memory_loss",
+    "psychological_stress",
+    "organic_cause_exclusion",
+    "safe_transport"
+  ],
+  "header": {
+    "overview": {
+      "学習目標": [
+        "事故現場の安全確認と追加傷病者の有無を確認できる",
+        "ABCと意識レベルを優先して評価し、頭部外傷や神経脱落症候を見逃さない",
+        "記憶障害の発症時期、事故状況、既往、服薬、飲酒、希死念慮の有無を系統的に聴取できる",
+        "器質的原因を念頭に置き、脳血管障害・頭部外傷・低血糖などを鑑別に挙げられる",
+        "全身観察と神経学的観察を行い、明らかな局在症状が乏しいことを確認できる",
+        "精神的ストレスと記憶障害を踏まえ、解離症状を疑って早期に医療機関へ連絡できる",
+        "搬送中は不安増強や自責感の変化に注意し、安心確保と再評価を継続できる"
+      ],
+      "対象": "EMT student",
+      "想定時間": "12分"
+    }
+  },
+  "patient_profile": {
+    "age": 51,
+    "sex": "female",
+    "setting": "消防機関敷地内",
+    "chief_complaint": "事故後の急な記憶障害",
+    "background": {
+      "past_history": [],
+      "medications": [],
+      "allergies": [],
+      "adl": "発症前は就労・自立",
+      "social_background": {
+        "occupation": "消防職員",
+        "witness": "同僚あり",
+        "activity_before_event": "勤務中の車両運転中に軽微な自損事故を起こした"
+      },
+      "notes": [
+        "以前から職場内の人間関係による強いストレスがあった",
+        "家庭内トラブルを抱えていた",
+        "事故車両に搬送患者は乗車していなかった",
+        "同乗者に外傷はない"
+      ]
+    }
+  },
+  "state_flags": [
+    "psychological_stress",
+    "possible_head_injury",
+    "acute_memory_loss"
+  ],
+  "ideal_flow": [
+    "事故現場の安全確認と追加傷病者の有無を確認する",
+    "ABCと意識レベルを優先して評価し、頭部外傷や神経脱落症候を見逃さない",
+    "記憶障害の発症時期、事故状況、既往、服薬、飲酒、希死念慮の有無を系統的に聴取する",
+    "器質的原因を念頭に置き、脳血管障害・頭部外傷・低血糖などを鑑別に挙げる",
+    "全身観察と神経学的観察を行い、明らかな局在症状が乏しいことを確認する",
+    "精神的ストレスと記憶障害を踏まえ、解離症状を疑って早期に医療機関へ連絡する",
+    "搬送中は不安増強や自責感の変化に注意し、安心確保と再評価を継続する"
+  ],
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "min_score": 0,
+      "max_score": 54
+    },
+    {
+      "rank": "Normal",
+      "min_score": 55,
+      "max_score": 74
+    },
+    {
+      "rank": "Good",
+      "min_score": 75,
+      "max_score": 89
+    },
+    {
+      "rank": "Excellent",
+      "min_score": 90,
+      "max_score": 100
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "場面 1",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "事故現場の安全性と受傷機転を把握し、初動の危険認識を行う",
+      "ideal_flow": [
+        "現場安全と追加傷病者の有無を確認する",
+        "頭部外傷や神経学的異常の可能性を念頭に置く",
+        "希死念慮や自責感の背景も考慮する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_safety_and_risk_awareness",
+      "text": "消防本部からの連絡。『51歳女性消防職員。運転中の公用車をガードレールに接触させた自損事故。車内に搬送患者なし、同乗者にけがなし。本人は軽い打撲とのことだが、様子がおかしい。病院受診後に“高校を出てからの記憶がない”と話している』との内容である。",
+      "visible_data": {
+        "dispatch_info": [
+          "自損事故",
+          "高エネルギー外傷ではない",
+          "本人は会話可能",
+          "外傷は軽微と報告",
+          "急な記憶障害あり"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前に優先して確認・共有すべき内容を2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "現場の安全確認と追加傷病者の有無",
+          "ideal": true,
+          "score_delta": 5,
+          "action_tag": "scene_safety_check",
+          "feedback": "事故現場ではまず安全確保と他傷病者の有無を確認する。"
+        },
+        {
+          "id": "B",
+          "label": "記憶障害のため精神疾患と決めつけ、身体評価は不要と共有する",
+          "ideal": false,
+          "score_delta": -5,
+          "action_tag": "premature_psychiatric_labeling",
+          "feedback": "急性の記憶障害では器質的疾患や外傷性病態を除外する必要がある。"
+        },
+        {
+          "id": "C",
+          "label": "頭部外傷や神経学的異常の可能性を念頭に置く",
+          "ideal": true,
+          "score_delta": 5,
+          "action_tag": "consider_neurologic_cause",
+          "feedback": "軽症外傷でも神経学的評価を省略してはならない。"
+        },
+        {
+          "id": "D",
+          "label": "本人は歩けるので救急対応ではなく事務処理を優先する",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "undertriage",
+          "feedback": "症状の重さは歩行可否だけでは判断できない。"
+        },
+        {
+          "id": "E",
+          "label": "希死念慮や自責感が背景にある可能性も考慮する",
+          "ideal": false,
+          "score_delta": 4,
+          "action_tag": "consider_suicide_risk_extra",
+          "feedback": "重要な視点だが、この設問で優先して共有すべき2項目は現場安全と器質的原因の考慮である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "場面 2",
+      "phase": "初期評価",
+      "scene_goal": "ABCと意識状態を簡潔に確認し、蘇生介入の必要性を判断する",
+      "ideal_flow": [
+        "ABCを確認する",
+        "急性神経症状として継続評価が必要と判断する"
+      ],
+      "ideal_score_delta": 8,
+      "action_tag": "primary_assessment_for_memory_loss",
+      "text": "現場到着。本人は座位で会話可能。『ここはどこですか』『自分は高校を出てからのことが思い出せない』と繰り返している。顔色はやや不安げだが、呼吸・循環は一見保たれている。",
+      "visible_data": {
+        "general_impression": "会話可能、落ち着かない様子",
+        "airway": "開通",
+        "breathing": "自発呼吸あり、努力呼吸なし",
+        "circulation": "橈骨動脈触知良好、大量出血なし",
+        "disability": "見当識障害あり、GCS E4V4M6相当"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な判断はどれか。1つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "CPAではないため評価を省略して詳細聴取のみ行う",
+          "ideal": false,
+          "score_delta": -5,
+          "action_tag": "skip_primary_assessment",
+          "feedback": "会話可能でも初期評価は必須である。"
+        },
+        {
+          "id": "B",
+          "label": "ABCは保たれているが、急性神経症状として継続評価が必要と判断する",
+          "ideal": true,
+          "score_delta": 8,
+          "action_tag": "continue_neuro_psych_assessment",
+          "feedback": "ABCは安定しているが、急な記憶障害は要注意所見である。"
+        },
+        {
+          "id": "C",
+          "label": "落ち着かせるためまず鎮静を最優先にする",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "premature_sedation_focus",
+          "feedback": "原因評価前に症状のみへ介入するのは不適切である。"
+        },
+        {
+          "id": "D",
+          "label": "意識清明に見えるため搬送不要と判断する",
+          "ideal": false,
+          "score_delta": -8,
+          "action_tag": "non_transport_decision",
+          "feedback": "急性の高度記憶障害は搬送適応である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "場面 3",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "発症状況と背景因子を整理し、バイタル異常の有無を確認する",
+      "ideal_flow": [
+        "頭部外傷関連情報を確認する",
+        "心理的ストレスや希死念慮を確認する",
+        "服薬・飲酒・薬物使用の有無を確認する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "focused_history_and_vitals",
+      "text": "本人は名前と高校時代までの記憶はあるが、その後の職歴・家族歴・最近の出来事を思い出せない。『事故を起こしたこともぼんやりしている』と話す。同僚からは『最近かなり疲れていて、人間関係や家庭のことで落ち込んでいた』との情報が得られた。",
+      "visible_data": {
+        "vital_signs": {
+          "blood_pressure": "142/88 mmHg",
+          "heart_rate": "96 /min",
+          "respiratory_rate": "18 /min",
+          "spo2": "98 %",
+          "temperature": "36.7 ℃",
+          "blood_glucose": "108 mg/dL"
+        },
+        "history_hints": [
+          "強い職場ストレス",
+          "家庭内トラブル",
+          "事故後に広範な逆行性健忘を自覚",
+          "飲酒臭なし",
+          "けいれんなし"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この場面で優先して聴取・確認すべき内容を2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "頭部打撲の有無、意識消失、嘔吐など外傷関連情報",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "assess_head_injury_history",
+          "feedback": "外傷性健忘や脳振盪を鑑別するため重要である。"
+        },
+        {
+          "id": "B",
+          "label": "最近の心理的ストレスや希死念慮、自傷意図の有無",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "assess_psychological_background",
+          "feedback": "解離や自傷リスク評価のため必須である。"
+        },
+        {
+          "id": "C",
+          "label": "高校時代の思い出話を長く聞き、安心させることを優先する",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "nonfocused_interview",
+          "feedback": "共感は必要だが、まず必要情報の整理が優先である。"
+        },
+        {
+          "id": "D",
+          "label": "血糖測定は不要である",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "omit_glucose_check",
+          "feedback": "意識・認知変化では低血糖除外が基本である。"
+        },
+        {
+          "id": "E",
+          "label": "服薬、飲酒、薬物使用の有無",
+          "ideal": false,
+          "score_delta": 4,
+          "action_tag": "check_substance_related_causes_extra",
+          "feedback": "重要な確認項目だが、この設問で優先して選ぶ2項目は外傷関連情報と心理的背景評価である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "場面 4",
+      "phase": "活動方針の再判断",
+      "scene_goal": "器質的疾患を除外しつつ、緊急搬送の必要性と対応方針を定める",
+      "ideal_flow": [
+        "器質的疾患除外が必要と考える",
+        "身体・精神の両面を評価可能な医療機関搬送を選ぶ"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "decide_transport_for_combined_evaluation",
+      "text": "バイタルは安定しているが、広範な逆行性健忘が持続している。麻痺、構音障害、けいれん、激しい頭痛は明らかでない。本人は『自分に何が起きたのかわからない』と不安を訴える。",
+      "visible_data": {
+        "reassessment_points": [
+          "バイタル安定",
+          "神経学的局在症状は明らかでない",
+          "広範な記憶障害持続",
+          "強い心理的ストレス背景あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な活動方針はどれか。1つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "ストレス由来と考えられるため現場で経過観察する",
+          "ideal": false,
+          "score_delta": -8,
+          "action_tag": "observe_on_scene_only",
+          "feedback": "急性の記憶障害は器質的除外も含め医療機関評価が必要である。"
+        },
+        {
+          "id": "B",
+          "label": "身体疾患の除外を念頭に置きつつ、精神・神経評価可能な医療機関へ搬送する",
+          "ideal": true,
+          "score_delta": 10,
+          "action_tag": "transport_for_medical_psychiatric_evaluation",
+          "feedback": "解離症状を疑っても、まず器質的疾患除外を伴う搬送が必要である。"
+        },
+        {
+          "id": "C",
+          "label": "本人の不安が強いため現場から離れず同僚に任せる",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "leave_to_colleagues",
+          "feedback": "職場関係者のみへの委ねは不適切で、安全確保も不十分である。"
+        },
+        {
+          "id": "D",
+          "label": "脳卒中が完全に否定できないので、問診せず即搬送のみ行う",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "overhasty_transport_without_context",
+          "feedback": "搬送は適切でも、必要な情報整理も並行して行うべきである。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "場面 5",
+      "phase": "全身観察",
+      "scene_goal": "外傷所見と神経所見を確認し、重症身体疾患の所見を拾い上げる",
+      "ideal_flow": [
+        "局在神経症状の有無を確認する",
+        "頭部外傷を示唆する所見の有無を確認する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "physical_and_neuro_exam",
+      "text": "全身観察を行う。前額部に軽度の圧痛があるが、明らかな頭部創傷はない。瞳孔は左右同大で対光反射あり。上下肢に麻痺なく、会話は成立するが、最近35年間の出来事を想起できない。",
+      "visible_data": {
+        "physical_exam": [
+          "前額部に軽度打撲痛",
+          "出血なし",
+          "瞳孔 3/3 mm、対光反射迅速",
+          "明らかな片麻痺なし",
+          "構音障害なし",
+          "歩行は可能"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この場面で解離症状を考える前提として、確認しておくべき所見を2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "局在神経症状の有無",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "check_focal_neurology",
+          "feedback": "脳血管障害や頭蓋内病変との鑑別に必要である。"
+        },
+        {
+          "id": "B",
+          "label": "頭部外傷を示唆する所見の有無",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "check_for_traumatic_findings",
+          "feedback": "軽微でも外傷性健忘や脳振盪の評価が必要である。"
+        },
+        {
+          "id": "C",
+          "label": "記憶の抜けている期間が長いので身体所見は不要",
+          "ideal": false,
+          "score_delta": -6,
+          "action_tag": "dismiss_physical_exam",
+          "feedback": "精神症状に見えても身体評価は不可欠である。"
+        },
+        {
+          "id": "D",
+          "label": "同僚との人間関係だけを詳しく聞く",
+          "ideal": false,
+          "score_delta": -2,
+          "action_tag": "overfocus_on_social_stress",
+          "feedback": "背景聴取は大切だが、全身観察の目的とは異なる。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "場面 6",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "評価内容を整理して医療機関へ適切に第一報し、必要処置の適否を判断する",
+      "ideal_flow": [
+        "病態整理、重症度、鑑別、搬送目的を簡潔にまとめる",
+        "国家試験的には解離症状を想起する"
+      ],
+      "ideal_score_delta": 18,
+      "action_tag": "first_call_and_psych_interpretation",
+      "text": "身体所見とバイタルから直ちに生命危機は高くないが、急性発症の広範な逆行性健忘が持続している。背景には強い心理的ストレスがあり、器質的異常を除外しつつ精神科的評価も必要と考えられる。",
+      "visible_data": {
+        "assessment_summary": [
+          "ABC安定",
+          "局在神経症状は明らかでない",
+          "低血糖否定的",
+          "強い心理的ストレスあり",
+          "急性の広範な記憶障害あり"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "医療機関へのファーストコールとして最も適切な要点を選べ。",
+      "templates": [
+        {
+          "id": "A",
+          "label": "51歳女性、自損事故後。バイタル安定、明らかな外傷・局在神経症状なし。高校卒業以降の記憶消失を訴え、強い心理的ストレス背景あり。器質的疾患除外と精神・神経学的評価目的で搬送したい。",
+          "ideal": true,
+          "score_delta": 10,
+          "action_tag": "appropriate_first_call_psych_neuro",
+          "feedback": "病態整理、重症度、鑑別、搬送目的が簡潔に含まれている。"
+        },
+        {
+          "id": "B",
+          "label": "51歳女性、精神的に不安定。詳細不明だが記憶がないそうなので受け入れをお願いします。",
+          "ideal": false,
+          "score_delta": -5,
+          "action_tag": "vague_first_call",
+          "feedback": "情報不足で受入調整に支障が出る。"
+        },
+        {
+          "id": "C",
+          "label": "外傷が軽いので精神科単科病院へ直接搬送したい。",
+          "ideal": false,
+          "score_delta": -6,
+          "action_tag": "premature_psychiatric_destination",
+          "feedback": "まず身体疾患除外が可能な医療機関が望ましい。"
+        },
+        {
+          "id": "D",
+          "label": "症状は落ち着いているため、家族に引き継いで終了予定と伝える。",
+          "ideal": false,
+          "score_delta": -10,
+          "action_tag": "unsafe_discharge_plan",
+          "feedback": "急性記憶障害の現場終了は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "場面 7",
+      "phase": "車内活動",
+      "scene_goal": "搬送中の不安増強や自責感に注意し、安全管理と再評価を継続する",
+      "ideal_flow": [
+        "安心できる声かけを行う",
+        "自責感や希死念慮の変化に注意する",
+        "身体所見に異常が乏しくても継続観察する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "safe_transport_and_reassurance",
+      "text": "搬送中、本人は『自分に何が起きたのかわからない』『迷惑をかけてしまった』と繰り返している。会話は可能だが、不安は強く、周囲の反応に過敏になっている。身体所見に大きな変化はないが、安全管理と継続観察が必要である。",
+      "visible_data": {
+        "transport_status": {
+          "mental_status": "会話可能、不安強い",
+          "blood_pressure": "140/86 mmHg",
+          "heart_rate": "94 /min",
+          "respiratory_rate": "18 /min",
+          "spo2": "98 %"
+        },
+        "clinical_course": [
+          "広範な逆行性健忘持続",
+          "不安強い",
+          "自責的発言あり",
+          "身体所見に大きな変化なし"
+        ]
+      },
+      "dynamic_events": [
+        {
+          "trigger": "scene_start",
+          "description": "搬送中、本人は『もう自分はだめだ』と発言し、落ち着きなく周囲を見回すようになった。",
+          "visible_data_update": {
+            "mental_status": "不安増強、自責感増悪"
+          }
+        }
+      ],
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "搬送中の対応として適切なものを2つ選べ。",
+      "options": [
+        {
+          "id": "A",
+          "label": "安心できる声かけを継続し、不安を評価する",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "provide_reassurance",
+          "feedback": "強い不安と記憶障害があり、安心確保が重要である。"
+        },
+        {
+          "id": "B",
+          "label": "希死念慮や自責感の変化に注意して安全管理する",
+          "ideal": true,
+          "score_delta": 6,
+          "action_tag": "monitor_self_harm_risk",
+          "feedback": "強いストレスと自責感があり、安全管理が重要である。"
+        },
+        {
+          "id": "C",
+          "label": "身体所見に異常が乏しいため以後の観察を省略する",
+          "ideal": false,
+          "score_delta": -4,
+          "action_tag": "stop_monitoring",
+          "feedback": "搬送中も病態変化に備え継続評価が必要である。"
+        },
+        {
+          "id": "D",
+          "label": "不安が強いため問いかけを完全にやめる",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "withdraw_communication",
+          "feedback": "刺激の与え方には配慮が必要だが、観察と安心確保のための関わりは継続すべきである。"
+        },
+        {
+          "id": "E",
+          "label": "記憶が戻るまで搬送せず車内で待機する",
+          "ideal": false,
+          "score_delta": -6,
+          "action_tag": "delay_transport_wait_memory_return",
+          "feedback": "原因評価のため医療機関搬送を継続する必要がある。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、強い心理的ストレスを背景に自損事故後に広範な逆行性健忘を呈したケースである。まず身体的緊急性を評価し、頭部外傷・脳血管障害・低血糖・中毒などの器質的原因を除外しつつ、ストレス関連の解離症状を疑う流れが重要である。",
+    "ideal_actions": [
+      "事故現場の安全と受傷機転を確認する",
+      "ABCと意識状態を初期評価する",
+      "頭部外傷・神経症状・血糖・中毒の除外を進める",
+      "心理的背景と希死念慮の有無を確認する",
+      "身体・精神の両面を評価できる医療機関へ搬送する",
+      "搬送中は不安増強と自責感の変化に注意し安全管理を続ける"
+    ],
+    "good_points": [
+      "精神症状に見えても身体評価を省略しなかった",
+      "強い心理的ストレス背景を把握できた",
+      "器質的疾患除外を意識して搬送判断できた",
+      "搬送中の安全管理と再評価を継続できた"
+    ],
+    "cautions": [
+      "急性記憶障害を精神疾患と決めつけない",
+      "軽微な事故でも頭部外傷評価を省略しない",
+      "低血糖や中毒など代謝性・薬剤性要因も除外する",
+      "不安増強や希死念慮の変化に注意する"
+    ]
+  }
+}

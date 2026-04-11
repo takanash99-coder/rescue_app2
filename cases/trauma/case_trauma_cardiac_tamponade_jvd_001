@@ -1,0 +1,907 @@
+{
+  "case_id": "trauma_cardiac_tamponade_jvd_001",
+  "version": "2.0",
+  "title": "頸静脈怒張を伴う胸部外傷から心タンポナーデを疑う症例",
+  "category": "trauma",
+  "difficulty": "hard",
+  "algorithm_type": "JPTEC",
+  "estimated_time": 10,
+  "keywords": [
+    "胸部外傷",
+    "頸静脈怒張",
+    "心タンポナーデ",
+    "閉塞性ショック",
+    "心膜腔内圧"
+  ],
+  "overview": "48歳女性。オートバイ運転中に電柱へ衝突し受傷した。現場では意識障害、頻呼吸、頻脈、境界域低血圧、四肢冷感を認める。胸壁前面に打撲痕があり、頸部には頸静脈怒張を示す所見がみられる。一方で呼吸音の左右差や皮下気腫はない。胸部外傷後の閉塞性ショック、とくに心タンポナーデを想起し、病態生理として心膜腔内圧上昇を選べるかがテーマの症例。",
+  "patient_profile": {
+    "age": 48,
+    "sex": "female",
+    "chief_complaint": "交通外傷後の意識障害と循環不全",
+    "background": [
+      "オートバイ運転中",
+      "電柱に衝突"
+    ],
+    "setting": "路上"
+  },
+  "initial_state": {
+    "life": 76,
+    "max_life": 100,
+    "score": 0,
+    "flags": [
+      "blunt_chest_trauma",
+      "altered_consciousness",
+      "tachypnea",
+      "tachycardia",
+      "jugular_venous_distension",
+      "cold_extremities"
+    ],
+    "danger_tags": [
+      "obstructive_shock",
+      "cardiac_tamponade",
+      "circulatory_collapse",
+      "impending_cardiac_arrest"
+    ],
+    "time_pressure": 9
+  },
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "score_max": 49,
+      "life_min": 0,
+      "life_max": 49,
+      "summary": "高エネルギー胸部外傷としての重症度評価が不十分で、閉塞性ショックを見逃している。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 50,
+      "score_max": 74,
+      "life_min": 50,
+      "life_max": 69,
+      "summary": "ショックは認識できているが、心タンポナーデを示す所見の結びつけがやや弱い。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 75,
+      "score_max": 89,
+      "life_min": 70,
+      "life_max": 84,
+      "summary": "頸静脈怒張と胸部外傷から閉塞性ショックを疑い、搬送優先で適切に対応できている。"
+    },
+    {
+      "rank": "Excellent",
+      "score_min": 90,
+      "score_max": 100,
+      "life_min": 85,
+      "life_max": 100,
+      "summary": "高エネルギー胸部外傷、頸静脈怒張、呼吸音左右差なしを統合し、心タンポナーデの病態生理まで正確に理解できている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容の整理",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "高エネルギー機転の胸部外傷として重症例を想定する。",
+      "ideal_flow": [
+        "高エネルギー外傷として捉える",
+        "重症胸部外傷を想定する",
+        "ショックの可能性を考える",
+        "呼吸循環評価の準備を整える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_assessment",
+        "major_trauma_recognition",
+        "shock_preparation"
+      ],
+      "text": "目撃者から『バイクが電柱にぶつかった。女性が路肩に座り込んでいる』と通報が入った。高エネルギー機転であり、重症胸部外傷の可能性が高い。",
+      "visible_data": {
+        "dispatch_information": [
+          "48歳女性",
+          "オートバイ運転中に電柱へ衝突",
+          "路肩に座り込んでいる",
+          "高エネルギー外傷"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場前に特に意識しておくべき点を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q1_o1",
+          "text": "重症胸部外傷とショックの可能性を考える",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "major_chest_trauma_considered"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "高エネルギー外傷では胸部損傷とショックを最初から想定する必要がある。"
+        },
+        {
+          "option_id": "q1_o2",
+          "text": "モニター装着と循環呼吸評価を優先する準備をする",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "monitoring_prepared"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷性ショックでは呼吸循環評価を迅速に行う必要がある。"
+        },
+        {
+          "option_id": "q1_o3",
+          "text": "四肢外傷のみを想定して出場する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "underestimate_mechanism"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_chest_trauma"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "受傷機転からは胸部・循環器損傷を強く警戒すべき。"
+        },
+        {
+          "option_id": "q1_o4",
+          "text": "座れているため軽症と判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "shock_overlooked"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "座位可能でも重症胸部外傷やショックは十分ありうる。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "初期評価",
+      "scene_goal": "意識障害と循環不全を伴う外傷性ショックとして把握する。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "呼吸数と脈拍を確認する",
+        "末梢循環不全を拾う",
+        "外傷に伴うショックとして捉える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "initial_assessment",
+        "traumatic_shock",
+        "abc"
+      ],
+      "text": "傷病者は路肩に座位。JCS3、呼吸数28/分、脈拍120/分整、血圧100/74mmHg。四肢末梢に冷感がある。胸壁前面に打撲痕を認める。",
+      "visible_data": {
+        "vital_signs": {
+          "JCS": "3",
+          "RR": 28,
+          "HR": "120/分・整",
+          "BP": "100/74"
+        },
+        "general_impression": [
+          "路肩で座位保持",
+          "頻呼吸",
+          "頻脈",
+          "四肢冷感あり",
+          "胸壁前面打撲痕あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も優先して捉えるべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q2_o1",
+          "text": "外傷に伴うショック状態",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "traumatic_shock_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頻脈、頻呼吸、末梢冷感は循環不全を示す重要所見。"
+        },
+        {
+          "option_id": "q2_o2",
+          "text": "軽度の打撲のみ",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "shock_overlooked"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "バイタルと末梢循環所見から軽症打撲では説明できない。"
+        },
+        {
+          "option_id": "q2_o3",
+          "text": "整脈なので循環器損傷は否定的である",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "false_reassurance"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_obstructive_shock"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "整脈でも心タンポナーデなどは十分ありうる。"
+        },
+        {
+          "option_id": "q2_o4",
+          "text": "血圧が100mmHgあるためショックではない",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "bp_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "occult_shock"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷患者では代償期ショックもあり、末梢冷感や頻脈を重視すべき。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "所見の整理",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "頸静脈怒張と胸部所見から閉塞性ショックを疑う材料を整理する。",
+      "ideal_flow": [
+        "頸静脈怒張を確認する",
+        "胸壁打撲痕を確認する",
+        "呼吸音左右差の有無を確認する",
+        "緊張性気胸以外の閉塞性ショックも考える"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": [
+        "secondary_survey",
+        "jvd",
+        "obstructive_shock_clues"
+      ],
+      "text": "頸部には著明な頸静脈怒張を認める。胸壁前面には打撲痕がある。呼吸音の左右差や皮下気腫は認めない。四肢末梢は冷たい。",
+      "visible_data": {
+        "history": [
+          "オートバイで電柱に衝突"
+        ],
+        "physical_findings": [
+          "頸静脈怒張あり",
+          "胸壁前面打撲痕あり",
+          "呼吸音左右差なし",
+          "皮下気腫なし",
+          "四肢末梢冷感あり"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene3_neck",
+          "type": "image",
+          "path": "media/neck_jugular_venous_distension_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。頸静脈怒張が分かればよい。",
+          "caption": "頸部の頸静脈怒張所見"
+        }
+      ],
+      "type": "multiple_choice",
+      "prompt": "この時点で特に重視すべき所見を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q3_o1",
+          "text": "頸静脈怒張",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "jvd_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "閉塞性ショックを示唆する重要な身体所見。"
+        },
+        {
+          "option_id": "q3_o2",
+          "text": "呼吸音左右差がないこと",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tension_pneumothorax_less_likely"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "緊張性気胸以外の閉塞性ショック、特に心タンポナーデを考える助けになる。"
+        },
+        {
+          "option_id": "q3_o3",
+          "text": "頸部所見は体位による生理的変化とみなす",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "critical_clue_ignored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_tamponade"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷文脈での頸静脈怒張は重要所見であり軽視できない。"
+        },
+        {
+          "option_id": "q3_o4",
+          "text": "皮下気腫がないので胸部外傷は否定できる",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "false_reassurance"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_intrathoracic_injury"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "皮下気腫がなくても心膜損傷や心タンポナーデは起こりうる。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "心タンポナーデを含む閉塞性ショックを疑い搬送優先とする。",
+      "ideal_flow": [
+        "胸部外傷後の閉塞性ショックを考える",
+        "緊張性気胸だけに絞らない",
+        "現場滞在を延長しない",
+        "搬送優先とする"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "transport_priority",
+        "obstructive_shock",
+        "jptec"
+      ],
+      "text": "胸壁前面打撲と頸静脈怒張があり、末梢冷感も認める。呼吸音左右差や皮下気腫がなく、緊張性気胸以外の閉塞性ショックも考慮する必要がある。",
+      "visible_data": {
+        "clinical_summary": [
+          "高エネルギー胸部外傷",
+          "頸静脈怒張",
+          "頻脈",
+          "末梢冷感",
+          "呼吸音左右差なし",
+          "皮下気腫なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q4_o1",
+          "text": "閉塞性ショックを疑い、搬送優先で対応する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "transport_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "胸部外傷後の閉塞性ショックは致死的であり、迅速搬送が必要。"
+        },
+        {
+          "option_id": "q4_o2",
+          "text": "局所打撲の処置を優先し現場で経過観察する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "scene_delay"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "circulatory_collapse_progression"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現場滞在を延ばすと致死的悪化の危険が高い。"
+        },
+        {
+          "option_id": "q4_o3",
+          "text": "緊張性気胸ではなさそうなので安心してよい",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "premature_closure"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_tamponade"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "緊張性気胸でなくても心タンポナーデは十分ありうる。"
+        },
+        {
+          "option_id": "q4_o4",
+          "text": "外傷性出血性ショックだけを考える",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "shock_type_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_obstructive_shock"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸部外傷では閉塞性ショックも必ず鑑別に入れるべき。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "全身観察",
+      "phase": "全身観察",
+      "scene_goal": "心タンポナーデを支持する所見と否定的所見を整理する。",
+      "ideal_flow": [
+        "頸静脈怒張の持続を確認する",
+        "外表出血の乏しさを確認する",
+        "呼吸音左右差なしを再確認する",
+        "胸部外傷＋循環不全を統合する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "secondary_survey",
+        "tamponade_supportive_findings",
+        "differential"
+      ],
+      "text": "頸静脈怒張は持続している。胸壁前面の打撲痕以外に明らかな外表出血は乏しい。呼吸音左右差はなく、皮下気腫も触れない。四肢末梢は冷たく、循環不全が続いている。",
+      "visible_data": {
+        "secondary_survey": [
+          "頸静脈怒張持続",
+          "胸壁前面打撲痕",
+          "外表出血少ない",
+          "呼吸音左右差なし",
+          "皮下気腫なし",
+          "末梢冷感持続"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene5_neck",
+          "type": "image",
+          "path": "media/neck_jugular_venous_distension_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。頸静脈怒張が分かればよい。",
+          "caption": "頸部の頸静脈怒張"
+        }
+      ],
+      "type": "multiple_choice",
+      "prompt": "この症例で心タンポナーデを支持する所見を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q5_o1",
+          "text": "頸静脈怒張",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tamponade_supported_by_jvd"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "静脈還流障害を反映する重要所見。"
+        },
+        {
+          "option_id": "q5_o2",
+          "text": "胸部外傷に伴う循環不全",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tamponade_supported_by_shock"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸部外傷後のショックと頸静脈怒張の組み合わせは重要。"
+        },
+        {
+          "option_id": "q5_o3",
+          "text": "呼吸音左右差がないことだけで全て否定できる",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "inappropriate_exclusion"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_tamponade"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸音左右差がないことは緊張性気胸をやや否定するが、心タンポナーデは否定できない。"
+        },
+        {
+          "option_id": "q5_o4",
+          "text": "皮下気腫がないことだけで安全と判断できる",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "inappropriate_exclusion"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_intrathoracic_injury"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "皮下気腫がないことは安心材料にはならない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病態生理の判断",
+      "phase": "評価・ファーストコール・特定行為",
+      "scene_goal": "心タンポナーデによる閉塞性ショックの病態生理を選択して申し送る。",
+      "ideal_flow": [
+        "胸部外傷＋JVD＋ショックを統合する",
+        "緊張性気胸より心タンポナーデを考える",
+        "心膜腔内圧上昇を選ぶ",
+        "病院へ重症胸部外傷として申し送る"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": [
+        "pathophysiology",
+        "first_call",
+        "tamponade"
+      ],
+      "text": "胸部外傷、頸静脈怒張、循環不全から心タンポナーデによる閉塞性ショックが疑われる。呼吸音左右差や皮下気腫がないため、緊張性気胸よりも心膜腔内の圧上昇による病態を考えやすい。",
+      "visible_data": {
+        "first_call_points": [
+          "48歳女性",
+          "バイクで電柱へ衝突",
+          "JCS3、RR28/分、HR120/分整、BP100/74mmHg",
+          "頸静脈怒張あり",
+          "胸壁前面打撲痕あり",
+          "呼吸音左右差なし、皮下気腫なし",
+          "心タンポナーデ疑い"
+        ]
+      },
+      "media": [
+        {
+          "media_id": "media_scene6_neck",
+          "type": "image",
+          "path": "media/neck_jugular_venous_distension_001.png",
+          "description": "再構成画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。頸静脈怒張が分かればよい。",
+          "caption": "頸静脈怒張の所見"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "この病態で生じる生理学的変化はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "q6_o1",
+          "text": "肺静脈圧の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "physiology_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_tamponade_pathophysiology"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "心タンポナーデの本態は心膜腔内圧上昇による心充満障害。"
+        },
+        {
+          "option_id": "q6_o2",
+          "text": "心収縮力の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "physiology_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "wrong_shock_mechanism"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "主な機序は収縮力低下ではなく、外からの圧迫による拡張障害。"
+        },
+        {
+          "option_id": "q6_o3",
+          "text": "循環血液量の減少",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "physiology_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hemorrhagic_only_bias"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "出血性ショックとは異なり、閉塞性ショックの機序を問う設問。"
+        },
+        {
+          "option_id": "q6_o4",
+          "text": "心膜腔内圧の上昇",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tamponade_pathophysiology_identified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_tamponade_pathophysiology"
+            ]
+          },
+          "rationale": "心タンポナーデでは心膜腔内圧が上昇し、心室拡張と静脈還流が障害される。"
+        },
+        {
+          "option_id": "q6_o5",
+          "text": "全身血管抵抗の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "physiology_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "wrong_shock_mechanism"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "分布異常性ショック寄りの発想であり、この症例には合わない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "車内活動",
+      "phase": "車内活動",
+      "scene_goal": "閉塞性ショック進行を警戒しながら循環動態を継続監視する。",
+      "ideal_flow": [
+        "意識レベルを継続監視する",
+        "血圧・脈拍を継続監視する",
+        "循環虚脱兆候に注意する",
+        "CPA移行を警戒する"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": [
+        "transport_monitoring",
+        "hemodynamics",
+        "obstructive_shock_progression"
+      ],
+      "text": "搬送中も頻脈と末梢冷感は持続している。頸静脈怒張を伴う閉塞性ショックとして、循環虚脱やCPA移行を警戒する必要がある。",
+      "visible_data": {
+        "transport_monitoring": [
+          "意識レベルの変化",
+          "血圧・脈拍の推移",
+          "呼吸状態の変化",
+          "頸静脈怒張の持続",
+          "循環虚脱兆候"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "搬送中に特に継続すべき観察を2つ選べ。",
+      "options": [
+        {
+          "option_id": "q7_o1",
+          "text": "意識レベルの変化",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "循環不全進行の評価として重要。"
+        },
+        {
+          "option_id": "q7_o2",
+          "text": "血圧・脈拍など循環動態の変化",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hemodynamics_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "心タンポナーデでは急速な循環虚脱に注意が必要。"
+        },
+        {
+          "option_id": "q7_o3",
+          "text": "頸部写真の見た目だけを繰り返し確認する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "重要なのは写真ではなく、実際の循環動態と病態進行の評価。"
+        },
+        {
+          "option_id": "q7_o4",
+          "text": "座れていたので状態は安定と判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "circulatory_collapse"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "搬送中の閉塞性ショックは急速に悪化しうる。"
+        }
+      ],
+      "dynamic_events": [
+        {
+          "event_id": "event_1",
+          "trigger_flags": [
+            "missed_tamponade",
+            "scene_delay",
+            "physiology_error"
+          ],
+          "narrative": "搬送中、反応性はさらに低下し、橈骨動脈の触知は弱くなってきた。閉塞性ショックの進行が疑われる。",
+          "visible_data_update": {
+            "reassessment": [
+              "反応低下",
+              "末梢循環悪化",
+              "循環虚脱進行疑い"
+            ]
+          },
+          "effects": {
+            "life_delta": -8,
+            "add_flags": [
+              "obstructive_shock_worsening"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "impending_cardiac_arrest"
+            ],
+            "remove_danger_tags": []
+          }
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、高エネルギー胸部外傷後に頸静脈怒張と循環不全を認め、心タンポナーデによる閉塞性ショックを疑う症例である。呼吸音左右差や皮下気腫がないことから緊張性気胸だけに固定せず、心膜腔内圧上昇による心室拡張障害を考えられるかが重要となる。",
+    "ideal_actions": [
+      "高エネルギー外傷として重症胸部外傷を想定した",
+      "初期評価でショック徴候を把握した",
+      "胸壁打撲と頸静脈怒張を結びつけた",
+      "呼吸音左右差や皮下気腫がないことから緊張性気胸以外も考えた",
+      "活動方針を搬送優先とした",
+      "病態生理として心膜腔内圧の上昇を選択した",
+      "閉塞性ショック進行を警戒しながら搬送した"
+    ],
+    "good_points": [
+      "JVDを重要所見として拾えている",
+      "緊張性気胸との違いを整理できている",
+      "出血性ショックだけに偏らず閉塞性ショックを考えられている"
+    ],
+    "cautions": [
+      "座位保持だけで軽症と判断しない",
+      "呼吸音左右差がないから胸部重症外傷を否定しない",
+      "皮下気腫がないことを安全材料にしない",
+      "JVDを体位のせいにして流さない"
+    ]
+  }
+}

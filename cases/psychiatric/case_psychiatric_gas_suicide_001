@@ -1,0 +1,965 @@
+{
+  "case_id": "psychiatric_gas_suicide_001",
+  "version": "2.0",
+  "title": "浴室内のガス発生が疑われる自殺企図傷病者",
+  "category": "psychiatric",
+  "difficulty": "hard",
+  "estimated_time": 12,
+  "keywords": [
+    "現場安全",
+    "有毒ガス",
+    "応援要請",
+    "自殺企図",
+    "ABC評価"
+  ],
+  "overview": "31歳男性。気分障害で通院歴がある。連絡が取れないことを心配した知人がアパートを訪問し、玄関は無施錠であったため室内へ入った。本人は居室内におらず、浴室ドアは施錠され、人影が見えるが呼びかけに応答がないため救急要請となった。救急隊が現場到着し浴室へ向かうと、浴室ドアに『危険！ガス発生中』との張り紙が貼られていた。現場安全を最優先し、二次災害を防ぎながら適切な応援要請と救助方針を判断する症例である。",
+  "patient_profile": {
+    "age": 31,
+    "sex": "male",
+    "chief_complaint": "浴室内で反応がない",
+    "past_history": [
+      "気分障害"
+    ],
+    "medications": [
+      "向精神薬内服の可能性あり（詳細不明）"
+    ],
+    "allergies": [],
+    "social_background": {
+      "location": "アパート1階",
+      "living_situation": "単身生活の可能性",
+      "finder": "知人",
+      "prearrival_context": "連絡が取れず心配した知人が訪問"
+    }
+  },
+  "initial_state": {
+    "consciousness": "不明",
+    "breathing": "不明",
+    "circulation": "不明",
+    "scene_hazards": [
+      "浴室ドアに『危険！ガス発生中』の張り紙",
+      "密閉空間の可能性",
+      "有毒ガス発生の疑い",
+      "単隊出場"
+    ],
+    "life": 65,
+    "score": 0,
+    "flags": [
+      "possible_toxic_gas",
+      "bathroom_locked",
+      "possible_suicide_attempt",
+      "scene_not_safe",
+      "single_ambulance_unit"
+    ],
+    "danger_tags": [
+      "secondary_disaster",
+      "unsafe_entry",
+      "delayed_rescue_support",
+      "toxic_exposure",
+      "scene_assessment_error"
+    ]
+  },
+  "result_rank": [
+    {
+      "rank": "Bad",
+      "score_min": -999,
+      "score_max": 4,
+      "life_min": 0,
+      "life_max": 34,
+      "summary": "現場安全確認を怠り、二次災害リスクの高い対応を選択した。隊員や周囲の安全を損なう危険な判断である。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 5,
+      "score_max": 11,
+      "life_min": 35,
+      "life_max": 54,
+      "summary": "危険性には気づいているが、応援要請や現場統制が不十分で、対応に迷いが残る。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 12,
+      "score_max": 17,
+      "life_min": 55,
+      "life_max": 79,
+      "summary": "現場危険を認識し、安全確保と応援要請を適切に行えている。救助活動の優先順位も妥当である。"
+    },
+    {
+      "rank": "Excellent",
+      "score_min": 18,
+      "score_max": 999,
+      "life_min": 80,
+      "life_max": 100,
+      "summary": "有毒ガス現場として迅速かつ的確に判断し、二次災害防止、応援要請、現場統制、情報伝達まで一貫して優れている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容の整理",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "現場危険の可能性を早期に察知し、追加確認すべき情報を整理する。",
+      "ideal_flow": [
+        "通報内容を整理する",
+        "危険環境の可能性を疑う",
+        "異臭や精神科既往など追加情報を確認する",
+        "通報者を危険区域へ近づけない"
+      ],
+      "ideal_score_delta": 4,
+      "action_tag": [
+        "prearrival_assessment",
+        "hazard_screening",
+        "information_gathering"
+      ],
+      "text": "指令情報は『31歳男性、浴室内、急病人。応答なし』。通報者は知人で、玄関は開いており室内に入ったところ本人はおらず、浴室ドア越しに人影が見えるが反応がないという。単隊で救急出場となった。",
+      "visible_data": {
+        "dispatch_info": [
+          "31歳男性",
+          "浴室内にいる可能性",
+          "応答なし",
+          "知人が通報",
+          "アパート1階",
+          "単隊出場"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場途上で通報者から追加で聴取または確認しておくべき内容として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "室内や浴室周辺で異臭や煙のようなものがないか確認する",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 2,
+          "status_effect": {
+            "add_flags": [
+              "hazard_info_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "有毒ガスや化学物質の関与を示す情報は現場安全判断に重要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "本人の精神科既往や自殺企図の可能性に関する情報を確認する",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 1,
+          "status_effect": {
+            "add_flags": [
+              "suicide_risk_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "精神科既往や自殺企図の可能性は現場リスク評価と方針決定に有用である。"
+        },
+        {
+          "option_id": "c",
+          "text": "浴室ドアをすぐに破壊して中へ入るよう指示する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -6,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_entry",
+              "secondary_disaster"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "危険物質の有無が不明な状況での無防備な進入は危険である。"
+        },
+        {
+          "option_id": "d",
+          "text": "通報者だけで救助活動を継続するよう指示する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "secondary_disaster"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "一般人を危険環境へ近づけるのは不適切である。"
+        },
+        {
+          "option_id": "e",
+          "text": "玄関外で待機し、浴室には近づきすぎないよう指示する",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 1,
+          "status_effect": {
+            "add_flags": [
+              "bystander_protected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "安全確保としてはよいが、設問は追加聴取または確認内容を問うものであり優先選択ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "現場初期評価",
+      "phase": "初期評価",
+      "scene_goal": "危険表示を真実として扱い、救急隊単独では進入しない判断を行う。",
+      "ideal_flow": [
+        "張り紙と現場状況から危険環境を想定する",
+        "自隊のみで進入しない",
+        "消防隊を応援要請する",
+        "現場安全管理を優先する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "scene_safety",
+        "initial_assessment",
+        "support_request"
+      ],
+      "text": "現場到着後、知人の案内で浴室前へ移動する。浴室ドアは施錠され、曇りガラス越しに人影が見える。ドアには手書きで『危険！ガス発生中』と書かれた紙が貼られている。呼びかけても反応はない。",
+      "visible_data": {
+        "scene_findings": [
+          "浴室ドア施錠",
+          "曇りガラス越しに人影あり",
+          "応答なし",
+          "『危険！ガス発生中』の張り紙あり"
+        ],
+        "crew_status": [
+          "救急隊単隊",
+          "防火衣・化学防護装備なし"
+        ]
+      },
+      "media": [
+        {
+          "type": "text_hint",
+          "description": "浴室ドアに『危険！ガス発生中』と記載された張り紙が貼られている状況を示す再構成画像またはテキスト提示。",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成表現。危険表示の存在が分かればよい。"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "救急隊が直ちに行うべき対応はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "警察へ通報する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_rescue_support"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "警察連携が必要となる可能性はあるが、直ちに必要なのは危険環境に対応できる消防隊の応援要請である。"
+        },
+        {
+          "option_id": "b",
+          "text": "鍵を壊し救出する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -10,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_entry",
+              "secondary_disaster",
+              "toxic_exposure"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "有毒ガス発生が示唆される状況での即時進入は極めて危険である。"
+        },
+        {
+          "option_id": "c",
+          "text": "状況を再聴取する",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_rescue_support"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "再聴取は有用だが、まず危険環境への対応体制を整える必要がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "進入可能な窓を探す",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -7,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_entry",
+              "secondary_disaster"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "別経路からの進入も危険環境への接近であり不適切である。"
+        },
+        {
+          "option_id": "e",
+          "text": "消防隊を応援要請する",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 8,
+          "status_effect": {
+            "add_flags": [
+              "fire_support_requested",
+              "scene_hazard_escalated"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "delayed_rescue_support"
+            ]
+          },
+          "rationale": "危険ガス発生が疑われるため、直ちに消防隊へ応援要請し安全管理下で救助体制を整える。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "追加情報の整理",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "安全進入不能な段階では、病態特定よりも危険評価と自殺企図の可能性整理を優先する。",
+      "ideal_flow": [
+        "安全に接触できていないことを認識する",
+        "臭気や精神背景から危険物質関与を考える",
+        "自殺企図の可能性を整理する",
+        "場当たり的治療判断を避ける"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "history_taking",
+        "risk_assessment",
+        "hazard_recognition"
+      ],
+      "text": "現時点では浴室内へ安全に進入できず、傷病者のバイタルは未確認である。知人から追加聴取すると、本人は最近抑うつ状態が強く、『消えたい』と話していたという。室内には洗剤様の臭いがわずかにするとの情報がある。",
+      "visible_data": {
+        "patient_status": {
+          "consciousness": "不明",
+          "breathing": "不明",
+          "circulation": "不明"
+        },
+        "additional_history": [
+          "気分障害の通院歴あり",
+          "最近抑うつ状態が悪化",
+          "希死念慮を示唆する発言あり",
+          "室内に洗剤様の臭いがある"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この時点で考慮すべき事項として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "化学物質混合による有毒ガス発生の可能性",
+          "is_correct": true,
+          "score_delta": 3,
+          "life_delta": 2,
+          "status_effect": {
+            "add_flags": [
+              "chemical_hazard_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "scene_assessment_error"
+            ]
+          },
+          "rationale": "張り紙と臭気情報から有毒ガス発生を想定すべきである。"
+        },
+        {
+          "option_id": "b",
+          "text": "自殺企図の可能性",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 1,
+          "status_effect": {
+            "add_flags": [
+              "suicide_attempt_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "精神科既往と希死念慮、閉鎖空間、張り紙から自殺企図を考慮する。"
+        },
+        {
+          "option_id": "c",
+          "text": "ただちに低血糖としてブドウ糖投与を考える",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "premature_treatment"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "安全に接触できず評価もできない段階で特定治療を想定するのは不適切である。"
+        },
+        {
+          "option_id": "d",
+          "text": "知人に浴室前まで近づいて様子を見てもらう",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "secondary_disaster"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "一般人を危険環境に近づけてはならない。"
+        },
+        {
+          "option_id": "e",
+          "text": "張り紙は本人の冗談の可能性が高いと判断する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "scene_assessment_error",
+              "unsafe_entry"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "危険表示は真実として扱い、安全側で判断する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "救助前に危険区域の設定、情報共有、消防隊連携の順で現場統制を行う。",
+      "ideal_flow": [
+        "安全距離を確保する",
+        "危険区域を設定する",
+        "現場情報を整理して共有する",
+        "消防隊の安全管理下で救助準備を進める"
+      ],
+      "ideal_score_delta": 6,
+      "action_tag": [
+        "scene_control",
+        "hazard_zone",
+        "rescue_coordination"
+      ],
+      "text": "消防隊応援要請を実施した。救急隊のみでの進入は危険であり、現場を一時的に統制する必要がある。近隣住民への影響も考えられる。",
+      "visible_data": {
+        "current_problem_list": [
+          "有毒ガス発生の疑い",
+          "浴室内に要救助者あり",
+          "救急隊単独では安全進入困難",
+          "周囲への曝露拡大リスク"
+        ]
+      },
+      "media": [],
+      "type": "ranking",
+      "prompt": "この時点での活動方針として適切な優先順位に並べよ。",
+      "ranking": {
+        "items": [
+          {
+            "option_id": "a",
+            "text": "隊員・通報者の安全距離を確保し危険区域を設定する",
+            "is_correct": true,
+            "score_delta": 2,
+            "life_delta": 2,
+            "status_effect": {
+              "add_flags": [
+                "hazard_zone_secured"
+              ],
+              "remove_flags": [],
+              "add_danger_tags": [],
+              "remove_danger_tags": [
+                "secondary_disaster"
+              ]
+            },
+            "rationale": "まず二次災害防止のため安全管理を行う。"
+          },
+          {
+            "option_id": "b",
+            "text": "消防隊到着まで現場情報を整理し共有する",
+            "is_correct": true,
+            "score_delta": 2,
+            "life_delta": 1,
+            "status_effect": {
+              "add_flags": [
+                "scene_info_prepared"
+              ],
+              "remove_flags": [],
+              "add_danger_tags": [],
+              "remove_danger_tags": []
+            },
+            "rationale": "危険物質対応では情報共有が極めて重要である。"
+          },
+          {
+            "option_id": "c",
+            "text": "消防隊の安全管理下で救助活動へ移行する準備をする",
+            "is_correct": true,
+            "score_delta": 2,
+            "life_delta": 2,
+            "status_effect": {
+              "add_flags": [
+                "coordinated_rescue_plan"
+              ],
+              "remove_flags": [],
+              "add_danger_tags": [],
+              "remove_danger_tags": []
+            },
+            "rationale": "消防隊到着後に安全管理下で救助・救急活動へつなげる。"
+          },
+          {
+            "option_id": "d",
+            "text": "救急隊だけで浴室ドア破壊を実施する",
+            "is_correct": false,
+            "score_delta": -3,
+            "life_delta": -8,
+            "status_effect": {
+              "add_flags": [],
+              "remove_flags": [],
+              "add_danger_tags": [
+                "unsafe_entry",
+                "toxic_exposure"
+              ],
+              "remove_danger_tags": []
+            },
+            "rationale": "危険環境下での単独進入は不適切である。"
+          },
+          {
+            "option_id": "e",
+            "text": "近隣住民への注意喚起を行わず通常活動を続ける",
+            "is_correct": false,
+            "score_delta": -2,
+            "life_delta": -3,
+            "status_effect": {
+              "add_flags": [],
+              "remove_flags": [],
+              "add_danger_tags": [
+                "scene_assessment_error"
+              ],
+              "remove_danger_tags": []
+            },
+            "rationale": "必要に応じて周囲への危険周知も検討すべきである。"
+          }
+        ],
+        "ideal_rank": [
+          "a",
+          "b",
+          "c",
+          "e",
+          "d"
+        ]
+      }
+    },
+    {
+      "id": "scene_5",
+      "title": "救出後の全身観察",
+      "phase": "全身観察",
+      "scene_goal": "安全区域へ移した後、ABC評価と酸素投与を優先して初期対応する。",
+      "ideal_flow": [
+        "安全区域で傷病者を再評価する",
+        "気道・呼吸・循環を確認する",
+        "必要に応じて高濃度酸素投与を開始する",
+        "外傷や汚染の有無も確認する"
+      ],
+      "ideal_score_delta": 6,
+      "action_tag": [
+        "post_rescue_assessment",
+        "abc",
+        "oxygen"
+      ],
+      "text": "消防隊到着後、換気や安全確認のもとで浴室内へ進入し救出した。傷病者は浴槽脇に座り込むような体位で倒れている。反応は鈍く、呼吸はあるが弱い。皮膚はやや蒼白で、明らかな外傷はない。",
+      "visible_data": {
+        "post_rescue_observation": {
+          "consciousness": "刺激にわずかに反応",
+          "breathing": "自発呼吸あり、やや浅い",
+          "pulse": "触知あり",
+          "skin": "蒼白"
+        },
+        "external_findings": [
+          "明らかな外傷なし",
+          "衣服や身体に著しい汚染は目立たない"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "救出後の全身観察と初期対応として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "安全区域で気道・呼吸・循環の評価を行う",
+          "is_correct": true,
+          "score_delta": 3,
+          "life_delta": 3,
+          "status_effect": {
+            "add_flags": [
+              "abc_assessed"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "救出後は標準的なABC評価を直ちに行う。"
+        },
+        {
+          "option_id": "b",
+          "text": "必要に応じて高濃度酸素投与を開始する",
+          "is_correct": true,
+          "score_delta": 3,
+          "life_delta": 4,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_started"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "吸入性有毒ガス曝露が疑われるため酸素投与は重要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "先に警察事情聴取を優先し観察は後回しにする",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_priority"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "傷病者の医学的評価が最優先である。"
+        },
+        {
+          "option_id": "d",
+          "text": "張り紙の内容から死亡確実と判断し観察を省略する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -6,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "scene_assessment_error",
+              "missed_priority"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "救出後に反応や呼吸がある以上、適切な救急観察が必要である。"
+        },
+        {
+          "option_id": "e",
+          "text": "知人に身体観察を手伝わせる",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "secondary_disaster"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "一般人を処置や観察に関与させるべきではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "車内での重点観察",
+      "phase": "車内活動（詳細観察・重点観察）",
+      "scene_goal": "有毒ガス吸入を念頭に、呼吸状態と意識レベルの変化を最重点で観察する。",
+      "ideal_flow": [
+        "車内収容後に再評価する",
+        "呼吸状態と意識レベルを重点観察する",
+        "低酸素進行に注意する",
+        "継続的に再評価する"
+      ],
+      "ideal_score_delta": 4,
+      "action_tag": [
+        "focused_assessment",
+        "transport_monitoring",
+        "respiratory_watch"
+      ],
+      "text": "車内収容後、傷病者は開眼しないが痛み刺激で顔をしかめる。呼吸数はやや増加し、SpO2は低下傾向である。吸入性有毒ガス曝露を念頭に置きつつ、意識と呼吸状態の変化に注意する。",
+      "visible_data": {
+        "vital_signs": {
+          "blood_pressure": "108/64 mmHg",
+          "heart_rate": "112 /min",
+          "respiratory_rate": "24 /min",
+          "spo2": "92%（室内気）"
+        },
+        "focused_assessment": [
+          "意識障害あり",
+          "有毒ガス吸入の可能性",
+          "自殺企図の可能性",
+          "再評価継続が必要"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送中に最も重点的に観察すべきものはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸状態と意識レベルの変化",
+          "is_correct": true,
+          "score_delta": 4,
+          "life_delta": 4,
+          "status_effect": {
+            "add_flags": [
+              "resp_and_consciousness_monitored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "toxic_exposure"
+            ]
+          },
+          "rationale": "有毒ガス吸入では呼吸障害と意識障害の進行に注意する。"
+        },
+        {
+          "option_id": "b",
+          "text": "知人の心理的動揺の程度",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_priority"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "通報者対応も必要だが、重点観察の最優先ではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "玄関ドアの施錠状況",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_priority"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現病態の評価に直結しない。"
+        },
+        {
+          "option_id": "d",
+          "text": "浴室内の張り紙の筆跡",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_priority"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "捜査的要素であり、搬送中の重点観察ではない。"
+        },
+        {
+          "option_id": "e",
+          "text": "近隣住民からの聞き込み",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_priority"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "搬送中は傷病者観察を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "病院連絡",
+      "phase": "病院連絡",
+      "scene_goal": "現場危険、救出経過、精神背景、現在の医学的状態を整理して申し送る。",
+      "ideal_flow": [
+        "傷病者基本情報を伝える",
+        "危険現場であったことを伝える",
+        "消防隊連携下で救出した経過を伝える",
+        "現在の意識・呼吸状態と疑う病態を伝える"
+      ],
+      "ideal_score_delta": 8,
+      "action_tag": [
+        "handover",
+        "hospital_contact",
+        "risk_communication"
+      ],
+      "text": "搬送先医療機関へ連絡する。傷病者は31歳男性、浴室内に閉じこもり『危険！ガス発生中』の張り紙があった。消防隊応援要請後に安全管理下で救出した。意識障害があり、有毒ガス吸入による急性中毒または窒息性障害が疑われる。",
+      "visible_data": {
+        "handover_points": [
+          "31歳男性",
+          "気分障害の通院歴あり",
+          "浴室内に閉鎖",
+          "『危険！ガス発生中』の張り紙あり",
+          "消防隊応援要請後に救出",
+          "意識障害あり",
+          "有毒ガス吸入疑い"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "この症例の病院連絡として最も適切なテンプレートを1つ選べ。",
+      "templates": [
+        {
+          "template_id": "a",
+          "text": "31歳男性。浴室で倒れていました。精神疾患があるようなので、精神科診察をお願いします。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_handover"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現場危険情報と医学的重症度が不足している。"
+        },
+        {
+          "template_id": "b",
+          "text": "31歳男性。浴室に閉じこもり、ドアに『危険！ガス発生中』の張り紙がありました。消防隊応援要請後、安全管理下で救出しています。気分障害の通院歴があり、自殺企図が疑われます。現在は意識障害があり、有毒ガス吸入を疑って搬送中です。受け入れ準備をお願いします。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 5,
+          "status_effect": {
+            "add_flags": [
+              "excellent_handover"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "poor_handover"
+            ]
+          },
+          "rationale": "現場危険、救出経過、精神背景、現在の状態が整理されており適切である。"
+        },
+        {
+          "template_id": "c",
+          "text": "31歳男性。浴室で反応がなく、たぶん死亡です。詳細は到着してから伝えます。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_handover",
+              "scene_assessment_error"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "不適切な断定であり、受け入れ準備に必要な情報も不足する。"
+        },
+        {
+          "template_id": "d",
+          "text": "31歳男性。玄関が開いていたので事件の可能性があります。警察対応を優先してください。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_handover"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "搬送先には医学的評価に必要な情報を優先して伝える。"
+        },
+        {
+          "template_id": "e",
+          "text": "31歳男性。浴室ドアが閉まっていたので、鍵を壊して救出しました。いまは詳しく分かりません。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_handover",
+              "unsafe_entry"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "危険環境への不適切対応を含み、申し送り内容としても不足している。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、有毒ガス発生が疑われる浴室内自殺企図を背景に、救急隊が現場安全を最優先できるかを問う症例である。救急隊単独での進入は二次災害につながるため、危険表示を真実として扱い、消防隊を応援要請し、安全管理下で救助活動へ移行する判断が重要となる。救出後はABC評価、酸素投与、意識・呼吸状態の継続観察を行い、危険情報も含めて病院へ正確に申し送る。",
+    "ideal_actions": [
+      "危険表示と臭気情報から有毒ガス環境を疑う",
+      "通報者や知人を危険区域へ近づけない",
+      "救急隊単独では進入せず消防隊を応援要請する",
+      "危険区域設定と現場情報共有を行う",
+      "救出後は安全区域でABC評価と酸素投与を行う",
+      "搬送中は呼吸状態と意識レベルを重点観察する",
+      "病院へ現場危険、救出経過、現在の状態を整理して連絡する"
+    ],
+    "good_points": [
+      "現場安全を傷病者接触より先に置けている",
+      "危険表示を軽視せず安全側で判断している",
+      "消防隊との連携を前提に救助方針を組み立てている",
+      "救出後の医療観察へ自然に移行できている"
+    ],
+    "cautions": [
+      "張り紙を冗談と決めつけない",
+      "知人や通報者に確認目的で接近させない",
+      "危険環境で鍵破壊や窓からの進入を急がない",
+      "精神科既往に注意が向きすぎて現場危険評価を後回しにしない",
+      "病院連絡で精神面だけを強調し、危険現場情報を落とさない"
+    ]
+  }
+}
