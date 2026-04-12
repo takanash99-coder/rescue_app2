@@ -1,4 +1,3 @@
-import os
 import re
 import json
 import copy
@@ -362,7 +361,6 @@ def inject_css() -> None:
             margin-top: 4px;
         }
 
-        /* ===== ふりかえり画面専用 ===== */
         .debrief-wrap {
             font-family: "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", "Meiryo", sans-serif !important;
         }
@@ -597,18 +595,48 @@ def inject_css() -> None:
 # =========================================================
 # スクロール制御
 # =========================================================
-def scroll_to_top() -> None:
+def mark_scroll_top() -> None:
+    st.session_state.pending_scroll_top = True
+
+
+def trigger_scroll_top_if_needed() -> None:
+    if not st.session_state.get("pending_scroll_top", False):
+        return
+
     components.html(
         """
         <script>
-        const scrollParent = window.parent;
-        if (scrollParent) {
-            scrollParent.scrollTo({top: 0, behavior: 'instant'});
+        function forceScrollTop() {
+            try {
+                if (window.parent) {
+                    window.parent.scrollTo(0, 0);
+                }
+            } catch (e) {}
+
+            try {
+                window.scrollTo(0, 0);
+            } catch (e) {}
+
+            try {
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            } catch (e) {}
         }
+
+        setTimeout(forceScrollTop, 0);
+        setTimeout(forceScrollTop, 80);
+        setTimeout(forceScrollTop, 180);
+        setTimeout(forceScrollTop, 320);
         </script>
         """,
         height=0,
     )
+    st.session_state.pending_scroll_top = False
+
+
+def rerun_with_scroll_top() -> None:
+    mark_scroll_top()
+    st.rerun()
 
 
 # =========================================================
@@ -625,6 +653,7 @@ def init_state() -> None:
         "score_total": 0.0,
         "score_max": 0.0,
         "hint_from_scene_index": None,
+        "pending_scroll_top": False,
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -1189,8 +1218,7 @@ def get_hint_text(scene: Dict[str, Any]) -> str:
 # =========================================================
 def go_to(screen: str) -> None:
     st.session_state.screen = screen
-    scroll_to_top()
-    st.rerun()
+    rerun_with_scroll_top()
 
 
 # =========================================================
@@ -1273,8 +1301,7 @@ def render_case_filter(cases: List[Dict[str, Any]]) -> None:
             )
             if st.button(f"{label}を選ぶ", key=f"field_{fk}", use_container_width=True):
                 st.session_state.selected_field = fk
-                scroll_to_top()
-                st.rerun()
+                rerun_with_scroll_top()
 
     st.markdown('<div class="tiny-space"></div>', unsafe_allow_html=True)
 
@@ -1601,7 +1628,7 @@ def render_scene(case_payload: Dict[str, Any]) -> None:
         prev_disabled = idx <= 0
         if st.button("前へ", disabled=prev_disabled, use_container_width=True):
             st.session_state.scene_display_index -= 1
-            go_to("scene")
+            rerun_with_scroll_top()
     with nav2:
         if st.button("症例一覧へ戻る", use_container_width=True):
             go_to("case_list")
@@ -1613,7 +1640,7 @@ def render_scene(case_payload: Dict[str, Any]) -> None:
                 go_to("debrief")
             else:
                 st.session_state.scene_display_index += 1
-                go_to("scene")
+                rerun_with_scroll_top()
 
 
 def render_hint(case_payload: Dict[str, Any]) -> None:
@@ -1783,6 +1810,7 @@ def render_debrief(case_payload: Dict[str, Any]) -> None:
 def main() -> None:
     inject_css()
     init_state()
+    trigger_scroll_top_if_needed()
 
     cases = load_all_cases()
 
