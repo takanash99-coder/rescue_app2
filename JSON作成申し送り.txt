@@ -1,0 +1,198 @@
+【申し送り｜臨床推論シミュレーションアプリ 症例作成フェーズ固定版】
+
+救急救命士向け臨床推論シミュレーションアプリ開発を継続中。
+現在は app_simulator_full.py の土台とUI整理が完了 しており、ここからは 100症例作成を目標に、症例追加を最優先で進めるフェーズ に入っている。
+
+今後はこの申し送りを100症例到達まで継続使用する前提とし、ルールは毎回ぶらさず厳格に守ること。
+
+1. 現在の開発方針
+アプリ本体の大改修フェーズはいったん終了
+今後は 症例拡充・内容強化フェーズ
+主戦場は 新規症例追加、既存症例修正、画像とJSONの整合
+app.py は触らない
+app_simulator.py は残す
+app_simulator_full.py を基準アプリとして使う
+2. 今後の作業順序（固定）
+
+今後は以下の順番を基本ルールとして固定する。
+
+作成順
+先に現場イラストを作成
+そのイラストに合わせてJSONを作成
+必要に応じて画像ファイル名・media指定を調整
+保存
+ローカル確認
+GitHub push
+Streamlit反映
+理由
+先にイラストを作ることで、scene1の現場状況が具体化しやすい
+JSON側の media 記述と整合しやすい
+国試画像の直接流用感を避けやすい
+症例の世界観を先に固定できる
+3. カテゴリ名（固定）
+
+症例JSONのカテゴリは以下で固定。
+今後、申し送り・JSON作成・保存先指定では必ずこのカテゴリ名をそのまま使うこと。
+
+cardiovascular
+endocrine_metabolic
+environmental_special
+gastrointestinal
+neuro
+orthopedic
+psychiatric
+reproductive_obstetric
+respiratory
+special_population
+toxicology
+trauma
+urinary
+
+勝手に和名へ変更しないこと。
+別の英語名へ言い換えないこと。
+例：circulatory などは使わない。
+
+4. 画像ファイル保存ルール（固定）
+
+画像・イラストファイルはすべて以下に保存する。
+
+media/
+
+例：
+
+media/acute_heart_failure_home_scene1.png
+
+cases/media ではなく、今後の基準は user 指定の media を優先すること。
+
+5. JSON保存ルール（固定）
+1症例1JSON
+保存先：
+cases/カテゴリ名/ファイル名.json
+
+例：
+
+cases/cardiovascular/case_cardiovascular_acute_heart_failure_pulmonary_edema_001.json
+6. JSON形式ルール（最重要）
+
+今後のJSONは app_simulator_full.py 用の新形式に厳格準拠する。
+
+必須ルール
+sceneは7場面固定
+questions[] は使わない
+scene直下に必要項目を書く
+debriefing を必ず入れる
+各scene直下に置く項目
+id
+title
+phase
+scene_goal
+ideal_flow
+ideal_score_delta
+action_tag
+text
+visible_data
+media
+type
+prompt
+選択形式
+単一選択・複数選択 → options
+並べ替え → ranking
+テンプレ選択 → templates
+debriefing
+summary
+ideal_actions
+good_points
+cautions
+7. 旧形式との違い（混同禁止）
+
+以前のズレの原因はここだったので、今後は厳守。
+
+旧
+scene -> questions[0] -> type/options
+新
+scene直下 -> type / prompt / options / ranking / templates
+
+つまり、
+questions配下は使わない。
+これを崩すと app_simulator_full.py と不一致になる。
+
+8. media の書き方
+
+画像が必要なsceneでは、media に入れる。
+不要なら [] にする。
+
+画像を使う場合は、以下の考え方を守る。
+
+国家試験の図版そのままは使わない
+要点だけ残した再構成画像にする
+構図・背景・人物配置を少し変える
+重要所見が分かればOK
+
+JSONでは以下を基本で入れる。
+
+file
+description
+source_note
+source_note の基本文
+既存図版を直接使用せず、要点のみ残したオリジナル再構成画像
+9. 国試っぽさを薄めるルール
+
+国試ベース症例を使う場合も、そのまま見えないように軽く調整する。
+
+調整してよいもの
+年齢を少し変更
+性別を必要に応じて変更
+現場背景の表現
+発見状況や描写の言い回し
+画像構図
+変えないもの
+病態の本質
+正答につながる重要所見
+学習価値のコア
+10. 今日やったこと
+
+今回作成・整理した内容は以下。
+
+症例
+急性心不全による肺水腫が疑われる呼吸困難
+カテゴリ：cardiovascular
+作成したイラスト
+傷病者のみの現場イラストを作成
+内容：
+自宅寝室
+ベッド上で上体を起こした高齢女性
+呼吸困難あり
+家族が付き添い
+ティッシュに淡いピンク色の痰
+救急隊は描かない構図へ修正済み
+画像ファイル名
+acute_heart_failure_home_scene1.png
+画像保存先
+media/acute_heart_failure_home_scene1.png
+JSON
+上記イラストを scene_1 の media に組み込んだ
+field は cardiovascular
+7場面固定
+debriefing 付き
+新形式準拠で作成済み
+想定JSON保存先
+cases/cardiovascular/case_cardiovascular_acute_heart_failure_pulmonary_edema_001.json
+11. 次回の作業開始ルール
+
+次回チャットでは、以下の流れで進めるのが基本。
+
+ユーザーが症例文を貼る
+まず現場イラストを作る
+画像ファイル名を決める
+その画像に合わせて完全版JSONを作る
+保存先も明記する
+12. 今後の目標
+100症例作成
+カテゴリの偏りを減らしながら追加
+画像あり症例と画像なし症例をバランス良く作る
+app_simulator_full.py で安定読込できる形式を維持
+「画像 → JSON」の流れを毎回崩さない
+13. 一言メモ
+
+今後は、JSONを先に書くより、先にイラストを作ってからJSONを合わせる 方針がよい。
+このルールで進めることで、scene1の現場感、media整合、国試感の薄まりが全部やりやすくなる。

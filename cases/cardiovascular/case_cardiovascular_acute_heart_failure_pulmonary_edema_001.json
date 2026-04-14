@@ -1,0 +1,437 @@
+{
+  "case_id": "case_cardiovascular_acute_heart_failure_pulmonary_edema_001",
+  "title": "急性心不全による肺水腫が疑われる呼吸困難",
+  "field": "cardiovascular",
+  "difficulty": "Normal",
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "出場指令",
+      "phase": "dispatch",
+      "scene_goal": "通報内容から重症呼吸困難を疑い、現場到着後の初期評価を意識する。",
+      "ideal_flow": [
+        "呼吸困難の重症例として準備する",
+        "現場到着後ただちにABC評価へ移る",
+        "酸素化不良と循環不全の有無を同時にみる"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": "prepare_for_critical_respiratory_distress",
+      "text": "早朝、自宅から『母が昨夜から息苦しがっていた。今朝になってピンク色の痰が出てきた』と家族から119番通報があった。あなたは救急隊として出場した。",
+      "visible_data": {
+        "dispatch_info": [
+          "68歳女性",
+          "昨夜から呼吸困難",
+          "今朝ピンク色の痰が出現",
+          "自宅で家族が通報"
+        ]
+      },
+      "media": [
+        {
+          "file": "acute_heart_failure_home_scene1.png",
+          "description": "再構成画像。自宅寝室で、呼吸困難のため上体を起こして座る高齢女性。家族がそばに付き添い、ティッシュには淡いピンク色の痰がみられる。",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "現場到着直後、まず最優先で行う対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "key": "A",
+          "label": "気道・呼吸・循環の初期評価を行う",
+          "is_ideal": true,
+          "score_delta": 5,
+          "feedback": "重症呼吸困難が疑われるため、まずABCを中心に初期評価を行う。"
+        },
+        {
+          "key": "B",
+          "label": "家族から既往歴を詳しく聞き続ける",
+          "is_ideal": false,
+          "score_delta": -2,
+          "feedback": "病歴聴取は重要だが、まず傷病者本人の重症度評価が優先される。"
+        },
+        {
+          "key": "C",
+          "label": "内服薬手帳の確認を最優先にする",
+          "is_ideal": false,
+          "score_delta": -1,
+          "feedback": "参考情報にはなるが、初期評価より優先されない。"
+        },
+        {
+          "key": "D",
+          "label": "家族に通報時の様子だけ確認して待機する",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "現場到着後に待機する理由はなく、ただちに傷病者評価が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "重症呼吸困難と低酸素血症を把握し、心原性肺水腫を疑う。",
+      "ideal_flow": [
+        "意識・呼吸・循環を素早く確認する",
+        "低酸素血症と努力呼吸を把握する",
+        "呼吸器疾患だけでなく循環器疾患も鑑別に入れる"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "recognize_acute_cardiogenic_pulmonary_edema",
+      "text": "傷病者はベッドにもたれかかるように座っており、苦しそうに呼吸している。会話は可能だが、長く話すことはできない。",
+      "visible_data": {
+        "general_appearance": [
+          "意識 JCS1",
+          "呼吸数 32/分",
+          "脈拍 110/分",
+          "血圧 180/110mmHg",
+          "SpO2 86％",
+          "口元に淡いピンク色の痰"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も疑うべき病態はどれか。",
+      "options": [
+        {
+          "key": "A",
+          "label": "気管支喘息発作",
+          "is_ideal": false,
+          "score_delta": -1,
+          "feedback": "呼吸困難はあるが、ピンク色痰や高度高血圧は心不全をより示唆する。"
+        },
+        {
+          "key": "B",
+          "label": "過換気症候群",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "低酸素血症、ピンク色痰、高血圧、うっ血所見と合わない。"
+        },
+        {
+          "key": "C",
+          "label": "急性心不全による肺水腫",
+          "is_ideal": true,
+          "score_delta": 10,
+          "feedback": "重度呼吸困難、低酸素血症、ピンク色泡沫状痰、高血圧は急性心不全による肺水腫を強く示唆する。"
+        },
+        {
+          "key": "D",
+          "label": "単純な上気道感染",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "重症度と所見が一致しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "全身観察",
+      "phase": "secondary_assessment",
+      "scene_goal": "肺うっ血と体液貯留の身体所見を統合して心不全増悪と判断する。",
+      "ideal_flow": [
+        "呼吸音を確認する",
+        "末梢所見を確認する",
+        "肺と末梢のうっ血所見を統合する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "integrate_congestion_signs",
+      "text": "全身観察を進めると、両肺に湿性の異常呼吸音が目立ち、下肢にも所見を認めた。",
+      "visible_data": {
+        "physical_findings": [
+          "全肺野で水泡音を聴取",
+          "両下肢に浮腫あり",
+          "冷汗は軽度",
+          "胸痛の訴えは明確でない"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この所見の組み合わせから最も考えやすい背景はどれか。",
+      "options": [
+        {
+          "key": "A",
+          "label": "体液貯留を伴う心不全増悪",
+          "is_ideal": true,
+          "score_delta": 10,
+          "feedback": "全肺野の水泡音と両下肢浮腫は、肺うっ血と全身うっ血を伴う心不全増悪を示す。"
+        },
+        {
+          "key": "B",
+          "label": "脱水による循環血液量減少",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "浮腫や肺水泡音は脱水と合わない。"
+        },
+        {
+          "key": "C",
+          "label": "アナフィラキシーによる血管拡張",
+          "is_ideal": false,
+          "score_delta": -2,
+          "feedback": "皮膚症状やショックの所見に乏しく、うっ血所見が前景にある。"
+        },
+        {
+          "key": "D",
+          "label": "緊張性気胸による換気障害",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "左右差や片側の呼吸音低下ではなく、全肺野の水泡音が主体である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "病態の理解",
+      "phase": "clinical_reasoning",
+      "scene_goal": "国試レベルの病態整理として前負荷増大を選べる。",
+      "ideal_flow": [
+        "肺水腫の成り立ちを考える",
+        "静脈還流とうっ血を整理する",
+        "設問の正答を選ぶ"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "understand_preload_increase",
+      "text": "家族から、高血圧で通院中であり、心臓の機能低下を指摘されたことがあると聴取した。呼吸困難は夜間から悪化し、今朝さらに増強している。",
+      "visible_data": {
+        "history": [
+          "高血圧で通院中",
+          "心機能低下を指摘されたことがある",
+          "夜間から呼吸困難が悪化",
+          "今朝ピンク色痰が出現"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者について最も考えられる病態はどれか。",
+      "options": [
+        {
+          "key": "1",
+          "label": "後負荷が低下している",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "血圧は高値であり、後負荷低下とは考えにくい。"
+        },
+        {
+          "key": "2",
+          "label": "前負荷が増大している",
+          "is_ideal": true,
+          "score_delta": 15,
+          "feedback": "心不全増悪ではうっ血により前負荷が増大し、肺水腫につながる。"
+        },
+        {
+          "key": "3",
+          "label": "肺水分量が減少している",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "肺水腫では肺水分量は増加している。"
+        },
+        {
+          "key": "4",
+          "label": "1回拍出量が増大している",
+          "is_ideal": false,
+          "score_delta": -2,
+          "feedback": "心不全の病態としては整合しにくい。"
+        },
+        {
+          "key": "5",
+          "label": "左室駆出率が上昇している",
+          "is_ideal": false,
+          "score_delta": -2,
+          "feedback": "この症例では左心不全が疑われ、駆出率上昇を示す所見ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "現場対応",
+      "phase": "prehospital_care",
+      "scene_goal": "呼吸不全への初期介入として酸素投与と継続評価を優先する。",
+      "ideal_flow": [
+        "低酸素血症を確認する",
+        "酸素投与を行う",
+        "呼吸状態の変化を継続評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "start_oxygen_and_monitor",
+      "text": "呼吸困難は持続し、発語量は減ってきた。努力呼吸が目立ち、SpO2低下も続いている。",
+      "visible_data": {
+        "current_status": [
+          "呼吸困難が持続",
+          "努力呼吸あり",
+          "SpO2低下持続",
+          "血圧は高値を維持"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で優先度が高い対応はどれか。",
+      "options": [
+        {
+          "key": "A",
+          "label": "酸素投与を開始し、呼吸状態を継続評価する",
+          "is_ideal": true,
+          "score_delta": 10,
+          "feedback": "低酸素血症を伴うため、まず酸素化の改善と継続的な観察が必要である。"
+        },
+        {
+          "key": "B",
+          "label": "大量輸液を開始する",
+          "is_ideal": false,
+          "score_delta": -4,
+          "feedback": "肺うっ血を悪化させる可能性があり不適切である。"
+        },
+        {
+          "key": "C",
+          "label": "ただちに歩行させる",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "呼吸負荷を増やすおそれがある。"
+        },
+        {
+          "key": "D",
+          "label": "経口摂取を勧める",
+          "is_ideal": false,
+          "score_delta": -2,
+          "feedback": "この状況で優先されない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "搬送判断",
+      "phase": "transport_decision",
+      "scene_goal": "現場滞在を短くし、緊急対応可能な医療機関選定につなげる。",
+      "ideal_flow": [
+        "重症度を再確認する",
+        "現場滞在を短くする",
+        "適切な搬送先を選定する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "select_appropriate_hospital",
+      "text": "重度呼吸困難、低酸素血症、高血圧、肺水腫を疑う所見がそろっており、現場での長時間滞在は望ましくない。",
+      "visible_data": {
+        "transport_consideration": [
+          "重症呼吸不全",
+          "急性心不全疑い",
+          "早期搬送が必要"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "key": "A",
+          "label": "現場で長時間観察してから搬送する",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "現場滞在を長くする理由はなく、早期搬送が必要である。"
+        },
+        {
+          "key": "B",
+          "label": "循環器・救急対応可能な医療機関を選定し迅速搬送する",
+          "is_ideal": true,
+          "score_delta": 10,
+          "feedback": "急性心不全による肺水腫が疑われるため、適切な搬送先選定と迅速搬送が必要である。"
+        },
+        {
+          "key": "C",
+          "label": "自宅で安静とし、様子を見るよう説明する",
+          "is_ideal": false,
+          "score_delta": -5,
+          "feedback": "重症例であり不適切である。"
+        },
+        {
+          "key": "D",
+          "label": "家族のみで受診してもらう",
+          "is_ideal": false,
+          "score_delta": -5,
+          "feedback": "救急搬送が必要な状態である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "医療機関連絡",
+      "phase": "hospital_contact",
+      "scene_goal": "必要な情報を要約し、病態を簡潔に伝える。",
+      "ideal_flow": [
+        "年齢・性別・主訴を伝える",
+        "バイタルと主要所見を伝える",
+        "急性心不全による肺水腫疑いとしてまとめる"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "hospital_first_contact",
+      "text": "搬送先候補の医療機関へ連絡する。短時間で要点を整理して伝える必要がある。",
+      "visible_data": {
+        "must_report": [
+          "68歳女性",
+          "主訴は呼吸困難",
+          "JCS1",
+          "RR 32/分",
+          "HR 110/分",
+          "BP 180/110mmHg",
+          "SpO2 86％",
+          "ピンク色痰",
+          "全肺野水泡音",
+          "両下肢浮腫",
+          "急性心不全による肺水腫疑い"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "この場面で最も適切な医療機関連絡文を選べ。",
+      "templates": [
+        {
+          "key": "A",
+          "label": "68歳女性、発熱と咳嗽が主訴です。意識清明、SpO2も保たれており、軽症と考えています。",
+          "is_ideal": false,
+          "score_delta": -4,
+          "feedback": "症例の要点と一致しておらず、重症度も過小評価している。"
+        },
+        {
+          "key": "B",
+          "label": "68歳女性、主訴は呼吸困難です。JCS1、呼吸数32、脈拍110、血圧180/110、SpO2 86％。ピンク色痰、全肺野で水泡音、両下肢浮腫を認め、急性心不全による肺水腫を疑っています。受け入れをお願いします。",
+          "is_ideal": true,
+          "score_delta": 15,
+          "feedback": "主訴、重症度、主要所見、推定病態が簡潔にまとまっている。"
+        },
+        {
+          "key": "C",
+          "label": "高齢女性で息苦しさがあります。詳しくは着いてから説明します。",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "情報が不足しすぎており、受け入れ側の準備につながらない。"
+        },
+        {
+          "key": "D",
+          "label": "高齢女性で喘息発作と思われます。血圧は高めですが、呼吸音は未確認です。",
+          "is_ideal": false,
+          "score_delta": -3,
+          "feedback": "推定病態が不適切で、観察所見も不十分である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "本症例は、ピンク色痰、全肺野の水泡音、SpO2低下、高血圧、両下肢浮腫から、急性心不全による肺水腫を疑う症例である。呼吸困難では呼吸器疾患だけでなく循環器疾患を含めて評価する視点が重要である。",
+    "ideal_actions": [
+      "通報内容から重症呼吸困難として準備する",
+      "到着後ただちにABC中心の初期評価を行う",
+      "低酸素血症と努力呼吸を把握する",
+      "肺水泡音と下肢浮腫からうっ血性心不全を疑う",
+      "酸素投与を行い呼吸状態を継続評価する",
+      "現場滞在を短くし、適切な医療機関へ迅速搬送する",
+      "医療機関連絡で主訴・バイタル・主要所見・推定病態を簡潔に伝える"
+    ],
+    "good_points": [
+      "ピンク色痰と水泡音を心不全の所見として捉えられた",
+      "高血圧と下肢浮腫を病態理解につなげられた",
+      "低酸素血症に対して優先すべき対応を選択できた"
+    ],
+    "cautions": [
+      "呼吸困難を喘息や過換気だけで決めつけない",
+      "肺うっ血が疑われる症例で大量輸液を選ばない",
+      "現場で長くとどまりすぎず、搬送判断を遅らせない",
+      "病院連絡では『苦しそう』だけでなく、具体的バイタルと所見を添える"
+    ]
+  }
+}
