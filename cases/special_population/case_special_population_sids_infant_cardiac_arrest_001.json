@@ -1,0 +1,409 @@
+{
+  "case_id": "case_special_population_sids_infant_cardiac_arrest_001",
+  "category": "special_population",
+  "title": "就寝後に心肺停止で発見された乳児",
+  "difficulty": "normal",
+  "patient_profile": {
+    "age": 0,
+    "sex": "female"
+  },
+  "summary": "生後4か月の乳児。前夜20時に哺乳後、いつも通りベビーベッドで就寝した。翌朝、母親が顔色不良と無呼吸に気付き救急要請。救急隊到着時はJCS300、心肺停止、心静止、体温35.0℃、皮膚蒼白、外表異常なし。",
+  "learning_points": [
+    "乳児の心肺停止症例でSIDSを鑑別に入れる",
+    "外因死を疑う所見の有無を丁寧に観察する",
+    "SIDSのリスク因子を理解する",
+    "CPA乳児への蘇生対応と情報収集を両立する"
+  ],
+  "scene_1": {
+    "id": "scene_1",
+    "title": "現場到着",
+    "phase": "scene_size_up",
+    "scene_goal": "乳児CPAであることを迅速に把握し、蘇生優先で対応を開始する。",
+    "ideal_flow": [
+      "安全確認",
+      "乳児への接触",
+      "反応確認",
+      "呼吸・循環確認",
+      "CPA判断"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "initial_assessment",
+    "text": "自宅寝室で、生後4か月の乳児がベビーベッド内で反応なく横たわっている。母親は、昨夜20時に哺乳後いつも通り寝かせ、朝になって顔色不良と無呼吸に気付いたという。",
+    "visible_data": {
+      "location": "自宅寝室",
+      "awareness": "JCS300",
+      "breathing": "なし",
+      "circulation": "心肺停止状態",
+      "skin_color": "蒼白"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この場面で最も優先すべき対応はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "詳細な生活歴を先に聴取する",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "情報収集は重要ですが、まず蘇生対応が最優先です。"
+      },
+      {
+        "key": "B",
+        "text": "乳児CPAとして直ちに蘇生対応を開始する",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "最優先は心肺停止への対応です。"
+      },
+      {
+        "key": "C",
+        "text": "外表異常がないため死亡確認のみ行う",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "現場で安易に判断せず、蘇生対応を行います。"
+      },
+      {
+        "key": "D",
+        "text": "低体温のみを主因と考えて保温だけ行う",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "体温低下はありますが、心肺停止への対応が優先です。"
+      }
+    ]
+  },
+  "scene_2": {
+    "id": "scene_2",
+    "title": "初期評価",
+    "phase": "primary_survey",
+    "scene_goal": "CPA所見を確認し、蘇生継続方針を固める。",
+    "ideal_flow": [
+      "気道確認",
+      "呼吸確認",
+      "脈拍確認",
+      "CPA判断",
+      "蘇生継続"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "pediatric_cpa_assessment",
+    "text": "乳児は反応なく、呼吸停止。皮膚は蒼白で、体温は35.0℃。CPAとして対応が必要である。",
+    "visible_data": {
+      "temperature": "35.0℃",
+      "skin": "蒼白",
+      "external_abnormality": "明らかな外表異常なし"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点の判断として最も適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "乳児心肺停止として蘇生を継続する",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "CPAとして蘇生継続が適切です。"
+      },
+      {
+        "key": "B",
+        "text": "外傷がないので救命不能と判断する",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "外傷の有無だけで判断しません。"
+      },
+      {
+        "key": "C",
+        "text": "呼吸器感染症として吸入を優先する",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "まずCPA対応です。"
+      },
+      {
+        "key": "D",
+        "text": "家族説明のみ行い搬送は見送る",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "不適切です。"
+      }
+    ]
+  },
+  "scene_3": {
+    "id": "scene_3",
+    "title": "現場情報の収集",
+    "phase": "history_taking",
+    "scene_goal": "発見状況と就寝状況を整理し、SIDSを疑う基礎情報を集める。",
+    "ideal_flow": [
+      "最後に元気だった時刻の確認",
+      "就寝時状況の確認",
+      "発見状況の確認",
+      "既往や周辺環境の確認"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "history_collection",
+    "text": "母親は、20時に哺乳し、いつも通りにベビーベッドへ寝かせたと話す。朝になって哺乳させようとした際に顔色不良と無呼吸に気付いたという。外表異常は明らかでない。",
+    "visible_data": {
+      "last_seen_well": "前夜20:00頃",
+      "sleep_place": "ベビーベッド",
+      "found_time": "翌朝",
+      "trauma_sign": "なし"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点で考えるべき病態として最も適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "乳児突然死症候群（SIDS）を疑う",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "睡眠中に突然心肺停止で発見され、外表異常が乏しい乳児では重要な鑑別です。"
+      },
+      {
+        "key": "B",
+        "text": "四肢骨折を第一に疑う",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "病歴と一致しません。"
+      },
+      {
+        "key": "C",
+        "text": "熱中症を第一に疑う",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "この状況では優先度が低いです。"
+      },
+      {
+        "key": "D",
+        "text": "窒息を完全に否定できるので検討不要",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "外因の除外は慎重に行う必要があります。"
+      }
+    ]
+  },
+  "scene_4": {
+    "id": "scene_4",
+    "title": "重点観察",
+    "phase": "focused_assessment",
+    "scene_goal": "外因死や虐待を示唆する所見の有無を確認する。",
+    "ideal_flow": [
+      "全身観察",
+      "外傷の確認",
+      "出血・圧迫痕の確認",
+      "周囲環境の確認"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "focused_observation",
+    "text": "乳児の皮膚は蒼白であるが、明らかな外傷や出血、打撲痕は認めない。ベビーベッド内に著しい異常は見当たらない。",
+    "visible_data": {
+      "external_injury": "認めない",
+      "bleeding": "なし",
+      "environment": "著変なし"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この観察の意義として最も適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "外因や明らかな虐待所見の有無を確認するため",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "SIDSを考える場合でも、外因の評価は重要です。"
+      },
+      {
+        "key": "B",
+        "text": "蘇生より環境整備を優先するため",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "蘇生が優先です。"
+      },
+      {
+        "key": "C",
+        "text": "整形外科搬送の必要性を判断するため",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "主目的ではありません。"
+      },
+      {
+        "key": "D",
+        "text": "仰向け寝を危険因子から除外するため",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "仰向け寝はむしろ予防的とされます。"
+      }
+    ]
+  },
+  "scene_5": {
+    "id": "scene_5",
+    "title": "モニター評価",
+    "phase": "monitoring",
+    "scene_goal": "心静止を確認し、CPA対応を継続する。",
+    "ideal_flow": [
+      "モニター装着",
+      "波形確認",
+      "心静止の判断",
+      "蘇生継続"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "monitor_check",
+    "text": "心電図波形は心静止であり、心肺停止状態である。",
+    "visible_data": {
+      "ecg": "asystole"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "このモニター所見の解釈として適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "心静止であり、CPA対応の継続が必要である",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "心静止として蘇生継続が必要です。"
+      },
+      {
+        "key": "B",
+        "text": "除細動適応である",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "心静止は除細動適応ではありません。"
+      },
+      {
+        "key": "C",
+        "text": "正常洞調律である",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "誤りです。"
+      },
+      {
+        "key": "D",
+        "text": "評価不要である",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "モニター評価は重要です。"
+      }
+    ]
+  },
+  "scene_6": {
+    "id": "scene_6",
+    "title": "病態理解",
+    "phase": "clinical_reasoning",
+    "scene_goal": "SIDSの危険因子を理解する。",
+    "ideal_flow": [
+      "SIDSを想起",
+      "危険因子を整理",
+      "予防因子と区別する"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "risk_factor_assessment",
+    "text": "本症例は睡眠中に突然発見された乳児CPAであり、乳児突然死症候群（SIDS）が重要な病態である。SIDSには複数の危険因子が知られている。",
+    "visible_data": {
+      "suspected_condition": "SIDS"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この病態の発生リスク因子となるのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "夏季",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "代表的危険因子ではありません。"
+      },
+      {
+        "key": "B",
+        "text": "母乳栄養",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "母乳栄養は予防的に働く可能性があります。"
+      },
+      {
+        "key": "C",
+        "text": "仰向け寝",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "仰向け寝はSIDS予防の基本です。"
+      },
+      {
+        "key": "D",
+        "text": "両親の喫煙",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "受動喫煙を含む喫煙はSIDSの重要な危険因子です。"
+      },
+      {
+        "key": "E",
+        "text": "予定日通りの出生",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "危険因子としては適切ではありません。"
+      }
+    ]
+  },
+  "scene_7": {
+    "id": "scene_7",
+    "title": "搬送と申し送り",
+    "phase": "transport_and_handover",
+    "scene_goal": "乳児CPAとして必要情報を整理して申し送る。",
+    "ideal_flow": [
+      "発見状況の要約",
+      "CPA所見の共有",
+      "外表異常の有無を共有",
+      "蘇生継続状況の共有"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "handover",
+    "text": "乳児CPAとして蘇生を継続しながら搬送する。発見状況、最後に元気であった時刻、就寝状況、外表異常の有無を整理して申し送る。",
+    "visible_data": {
+      "age_group": "生後4か月",
+      "condition": "CPA",
+      "ecg": "心静止",
+      "external_abnormality": "なし"
+    },
+    "media": [],
+    "type": "template_select",
+    "prompt": "最も適切な申し送り内容を選べ。",
+    "templates": [
+      {
+        "key": "A",
+        "text": "生後4か月乳児。前夜20時に哺乳後ベビーベッドで就寝。翌朝、母親が顔色不良と無呼吸に気付き要請。到着時JCS300、CPA、心静止、体温35.0℃、皮膚蒼白、外表異常なし。乳児突然死症候群を含め鑑別しつつ蘇生継続中です。",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "発見状況、重症度、所見が簡潔にまとまっています。"
+      },
+      {
+        "key": "B",
+        "text": "乳児ですが外傷がないので問題ないと思われます。",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "不適切です。"
+      },
+      {
+        "key": "C",
+        "text": "喫煙歴の確認だけできたので他情報はありません。",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "CPA情報と発見状況が重要です。"
+      }
+    ]
+  },
+  "debriefing": {
+    "summary": "本症例は、睡眠中に突然心肺停止状態で発見された生後4か月乳児であり、乳児突然死症候群（SIDS）を重要な鑑別として考える。SIDSでは睡眠関連の状況、外因の除外、周辺環境の確認が重要である。危険因子として保護者の喫煙が知られている一方、仰向け寝や母乳栄養は予防的要素とされる。",
+    "ideal_actions": [
+      "乳児CPAとして直ちに蘇生対応を開始する",
+      "就寝状況と発見状況を確認する",
+      "外表異常や外因を慎重に評価する",
+      "SIDSの危険因子を理解する",
+      "必要情報を整理して申し送る"
+    ],
+    "good_points": [
+      "蘇生優先で動けた",
+      "SIDSを鑑別に入れられた",
+      "喫煙が危険因子であると判断できた"
+    ],
+    "cautions": [
+      "仰向け寝は危険因子ではなく予防的である",
+      "母乳栄養は保護的に働く可能性がある",
+      "SIDSを考える際も外因や虐待の評価を怠らない"
+    ]
+  }
+}

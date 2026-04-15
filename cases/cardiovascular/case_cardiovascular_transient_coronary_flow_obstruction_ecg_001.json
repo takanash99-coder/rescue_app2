@@ -1,0 +1,436 @@
+{
+  "case_id": "case_cardiovascular_transient_coronary_flow_obstruction_ecg_001",
+  "category": "cardiovascular",
+  "title": "胸部不快感の再燃時に心電図変化を認めた男性",
+  "difficulty": "hard",
+  "version": "1.0",
+  "summary": "胸部不快感で救急要請された60歳男性。収容時には症状が一旦軽快していたが、搬送中に再び胸が締め付けられるような症状を訴えた。症状出現時のモニター波形変化から、一過性の冠動脈血流障害を背景とする虚血性心疾患を想定し、症状と心電図変化を関連づけて判断する症例。",
+  "learning_objectives": [
+    "一過性の胸部症状でも虚血性心疾患を疑う",
+    "症状出現時と無症状時のモニター波形差に注目する",
+    "胸部不快感とST変化を冠動脈血流障害として解釈する",
+    "搬送中の症状再燃を重視して観察を継続する"
+  ],
+  "scene_count": 7,
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "現場到着・状況把握",
+      "phase": "scene_assessment",
+      "scene_goal": "胸部不快感を主訴とする傷病者として、症状の性質と経過を把握する。",
+      "ideal_flow": [
+        "安全確認",
+        "傷病者への接触",
+        "主訴確認",
+        "症状の性質確認",
+        "発症から現在までの経過確認"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "initial_recognition",
+      "text": "自宅で60歳の男性が胸部不快感を訴えている。救急隊到着時、意識は清明。本人は『さっき胸が重苦しかったが、今は少し落ち着いている』と話している。",
+      "visible_data": {
+        "location": "自宅",
+        "chief_complaint": "胸部不快感",
+        "current_status": "症状は一旦軽快",
+        "consciousness": "意識清明"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も優先して考えるべき病態はどれか。",
+      "options": [
+        {
+          "id": "s1o1",
+          "label": "虚血性心疾患",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "一過性でも胸部圧迫感・絞扼感は虚血性心疾患をまず考える。"
+        },
+        {
+          "id": "s1o2",
+          "label": "上気道感染",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "主訴と一致しにくい。"
+        },
+        {
+          "id": "s1o3",
+          "label": "低血糖発作",
+          "is_correct": false,
+          "score_delta": -2,
+          "feedback": "現時点で支持所見が乏しい。"
+        },
+        {
+          "id": "s1o4",
+          "label": "髄膜刺激症候",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "症状が合わない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "呼吸・循環の安定性を確認しつつ、高血圧下の胸部症状として重症度を判断する。",
+      "ideal_flow": [
+        "意識評価",
+        "気道評価",
+        "呼吸評価",
+        "循環評価",
+        "バイタルサイン確認"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_assessment",
+      "text": "救急隊到着時観察所見は、意識清明、呼吸数18/分、脈拍60/分・整、血圧172/96mmHg、SpO2 98％である。胸部不快感は約5分で消失している。",
+      "visible_data": {
+        "consciousness": "意識清明",
+        "respiratory_rate": "18/分",
+        "pulse": "60/分・整",
+        "blood_pressure": "172/96mmHg",
+        "spo2": "98％",
+        "symptom_course": "胸部不快感は5分で消失"
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この場面で適切な判断を2つ選べ。",
+      "options": [
+        {
+          "id": "s2o1",
+          "label": "現時点で重度の呼吸不全は目立たない",
+          "is_correct": true,
+          "score_delta": 7,
+          "feedback": "呼吸数とSpO2から著明な呼吸不全は示されない。"
+        },
+        {
+          "id": "s2o2",
+          "label": "症状消失後でも心血管イベントの可能性は残る",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "症状が消えても虚血が否定されるわけではない。"
+        },
+        {
+          "id": "s2o3",
+          "label": "症状が消えたので循環評価は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "胸部症状では継続評価が必要。"
+        },
+        {
+          "id": "s2o4",
+          "label": "SpO2が保たれているため心疾患は否定できる",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "SpO2正常でも虚血性心疾患はありうる。"
+        },
+        {
+          "id": "s2o5",
+          "label": "高血圧なので胸部症状との関連は考えなくてよい",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "胸部症状の評価が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "症状聴取",
+      "phase": "focused_history",
+      "scene_goal": "胸部症状の性状を確認し、虚血性胸痛の特徴を整理する。",
+      "ideal_flow": [
+        "症状部位確認",
+        "症状の性質確認",
+        "持続時間確認",
+        "増悪軽快因子確認",
+        "既往や冠危険因子確認"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "history_taking",
+      "text": "本人は『胸の真ん中あたりが締め付けられるような感じだった』と話す。放散痛ははっきりしないが、嫌な圧迫感だったという。",
+      "visible_data": {
+        "pain_character": "締め付けられるような胸部不快感",
+        "location": "前胸部中央",
+        "duration": "数分程度",
+        "quality": "圧迫感"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症状の性質として最も虚血性心疾患を示唆するのはどれか。",
+      "options": [
+        {
+          "id": "s3o1",
+          "label": "締め付けられるような胸部不快感",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "虚血性胸痛として典型的な表現のひとつである。"
+        },
+        {
+          "id": "s3o2",
+          "label": "体位で変わる背部痛",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "この症例では中心情報ではない。"
+        },
+        {
+          "id": "s3o3",
+          "label": "吸気で悪化する限局性胸痛",
+          "is_correct": false,
+          "score_delta": -2,
+          "feedback": "胸膜性疼痛を考えやすい。"
+        },
+        {
+          "id": "s3o4",
+          "label": "咽頭痛を伴う胸部違和感",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "虚血性病態の根拠として弱い。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "搬送中の変化",
+      "phase": "reassessment",
+      "scene_goal": "症状の再燃を捉え、モニター評価へつなげる。",
+      "ideal_flow": [
+        "継続観察",
+        "症状再確認",
+        "変化の有無把握",
+        "モニター波形確認準備",
+        "再評価へ移行"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "trend_monitoring",
+      "text": "搬送中、本人は再び『胸が締め付けられるような感じがする』と訴えた。症状は再燃しており、継続観察が必要な状況である。",
+      "visible_data": {
+        "symptom_recurrence": "あり",
+        "complaint": "胸が締め付けられる感じ",
+        "phase": "搬送中"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な対応はどれか。",
+      "options": [
+        {
+          "id": "s4o1",
+          "label": "症状再燃としてモニター所見を再評価する",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "症状と心電図変化の関連を捉えることが重要である。"
+        },
+        {
+          "id": "s4o2",
+          "label": "一度軽快しているので経過観察のみとする",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "再燃しており再評価が必要。"
+        },
+        {
+          "id": "s4o3",
+          "label": "胸部症状とは無関係として扱う",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "不適切。"
+        },
+        {
+          "id": "s4o4",
+          "label": "症状聴取をやめて搬送だけを続ける",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "症状と所見の変化把握が大切。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "モニター波形の観察",
+      "phase": "focused_assessment",
+      "scene_goal": "無症状時と症状出現時の心電図変化を比較し、虚血性変化を読み取る。",
+      "ideal_flow": [
+        "無症状時波形確認",
+        "症状出現時波形確認",
+        "2つを比較する",
+        "ST変化を捉える",
+        "原因病態を考える"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "ecg_interpretation",
+      "text": "救急車内収容時の波形Aと、症状再燃時の波形Bを比較する。症状出現時の波形で虚血を示唆する変化がみられる。",
+      "visible_data": {
+        "waveform_A": "収容時",
+        "waveform_B": "症状出現時",
+        "comparison_point": "症状と波形変化の関連"
+      },
+      "media": [
+        {
+          "file": "media/ecg_transient_chest_discomfort_coronary_flow_obstruction_scene5.png",
+          "description": "救急車内収容時Aと症状出現時Bの心電図モニター波形比較画像",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "この波形変化から最も考えやすいのはどれか。",
+      "options": [
+        {
+          "id": "s5o1",
+          "label": "一過性の心筋虚血",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "症状出現時に一致したST変化は冠血流障害による虚血を示唆する。"
+        },
+        {
+          "id": "s5o2",
+          "label": "髄膜刺激",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "心電図変化の説明にならない。"
+        },
+        {
+          "id": "s5o3",
+          "label": "頭部外傷",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "本症例と一致しない。"
+        },
+        {
+          "id": "s5o4",
+          "label": "発熱による循環変動",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "根拠が乏しい。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "重症度判断と申し送り",
+      "phase": "hospital_contact",
+      "scene_goal": "症状再燃と心電図変化を簡潔に伝え、冠血流障害を疑う症例として申し送る。",
+      "ideal_flow": [
+        "年齢・性別",
+        "主訴",
+        "症状経過",
+        "バイタル",
+        "モニター変化",
+        "疑う病態"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "first_call",
+      "text": "胸部不快感の再燃と、症状に一致した心電図変化を認めるため、医療機関へ状況を連絡する。",
+      "visible_data": {
+        "age_sex": "60歳男性",
+        "chief_complaint": "胸部不快感",
+        "suspected_condition": "冠動脈血流障害による虚血性変化"
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "この症例の申し送りとして最も適切な内容を選べ。",
+      "templates": [
+        {
+          "id": "s6t1",
+          "label": "60歳男性。胸部不快感で要請。収容時は症状軽快していましたが、搬送中に胸部絞扼感が再燃しました。意識清明、脈拍60整、血圧172/96、SpO2 98％。症状出現時に虚血性変化を示唆するモニター波形変化を認めます。",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "経過、バイタル、波形変化が簡潔にまとまっている。"
+        },
+        {
+          "id": "s6t2",
+          "label": "60歳男性。今は少し落ち着いているので、念のため搬送します。",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "重要な経過と波形情報が不足している。"
+        },
+        {
+          "id": "s6t3",
+          "label": "60歳男性。胸痛はありますが、SpO2が保たれているので緊急性は高くありません。",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "不適切。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "症状と心電図変化の原因病態を整理する。",
+      "ideal_flow": [
+        "胸部症状を整理する",
+        "波形変化を振り返る",
+        "虚血の原因を考える",
+        "正しい病態を選択する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "final_reasoning",
+      "text": "胸部不快感は一旦軽快したが、搬送中に再燃し、そのタイミングでモニター波形の変化を認めた。症状と波形変化が連動している。",
+      "visible_data": {
+        "key_clues": [
+          "締め付けられる胸部不快感",
+          "症状の再燃",
+          "症状出現時の波形変化",
+          "無症状時との違い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "原因となる病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "id": "s7o1",
+          "label": "心筋の肥大",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "今回の一過性症状と波形変化の原因としては合いにくい。"
+        },
+        {
+          "id": "s7o2",
+          "label": "心膜の炎症",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "本症例の経過と一致しにくい。"
+        },
+        {
+          "id": "s7o3",
+          "label": "大動脈の解離",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "心電図変化の主説明としては不適切。"
+        },
+        {
+          "id": "s7o4",
+          "label": "冠動脈の血流障害",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "症状とST変化の連動から、冠動脈血流障害による一過性心筋虚血が最も考えられる。"
+        },
+        {
+          "id": "s7o5",
+          "label": "大動脈弁の機能不全",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "本症例の中心病態ではない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "胸部不快感が一旦軽快した後、搬送中に再燃し、そのタイミングで心電図モニター波形の変化を認めた症例である。症状とST変化の連動から、原因は冠動脈の一過性血流障害による心筋虚血が最も考えられる。症状軽快後も継続観察が重要である。",
+    "ideal_actions": [
+      "胸部不快感を虚血性心疾患として評価する",
+      "症状軽快後も観察を継続する",
+      "症状再燃時にモニター波形を再確認する",
+      "無症状時と症状出現時の変化を比較する",
+      "冠動脈血流障害を原因病態として整理する"
+    ],
+    "good_points": [
+      "症状が消失しても油断せず観察を続けられた",
+      "症状と心電図変化を結びつけて考えられた",
+      "冠動脈血流障害という本質にたどり着けた"
+    ],
+    "cautions": [
+      "症状軽快のみで安心しない",
+      "SpO2が正常でも虚血性心疾患は否定できない",
+      "波形は単独でなく症状出現タイミングと合わせて評価する"
+    ]
+  }
+}

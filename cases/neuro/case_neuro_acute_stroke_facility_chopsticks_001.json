@@ -1,0 +1,424 @@
+{
+  "case_id": "case_neuro_acute_stroke_facility_chopsticks_001",
+  "title": "施設入所中に右手機能低下を呈した高齢男性",
+  "category": "neuro",
+  "difficulty": "normal",
+  "tags": [
+    "脳卒中",
+    "片麻痺",
+    "FAST",
+    "施設",
+    "右手機能低下",
+    "発症時刻"
+  ],
+  "summary": "介護施設入所中の高齢男性が、朝食中に突然箸を持てなくなったと訴えた症例。元気がない、咳がある、食欲低下など紛らわしい情報がある中で、急性発症の局所神経症状を緊急所見として見抜けるかがポイントとなる。脳卒中を強く疑い、発症時刻確認と迅速搬送を学ぶ。",
+  "learning_points": [
+    "慢性症状と急性症状を切り分ける",
+    "『途中から箸を持てなくなった』は急性の局所神経症状として重要である",
+    "高齢者施設では非特異的情報に惑わされず急性変化を拾う",
+    "脳卒中疑いでは発症時刻と最終健常確認時刻が重要である",
+    "緊急度判断後は脳卒中対応可能施設への迅速搬送を行う"
+  ],
+  "scene_1": {
+    "id": "scene_1",
+    "title": "現場到着時の状況確認",
+    "phase": "scene_size_up",
+    "scene_goal": "施設内での発症状況を把握し、急性の異常を拾い上げる",
+    "ideal_flow": [
+      "安全確認",
+      "介護士から状況聴取",
+      "傷病者の様子を観察",
+      "急性変化の有無に注目する"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "scene_assessment",
+    "text": "80歳の男性。介護施設の食堂で椅子に座っている。朝食を食べていたが、途中から『右手が動かない』『箸が持てない』と言い出し、介護士が救急要請した。あなたは現場に到着した。",
+    "visible_data": {
+      "location": "介護施設食堂",
+      "position": "椅子座位",
+      "chief_complaint": "右手が動かない",
+      "scene_impression": "元気がなく、やや反応が鈍い印象"
+    },
+    "media": [
+      {
+        "file": "media/facility_elderly_male_chopsticks_weakness_scene1.png",
+        "description": "介護施設の食堂で朝食中、箸をうまく持てず困っている高齢男性の現場イラスト。",
+        "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+      }
+    ],
+    "type": "single_select",
+    "prompt": "この時点で最も優先して疑うべき病態はどれか。",
+    "options": [
+      {
+        "id": "s1_o1",
+        "label": "急性脳卒中などの局所神経障害",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "正しい。朝食中に途中から箸を持てなくなったという急性変化は、局所神経障害をまず疑う。"
+      },
+      {
+        "id": "s1_o2",
+        "label": "慢性の変形性関節症の悪化",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "慢性の右下肢症状とは別問題。右手機能の急変は説明しにくい。"
+      },
+      {
+        "id": "s1_o3",
+        "label": "単なる食欲低下",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "食欲低下だけでは急性の右手機能低下は説明できない。"
+      },
+      {
+        "id": "s1_o4",
+        "label": "上気道感染のみ",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "咳はあるが、緊急性の根拠は急性の局所神経症状にある。"
+      }
+    ]
+  },
+  "scene_2": {
+    "id": "scene_2",
+    "title": "介護士からの情報収集",
+    "phase": "history_taking",
+    "scene_goal": "緊急性の高い情報を選別する",
+    "ideal_flow": [
+      "慢性情報と急性情報を分ける",
+      "発症時系列を確認する",
+      "局所神経症状を重視する"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "history_focus",
+    "text": "介護士は次のように説明した。『変形性関節症のため、元々右下肢の痛みや動かしにくさがありました。2、3日前から少し元気がなく、今朝は少し咳をしていました。朝食を普通に食べ始めましたが、途中から箸をもてなくなったといい出しました。食欲もないようです。』",
+    "visible_data": {
+      "A": "元々右下肢の痛みや動かしにくさがある",
+      "B": "2、3日前から少し元気がない",
+      "C": "今朝少し咳をしていた",
+      "D": "朝食中、途中から箸を持てなくなった",
+      "E": "食欲がない"
+    },
+    "media": [],
+    "type": "single_select",
+    "prompt": "介護士の言葉のうち、緊急性が高いと判断する根拠はどれか。",
+    "options": [
+      {
+        "id": "s2_o1",
+        "label": "A",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "慢性情報であり、今回の急変の根拠としては弱い。"
+      },
+      {
+        "id": "s2_o2",
+        "label": "B",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "非特異的で緊急性の根拠としては弱い。"
+      },
+      {
+        "id": "s2_o3",
+        "label": "C",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "咳だけでは局所神経障害の急変を説明できない。"
+      },
+      {
+        "id": "s2_o4",
+        "label": "D",
+        "is_correct": true,
+        "score_delta": 15,
+        "feedback": "正しい。食事中に途中から箸を持てなくなったという急性発症の変化が緊急性の高い根拠となる。"
+      },
+      {
+        "id": "s2_o5",
+        "label": "E",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "食欲低下は非特異的で、優先度はDより低い。"
+      }
+    ]
+  },
+  "scene_3": {
+    "id": "scene_3",
+    "title": "初期評価",
+    "phase": "primary_survey",
+    "scene_goal": "ABCと意識を確認しながら神経症状の有無を把握する",
+    "ideal_flow": [
+      "反応確認",
+      "気道確認",
+      "呼吸確認",
+      "循環確認",
+      "顔面・上肢を中心に神経症状確認"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "primary_survey",
+    "text": "呼びかけには開眼し応答するが、やや反応が遅い。気道は保たれ、呼吸は大きな異常を認めない。脈は触知良好。右手の握力低下が疑われ、食器を持ち直せない。明らかな外傷所見はない。",
+    "visible_data": {
+      "airway": "開通",
+      "breathing": "大きな異常なし",
+      "circulation": "脈拍触知良好",
+      "consciousness": "呼びかけに応答、やや反応緩慢",
+      "neuro": "右手機能低下疑い"
+    },
+    "media": [],
+    "type": "ranking",
+    "prompt": "この場面で優先順位の高い順に並べ替えよ。",
+    "ranking": [
+      {
+        "id": "s3_r1",
+        "label": "ABCと意識状態を確認する"
+      },
+      {
+        "id": "s3_r2",
+        "label": "顔面・上肢の左右差を確認する"
+      },
+      {
+        "id": "s3_r3",
+        "label": "発症時刻を介護士へ確認する"
+      },
+      {
+        "id": "s3_r4",
+        "label": "食事内容の詳細を長く聞き取る"
+      }
+    ],
+    "correct_order": [
+      "s3_r1",
+      "s3_r2",
+      "s3_r3",
+      "s3_r4"
+    ],
+    "feedback_correct": "よい流れ。まずABC、その後に局所神経症状確認と発症時刻把握を進める。",
+    "feedback_incorrect": "細かな周辺情報より、ABC・神経症状・発症時刻確認を優先する。"
+  },
+  "scene_4": {
+    "id": "scene_4",
+    "title": "神経学的観察",
+    "phase": "focused_assessment",
+    "scene_goal": "脳卒中を疑う所見を具体的に確認する",
+    "ideal_flow": [
+      "顔面の左右差確認",
+      "上肢挙上確認",
+      "発語確認",
+      "最終健常確認時刻を把握する"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "neuro_assessment",
+    "text": "追加観察では、右口角がやや下がって見える。両上肢挙上を指示すると左上肢は保持できるが、右上肢はすぐに落ちる。発語はやや不明瞭で、介護士によると朝食を食べ始めた時点では普段と大きく変わらなかったという。",
+    "visible_data": {
+      "face": "右口角下垂疑い",
+      "arm": "右上肢保持困難",
+      "speech": "やや不明瞭",
+      "last_known_well": "朝食開始時点では大きな異常なし"
+    },
+    "media": [],
+    "type": "multi_select",
+    "prompt": "脳卒中を強く疑う所見を2つ選べ。",
+    "options": [
+      {
+        "id": "s4_o1",
+        "label": "右上肢の保持困難",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "正しい。局所神経障害として重要。"
+      },
+      {
+        "id": "s4_o2",
+        "label": "朝食途中から箸を持てなくなった",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "正しい。急性発症の上肢機能低下であり重要。"
+      },
+      {
+        "id": "s4_o3",
+        "label": "2、3日前から少し元気がない",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "非特異的で決め手にはなりにくい。"
+      },
+      {
+        "id": "s4_o4",
+        "label": "今朝少し咳があった",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "脳卒中を強く支持する所見ではない。"
+      },
+      {
+        "id": "s4_o5",
+        "label": "元々右下肢に関節症がある",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "慢性症状であり今回の急変とは別に考える。"
+      }
+    ]
+  },
+  "scene_5": {
+    "id": "scene_5",
+    "title": "臨床推論と緊急度判断",
+    "phase": "clinical_reasoning",
+    "scene_goal": "急性発症の脳卒中疑いとして判断を固める",
+    "ideal_flow": [
+      "急性発症の局所神経症状と判断する",
+      "慢性症状や非特異的症状と切り分ける",
+      "緊急搬送を決定する"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "clinical_reasoning",
+    "text": "慢性的な右下肢症状や数日前からの元気低下、軽い咳など紛らわしい情報はあるが、朝食途中から急に箸を持てなくなったこと、右上肢脱力、顔面の左右差、発語異常は急性脳卒中を疑わせる。",
+    "visible_data": {
+      "working_diagnosis": "急性脳卒中疑い",
+      "priority": "高い",
+      "reason": "急性発症の局所神経症状"
+    },
+    "media": [],
+    "type": "single_select",
+    "prompt": "この時点の対応として最も適切なのはどれか。",
+    "options": [
+      {
+        "id": "s5_o1",
+        "label": "脳卒中疑いとして緊急搬送を開始する",
+        "is_correct": true,
+        "score_delta": 15,
+        "feedback": "正しい。局所神経症状の急変であり、緊急搬送が必要。"
+      },
+      {
+        "id": "s5_o2",
+        "label": "数日様子を見るよう施設へ助言する",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "不適切。急性発症の神経症状を見逃している。"
+      },
+      {
+        "id": "s5_o3",
+        "label": "関節症の悪化として整形外科受診を勧める",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "今回の主問題は右手機能低下の急変であり整形単独では考えにくい。"
+      },
+      {
+        "id": "s5_o4",
+        "label": "食欲低下への対応を優先する",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "優先順位が違う。"
+      }
+    ]
+  },
+  "scene_6": {
+    "id": "scene_6",
+    "title": "医療機関連絡",
+    "phase": "transport_decision",
+    "scene_goal": "搬送先へ必要情報を簡潔に伝える",
+    "ideal_flow": [
+      "年齢・場所・主訴を伝える",
+      "発症状況を伝える",
+      "神経症状と最終健常確認時刻を伝える",
+      "脳卒中対応可能施設を選定する"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "hospital_call",
+    "text": "脳卒中対応可能施設へ連絡を行う。食事中に急変したことから、発症時刻は比較的明確である。",
+    "visible_data": {
+      "patient": "80歳男性、施設入所中",
+      "key_change": "朝食途中から箸が持てなくなった",
+      "neuro_signs": "右上肢脱力、顔面左右差、発語異常"
+    },
+    "media": [],
+    "type": "templates",
+    "prompt": "第一報として最も適切な内容を選べ。",
+    "templates": [
+      {
+        "id": "s6_t1",
+        "label": "80歳男性、施設入所中。朝食開始後は通常でしたが、途中から右手で箸が持てなくなり、右上肢脱力と発語異常を認めます。急性脳卒中疑いで搬送希望です。",
+        "is_correct": true,
+        "score_delta": 15,
+        "feedback": "よい報告。発症状況と神経症状が簡潔にまとまっている。"
+      },
+      {
+        "id": "s6_t2",
+        "label": "80歳男性、食欲がありません。咳もあるため受診希望です。",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "緊急性の高い神経症状が伝わっていない。"
+      },
+      {
+        "id": "s6_t3",
+        "label": "高齢男性で元気がありません。詳細は到着後に説明します。",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "情報不足で脳卒中疑いが伝わらない。"
+      }
+    ]
+  },
+  "scene_7": {
+    "id": "scene_7",
+    "title": "症例のまとめ",
+    "phase": "reflection",
+    "scene_goal": "急性変化を拾う視点を振り返る",
+    "ideal_flow": [
+      "慢性情報と急性情報を分ける",
+      "急性の局所神経症状を重視する",
+      "発症時刻確認と迅速搬送につなげる"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "case_reflection",
+    "text": "この症例では、施設職員から多くの情報が得られる一方で、緊急性を示す情報は限られている。『朝食途中から箸を持てなくなった』という急性変化を見抜けるかが鍵だった。",
+    "visible_data": {
+      "key_takeaway": "急性発症の上肢機能低下は脳卒中をまず疑う"
+    },
+    "media": [],
+    "type": "single_select",
+    "prompt": "この症例で最も重要だった判断の視点はどれか。",
+    "options": [
+      {
+        "id": "s7_o1",
+        "label": "慢性症状ではなく急性変化を優先して評価すること",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "その通り。急性発症の神経症状を拾うことが最重要。"
+      },
+      {
+        "id": "s7_o2",
+        "label": "食欲低下を主訴として扱うこと",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "非特異的情報に引っ張られている。"
+      },
+      {
+        "id": "s7_o3",
+        "label": "咳があるため呼吸器感染症を最優先すること",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "今回の緊急所見は局所神経症状。"
+      },
+      {
+        "id": "s7_o4",
+        "label": "既往の関節症で全て説明すること",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "慢性症状と急性変化を混同している。"
+      }
+    ]
+  },
+  "debriefing": {
+    "summary": "本症例は、介護施設入所中の高齢男性が朝食途中から急に箸を持てなくなった症例である。元気低下や咳、食欲低下などの非特異的情報がある中でも、急性発症の右手機能低下という局所神経症状を緊急所見として拾うことが重要だった。脳卒中を疑い、発症時刻確認と迅速搬送につなげる判断が求められた。",
+    "ideal_actions": [
+      "急性変化と慢性症状を区別する",
+      "右手機能低下を局所神経症状として評価する",
+      "顔面・上肢・発語を確認する",
+      "発症時刻または最終健常確認時刻を把握する",
+      "脳卒中対応可能施設へ迅速搬送する"
+    ],
+    "good_points": [
+      "非特異的情報に惑わされず急性変化を重視できた",
+      "FASTに沿った神経学的観察へつなげられた",
+      "発症時刻を意識して搬送判断できた"
+    ],
+    "cautions": [
+      "既往の運動障害と今回の急変を混同しない",
+      "高齢者では『元気がない』だけで終わらせない",
+      "食事中の細かな変化が脳卒中の手がかりになることがある"
+    ]
+  }
+}

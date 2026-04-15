@@ -1,0 +1,415 @@
+{
+  "case_id": "case_cardiovascular_atrial_fibrillation_pulseox_walking_001",
+  "title": "ウォーキング中の動悸と息切れ",
+  "category": "cardiovascular",
+  "difficulty": "normal",
+  "version": "1.0",
+  "scene_count": 7,
+  "overview": {
+    "chief_complaint": "動悸と息切れ",
+    "final_diagnosis": "心房細動",
+    "learning_points": [
+      "動悸と息切れを訴える傷病者で循環動態の安定性を評価する",
+      "脈拍数だけでなく脈の規則性や波形の不整に注目する",
+      "パルスオキシメータ波形から不整脈を示唆する所見を拾う",
+      "緊急度判断と適切な搬送先選定につなげる"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "出場指令",
+      "phase": "dispatch",
+      "scene_goal": "現場到着前に主訴と安全情報を整理する",
+      "ideal_flow": [
+        "主訴を確認する",
+        "年齢・性別・発症状況を把握する",
+        "呼吸循環異常の可能性を意識して接触準備をする"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_assessment",
+      "text": "68歳男性。ウォーキング中に突然、動悸と息切れが出現し、通行人が救急要請した。現場は歩道脇で、傷病者はその場に座っているとの通報である。",
+      "visible_data": {
+        "dispatch_info": [
+          "68歳男性",
+          "ウォーキング中に発症",
+          "主訴：動悸、息切れ",
+          "通行人が119番通報"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場時点で最も意識しておくべき病態はどれか。",
+      "options": [
+        {
+          "id": "s1_o1",
+          "text": "循環器由来の急性病態",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "動悸と息切れの組み合わせでは、不整脈や虚血性疾患など循環器由来をまず想定する。"
+        },
+        {
+          "id": "s1_o2",
+          "text": "整形外科的疼痛が主体の病態",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "現時点の主訴は動悸と息切れであり、整形外科的問題が主とは考えにくい。"
+        },
+        {
+          "id": "s1_o3",
+          "text": "軽症の筋疲労のみ",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "高齢者の突然の動悸と息切れを筋疲労だけで片づけるのは危険。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "ABCと意識レベルから緊急性を評価する",
+      "ideal_flow": [
+        "意識を確認する",
+        "呼吸状態を観察する",
+        "循環の破綻がないかをみる",
+        "緊急度を判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_survey",
+      "text": "救急隊到着時、傷病者は歩道脇に座り、自力で会話できている。『急にドキドキして、息が吸いづらい』と訴える。",
+      "visible_data": {
+        "general_impression": [
+          "意識 JCS1",
+          "会話可能",
+          "座位保持可能",
+          "明らかな外傷なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の重症度判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s2_o1",
+          "text": "直ちにCPA対応を開始する状態",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "意識は保たれ、会話も可能でありCPAではない。"
+        },
+        {
+          "id": "s2_o2",
+          "text": "現時点では循環動態は保たれているが、循環器疾患を疑い速やかに評価を進める状態",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "意識と血圧は保たれているが、症状から循環器由来を疑い迅速な観察が必要。"
+        },
+        {
+          "id": "s2_o3",
+          "text": "緊急性は低く、現場で長時間経過観察してよい状態",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "高齢者の新規動悸・息切れは緊急性を軽視できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "症状の経過と関連情報を整理する",
+      "ideal_flow": [
+        "発症時刻を確認する",
+        "症状の内容を確認する",
+        "既往歴と内服歴を確認する",
+        "胸痛・失神・麻痺などの随伴症状を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "focused_history",
+      "text": "傷病者は『歩いていたら急に脈がバラバラする感じがして、息苦しくなった』と話す。胸痛ははっきりしない。失神はない。",
+      "visible_data": {
+        "history": [
+          "主訴：動悸、息切れ",
+          "発症：歩行中に突然",
+          "胸痛：はっきりしない",
+          "失神：なし",
+          "麻痺・ろれつ障害：なし"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この段階で優先して追加確認したい項目を2つ選べ。",
+      "options": [
+        {
+          "id": "s3_o1",
+          "text": "既往歴と内服薬",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "不整脈歴、抗凝固薬、循環器薬の確認は重要。"
+        },
+        {
+          "id": "s3_o2",
+          "text": "発症時刻と症状の変化",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "急性発症か、持続か、変動かは評価の基本。"
+        },
+        {
+          "id": "s3_o3",
+          "text": "昨日の夕食内容",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "この時点の優先度は低い。"
+        },
+        {
+          "id": "s3_o4",
+          "text": "普段の歩数計の記録",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "現病態の評価には直結しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "全身観察とバイタルサイン",
+      "phase": "physical_assessment",
+      "scene_goal": "客観的データから安定性と病態を絞る",
+      "ideal_flow": [
+        "呼吸数を確認する",
+        "脈拍の頻度と規則性をみる",
+        "血圧を測定する",
+        "SpO2と全身状態を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "vital_assessment",
+      "text": "バイタルサインを測定する。",
+      "visible_data": {
+        "vital_signs": [
+          "意識 JCS1",
+          "呼吸数 24/分",
+          "脈拍 72/分",
+          "血圧 124/66mmHg",
+          "SpO2 94%"
+        ],
+        "physical_exam": [
+          "会話可能",
+          "冷汗は目立たない",
+          "明らかなチアノーゼなし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "このバイタル所見の解釈として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s4_o1",
+          "text": "心拍数が72/分なので不整脈の可能性は低い",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "脈拍数が正常域でも、不整脈は否定できない。規則性の評価が重要。"
+        },
+        {
+          "id": "s4_o2",
+          "text": "血圧は保たれているが、呼吸数増加と症状から循環器由来の異常をなお疑う",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "安定して見えても、症状と呼吸数増加から異常は否定できない。"
+        },
+        {
+          "id": "s4_o3",
+          "text": "SpO2が94%なので呼吸器疾患のみを考えればよい",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "SpO2だけで呼吸器疾患に限定はできない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "モニター観察",
+      "phase": "monitor_assessment",
+      "scene_goal": "波形の不整から原因不整脈を推定する",
+      "ideal_flow": [
+        "波形を観察する",
+        "脈の間隔の不規則性に注目する",
+        "症状と合わせて原因不整脈を考える"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": "monitor_interpretation",
+      "text": "パルスオキシメータ波形を確認すると、拍ごとの間隔にばらつきがあり、規則性に乏しい。",
+      "visible_data": {
+        "monitor_findings": [
+          "パルスオキシメータ波形に不整あり",
+          "拍間隔が不規則",
+          "規則的な頻拍ではない"
+        ]
+      },
+      "media": [
+        {
+          "file": "media/pulseox_af_irregular_waveform_scene5.png",
+          "description": "不規則な拍間隔を示すパルスオキシメータ波形",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "この動悸を引き起こしたと考えられる不整脈はどれか。",
+      "options": [
+        {
+          "id": "s5_o1",
+          "text": "心室細動",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "心室細動なら意識と循環は保てない。"
+        },
+        {
+          "id": "s5_o2",
+          "text": "上室頻拍",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "上室頻拍は規則的な頻拍になることが多く、今回の不規則性とは合いにくい。"
+        },
+        {
+          "id": "s5_o3",
+          "text": "心房細動",
+          "is_correct": true,
+          "score_delta": 25,
+          "feedback": "不規則な拍間隔は心房細動を強く示唆する。"
+        },
+        {
+          "id": "s5_o4",
+          "text": "心房粗動",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "心房粗動は一定の伝導比なら比較的規則的になる。"
+        },
+        {
+          "id": "s5_o5",
+          "text": "洞性頻脈",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "洞性頻脈は基本的に規則的で、今回の不規則な波形とは合わない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "現場判断",
+      "phase": "clinical_decision",
+      "scene_goal": "診断確定前でも適切な搬送判断を行う",
+      "ideal_flow": [
+        "循環動態の安定性を確認する",
+        "症候性不整脈として扱う",
+        "循環器対応可能な医療機関搬送を考える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "transport_decision",
+      "text": "傷病者は会話可能で血圧も保たれているが、動悸と息切れが持続している。",
+      "visible_data": {
+        "clinical_summary": [
+          "症候性不整脈が疑われる",
+          "循環動態は現時点で破綻していない",
+          "呼吸苦が持続している"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s6_o1",
+          "text": "軽快を待って現場で長時間様子を見る",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "症候性不整脈が疑われるため経過観察のみは不適切。"
+        },
+        {
+          "id": "s6_o2",
+          "text": "循環器対応可能な医療機関へ速やかに搬送する",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "安定していても症候性不整脈として搬送判断が妥当。"
+        },
+        {
+          "id": "s6_o3",
+          "text": "失神していないため不搬送とする",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "失神がなくても搬送適応は十分ある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "病院連絡",
+      "phase": "handover",
+      "scene_goal": "必要情報を簡潔に整理して伝達する",
+      "ideal_flow": [
+        "年齢・性別を伝える",
+        "主訴と発症状況を伝える",
+        "バイタルサインを伝える",
+        "モニター所見と疑う病態を伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "hospital_handover",
+      "text": "受入要請のため医療機関へ連絡する。",
+      "visible_data": {
+        "handover_elements": [
+          "68歳男性",
+          "ウォーキング中に突然の動悸と息切れ",
+          "JCS1、RR24、PR72、BP124/66、SpO2 94%",
+          "パルスオキシメータ波形は不規則",
+          "心房細動を疑う"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "最も適切な申し送りを選べ。",
+      "templates": [
+        {
+          "id": "s7_t1",
+          "text": "68歳男性、歩行中に突然の動悸と息切れを訴えています。意識JCS1、呼吸数24、脈拍72で不規則、血圧124/66、SpO2 94%です。パルスオキシメータ波形は不規則で、心房細動を疑っています。受入れをお願いします。",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "主訴、発症状況、バイタル、モニター所見が簡潔にまとまっている。"
+        },
+        {
+          "id": "s7_t2",
+          "text": "高齢男性で少し苦しいそうです。脈はそこまで速くありません。詳細は到着後に伝えます。",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "情報が不足し、受入判断に必要な内容が欠けている。"
+        },
+        {
+          "id": "s7_t3",
+          "text": "胸痛はないので軽症と思われます。しばらく様子を見てから搬送するか検討します。",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "症候性不整脈の可能性を過小評価している。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "歩行中に突然出現した動悸と息切れに対し、意識・血圧は保たれていたが、パルスオキシメータ波形の不規則な拍間隔から心房細動を疑う症例である。脈拍数が極端に速くなくても、不整脈は否定できない。",
+    "ideal_actions": [
+      "ABCと意識レベルから循環動態の安定性を確認する",
+      "発症状況と随伴症状を確認する",
+      "脈拍数だけでなく規則性を評価する",
+      "パルスオキシメータ波形の不規則性から心房細動を疑う",
+      "症候性不整脈として循環器対応可能な医療機関へ搬送する"
+    ],
+    "good_points": [
+      "突然発症の動悸と息切れを循環器症候として捉えた",
+      "バイタルが一見安定でも安心しすぎなかった",
+      "波形の不規則性に注目できた",
+      "必要情報を整理して病院連絡につなげられた"
+    ],
+    "cautions": [
+      "脈拍数が正常域でも不整脈を否定しない",
+      "SpO2や血圧だけで軽症と判断しない",
+      "症候性不整脈では失神がなくても搬送を要する",
+      "図版評価では規則性の有無を丁寧にみる"
+    ]
+  }
+}

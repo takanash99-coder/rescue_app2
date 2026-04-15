@@ -1,0 +1,430 @@
+{
+  "case_id": "case_toxicology_neuroleptic_malignant_syndrome_rhabdomyolysis_001",
+  "category": "toxicology",
+  "title": "新規向精神薬開始後に発熱・歩行不能・赤黒色尿を呈した高齢男性",
+  "difficulty": "hard",
+  "patient_profile": {
+    "age": 74,
+    "sex": "male"
+  },
+  "summary": "2日前から全身倦怠感と四肢筋力低下が出現し、本日歩行不能となった高齢男性。発熱、頻呼吸、頻脈、低血圧、四肢熱感を認め、昼に赤黒い尿が出ていた。1週間前から認知症に伴うせん妄に対して新しい薬剤が開始されている。",
+  "learning_points": [
+    "悪性症候群を疑う状況から重症薬剤有害事象を想起する",
+    "横紋筋融解による赤黒色尿と高カリウム血症リスクを結び付ける",
+    "不整脈リスクを踏まえてAED装着とモニタリングを優先する",
+    "輸液と循環管理の重要性を理解する"
+  ],
+  "scene_1": {
+    "id": "scene_1",
+    "title": "現場到着",
+    "phase": "scene_size_up",
+    "scene_goal": "現場で重症感を把握し、緊急対応が必要な内因性・薬剤関連病態を疑う。",
+    "ideal_flow": [
+      "安全確認",
+      "傷病者への接触",
+      "意識・呼吸・循環の初期評価",
+      "重症感の把握"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "initial_assessment",
+    "text": "住宅内で、70代男性が家族に支えられながら横になっている。2日前から全身倦怠感と手足の力の入りにくさがあり、本日は自力で歩けなくなったため救急要請された。意識はやや鈍く、呼吸は速い。",
+    "visible_data": {
+      "location": "自宅",
+      "chief_complaint": "歩行不能、全身倦怠感、四肢筋力低下",
+      "awareness": "JCS 2",
+      "respiratory_rate": 32,
+      "pulse_rate": 124,
+      "pulse_regular": true,
+      "blood_pressure": "80/62 mmHg",
+      "temperature": "38.5℃",
+      "spo2": "96% (room air)"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点で最も優先して判断すべきことはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "軽症の脱水として経過観察を考える",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "低血圧、発熱、頻呼吸、意識障害があり重症です。経過観察は不適切です。"
+      },
+      {
+        "key": "B",
+        "text": "重症の全身性病態として初期対応を急ぐ",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "重症感が強く、薬剤有害事象や代謝異常を含めた緊急対応が必要です。"
+      },
+      {
+        "key": "C",
+        "text": "整形外科的疾患を第一に考える",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "歩行不能はありますが、全身症状と循環不安定が主体です。"
+      },
+      {
+        "key": "D",
+        "text": "精神症状が主で身体評価は後回しにする",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "身体的異常が前景にあり、まず全身評価と重症度判断が必要です。"
+      }
+    ]
+  },
+  "scene_2": {
+    "id": "scene_2",
+    "title": "初期評価の整理",
+    "phase": "primary_survey",
+    "scene_goal": "ABCとショックの有無を整理し、搬送優先の方針を固める。",
+    "ideal_flow": [
+      "Aの確認",
+      "Bの評価",
+      "Cの評価",
+      "ショックの判断",
+      "搬送準備"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "abc_and_shock",
+    "text": "気道は保たれているが、呼吸数は32/分と速い。脈拍124/分、血圧80/62mmHgで循環不安定である。SpO2は保たれているが、ショックを伴う重症状態と考えられる。",
+    "visible_data": {
+      "airway": "開通",
+      "breathing": "頻呼吸あり",
+      "circulation": "頻脈、低血圧",
+      "shock_sign": "あり"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この場面で最も適切な判断はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "SpO2が保たれているので緊急性は低い",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "SpO2のみで重症度は判断できません。ショック所見があります。"
+      },
+      {
+        "key": "B",
+        "text": "ショックを伴う重症病態として迅速搬送と継続観察を行う",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "循環不安定を伴うため、継続観察と処置を進めながら迅速搬送です。"
+      },
+      {
+        "key": "C",
+        "text": "発熱があるため解熱のみを優先する",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "解熱よりもまず重症循環障害への対応が優先です。"
+      },
+      {
+        "key": "D",
+        "text": "歩行不能なので脳卒中単独として進める",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "神経症状だけでなく、薬剤歴や発熱、赤黒色尿も重要です。"
+      }
+    ]
+  },
+  "scene_3": {
+    "id": "scene_3",
+    "title": "情報収集",
+    "phase": "history_taking",
+    "scene_goal": "病歴から原因病態を絞り込む。",
+    "ideal_flow": [
+      "発症経過の確認",
+      "薬剤歴の確認",
+      "尿の異常の確認",
+      "鑑別の整理"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "history_and_differential",
+    "text": "家族から、1週間前より認知症に伴うせん妄に対して新しい薬が開始されたと聴取した。昼に排尿した際、赤黒い尿が出ていたという。数日前から動きが悪く、全身倦怠感が増悪している。",
+    "visible_data": {
+      "new_medication": "1週間前から開始",
+      "urine": "赤黒色尿",
+      "course": "2日前から筋力低下、本日歩行不能"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点で最も疑うべき病態はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "単純な尿路感染症",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "発熱だけでなく薬剤開始、筋症状、赤黒色尿がそろっています。"
+      },
+      {
+        "key": "B",
+        "text": "悪性症候群に伴う横紋筋融解",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "新規向精神薬、発熱、筋症状、意識変容、赤黒色尿から強く疑います。"
+      },
+      {
+        "key": "C",
+        "text": "単純な熱中症",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "季節・環境情報よりも薬剤歴と赤黒色尿が重要です。"
+      },
+      {
+        "key": "D",
+        "text": "整形外科的な運動障害",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "全身症状と薬剤関連の文脈を見落としています。"
+      }
+    ]
+  },
+  "scene_4": {
+    "id": "scene_4",
+    "title": "重点観察",
+    "phase": "focused_assessment",
+    "scene_goal": "合併症として注意すべき所見を整理する。",
+    "ideal_flow": [
+      "体温・循環動態の再確認",
+      "筋症状・脱力の確認",
+      "尿の異常の確認",
+      "不整脈リスクの想起"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "complication_assessment",
+    "text": "発熱と頻脈が持続し、血圧は低い。全身状態は不良で、赤黒色尿から横紋筋融解が示唆される。電解質異常、特に高カリウム血症による致死的不整脈が懸念される。",
+    "visible_data": {
+      "fever": true,
+      "dark_urine": true,
+      "shock": true,
+      "risk": "高カリウム血症による不整脈"
+    },
+    "media": [],
+    "type": "multiple_choice",
+    "prompt": "この時点で特に注意すべき病態を2つ選べ。",
+    "options": [
+      {
+        "key": "A",
+        "text": "横紋筋融解",
+        "is_correct": true,
+        "score_delta": 3,
+        "feedback": "赤黒色尿と筋症状から重要です。"
+      },
+      {
+        "key": "B",
+        "text": "高カリウム血症による不整脈",
+        "is_correct": true,
+        "score_delta": 3,
+        "feedback": "心停止リスクにつながる重要な合併症です。"
+      },
+      {
+        "key": "C",
+        "text": "孤立性上腕骨骨折",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "この症例の主病態とは一致しません。"
+      },
+      {
+        "key": "D",
+        "text": "緊張性気胸",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "病歴・所見から優先度は低いです。"
+      }
+    ]
+  },
+  "scene_5": {
+    "id": "scene_5",
+    "title": "モニター評価",
+    "phase": "monitoring",
+    "scene_goal": "心電図所見を不整脈リスクとして解釈し、監視体制を強化する。",
+    "ideal_flow": [
+      "モニター装着",
+      "波形確認",
+      "致死的不整脈リスクの認識",
+      "AED装着判断"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "ecg_interpretation_and_prepare_for_arrest",
+    "text": "心電図モニターでは高カリウム血症を疑う波形変化がみられる。現時点で心停止ではないが、致死的不整脈への移行を警戒する必要がある。",
+    "visible_data": {
+      "ecg_impression": "高カリウム血症を示唆する波形変化",
+      "arrest_now": false,
+      "risk": "致死的不整脈へ移行する可能性"
+    },
+    "media": [
+      {
+        "file": "ecg_hyperkalemia_peaked_t_wave_scene5.png",
+        "description": "高カリウム血症を示唆する再構成心電図波形",
+        "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+      }
+    ],
+    "type": "single_choice",
+    "prompt": "この場面で適切な対応はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "AEDを装着し不整脈出現に備える",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "心停止前でも致死的不整脈リスクが高く、備えが重要です。"
+      },
+      {
+        "key": "B",
+        "text": "モニターは不要である",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "電解質異常による不整脈リスクが高く、継続監視が必要です。"
+      },
+      {
+        "key": "C",
+        "text": "整形外科への搬送を優先する",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "整形外科疾患ではありません。"
+      },
+      {
+        "key": "D",
+        "text": "波形は無視して体温だけを下げる",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "循環不安定と不整脈リスクへの対応が必要です。"
+      }
+    ]
+  },
+  "scene_6": {
+    "id": "scene_6",
+    "title": "処置選択",
+    "phase": "treatment",
+    "scene_goal": "現場で実施すべき処置を選択する。",
+    "ideal_flow": [
+      "不整脈リスクへの備え",
+      "静脈路確保",
+      "輸液開始",
+      "継続監視"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "prehospital_treatment",
+    "text": "悪性症候群に伴う横紋筋融解と高カリウム血症が疑われる。ショックを伴っており、致死的不整脈への移行に備えながら循環管理を行う必要がある。",
+    "visible_data": {
+      "bp": "80/62 mmHg",
+      "rr": 32,
+      "pulse": 124,
+      "temperature": "38.5℃"
+    },
+    "media": [],
+    "type": "multiple_choice",
+    "prompt": "この傷病者への対応として適切なものを2つ選べ。",
+    "options": [
+      {
+        "key": "A",
+        "text": "四肢の冷却",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "体温管理は考慮されますが、この設問で優先される正答ではありません。"
+      },
+      {
+        "key": "B",
+        "text": "AEDの装着",
+        "is_correct": true,
+        "score_delta": 4,
+        "feedback": "致死的不整脈への移行に備えて適切です。"
+      },
+      {
+        "key": "C",
+        "text": "整形外科への搬送",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "搬送先選定として不適切です。"
+      },
+      {
+        "key": "D",
+        "text": "ブドウ糖溶液の投与",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "この症例で優先される初期対応ではありません。"
+      },
+      {
+        "key": "E",
+        "text": "乳酸リンゲル液を用いた静脈路確保および輸液",
+        "is_correct": true,
+        "score_delta": 4,
+        "feedback": "循環維持と横紋筋融解への対応として重要です。"
+      }
+    ]
+  },
+  "scene_7": {
+    "id": "scene_7",
+    "title": "搬送判断と申し送り",
+    "phase": "transport_and_handover",
+    "scene_goal": "重症薬剤有害事象として適切な搬送先選定と申し送りを行う。",
+    "ideal_flow": [
+      "高次対応可能施設の選定",
+      "病態要約",
+      "バイタルと経過の共有",
+      "実施処置の申し送り"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "handover",
+    "text": "傷病者は重症の薬剤関連有害事象が疑われ、循環不安定である。高次対応可能な救急医療機関へ搬送し、病歴、尿所見、心電図変化、実施処置を簡潔に申し送る必要がある。",
+    "visible_data": {
+      "suspected_diagnosis": "悪性症候群、横紋筋融解、高カリウム血症リスク",
+      "transport_priority": "高い",
+      "performed_care": [
+        "AED装着",
+        "静脈路確保",
+        "乳酸リンゲル液投与",
+        "継続モニタリング"
+      ]
+    },
+    "media": [],
+    "type": "template_select",
+    "prompt": "最も適切な申し送り内容を選べ。",
+    "templates": [
+      {
+        "key": "A",
+        "text": "70代男性。2日前から全身倦怠感と筋力低下があり本日歩行不能。意識JCS2、呼吸32、脈拍124整、血圧80/62、体温38.5℃。新規向精神薬開始後で、赤黒色尿あり。悪性症候群と横紋筋融解、高カリウム血症を疑い、AED装着、静脈路確保、乳酸リンゲル液投与中です。",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "病歴、重症度、推定病態、実施処置が簡潔にまとまっています。"
+      },
+      {
+        "key": "B",
+        "text": "70代男性。歩けないので整形外科疾患を疑っています。発熱がありますが詳細は不明です。",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "病態把握が不十分で、重症度や薬剤歴が欠落しています。"
+      },
+      {
+        "key": "C",
+        "text": "70代男性。SpO2が保たれているので緊急性は低いと思われます。",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "ショックと不整脈リスクを見落としています。"
+      }
+    ]
+  },
+  "debriefing": {
+    "summary": "本症例は、新規向精神薬開始後に発熱、意識変容、筋力低下、赤黒色尿、循環不安定を呈した高齢男性であり、悪性症候群に横紋筋融解を合併した病態が考えられる。横紋筋融解は高カリウム血症を引き起こし、致死的不整脈や心停止へ進展しうるため、モニタリングとAED装着、静脈路確保、輸液が重要である。",
+    "ideal_actions": [
+      "重症感を早期に把握する",
+      "薬剤歴と赤黒色尿から悪性症候群・横紋筋融解を疑う",
+      "高カリウム血症による不整脈リスクを考える",
+      "AED装着と継続モニタリングを行う",
+      "静脈路確保と乳酸リンゲル液による輸液を開始する",
+      "高次対応可能施設へ迅速に搬送する"
+    ],
+    "good_points": [
+      "発熱だけでなく薬剤歴と尿所見を結び付けられた",
+      "ショックと不整脈リスクを適切に評価できた",
+      "処置と搬送判断を重症度に応じて進められた"
+    ],
+    "cautions": [
+      "SpO2が保たれていても重症ではないとはいえない",
+      "歩行不能を整形外科疾患に短絡しない",
+      "薬剤関連有害事象では病歴聴取が極めて重要である"
+    ]
+  }
+}

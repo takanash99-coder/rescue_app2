@@ -1,0 +1,433 @@
+{
+  "case_id": "case_cardiovascular_aortic_dissection_branch_ischemia_001",
+  "title": "胸背部痛と片麻痺を伴う大動脈解離",
+  "category": "cardiovascular",
+  "difficulty": "hard",
+  "tags": [
+    "大動脈解離",
+    "胸背部痛",
+    "左右血圧差",
+    "片麻痺",
+    "構音障害",
+    "脳虚血"
+  ],
+  "summary": "自宅で突然の胸背部痛を訴えた後、左片麻痺と構音障害を呈した症例。左右上肢で著明な血圧差があり、分枝血流障害を伴う急性大動脈解離を疑う。脳卒中様症状のみで判断せず、胸背部痛と左右差から全身を一つの病態で捉える臨床推論を学ぶ。",
+  "learning_points": [
+    "胸から背中へ移動する痛みは急性大動脈解離を強く示唆する",
+    "左右上肢血圧差は分枝血流障害の重要所見である",
+    "脳卒中様症状でも胸背部痛を伴えば大動脈解離を鑑別に入れる",
+    "解離では安易な降圧や脳卒中単独対応に偏らず全身評価を行う",
+    "緊急度が高く、循環器・心血管外科対応可能施設の選定が重要である"
+  ],
+  "scene_1": {
+    "id": "scene_1",
+    "title": "現場到着時の状況確認",
+    "phase": "scene_size_up",
+    "scene_goal": "現場で得られる情報から重篤疾患を疑い、第一印象をつかむ",
+    "ideal_flow": [
+      "安全確認",
+      "家族から発症状況を聴取",
+      "傷病者の反応と姿勢を観察",
+      "胸背部痛と片麻痺の併存に注目する"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "scene_assessment",
+    "text": "60歳の女性。自宅のリビングでソファーにもたれかかるようにしてぐったりしている。家族によると、突然『胸が痛い、背中に抜ける』と訴えた後、左手足が動かしにくくなり、言葉も出しにくくなったため救急要請した。あなたは現場に到着した。",
+    "visible_data": {
+      "location": "自宅リビング",
+      "position": "ソファー上でぐったりしている",
+      "apparent_age": "60歳前後",
+      "chief_complaint": "突然の胸背部痛の後に左上下肢が動かない",
+      "family_statement": "胸の痛みが背中に移ったと言っていた"
+    },
+    "media": [
+      {
+        "file": "media/aortic_dissection_home_sofa_scene1.png",
+        "description": "自宅のソファーでぐったりしている60歳前後の女性。左片麻痺を疑わせる姿勢で、苦悶様の表情を認める現場イラスト。",
+        "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+      }
+    ],
+    "type": "single_select",
+    "prompt": "この時点で最も強く疑うべき病態として適切なのはどれか。",
+    "options": [
+      {
+        "id": "s1_o1",
+        "label": "急性大動脈解離を含む致死的循環器疾患",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "正しい。胸から背中へ移動する痛みと神経症状の併存は、大動脈解離による分枝血流障害を強く疑う。"
+      },
+      {
+        "id": "s1_o2",
+        "label": "単純な脳梗塞のみ",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "神経症状はあるが、胸背部痛を無視して脳卒中単独と決めつけるのは危険。"
+      },
+      {
+        "id": "s1_o3",
+        "label": "過換気症候群",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "症状の組み合わせと重症感に合わない。"
+      },
+      {
+        "id": "s1_o4",
+        "label": "整形外科的疼痛",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "突然発症の胸背部痛と片麻痺を説明できない。"
+      }
+    ]
+  },
+  "scene_2": {
+    "id": "scene_2",
+    "title": "初期評価",
+    "phase": "primary_survey",
+    "scene_goal": "ABCと意識を素早く確認し、ただちに高緊急度症例と判断する",
+    "ideal_flow": [
+      "反応確認",
+      "気道評価",
+      "呼吸評価",
+      "循環評価",
+      "意識・神経学的異常の把握",
+      "高緊急度判断"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "primary_survey",
+    "text": "呼びかけると開眼し、質問にはゆっくり反応する。会話はやや不明瞭で、左上肢と左下肢の動きが明らかに弱い。呼吸は保たれており、明らかな喘鳴や努力呼吸はない。橈骨動脈は触知できる。",
+    "visible_data": {
+      "consciousness": "JCS10",
+      "airway": "開通",
+      "breathing": "呼吸数18/分、呼吸音異常なし",
+      "circulation": "脈拍96/分、整",
+      "neuro": "顔面を含む左片麻痺、構音障害"
+    },
+    "media": [],
+    "type": "ranking",
+    "prompt": "初期評価として優先順位の高い順に並べ替えよ。",
+    "ranking": [
+      {
+        "id": "s2_r1",
+        "label": "気道・呼吸・循環・意識の確認"
+      },
+      {
+        "id": "s2_r2",
+        "label": "高緊急度症例として搬送方針を固める"
+      },
+      {
+        "id": "s2_r3",
+        "label": "神経症状の左右差を確認する"
+      },
+      {
+        "id": "s2_r4",
+        "label": "詳細な既往歴を長時間かけて聴取する"
+      }
+    ],
+    "correct_order": [
+      "s2_r1",
+      "s2_r3",
+      "s2_r2",
+      "s2_r4"
+    ],
+    "feedback_correct": "よい流れ。まずABCと意識を押さえ、そのうえで神経学的異常を確認し、高緊急度搬送へつなげる。",
+    "feedback_incorrect": "詳細聴取に時間をかけすぎず、まずはABCと重症度判断を優先する。"
+  },
+  "scene_3": {
+    "id": "scene_3",
+    "title": "バイタルサインと重点観察",
+    "phase": "focused_assessment",
+    "scene_goal": "左右差と神経症状から大動脈解離の可能性をさらに高める",
+    "ideal_flow": [
+      "左右で血圧を測定",
+      "胸痛・背部痛の性状を確認",
+      "頸静脈・心音・呼吸音を確認",
+      "神経学的異常を再確認"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "focused_assessment",
+    "text": "重点観察を進める。血圧は右上肢100/62mmHg、左上肢208/120mmHg。体温37.2℃、SpO2 97%。頸静脈怒張はなく、心音・呼吸音にも明らかな異常を認めない。胸痛は突然発症し、背中へ移るような痛みだったという。",
+    "visible_data": {
+      "bp_right_arm": "100/62 mmHg",
+      "bp_left_arm": "208/120 mmHg",
+      "temperature": "37.2℃",
+      "spo2": "97%",
+      "jvd": "なし",
+      "heart_sounds": "異常なし",
+      "breath_sounds": "異常なし",
+      "pain_character": "突然発症、胸から背中へ移動"
+    },
+    "media": [],
+    "type": "multi_select",
+    "prompt": "この時点で急性大動脈解離を支持する所見を2つ選べ。",
+    "options": [
+      {
+        "id": "s3_o1",
+        "label": "胸から背中へ移動する痛み",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "重要所見。解離の典型的な訴えのひとつ。"
+      },
+      {
+        "id": "s3_o2",
+        "label": "左右上肢で著明な血圧差がある",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "重要所見。分枝血流障害を示唆する。"
+      },
+      {
+        "id": "s3_o3",
+        "label": "SpO2が97%である",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "大動脈解離を直接支持する所見ではない。"
+      },
+      {
+        "id": "s3_o4",
+        "label": "体温が37.2℃である",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "決め手にはならない。"
+      },
+      {
+        "id": "s3_o5",
+        "label": "頸静脈怒張がない",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "他病態の除外に一部役立つが、支持所見そのものではない。"
+      }
+    ]
+  },
+  "scene_4": {
+    "id": "scene_4",
+    "title": "臨床推論",
+    "phase": "clinical_reasoning",
+    "scene_goal": "脳卒中様症状の背景にある原因病態を一つの流れで説明する",
+    "ideal_flow": [
+      "胸背部痛と神経症状を統合する",
+      "左右差を分枝血流障害として捉える",
+      "脳卒中単独でなく解離性病変を考える"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "clinical_reasoning",
+    "text": "胸背部痛のあとに左片麻痺と構音障害が出現している。左右上肢血圧差も著明であり、脳虚血を伴う急性大動脈解離が疑われる。国試の設問で問われている『この病態を引き起こした原因』を、現場推論としてどう捉えるかがポイントとなる。",
+    "visible_data": {
+      "working_diagnosis": "分枝血流障害を伴う急性大動脈解離",
+      "key_problem": "胸背部痛 + 左片麻痺 + 左右血圧差"
+    },
+    "media": [],
+    "type": "single_select",
+    "prompt": "この病態を引き起こした原因として最も適切なのはどれか。",
+    "options": [
+      {
+        "id": "s4_o1",
+        "label": "右冠動脈の閉塞",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "虚血性心疾患は考えるが、この症例の片麻痺と左右血圧差を説明しにくい。"
+      },
+      {
+        "id": "s4_o2",
+        "label": "胸膜腔の体液貯留",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "本症例の急性発症様式と合わない。"
+      },
+      {
+        "id": "s4_o3",
+        "label": "心膜腔の体液貯留",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "心タンポナーデ所見に乏しい。"
+      },
+      {
+        "id": "s4_o4",
+        "label": "大動脈弁の機能不全",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "解離に伴うことはあるが、この設問の主原因としては最適ではない。"
+      },
+      {
+        "id": "s4_o5",
+        "label": "腕頭動脈の血流障害",
+        "is_correct": true,
+        "score_delta": 20,
+        "feedback": "正しい。急性大動脈解離により分枝血流障害が生じ、脳虚血症状を呈したと考える。"
+      }
+    ]
+  },
+  "scene_5": {
+    "id": "scene_5",
+    "title": "搬送方針と医療機関連絡",
+    "phase": "transport_decision",
+    "scene_goal": "搬送先と連絡内容を適切に組み立てる",
+    "ideal_flow": [
+      "最重症として搬送判断",
+      "循環器・心血管外科対応可能施設を選定",
+      "胸背部痛、神経症状、左右血圧差を簡潔に報告"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "transport_and_call",
+    "text": "この症例は時間依存性が高く、単なる脳卒中対応だけでなく、急性大動脈解離を念頭に置いた搬送先選定が必要である。医療機関へ第一報を行う。",
+    "visible_data": {
+      "severity": "最重症",
+      "transport_priority": "高い",
+      "required_capability": "循環器・心血管外科対応可能施設"
+    },
+    "media": [],
+    "type": "templates",
+    "prompt": "医療機関への第一報として最も適切な内容を選べ。",
+    "templates": [
+      {
+        "id": "s5_t1",
+        "label": "60歳女性、突然の胸背部痛後に左片麻痺と構音障害。JCS10、左右上肢血圧差が著明で急性大動脈解離を疑います。受け入れ可能ですか。",
+        "is_correct": true,
+        "score_delta": 15,
+        "feedback": "よい報告。重症度、主要症状、左右差、疑い病態、必要性が簡潔にまとまっている。"
+      },
+      {
+        "id": "s5_t2",
+        "label": "60歳女性、脳梗塞疑いです。詳しいことは到着してから説明します。",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "情報が不足し、解離の可能性が伝わらない。"
+      },
+      {
+        "id": "s5_t3",
+        "label": "バイタルはおおむね安定しています。家族が心配しているので搬送します。",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "重症度の認識が不十分。"
+      }
+    ]
+  },
+  "scene_6": {
+    "id": "scene_6",
+    "title": "搬送中の対応",
+    "phase": "en_route_care",
+    "scene_goal": "悪化を見越して慎重に観察を継続する",
+    "ideal_flow": [
+      "安静保持",
+      "再評価の継続",
+      "疼痛・神経症状・循環の変化に注意",
+      "急変への備え"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "ongoing_care",
+    "text": "搬送中も症状の変化に注意が必要である。過度な刺激や不必要な動作は避け、再評価を継続する。",
+    "visible_data": {
+      "monitoring_targets": [
+        "意識状態",
+        "血圧",
+        "脈拍",
+        "疼痛変化",
+        "神経症状の進行",
+        "呼吸状態"
+      ]
+    },
+    "media": [],
+    "type": "multi_select",
+    "prompt": "搬送中の対応として適切なものを2つ選べ。",
+    "options": [
+      {
+        "id": "s6_o1",
+        "label": "安静を保ち、再評価を継続する",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "適切。病態悪化を防ぎつつ継続観察する。"
+      },
+      {
+        "id": "s6_o2",
+        "label": "意識、神経症状、血圧の変化を繰り返し確認する",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "適切。進行や急変の把握が重要。"
+      },
+      {
+        "id": "s6_o3",
+        "label": "歩かせて麻痺の程度を確認する",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "不適切。安静保持が優先。"
+      },
+      {
+        "id": "s6_o4",
+        "label": "胸痛の訴えがなければ大動脈解離を除外する",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "不適切。症状変化だけで除外はできない。"
+      }
+    ]
+  },
+  "scene_7": {
+    "id": "scene_7",
+    "title": "症例のまとめ",
+    "phase": "reflection",
+    "scene_goal": "現場で拾うべき決め手を振り返る",
+    "ideal_flow": [
+      "胸背部痛に注目",
+      "左右血圧差に注目",
+      "神経症状を分枝虚血として統合",
+      "高次医療機関搬送へ結びつける"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "case_reflection",
+    "text": "この症例では、脳卒中様症状に目を奪われると病態全体を見誤る。胸背部痛、左右血圧差、神経症状を一つにつなげる視点が重要である。",
+    "visible_data": {
+      "key_takeaway": "胸背部痛 + 左右血圧差 + 神経症状 = 急性大動脈解離を強く疑う"
+    },
+    "media": [],
+    "type": "single_select",
+    "prompt": "この症例の現場判断で最も重要だった視点はどれか。",
+    "options": [
+      {
+        "id": "s7_o1",
+        "label": "神経症状だけで脳卒中と断定しないこと",
+        "is_correct": true,
+        "score_delta": 10,
+        "feedback": "その通り。胸背部痛や左右差を統合して考えることが重要。"
+      },
+      {
+        "id": "s7_o2",
+        "label": "SpO2が保たれているので重症ではないと判断すること",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "SpO2が保たれていても重篤疾患は否定できない。"
+      },
+      {
+        "id": "s7_o3",
+        "label": "胸痛が軽くなったので経過観察とすること",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "危険。軽快して見えても病態は進行しうる。"
+      },
+      {
+        "id": "s7_o4",
+        "label": "左右血圧差は測定誤差として無視すること",
+        "is_correct": false,
+        "score_delta": -5,
+        "feedback": "重要所見を見逃している。"
+      }
+    ]
+  },
+  "debriefing": {
+    "summary": "本症例は、突然の胸背部痛の後に左片麻痺と構音障害を呈した急性大動脈解離疑いの症例である。左右上肢で著明な血圧差を認めており、分枝血流障害による脳虚血を伴っていた可能性が高い。脳卒中様症状だけで判断せず、胸背部痛・左右差・神経症状を一つの病態として統合する視点が重要だった。",
+    "ideal_actions": [
+      "胸から背中へ移動する突然の痛みに注目する",
+      "左右上肢血圧差を確認する",
+      "片麻痺と構音障害を分枝虚血の可能性として捉える",
+      "急性大動脈解離を疑い高次対応可能施設を選定する",
+      "搬送中も安静保持と再評価を継続する"
+    ],
+    "good_points": [
+      "脳卒中様症状に加えて胸背部痛も重視できた",
+      "左右差という重要所見を評価できた",
+      "重症循環器疾患として搬送方針を組み立てられた"
+    ],
+    "cautions": [
+      "神経症状のみで脳梗塞単独と決めつけない",
+      "SpO2や呼吸音が保たれていても重篤疾患は否定できない",
+      "測定値の左右差を単なる誤差として片づけない"
+    ]
+  }
+}

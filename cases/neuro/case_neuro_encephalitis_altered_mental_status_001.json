@@ -1,0 +1,423 @@
+{
+  "case_id": "case_neuro_encephalitis_altered_mental_status_001",
+  "title": "発熱を伴う意識変容と左上肢脱力",
+  "category": "neuro",
+  "difficulty": "normal",
+  "version": "1.0",
+  "scene_count": 7,
+  "overview": {
+    "chief_complaint": "様子がおかしい、頭痛、めまい",
+    "final_diagnosis": "脳炎",
+    "learning_points": [
+      "発熱を伴う意識障害では中枢神経感染症を鑑別に入れる",
+      "幻覚妄想や不穏を精神疾患だけで片づけず器質性疾患を考える",
+      "局所神経症状を伴う意識変容を重症神経疾患として扱う",
+      "脳卒中との鑑別を意識しながらも感染性脳疾患を疑う"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "現場到着",
+      "phase": "scene_arrival",
+      "scene_goal": "現場状況と第一印象から重症神経疾患を疑う",
+      "ideal_flow": [
+        "安全確認を行う",
+        "傷病者の様子と反応性を観察する",
+        "家族から異常の概要を確認する",
+        "意識障害として接触準備を整える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_assessment",
+      "text": "自宅寝室に到着すると、30歳男性が布団上で仰臥位となり、ぼんやりした表情で天井を見つめている。家族は『朝から様子がおかしく、さっきから見えないものが見えるようなことを言っている』と話す。",
+      "visible_data": {
+        "scene_info": [
+          "30歳男性",
+          "自宅寝室",
+          "布団上で仰臥位",
+          "反応はあるが様子がおかしい",
+          "家族が精神症状様の異常を訴える"
+        ]
+      },
+      "media": [
+        {
+          "file": "media/home_bedroom_male_altered_mental_status_scene1.png",
+          "description": "寝室で布団上に仰臥位となり、ぼんやりした表情を示す30歳男性の現場イラスト",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "現場到着時の捉え方として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s1_o1",
+          "text": "精神疾患と決めつけず、器質性の意識障害として評価を開始する",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "不穏や幻覚妄想があっても、まずは器質性疾患を除外する姿勢が重要。"
+        },
+        {
+          "id": "s1_o2",
+          "text": "若年者なので重症神経疾患の可能性は低い",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "年齢だけで重症神経疾患を除外できない。"
+        },
+        {
+          "id": "s1_o3",
+          "text": "家族が付き添っているため現場評価は不要である",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "現場での第一印象と初期評価は不可欠。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "ABCと意識レベルから全身状態を把握する",
+      "ideal_flow": [
+        "意識レベルを確認する",
+        "気道の開通を確認する",
+        "呼吸状態を確認する",
+        "循環状態を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_survey",
+      "text": "傷病者は呼びかけに反応し、名前と生年月日は答えられるが、落ち着きがなく周囲をきょろきょろ見ている。呼吸は保たれ、会話は断片的に可能である。",
+      "visible_data": {
+        "general_impression": [
+          "意識 JCS2",
+          "名前、生年月日は言える",
+          "不穏あり",
+          "気道は保たれている",
+          "会話は一部成立"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の評価として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s2_o1",
+          "text": "ABCは現時点で保たれているが、意識障害を伴う中枢神経疾患として迅速評価が必要",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "呼吸循環は保たれていても、意識障害は緊急評価の対象。"
+        },
+        {
+          "id": "s2_o2",
+          "text": "受け答えができるため神経学的評価は不要である",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "受け答えが一部可能でも神経学的異常は十分あり得る。"
+        },
+        {
+          "id": "s2_o3",
+          "text": "直ちにCPA対応へ移行する状態",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "CPAを示す所見はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "発症経過と随伴症状から病態を絞る",
+      "ideal_flow": [
+        "いつから様子が違うか確認する",
+        "発熱や頭痛の有無を確認する",
+        "外傷歴の有無を確認する",
+        "既往歴と内服歴を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "focused_history",
+      "text": "家族によると、昨日までは普段どおりだったが、今日になって頭痛とめまいを訴え、徐々に言動がおかしくなったという。既往歴は特に聞いていない。頭部外傷の心当たりもない。",
+      "visible_data": {
+        "history": [
+          "昨日までは普段どおり",
+          "今日になって頭痛とめまいが出現",
+          "徐々に言動異常が出現",
+          "既往歴は特になし",
+          "頭部外傷歴なし"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この段階で特に重要な情報として優先度が高いものを2つ選べ。",
+      "options": [
+        {
+          "id": "s3_o1",
+          "text": "発熱の有無と経過",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "感染性中枢神経疾患を考える上で重要。"
+        },
+        {
+          "id": "s3_o2",
+          "text": "局所神経症状の有無",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "脳炎、脳卒中などの鑑別に重要。"
+        },
+        {
+          "id": "s3_o3",
+          "text": "最近の趣味の変化",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "現時点の緊急評価には直結しない。"
+        },
+        {
+          "id": "s3_o4",
+          "text": "学生時代の成績",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "救急現場での優先度はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "バイタルサイン測定",
+      "phase": "vital_assessment",
+      "scene_goal": "全身状態と感染徴候を客観的に把握する",
+      "ideal_flow": [
+        "呼吸数を確認する",
+        "脈拍を確認する",
+        "血圧を測定する",
+        "体温とSpO2を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "vital_check",
+      "text": "バイタルサインを測定した。",
+      "visible_data": {
+        "vital_signs": [
+          "意識 JCS2",
+          "呼吸数 24/分",
+          "脈拍 90/分",
+          "血圧 130/70mmHg",
+          "体温 38.1℃",
+          "SpO2 99%"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "このバイタル所見の解釈として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s4_o1",
+          "text": "呼吸循環は比較的保たれているが、発熱を伴う意識障害として感染性中枢神経疾患を疑う根拠になる",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "発熱と意識変容の組み合わせは脳炎・髄膜炎などを考える重要所見。"
+        },
+        {
+          "id": "s4_o2",
+          "text": "SpO2が正常なので中枢神経疾患は否定できる",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "SpO2正常でも中枢神経疾患は十分あり得る。"
+        },
+        {
+          "id": "s4_o3",
+          "text": "血圧が正常なので搬送は不要である",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "意識障害と発熱がある時点で搬送は必要。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "神経学的観察",
+      "phase": "focused_exam",
+      "scene_goal": "精神症状だけでなく局所神経所見を拾う",
+      "ideal_flow": [
+        "見当識を確認する",
+        "不穏や幻覚の有無を確認する",
+        "左右差のある運動障害を確認する",
+        "頭痛やめまいの訴えを整理する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "neurological_assessment",
+      "text": "傷病者は名前と生年月日は言えるが、落ち着きなく意味の通りにくい発言を繰り返している。『誰かがいる』などと話し、頭痛とめまいを訴える。左上肢には軽い脱力を認める。",
+      "visible_data": {
+        "neurological_findings": [
+          "見当識は一部保たれる",
+          "不穏あり",
+          "幻覚妄想あり",
+          "頭痛あり",
+          "めまいあり",
+          "左上肢脱力あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この所見の組み合わせから最も重視すべき考え方はどれか。",
+      "options": [
+        {
+          "id": "s5_o1",
+          "text": "精神症状だけでなく、発熱と局所神経症状を伴う器質性脳疾患として扱う",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "幻覚妄想があっても、発熱・頭痛・局所神経症状があれば器質性脳疾患を強く考える。"
+        },
+        {
+          "id": "s5_o2",
+          "text": "幻覚妄想があるため統合失調症を第一に考えてよい",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "発熱や局所神経症状があり、単純な精神疾患とするのは危険。"
+        },
+        {
+          "id": "s5_o3",
+          "text": "左上肢脱力のみから整形外科疾患を考える",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "全体像を無視して局所所見だけで整形疾患とするのは不適切。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "原因疾患の推定",
+      "phase": "clinical_reasoning",
+      "scene_goal": "症候と所見を統合して最も考えやすい疾患を選ぶ",
+      "ideal_flow": [
+        "発熱の有無を整理する",
+        "意識障害と精神症状を整理する",
+        "局所神経症状を整理する",
+        "鑑別の中から最も妥当な疾患を選ぶ"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "diagnostic_estimation",
+      "text": "30歳男性。発熱、頭痛、めまい、意識変容、不穏、幻覚妄想、左上肢脱力を認める。既往歴は特にない。",
+      "visible_data": {
+        "reasoning_points": [
+          "発熱あり",
+          "意識障害あり",
+          "頭痛あり",
+          "幻覚妄想あり",
+          "左上肢脱力あり",
+          "既往歴なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で最も考えられる疾患はどれか。",
+      "options": [
+        {
+          "id": "s6_o1",
+          "text": "脳炎",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "発熱、頭痛、意識変容、精神症状、局所神経症状の組み合わせは脳炎を強く示唆する。"
+        },
+        {
+          "id": "s6_o2",
+          "text": "脳梗塞",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "局所神経症状は説明できても、発熱や精神症状の組み合わせは脳炎の方が考えやすい。"
+        },
+        {
+          "id": "s6_o3",
+          "text": "脳挫傷",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "外傷歴がなく、脳挫傷を支持しない。"
+        },
+        {
+          "id": "s6_o4",
+          "text": "脳出血",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "発熱と精神症状を含む全体像は脳炎がより妥当。"
+        },
+        {
+          "id": "s6_o5",
+          "text": "統合失調症",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "発熱、頭痛、局所神経症状を伴うため精神疾患単独とは考えにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "搬送判断と病院連絡",
+      "phase": "handover",
+      "scene_goal": "神経感染症を疑う重要情報を整理して申し送る",
+      "ideal_flow": [
+        "年齢・性別を伝える",
+        "意識状態と精神症状を伝える",
+        "発熱と頭痛を伝える",
+        "局所神経症状と推定疾患を伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "hospital_handover",
+      "text": "受入要請のため医療機関へ連絡する。",
+      "visible_data": {
+        "handover_elements": [
+          "30歳男性",
+          "様子がおかしいとの主訴で救急要請",
+          "JCS2、RR24、PR90、BP130/70、T38.1、SpO2 99%",
+          "不穏、幻覚妄想あり",
+          "頭痛、めまい、左上肢脱力あり",
+          "脳炎を疑う"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "最も適切な申し送りを選べ。",
+      "templates": [
+        {
+          "id": "s7_t1",
+          "text": "30歳男性、家族が様子の異常に気づき救急要請しました。意識JCS2で不穏と幻覚妄想があり、頭痛、めまい、左上肢脱力を認めます。呼吸数24、脈拍90、血圧130/70、体温38.1℃、SpO2 99%です。発熱を伴う意識障害で脳炎を疑っています。",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "主訴、意識状態、神経所見、バイタル、推定病態が整理されている。"
+        },
+        {
+          "id": "s7_t2",
+          "text": "若い男性で少し落ち着きがありません。精神科疾患かもしれませんが詳しくは不明です。",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "感染徴候や局所神経症状が抜けており不十分。"
+        },
+        {
+          "id": "s7_t3",
+          "text": "バイタルは安定しているので、しばらく自宅で様子を見るか検討します。",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "発熱と意識障害を伴うため自宅経過観察は不適切。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "発熱、頭痛、意識変容、不穏、幻覚妄想、左上肢脱力を認めた30歳男性の症例であり、精神症状だけでなく感染性の器質性脳疾患を考えることが重要である。局所神経症状を伴うことから、脳炎を最も強く疑う。",
+    "ideal_actions": [
+      "不穏や幻覚妄想を精神疾患と決めつけず器質性疾患として評価する",
+      "ABCと意識レベルを確認して全身状態を把握する",
+      "発熱、頭痛、めまいなど感染性中枢神経疾患を示唆する情報を集める",
+      "左上肢脱力など局所神経症状を確認する",
+      "脳炎を疑って速やかに搬送し、適切に申し送る"
+    ],
+    "good_points": [
+      "精神症状に引きずられず器質性疾患を考えられた",
+      "発熱と意識障害の組み合わせを重視できた",
+      "局所神経症状を拾って重症神経疾患として扱えた",
+      "病院連絡で必要情報を整理できた"
+    ],
+    "cautions": [
+      "若年者でも脳炎や脳血管障害は起こり得る",
+      "幻覚妄想だけで精神疾患と判断しない",
+      "SpO2や血圧が保たれていても重症中枢神経疾患は否定できない",
+      "発熱を伴う意識障害では感染対策と迅速搬送を意識する"
+    ]
+  }
+}

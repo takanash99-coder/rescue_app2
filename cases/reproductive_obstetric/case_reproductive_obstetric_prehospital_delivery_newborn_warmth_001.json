@@ -1,0 +1,430 @@
+{
+  "case_id": "case_reproductive_obstetric_prehospital_delivery_newborn_warmth_001",
+  "category": "reproductive_obstetric",
+  "title": "玄関内で児が娩出された妊娠36週の女性",
+  "difficulty": "normal",
+  "patient_profile": {
+    "age": 32,
+    "sex": "female"
+  },
+  "summary": "妊娠36週の32歳女性。下腹部痛で動けなくなり自ら救急要請。救急隊到着時、すでに児頭が膣口から出かかっており、到着と同時に児の全身が娩出された。児は啼泣あり、全身ピンク色、四肢運動良好。臍帯切断後、児の全身に付着した羊水を拭き取った。",
+  "learning_points": [
+    "切迫した分娩進行時の現場対応を理解する",
+    "娩出直後の新生児評価の要点を整理する",
+    "新生児の低体温予防を優先して行う",
+    "母児双方の安全確保と搬送判断を行う"
+  ],
+  "scene_1": {
+    "id": "scene_1",
+    "title": "現場到着",
+    "phase": "scene_size_up",
+    "scene_goal": "切迫分娩の現場状況を把握し、分娩介助準備を整える。",
+    "ideal_flow": [
+      "安全確認",
+      "妊婦への接触",
+      "分娩進行状況の確認",
+      "母児対応準備"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "initial_assessment",
+    "text": "自宅玄関内で、妊娠36週の女性が下腹部痛のため座り込み動けなくなっている。破水しており、分娩が急速に進行している様子である。",
+    "visible_data": {
+      "location": "自宅玄関内",
+      "pregnancy_week": 36,
+      "chief_complaint": "下腹部痛、分娩進行",
+      "rupture_of_membranes": true
+    },
+    "media": [
+      {
+        "file": "home_entry_pregnant_woman_labor_scene1.png",
+        "description": "自宅玄関内で分娩進行中の妊婦が座り込んでいる現場再構成画像",
+        "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+      }
+    ],
+    "type": "single_choice",
+    "prompt": "この場面で最も適切な判断はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "直ちに歩かせて救急車へ移動させる",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "分娩が切迫しており、無理な移動は不適切です。"
+      },
+      {
+        "key": "B",
+        "text": "その場で分娩介助の準備を進める",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "分娩進行が切迫しているため、その場での対応準備が必要です。"
+      },
+      {
+        "key": "C",
+        "text": "腹痛の原因検索を優先して観察のみ行う",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "すでに分娩進行が明らかです。"
+      },
+      {
+        "key": "D",
+        "text": "妊婦のみを優先して児の準備は不要とする",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "母児双方への対応準備が必要です。"
+      }
+    ]
+  },
+  "scene_2": {
+    "id": "scene_2",
+    "title": "初期評価",
+    "phase": "primary_survey",
+    "scene_goal": "母体の全身状態を評価し、分娩継続対応の可否を確認する。",
+    "ideal_flow": [
+      "意識確認",
+      "呼吸確認",
+      "循環確認",
+      "母体安定性の評価"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "maternal_primary_survey",
+    "text": "母体の意識は清明。呼吸数24/分、脈拍92/分整、血圧122/72mmHg、SpO2 99%であり、この時点では母体バイタルは比較的安定している。",
+    "visible_data": {
+      "awareness": "clear",
+      "respiratory_rate": 24,
+      "pulse_rate": 92,
+      "pulse_regular": true,
+      "blood_pressure": "122/72 mmHg",
+      "spo2": "99%"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点での母体評価として最も適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "母体は循環・呼吸ともに比較的安定している",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "現時点では母体バイタルは大きく破綻していません。"
+      },
+      {
+        "key": "B",
+        "text": "直ちにショック状態と判断する",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "現時点のバイタルからはショック所見は明確ではありません。"
+      },
+      {
+        "key": "C",
+        "text": "呼吸停止が近いと判断する",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "その所見はありません。"
+      },
+      {
+        "key": "D",
+        "text": "低酸素血症が進行していると判断する",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "SpO2は保たれています。"
+      }
+    ]
+  },
+  "scene_3": {
+    "id": "scene_3",
+    "title": "娩出",
+    "phase": "delivery",
+    "scene_goal": "児の娩出直後に母児の安全を確認する。",
+    "ideal_flow": [
+      "児娩出の確認",
+      "児の状態確認",
+      "臍帯処置",
+      "児体表の羊水除去"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "newborn_immediate_check",
+    "text": "救急隊到着と同時に児の全身が娩出された。児は元気に啼泣し、全身はピンク色で、四肢を活発に動かしている。臍帯を切断し、児の全身に付着した羊水を拭き取った。",
+    "visible_data": {
+      "newborn_cry": "good",
+      "skin_color": "pink",
+      "limb_activity": "active",
+      "apgar": {
+        "time": "1分後",
+        "score": 9
+      },
+      "umbilical_cord": "cut",
+      "body_wetness": "羊水あり、拭き取り済み"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点での児の状態評価として最も適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "出生直後の状態はおおむね良好である",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "啼泣、ピンク色、活発な四肢運動、Apgar 9点相当から状態は良好です。"
+      },
+      {
+        "key": "B",
+        "text": "直ちに高度な蘇生処置が必要である",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "現時点では必要ありません。"
+      },
+      {
+        "key": "C",
+        "text": "無呼吸と判断する",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "啼泣があり誤りです。"
+      },
+      {
+        "key": "D",
+        "text": "重度の循環不全を疑う",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "全身ピンク色であり、重度循環不全の所見ではありません。"
+      }
+    ]
+  },
+  "scene_4": {
+    "id": "scene_4",
+    "title": "出生直後のリスク評価",
+    "phase": "focused_assessment",
+    "scene_goal": "新生児にとって優先すべき次のリスクを判断する。",
+    "ideal_flow": [
+      "新生児の啼泣確認",
+      "体表乾燥の確認",
+      "保温必要性の判断",
+      "低体温予防"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "newborn_temperature_management",
+    "text": "児は啼泣し状態良好だが、出生直後の新生児は濡れていると体温を奪われやすい。特に現場分娩では低体温予防が重要である。",
+    "visible_data": {
+      "newborn_condition": "good",
+      "major_next_risk": "低体温"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この場面で次に特に注意すべきことはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "新生児低体温",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "出生直後の新生児では低体温予防が重要です。"
+      },
+      {
+        "key": "B",
+        "text": "成人と同様の発汗過多",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "優先すべき評価ではありません。"
+      },
+      {
+        "key": "C",
+        "text": "高血圧緊急症",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "児の問題として不適切です。"
+      },
+      {
+        "key": "D",
+        "text": "熱中症",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "この場面での優先リスクではありません。"
+      }
+    ]
+  },
+  "scene_5": {
+    "id": "scene_5",
+    "title": "保温方法の選択",
+    "phase": "treatment",
+    "scene_goal": "新生児の保温として適切な手順を選ぶ。",
+    "ideal_flow": [
+      "乾燥",
+      "乾いた布で覆う",
+      "アルミホイルで保温",
+      "継続観察"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "newborn_warming",
+    "text": "児の全身に付着した羊水は拭き取られている。次に行うべきなのは、体熱喪失を防ぐための適切な保温である。",
+    "visible_data": {
+      "newborn_after_wipe": "乾燥化済み",
+      "goal": "保温"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "次に行うべき対応はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "裸のまま救急アルミホイルで包む",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "乾いたタオル等で覆った上で保温するのが適切です。"
+      },
+      {
+        "key": "B",
+        "text": "乾いたタオルで覆い、さらに救急アルミホイルで包む",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "正解です。乾いたタオルで覆い、その上からアルミホイルで保温します。"
+      },
+      {
+        "key": "C",
+        "text": "救急アルミホイルで包み、さらにタオルで覆う",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "順序として適切ではありません。"
+      },
+      {
+        "key": "D",
+        "text": "お湯で濡らして絞ったタオルで覆い、さらに救急アルミホイルで包む",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "湿ったタオルは熱喪失につながります。"
+      },
+      {
+        "key": "E",
+        "text": "救急アルミホイルで包み、さらにお湯で濡らして絞ったタオルで覆う",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "湿ったタオルは不適切です。"
+      }
+    ]
+  },
+  "scene_6": {
+    "id": "scene_6",
+    "title": "母体の継続観察",
+    "phase": "post_delivery_maternal_assessment",
+    "scene_goal": "分娩後の母体について継続観察すべき点を整理する。",
+    "ideal_flow": [
+      "出血確認",
+      "意識・循環再評価",
+      "児の状態確認",
+      "母児同時管理"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "maternal_postpartum_check",
+    "text": "分娩後は児の保温だけでなく、母体の出血や循環動態の変化にも注意が必要である。",
+    "visible_data": {
+      "maternal_risk_after_delivery": [
+        "出血",
+        "循環動態変化"
+      ]
+    },
+    "media": [],
+    "type": "multiple_choice",
+    "prompt": "分娩後の母体観察として適切なものを2つ選べ。",
+    "options": [
+      {
+        "key": "A",
+        "text": "出血量を観察する",
+        "is_correct": true,
+        "score_delta": 3,
+        "feedback": "産後出血の評価は重要です。"
+      },
+      {
+        "key": "B",
+        "text": "意識・血圧・脈拍の変化を継続観察する",
+        "is_correct": true,
+        "score_delta": 3,
+        "feedback": "循環動態の変化に注意が必要です。"
+      },
+      {
+        "key": "C",
+        "text": "母体観察は不要で児のみ管理する",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "母児双方の観察が必要です。"
+      },
+      {
+        "key": "D",
+        "text": "歩行させて玄関外へ移動させる",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "分娩直後であり不適切です。"
+      }
+    ]
+  },
+  "scene_7": {
+    "id": "scene_7",
+    "title": "搬送と申し送り",
+    "phase": "transport_and_handover",
+    "scene_goal": "現場分娩後の母児の状態と実施対応を整理して申し送る。",
+    "ideal_flow": [
+      "分娩状況の要約",
+      "児の状態共有",
+      "実施した保温共有",
+      "母体状態共有"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "handover",
+    "text": "現場で児が娩出され、児は啼泣良好、全身ピンク色、四肢運動活発である。保温処置を行い、母体の出血とバイタルを継続観察しながら搬送する。",
+    "visible_data": {
+      "mother_status": "バイタル安定",
+      "newborn_status": "啼泣あり、ピンク色、活発",
+      "performed_care": [
+        "臍帯切断",
+        "羊水拭き取り",
+        "保温"
+      ]
+    },
+    "media": [],
+    "type": "template_select",
+    "prompt": "最も適切な申し送り内容を選べ。",
+    "templates": [
+      {
+        "key": "A",
+        "text": "32歳女性、妊娠36週。自宅玄関内で下腹部痛のため動けず要請。到着時に児が全身娩出。児は啼泣良好、全身ピンク色、四肢運動活発。臍帯切断後、羊水を拭き取り、乾いたタオルで覆って救急アルミホイルで保温しました。母体バイタルは現時点で安定、出血を継続観察中です。",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "母児の状況と実施処置が簡潔にまとまっています。"
+      },
+      {
+        "key": "B",
+        "text": "児は泣いているので特に処置せず搬送します。",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "新生児保温と母体観察が抜けています。"
+      },
+      {
+        "key": "C",
+        "text": "母体だけを搬送し、児は後送とします。",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "不適切です。母児一体で管理します。"
+      }
+    ]
+  },
+  "debriefing": {
+    "summary": "本症例は現場到着直後に児が娩出された切迫分娩症例である。児は啼泣良好、全身ピンク色、四肢運動活発で、Apgar 1分値9点相当の良好な状態であるが、新生児は体温を失いやすいため、羊水を拭き取った後は乾いたタオルで覆い、その上から救急アルミホイルで包んで保温することが重要である。同時に母体の出血と循環動態の観察も必要である。",
+    "ideal_actions": [
+      "切迫分娩と判断しその場で分娩介助準備を行う",
+      "出生直後の児の状態を確認する",
+      "Apgarスコアを含めて児の状態を整理する",
+      "羊水を拭き取り低体温を予防する",
+      "乾いたタオルで覆い、さらに救急アルミホイルで保温する",
+      "母体の出血と循環動態を継続観察する",
+      "母児ともに適切に搬送する"
+    ],
+    "good_points": [
+      "分娩進行を的確に把握できた",
+      "新生児の状態評価ができた",
+      "Apgarスコアを含めて状態を整理できた",
+      "保温の手順を正しく選択できた"
+    ],
+    "cautions": [
+      "濡れたタオルは熱喪失を助長するため不適切である",
+      "児の状態が良くても保温は省略しない",
+      "児だけでなく母体の出血評価も忘れない"
+    ]
+  }
+}

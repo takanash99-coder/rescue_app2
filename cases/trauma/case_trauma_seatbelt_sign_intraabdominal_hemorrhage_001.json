@@ -1,0 +1,426 @@
+{
+  "case_id": "case_trauma_seatbelt_sign_intraabdominal_hemorrhage_001",
+  "category": "trauma",
+  "title": "シートベルト痕を伴う高齢運転者の腹部外傷",
+  "difficulty": "hard",
+  "patient_profile": {
+    "age": 86,
+    "sex": "male"
+  },
+  "summary": "86歳男性。乗用車運転中にブレーキをかけずに電柱へ衝突し、受傷30分後に車外救出された。救急隊到着時、意識JCS2、呼吸数32/分、脈拍142/分整、血圧76/58mmHg、SpO2 98%。腹痛を訴え、胸郭動揺、皮下気腫、外出血、頸静脈怒張は認めない。体表にはシートベルト痕を認める。",
+  "learning_points": [
+    "鈍的外傷におけるショック原因を優先順位で考える",
+    "シートベルト痕から腹部臓器損傷を疑う",
+    "外表出血がなくても内出血性ショックを想起する",
+    "胸部所見の陰性所見から鑑別を絞る"
+  ],
+  "scene_1": {
+    "id": "scene_1",
+    "title": "現場到着",
+    "phase": "scene_size_up",
+    "scene_goal": "高エネルギー外傷であることを把握し、重症外傷として対応を開始する。",
+    "ideal_flow": [
+      "安全確認",
+      "受傷機転の把握",
+      "高エネルギー外傷の認識",
+      "初期評価へ移行"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "trauma_scene_assessment",
+    "text": "高齢男性が乗用車を運転中、ブレーキをかけずに電柱へ衝突した。受傷から約30分後に車外へ救出されている。高エネルギー鈍的外傷として重症外傷対応が必要な状況である。",
+    "visible_data": {
+      "mechanism": "乗用車で電柱に正面衝突",
+      "extrication_delay": "受傷30分後に救出",
+      "trauma_type": "鈍的外傷"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この場面で最も適切な初期判断はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "軽症の腹部打撲として対応する",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "高エネルギー受傷であり軽症とは判断できません。"
+      },
+      {
+        "key": "B",
+        "text": "重症外傷として全身評価と迅速搬送を前提に対応する",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "高齢者、高エネルギー受傷、救出遅延から重症外傷対応が妥当です。"
+      },
+      {
+        "key": "C",
+        "text": "整形外傷を第一に考えて局所観察のみ行う",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "全身性の重症外傷評価が優先です。"
+      },
+      {
+        "key": "D",
+        "text": "意識が保たれているため緊急性は低いと判断する",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "バイタル異常があり重症です。"
+      }
+    ]
+  },
+  "scene_2": {
+    "id": "scene_2",
+    "title": "初期評価",
+    "phase": "primary_survey",
+    "scene_goal": "ショックの存在を把握し、致死的外傷の鑑別を進める。",
+    "ideal_flow": [
+      "Aの確認",
+      "Bの確認",
+      "Cの確認",
+      "ショックの判断",
+      "致死的胸部外傷の有無を確認"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "primary_survey_shock",
+    "text": "意識JCS2、呼吸数32/分、脈拍142/分整、血圧76/58mmHgでショック状態である。SpO2は98%で保たれており、胸郭動揺や皮下気腫はなく、頸静脈怒張も認めない。",
+    "visible_data": {
+      "awareness": "JCS2",
+      "respiratory_rate": 32,
+      "pulse_rate": 142,
+      "pulse_regular": true,
+      "blood_pressure": "76/58 mmHg",
+      "spo2": "98%",
+      "flail_chest": false,
+      "subcutaneous_emphysema": false,
+      "jugular_venous_distention": false
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点での循環評価として最も適切なのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "ショックは否定的である",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "頻脈と低血圧からショックです。"
+      },
+      {
+        "key": "B",
+        "text": "外傷性ショックが強く疑われる",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "明らかな頻脈、低血圧があり外傷性ショックを考えます。"
+      },
+      {
+        "key": "C",
+        "text": "低酸素血症が主因である",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "SpO2は保たれており主因とは考えにくいです。"
+      },
+      {
+        "key": "D",
+        "text": "神経原性ショックが最も典型的である",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "頻脈を伴っており典型像ではありません。"
+      }
+    ]
+  },
+  "scene_3": {
+    "id": "scene_3",
+    "title": "重点観察",
+    "phase": "focused_assessment",
+    "scene_goal": "ショック原因を絞り込むため、腹部と胸部の所見を整理する。",
+    "ideal_flow": [
+      "腹部症状の確認",
+      "胸部致死的外傷の除外",
+      "外出血の確認",
+      "内出血の可能性を考える"
+    ],
+    "ideal_score_delta": 15,
+    "action_tag": "shock_source_assessment",
+    "text": "傷病者は腹痛を訴えている。外出血はなく、胸郭動揺や皮下気腫、頸静脈怒張も認めない。胸部よりも腹部を中心とした内出血が疑われる。",
+    "visible_data": {
+      "chief_complaint": "腹痛",
+      "external_bleeding": false,
+      "thoracic_red_flags": {
+        "flail_chest": false,
+        "subcutaneous_emphysema": false,
+        "jugular_venous_distention": false
+      }
+    },
+    "media": [],
+    "type": "multiple_choice",
+    "prompt": "この時点でショック原因として可能性が低いものを2つ選べ。",
+    "options": [
+      {
+        "key": "A",
+        "text": "緊張性気胸",
+        "is_correct": true,
+        "score_delta": 3,
+        "feedback": "胸郭動揺や皮下気腫、頸静脈怒張がなく可能性は下がります。"
+      },
+      {
+        "key": "B",
+        "text": "心タンポナーデ",
+        "is_correct": true,
+        "score_delta": 3,
+        "feedback": "頸静脈怒張がなく、所見上は優先度が下がります。"
+      },
+      {
+        "key": "C",
+        "text": "腹腔内出血",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "腹痛とショック、体表所見から重要な鑑別です。"
+      },
+      {
+        "key": "D",
+        "text": "内因性腹痛のみ",
+        "is_correct": false,
+        "score_delta": -1,
+        "feedback": "外傷機転を踏まえると外傷性原因が優先です。"
+      }
+    ]
+  },
+  "scene_4": {
+    "id": "scene_4",
+    "title": "受傷機転の再評価",
+    "phase": "mechanism_review",
+    "scene_goal": "受傷機転と年齢を踏まえ、腹部臓器損傷の危険性を高く評価する。",
+    "ideal_flow": [
+      "高齢者外傷の重症化リスクを考える",
+      "シートベルト関連損傷を想起する",
+      "腹部鈍的外傷の内臓損傷を疑う"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "mechanism_based_reasoning",
+    "text": "高齢者の自動車衝突では、外表所見が軽く見えても重篤な内臓損傷を合併することがある。シートベルト痕は腹部鈍的外傷と関連する重要な手掛かりである。",
+    "visible_data": {
+      "age_risk": "高齢",
+      "mechanism": "シートベルト着用下の高エネルギー衝突",
+      "concern": "腹部臓器損傷"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この受傷機転から特に警戒すべき病態はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "腹腔内臓器損傷に伴う出血",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "シートベルト痕と腹痛、ショックから強く疑います。"
+      },
+      {
+        "key": "B",
+        "text": "単純な腹壁打撲のみ",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "ショックを説明できません。"
+      },
+      {
+        "key": "C",
+        "text": "脊髄損傷による徐脈性ショック",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "本症例は頻脈であり典型ではありません。"
+      },
+      {
+        "key": "D",
+        "text": "過換気症候群",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "外傷性ショックを優先すべきです。"
+      }
+    ]
+  },
+  "scene_5": {
+    "id": "scene_5",
+    "title": "体表所見の確認",
+    "phase": "inspection",
+    "scene_goal": "シートベルト痕を確認し、腹腔内損傷を強く疑う。",
+    "ideal_flow": [
+      "体表観察",
+      "シートベルト痕の確認",
+      "腹部損傷の可能性を評価",
+      "ショック原因と結び付ける"
+    ],
+    "ideal_score_delta": 20,
+    "action_tag": "seatbelt_sign_recognition",
+    "text": "前胸部から上腹部にかけて、シートベルトによる鈍的外傷を示唆する皮下出血斑がみられる。明らかな外出血はないが、腹腔内出血を示唆する重要な体表所見である。",
+    "visible_data": {
+      "seatbelt_sign": true,
+      "external_bleeding": false,
+      "implication": "腹部鈍的外傷による内出血リスク"
+    },
+    "media": [
+      {
+        "file": "torso_seatbelt_sign_blunt_abdominal_trauma_scene5.png",
+        "description": "前胸部から上腹部にかけてのシートベルト痕を示す再構成画像",
+        "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+      }
+    ],
+    "type": "single_choice",
+    "prompt": "この傷病者のショックの原因として最も疑われるのはどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "腹膜炎",
+        "is_correct": false,
+        "score_delta": -2,
+        "feedback": "受傷早期のショック主因としては優先度が低いです。"
+      },
+      {
+        "key": "B",
+        "text": "脊髄損傷",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "脊髄損傷の神経原性ショックでは徐脈傾向が典型です。"
+      },
+      {
+        "key": "C",
+        "text": "緊張性気胸",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "胸部所見が乏しく、優先度は低いです。"
+      },
+      {
+        "key": "D",
+        "text": "腹腔内出血",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "腹痛、ショック、シートベルト痕から最も疑われます。"
+      },
+      {
+        "key": "E",
+        "text": "心タンポナーデ",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "頸静脈怒張がなく所見上は優先度が下がります。"
+      }
+    ]
+  },
+  "scene_6": {
+    "id": "scene_6",
+    "title": "処置と搬送判断",
+    "phase": "treatment_and_transport",
+    "scene_goal": "出血性ショックを想定し、迅速搬送を判断する。",
+    "ideal_flow": [
+      "出血性ショックとして対応",
+      "酸素投与検討",
+      "静脈路確保検討",
+      "迅速搬送判断",
+      "受傷機転と所見の共有"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "hemorrhagic_shock_management",
+    "text": "腹腔内出血による出血性ショックが強く疑われる。現場滞在は最小限とし、継続観察と必要な処置を行いながら、外傷対応可能施設へ迅速搬送する必要がある。",
+    "visible_data": {
+      "suspected_shock_type": "出血性ショック",
+      "transport_priority": "最優先"
+    },
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点で最も適切な方針はどれか。",
+    "options": [
+      {
+        "key": "A",
+        "text": "現場で長時間観察して原因を確定する",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "確定診断より迅速搬送が優先です。"
+      },
+      {
+        "key": "B",
+        "text": "出血性ショックを疑い迅速搬送を優先する",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "外傷性内出血が疑われ、迅速搬送が重要です。"
+      },
+      {
+        "key": "C",
+        "text": "整形外科単独病院への搬送を考える",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "腹部外傷とショックへの対応が必要です。"
+      },
+      {
+        "key": "D",
+        "text": "外出血がないため搬送緊急度は低い",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "内出血性ショックが考えられます。"
+      }
+    ]
+  },
+  "scene_7": {
+    "id": "scene_7",
+    "title": "申し送り",
+    "phase": "handover",
+    "scene_goal": "受傷機転、ショック、腹部所見、体表所見を簡潔に申し送る。",
+    "ideal_flow": [
+      "受傷機転の共有",
+      "バイタルの共有",
+      "腹痛と体表所見の共有",
+      "推定病態の共有"
+    ],
+    "ideal_score_delta": 10,
+    "action_tag": "trauma_handover",
+    "text": "高齢男性の高エネルギー鈍的外傷で、腹痛とショックを伴い、シートベルト痕を認める。腹腔内出血を疑って搬送する。",
+    "visible_data": {
+      "mechanism": "電柱に衝突",
+      "shock": true,
+      "abdominal_pain": true,
+      "seatbelt_sign": true
+    },
+    "media": [],
+    "type": "template_select",
+    "prompt": "最も適切な申し送り内容を選べ。",
+    "templates": [
+      {
+        "key": "A",
+        "text": "86歳男性。乗用車運転中にブレーキなしで電柱へ衝突し、受傷30分後に救出。JCS2、呼吸32、脈拍142整、血圧76/58、SpO2 98%。腹痛を訴え、胸郭動揺・皮下気腫・頸静脈怒張・外出血は認めません。前胸部から上腹部にシートベルト痕があり、腹腔内出血による出血性ショックを疑っています。",
+        "is_correct": true,
+        "score_delta": 5,
+        "feedback": "受傷機転、バイタル、陰性所見、推定病態が簡潔にまとまっています。"
+      },
+      {
+        "key": "B",
+        "text": "86歳男性。胸部外傷が主と思われ、緊張性気胸を第一に考えています。",
+        "is_correct": false,
+        "score_delta": -3,
+        "feedback": "胸部所見と一致しません。"
+      },
+      {
+        "key": "C",
+        "text": "86歳男性。外出血がないためショックは否定的です。",
+        "is_correct": false,
+        "score_delta": -4,
+        "feedback": "内出血を見落としています。"
+      }
+    ]
+  },
+  "debriefing": {
+    "summary": "本症例は高エネルギーの鈍的腹部外傷であり、頻脈、低血圧、腹痛、シートベルト痕から腹腔内出血による出血性ショックが最も疑われる。胸郭動揺、皮下気腫、頸静脈怒張がないことから、緊張性気胸や心タンポナーデの優先度は下がる。外出血がなくても内出血でショックとなることを理解することが重要である。",
+    "ideal_actions": [
+      "高エネルギー外傷として重症外傷対応を開始する",
+      "頻脈と低血圧からショックを認識する",
+      "腹痛とシートベルト痕から腹腔内出血を疑う",
+      "胸部致死的外傷の所見を確認して鑑別を整理する",
+      "出血性ショックを想定して迅速搬送する",
+      "外傷対応可能施設へ受傷機転と所見を申し送る"
+    ],
+    "good_points": [
+      "陰性所見を使って鑑別を絞れた",
+      "シートベルト痕の意味を理解できた",
+      "外出血がなくても内出血を疑えた"
+    ],
+    "cautions": [
+      "高齢者外傷では外見以上に重症なことがある",
+      "腹膜炎は受傷直後ショックの主因としては優先度が低い",
+      "神経原性ショックでは徐脈傾向を示すことが多い"
+    ]
+  }
+}

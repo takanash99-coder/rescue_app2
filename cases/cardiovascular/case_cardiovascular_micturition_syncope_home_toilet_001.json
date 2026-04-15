@@ -1,0 +1,447 @@
+{
+  "case_id": "case_cardiovascular_micturition_syncope_home_toilet_001",
+  "category": "cardiovascular",
+  "title": "排尿中に気が遠くなり倒れた男性",
+  "difficulty": "normal",
+  "version": "1.0",
+  "summary": "自宅トイレで排尿中に眼前暗黒感が出現し、一時的に倒れた50歳男性。救急隊到着時には意識清明だが、顔面蒼白、冷感、徐脈傾向、軽度低血圧を認める。排尿を契機とした反射性失神、特に迷走神経反射による排尿失神を想定し、重症鑑別を外しつつ病態を整理する症例。",
+  "learning_objectives": [
+    "排尿中の失神から排尿失神を想起する",
+    "顔面蒼白、冷感、徐脈、低血圧から迷走神経反射を理解する",
+    "意識回復後も重症鑑別を意識して初期評価を行う",
+    "反射性失神の成因を病態生理として説明できる"
+  ],
+  "scene_count": 7,
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "現場到着・状況把握",
+      "phase": "scene_assessment",
+      "scene_goal": "トイレでの失神エピソードと現在の状態を結びつけ、反射性失神を疑うきっかけをつかむ。",
+      "ideal_flow": [
+        "安全確認",
+        "傷病者への接触",
+        "現在の意識確認",
+        "発見時状況の確認",
+        "失神前後の経過を把握する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "initial_recognition",
+      "text": "自宅のトイレ前。50歳の男性が床に座り込み、壁にもたれるような姿勢をとっている。妻によると、トイレで倒れているところを見つけたが、現在は声かけに応じている。本人は『排尿中に急に目の前が白くなって、気が遠くなった』と話す。",
+      "visible_data": {
+        "location": "自宅トイレ前",
+        "chief_complaint": "気が遠くなって倒れた",
+        "current_state": "会話可能",
+        "trigger_hint": "排尿中に発症"
+      },
+      "media": [
+        {
+          "file": "media/home_toilet_micturition_syncope_scene1.png",
+          "description": "トイレ前の床に座り込み、妻に付き添われる顔面蒼白の男性",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "この時点で最も考えやすい病態はどれか。",
+      "options": [
+        {
+          "id": "s1o1",
+          "label": "反射性失神",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "排尿中の発症は反射性失神、とくに排尿失神を疑う重要な手がかりである。"
+        },
+        {
+          "id": "s1o2",
+          "label": "重症感染症",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "現時点で感染を強く示す所見は乏しい。"
+        },
+        {
+          "id": "s1o3",
+          "label": "気道異物",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "発症状況が合わない。"
+        },
+        {
+          "id": "s1o4",
+          "label": "熱中症",
+          "is_correct": false,
+          "score_delta": -2,
+          "feedback": "環境要因や発症状況が一致しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "意識、呼吸、循環の安定性を確認し、現時点での重症度を判断する。",
+      "ideal_flow": [
+        "意識評価",
+        "気道評価",
+        "呼吸評価",
+        "循環評価",
+        "バイタルサイン把握"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_assessment",
+      "text": "救急隊到着時、意識は清明。呼吸数18/分、脈拍54/分・整、血圧96/62mmHg、体温36.0℃、SpO2 99％。顔面蒼白と四肢の冷感を認めるが、会話は成立している。",
+      "visible_data": {
+        "consciousness": "意識清明",
+        "respiratory_rate": "18/分",
+        "pulse": "54/分・整",
+        "blood_pressure": "96/62mmHg",
+        "temperature": "36.0℃",
+        "spo2": "99％",
+        "appearance": "顔面蒼白、冷感あり"
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この場面で適切な評価として正しいものを2つ選べ。",
+      "options": [
+        {
+          "id": "s2o1",
+          "label": "呼吸状態は大きく破綻していない",
+          "is_correct": true,
+          "score_delta": 7,
+          "feedback": "呼吸数、SpO2、会話状況から、現時点で重篤な呼吸不全は目立たない。"
+        },
+        {
+          "id": "s2o2",
+          "label": "循環反応として徐脈傾向と軽度低血圧がある",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "迷走神経反射を示唆する所見として整合する。"
+        },
+        {
+          "id": "s2o3",
+          "label": "高度な低酸素血症が主病態である",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "SpO2 99％であり合わない。"
+        },
+        {
+          "id": "s2o4",
+          "label": "発熱性疾患が最優先である",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "体温36.0℃であり支持しにくい。"
+        },
+        {
+          "id": "s2o5",
+          "label": "完全に問題ないので観察不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "意識回復後でも失神の原因評価は必要。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "状況聴取",
+      "phase": "focused_history",
+      "scene_goal": "発症前後の状況から排尿失神を支持する情報を集める。",
+      "ideal_flow": [
+        "失神直前の状況を確認",
+        "前兆症状を聴取",
+        "排尿との関連を確認",
+        "外傷の有無を確認",
+        "既往歴や服薬を確認"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "history_taking",
+      "text": "本人は『立って排尿していたら、急に目の前が白くなってフワッとした』と話す。胸痛、動悸、けいれん様運動はない。妻は『ドタンと音がしたのですぐ来た』と話し、長時間の意識消失はなかったようである。",
+      "visible_data": {
+        "trigger": "立位で排尿中",
+        "prodrome": "眼前暗黒感、気が遠くなる感じ",
+        "associated_symptoms": "胸痛なし、動悸なし",
+        "episode_duration": "短時間"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態を最も支持する前兆はどれか。",
+      "options": [
+        {
+          "id": "s3o1",
+          "label": "眼前暗黒感",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "反射性失神でよくみられる典型的な前兆である。"
+        },
+        {
+          "id": "s3o2",
+          "label": "激しい胸部圧迫感",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "今回の聴取内容とは一致しない。"
+        },
+        {
+          "id": "s3o3",
+          "label": "高熱と悪寒",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "感染症を示唆する所見であり、この症例とは合わない。"
+        },
+        {
+          "id": "s3o4",
+          "label": "激しい頭痛",
+          "is_correct": false,
+          "score_delta": -2,
+          "feedback": "現時点でその情報はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "身体観察・鑑別確認",
+      "phase": "focused_assessment",
+      "scene_goal": "迷走神経反射を支持する所見を確認しつつ、重大な他疾患を見落とさない。",
+      "ideal_flow": [
+        "顔色と皮膚所見を確認",
+        "頭部打撲の有無を確認",
+        "神経学的異常の有無を確認",
+        "胸部症状の有無を確認",
+        "失神後状態を観察する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "targeted_exam",
+      "text": "顔面は蒼白で、皮膚はやや冷たい。頭部に明らかな外傷はなく、麻痺や構音障害も認めない。胸部症状や呼吸苦もない。",
+      "visible_data": {
+        "face": "蒼白",
+        "skin": "冷感あり",
+        "head_injury": "明らかな外傷なし",
+        "neuro": "麻痺・構音障害なし",
+        "respiratory": "呼吸苦なし"
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この観察所見から考えて適切な判断を2つ選べ。",
+      "options": [
+        {
+          "id": "s4o1",
+          "label": "迷走神経反射を支持する所見がある",
+          "is_correct": true,
+          "score_delta": 5,
+          "feedback": "蒼白、冷感、徐脈傾向、軽度低血圧は反射性失神と整合する。"
+        },
+        {
+          "id": "s4o2",
+          "label": "現時点で頭部外傷や局所神経障害は目立たない",
+          "is_correct": true,
+          "score_delta": 5,
+          "feedback": "重篤な神経学的異常を示す情報は乏しい。"
+        },
+        {
+          "id": "s4o3",
+          "label": "高度な呼吸不全がある",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "SpO2や呼吸状態から支持されない。"
+        },
+        {
+          "id": "s4o4",
+          "label": "頭部への強い衝撃が原因と断定できる",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "打撲は原因ではなく結果である可能性が高く、明らかな外傷もない。"
+        },
+        {
+          "id": "s4o5",
+          "label": "脳卒中を最も疑う",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "局所神経症状がない。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "重症度判断と現場方針",
+      "phase": "clinical_judgment",
+      "scene_goal": "意識は回復していても、原因検索と再失神予防の観点で評価継続が必要と判断する。",
+      "ideal_flow": [
+        "再失神リスクを考慮する",
+        "安静保持",
+        "継続観察",
+        "原因評価を進める",
+        "搬送適応を判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "severity_decision",
+      "text": "本人は少し楽になってきたと話すが、立ち上がろうとするとふらつきを訴える。顔色はまだ悪く、妻も再び倒れないか心配している。",
+      "visible_data": {
+        "current_status": "症状やや改善",
+        "standing": "立位でふらつきあり",
+        "appearance": "顔色不良持続"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な対応はどれか。",
+      "options": [
+        {
+          "id": "s5o1",
+          "label": "回復したのでその場に残して様子を見る",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "再失神や他原因の評価が必要であり、安易な経過観察は不適切。"
+        },
+        {
+          "id": "s5o2",
+          "label": "すぐに歩かせてトイレに戻す",
+          "is_correct": false,
+          "score_delta": -5,
+          "feedback": "再失神の危険がある。"
+        },
+        {
+          "id": "s5o3",
+          "label": "安静を保ちつつ継続観察し、搬送を考慮する",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "意識回復後でも失神原因の評価と再発予防が必要である。"
+        },
+        {
+          "id": "s5o4",
+          "label": "高濃度酸素投与のみを優先する",
+          "is_correct": false,
+          "score_delta": -2,
+          "feedback": "低酸素血症はなく、最優先ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "医療機関連絡",
+      "phase": "hospital_contact",
+      "scene_goal": "発症契機、バイタル、現在の状態を簡潔に伝え、失神症例として申し送る。",
+      "ideal_flow": [
+        "年齢・性別",
+        "主訴",
+        "発症契機",
+        "現在の意識",
+        "バイタルサイン",
+        "疑う病態"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "first_call",
+      "text": "本人は意識清明で会話可能。排尿中の失神エピソードがあり、徐脈傾向と軽度低血圧、顔面蒼白、冷感を認める。",
+      "visible_data": {
+        "age_sex": "50歳男性",
+        "suspected_condition": "排尿失神",
+        "vital_summary": "意識清明、脈拍54、血圧96/62"
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "この症例の申し送りとして最も適切な内容を選べ。",
+      "templates": [
+        {
+          "id": "s6t1",
+          "label": "50歳男性。排尿中に眼前暗黒感が出現し失神した症例です。現在は意識清明、呼吸数18、脈拍54、血圧96/62、SpO2 99％。顔面蒼白と冷感があり、排尿失神を疑っています。",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "発症契機、現在の状態、疑う病態が簡潔にまとまっている。"
+        },
+        {
+          "id": "s6t2",
+          "label": "50歳男性。トイレで少し気分不良がありましたが、今は大丈夫そうです。",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "失神の情報やバイタルが不足している。"
+        },
+        {
+          "id": "s6t3",
+          "label": "50歳男性。頭を打ったかもしれません。詳細不明ですが搬送します。",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "本症例の中心情報が抜けている。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "排尿失神の成因を病態生理として整理する。",
+      "ideal_flow": [
+        "反射性失神の理解",
+        "自律神経反応の整理",
+        "徐脈・血圧低下との関連づけ",
+        "正しい成因を選択する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "final_reasoning",
+      "text": "この症例では、排尿中に眼前暗黒感が出現し、短時間の失神と、その後の意識清明、顔面蒼白、冷感、徐脈傾向、軽度低血圧を認めている。",
+      "visible_data": {
+        "key_clues": [
+          "排尿中に発症",
+          "眼前暗黒感",
+          "短時間の意識消失",
+          "脈拍54/分",
+          "顔面蒼白と冷感"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態の成因はどれか。1つ選べ。",
+      "options": [
+        {
+          "id": "s7o1",
+          "label": "髄膜への刺激",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "本症例の病態とは一致しない。"
+        },
+        {
+          "id": "s7o2",
+          "label": "心収縮力の減少",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "今回の主たる成因としては適切でない。"
+        },
+        {
+          "id": "s7o3",
+          "label": "頭部への強い衝撃",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "頭部打撲は失神後の結果であり、成因ではない。"
+        },
+        {
+          "id": "s7o4",
+          "label": "エネルギー源の枯渇",
+          "is_correct": false,
+          "score_delta": 0,
+          "feedback": "低血糖を示す情報は乏しい。"
+        },
+        {
+          "id": "s7o5",
+          "label": "迷走神経系の活動亢進",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "排尿を契機とした反射性失神であり、迷走神経系の活動亢進による徐脈・血圧低下が考えられる。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "排尿中に眼前暗黒感を伴って一時的に倒れ、救急隊到着時には意識清明であるが、顔面蒼白、冷感、徐脈傾向、軽度低血圧を認めた症例である。排尿を契機とした反射性失神、すなわち排尿失神が最も考えられ、病態の本質は迷走神経反射による循環抑制にある。",
+    "ideal_actions": [
+      "失神の発症状況と前兆を丁寧に聴取する",
+      "現在の意識、呼吸、循環を評価する",
+      "顔面蒼白、冷感、徐脈、軽度低血圧を病態把握につなげる",
+      "頭部外傷や神経学的異常など重症鑑別も確認する",
+      "排尿失神として迷走神経反射の関与を理解する"
+    ],
+    "good_points": [
+      "排尿中という発症契機に注目できた",
+      "意識回復後も失神として評価を続けられた",
+      "迷走神経反射を病態生理として整理できた"
+    ],
+    "cautions": [
+      "回復していてもすぐ立たせない",
+      "失神の原因を決めつけず、外傷や重症鑑別も確認する",
+      "頭部打撲があっても、それを成因と誤解しない"
+    ]
+  }
+}

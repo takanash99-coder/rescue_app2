@@ -1,0 +1,419 @@
+{
+  "case_id": "case_urinary_acute_pyelonephritis_catheter_001",
+  "title": "尿道カテーテル留置中に発熱と悪寒・戦慄を呈した高齢男性",
+  "category": "urinary",
+  "difficulty": "normal",
+  "version": "1.0",
+  "scene_count": 7,
+  "overview": {
+    "chief_complaint": "発熱、悪寒・戦慄、全身倦怠感",
+    "final_diagnosis": "急性腎盂腎炎",
+    "learning_points": [
+      "尿道カテーテル留置中の発熱では尿路感染症を強く疑う",
+      "白濁尿や排尿バッグ内の所見を重要な観察情報として扱う",
+      "高齢者の感染症では意識清明でも全身状態悪化のリスクを意識する",
+      "在宅治療継続中の傷病者でデバイス関連感染を見逃さない"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "現場到着",
+      "phase": "scene_arrival",
+      "scene_goal": "在宅療養中の傷病者の現場状況と主訴を把握する",
+      "ideal_flow": [
+        "安全確認を行う",
+        "傷病者の表情と苦悶の程度を観察する",
+        "在宅療養に関わる医療デバイスを確認する",
+        "主訴と経過を家族から簡潔に把握する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_assessment",
+      "text": "自宅の寝室に到着すると、80歳男性がベッド上で布団を抱き込むようにして寒気を訴えている。家族は『急に熱が出て、ガタガタ震えだして、とてもだるそうです』と話す。ベッド柵には蓄尿バッグがかけられている。",
+      "visible_data": {
+        "scene_info": [
+          "80歳男性",
+          "在宅療養中",
+          "ベッド上で寒気を訴えている",
+          "家族が発熱、悪寒・戦慄、全身倦怠感を訴える",
+          "尿道カテーテルと蓄尿バッグを装着している"
+        ]
+      },
+      "media": [
+        {
+          "file": "media/homecare_bed_elderly_male_fever_catheter_bag_scene1.png",
+          "description": "在宅療養中の高齢男性がベッド上で寒気を訴え、ベッド柵に蓄尿バッグがかかっている現場イラスト",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "現場到着時に最も重要な視点はどれか。",
+      "options": [
+        {
+          "id": "s1_o1",
+          "text": "在宅治療中のデバイス関連感染を含めて評価を始める",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "尿道カテーテル留置中で発熱があるため、デバイス関連の尿路感染を強く意識する。"
+        },
+        {
+          "id": "s1_o2",
+          "text": "寒気だけなら環境要因が主体と考えてよい",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "高熱と戦慄を伴っており、感染症をまず考えるべき。"
+        },
+        {
+          "id": "s1_o3",
+          "text": "高齢者なので発熱は軽視してよい",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "高齢者の発熱は重症感染症のサインになり得る。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "ABCと意識レベルから全身状態を把握する",
+      "ideal_flow": [
+        "意識レベルを確認する",
+        "気道の開通を確認する",
+        "呼吸状態を評価する",
+        "循環状態を評価する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_survey",
+      "text": "傷病者は呼びかけに応じて受け答えできる。気道は保たれ、呼吸はやや速い。橈骨動脈は触知良好で、明らかな循環虚脱はみられない。",
+      "visible_data": {
+        "general_impression": [
+          "意識清明",
+          "会話可能",
+          "呼吸やや促迫",
+          "明らかなショック徴候なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の重症度評価として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s2_o1",
+          "text": "現時点でABCは保たれているが、感染症による全身状態悪化を警戒して評価を進める",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "意識は清明でも、発熱と頻呼吸、頻脈から感染症を念頭に迅速評価が必要。"
+        },
+        {
+          "id": "s2_o2",
+          "text": "循環動態が破綻しているため直ちにCPA対応へ移る",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "現時点でCPAや循環虚脱を示す所見はない。"
+        },
+        {
+          "id": "s2_o3",
+          "text": "意識清明なので緊急性は低い",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "高熱と悪寒戦慄は重症感染症の可能性がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "感染源と既往背景を整理する",
+      "ideal_flow": [
+        "発症時期を確認する",
+        "悪寒・戦慄や倦怠感の経過を確認する",
+        "在宅治療内容と留置デバイスを確認する",
+        "既往歴と最近の医療介入を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "focused_history",
+      "text": "家族によると、前立腺肥大による排尿困難のため、1か月前からかかりつけ医により尿道カテーテルが留置されているという。本日になって発熱が目立ち、寒気と全身のだるさが強くなった。",
+      "visible_data": {
+        "history": [
+          "前立腺肥大あり",
+          "排尿困難あり",
+          "1か月前から尿道カテーテル留置中",
+          "本日発熱が悪化",
+          "悪寒・戦慄と全身倦怠感あり"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この段階で特に重要な情報として優先して確認したいものを2つ選べ。",
+      "options": [
+        {
+          "id": "s3_o1",
+          "text": "尿の性状や量の変化",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "尿の白濁や尿量変化は尿路感染の重要な手がかり。"
+        },
+        {
+          "id": "s3_o2",
+          "text": "背部痛や側腹部痛の有無",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "上部尿路感染を考える上で重要な情報。"
+        },
+        {
+          "id": "s3_o3",
+          "text": "若い頃の排尿習慣",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "現病態の緊急評価には直結しない。"
+        },
+        {
+          "id": "s3_o4",
+          "text": "昨年の旅行先",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "この場面の優先情報ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "バイタルサイン測定",
+      "phase": "vital_assessment",
+      "scene_goal": "感染徴候と全身反応を客観的に評価する",
+      "ideal_flow": [
+        "呼吸数を確認する",
+        "脈拍を確認する",
+        "血圧を測定する",
+        "体温とSpO2を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "vital_check",
+      "text": "バイタルサインを測定した。",
+      "visible_data": {
+        "vital_signs": [
+          "意識清明",
+          "呼吸数 24/分",
+          "脈拍 112/分、整",
+          "血圧 110/82mmHg",
+          "体温 39.0℃",
+          "SpO2 94%"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "このバイタル所見の解釈として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s4_o1",
+          "text": "高熱、頻呼吸、頻脈があり、感染症による全身反応を疑う",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "39.0℃の発熱に加え頻呼吸と頻脈があり、感染による全身反応を示唆する。"
+        },
+        {
+          "id": "s4_o2",
+          "text": "血圧が保たれているため感染症は否定的である",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "血圧が保たれていても重症感染症の初期は十分あり得る。"
+        },
+        {
+          "id": "s4_o3",
+          "text": "SpO2が94%なので呼吸器感染症だけを考えるべきである",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "SpO2のみで感染源を呼吸器に限定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "在宅デバイスと局所観察",
+      "phase": "focused_exam",
+      "scene_goal": "感染源として尿路を示唆する所見を拾う",
+      "ideal_flow": [
+        "尿道カテーテル留置の有無を確認する",
+        "蓄尿バッグ内の尿の性状を観察する",
+        "全身症状とデバイス所見を統合する",
+        "尿路感染の可能性を考える"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "device_and_local_assessment",
+      "text": "尿道カテーテルが留置され、排尿バッグには尿が貯留している。尿は白濁しており、清澄ではない。傷病者は寒気とだるさを強く訴えている。",
+      "visible_data": {
+        "device_findings": [
+          "尿道カテーテル留置中",
+          "排尿バッグ接続あり",
+          "バッグ内に尿貯留あり",
+          "尿は白濁している"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この所見から最も強く疑うべき感染源はどれか。",
+      "options": [
+        {
+          "id": "s5_o1",
+          "text": "尿路感染",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "カテーテル留置と白濁尿は尿路感染を強く示唆する。"
+        },
+        {
+          "id": "s5_o2",
+          "text": "外傷感染",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "外傷の情報はなく、尿路デバイス関連所見が前景にある。"
+        },
+        {
+          "id": "s5_o3",
+          "text": "急性冠症候群",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "主症状と所見が一致しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "原因疾患の推定",
+      "phase": "clinical_reasoning",
+      "scene_goal": "全身症状と尿路所見を統合して最も可能性の高い疾患を選ぶ",
+      "ideal_flow": [
+        "発熱と悪寒・戦慄を整理する",
+        "カテーテル留置と白濁尿を整理する",
+        "高齢者の尿路感染症として考える",
+        "鑑別の中から最も妥当な疾患を選ぶ"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "diagnostic_estimation",
+      "text": "80歳男性。高熱、悪寒・戦慄、全身倦怠感があり、尿道カテーテル留置中で白濁尿を認める。",
+      "visible_data": {
+        "reasoning_points": [
+          "高熱あり",
+          "悪寒・戦慄あり",
+          "全身倦怠感あり",
+          "尿道カテーテル留置中",
+          "白濁尿あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で疑うべき疾患はどれか。",
+      "options": [
+        {
+          "id": "s6_o1",
+          "text": "慢性腎不全",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "白濁尿と高熱、悪寒戦慄からは感染症の方が考えやすい。"
+        },
+        {
+          "id": "s6_o2",
+          "text": "急性腎盂腎炎",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "高熱、悪寒戦慄、カテーテル留置、白濁尿は上部尿路感染を強く示唆する。"
+        },
+        {
+          "id": "s6_o3",
+          "text": "尿管結石",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "疝痛発作よりも感染徴候が前景にある。"
+        },
+        {
+          "id": "s6_o4",
+          "text": "急性前立腺炎",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "前立腺疾患の背景はあるが、カテーテル留置と白濁尿、高熱からは腎盂腎炎をより疑う。"
+        },
+        {
+          "id": "s6_o5",
+          "text": "尿道損傷",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "外傷歴や尿道損傷を示す情報はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "搬送判断と病院連絡",
+      "phase": "handover",
+      "scene_goal": "カテーテル留置中の尿路感染を疑う情報を整理して伝える",
+      "ideal_flow": [
+        "年齢・性別を伝える",
+        "主訴と発症経過を伝える",
+        "バイタルサインを伝える",
+        "カテーテル留置と白濁尿の所見を伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "hospital_handover",
+      "text": "医療機関へ受入要請の連絡を行う。",
+      "visible_data": {
+        "handover_elements": [
+          "80歳男性",
+          "発熱、悪寒・戦慄、全身倦怠感で救急要請",
+          "JCS清明、RR24、PR112整、BP110/82、T39.0、SpO2 94%",
+          "前立腺肥大で1か月前から尿道カテーテル留置中",
+          "排尿バッグ内の尿は白濁",
+          "急性腎盂腎炎を疑う"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "最も適切な申し送りを選べ。",
+      "templates": [
+        {
+          "id": "s7_t1",
+          "text": "80歳男性、発熱、悪寒・戦慄、全身倦怠感で救急要請です。意識清明、呼吸数24、脈拍112整、血圧110/82、体温39.0℃、SpO2 94%です。前立腺肥大による排尿困難があり、1か月前から尿道カテーテル留置中で、蓄尿バッグ内の尿は白濁しています。急性腎盂腎炎を疑っています。",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "主訴、バイタル、在宅デバイス、尿所見、推定病態が整理されている。"
+        },
+        {
+          "id": "s7_t2",
+          "text": "高齢男性で少し熱があります。尿のことはよく分かりませんが、とりあえず搬送します。",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "重要なデバイス情報と白濁尿の所見が抜けている。"
+        },
+        {
+          "id": "s7_t3",
+          "text": "発熱はありますが、在宅で様子を見てもよさそうです。",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "高熱と悪寒戦慄、カテーテル留置中の白濁尿があり不適切。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "前立腺肥大で尿道カテーテルを留置中の高齢男性が、高熱、悪寒・戦慄、全身倦怠感を呈し、白濁尿を認めた症例である。デバイス関連の尿路感染から急性腎盂腎炎を最も強く疑う。意識清明でも全身状態悪化のリスクを意識する必要がある。",
+    "ideal_actions": [
+      "在宅治療中の医療デバイスを確認する",
+      "ABCと意識レベルから全身状態を評価する",
+      "発熱、悪寒・戦慄、頻呼吸、頻脈を感染徴候として捉える",
+      "排尿バッグ内の白濁尿を重要所見として評価する",
+      "急性腎盂腎炎を疑って適切に搬送と申し送りを行う"
+    ],
+    "good_points": [
+      "尿道カテーテル留置という背景を重視できた",
+      "白濁尿を見逃さず尿路感染を疑えた",
+      "高齢者の感染症を軽視しなかった",
+      "在宅療養中の傷病者としてデバイス管理も含めて評価できた"
+    ],
+    "cautions": [
+      "高齢者は意識清明でも急速に悪化することがある",
+      "発熱だけでなく悪寒・戦慄は菌血症や重症感染を示唆し得る",
+      "カテーテル留置中の白濁尿は重要な感染サインである",
+      "在宅治療中の傷病者ではデバイス関連合併症を常に意識する"
+    ]
+  }
+}

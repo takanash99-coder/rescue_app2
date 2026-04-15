@@ -1,0 +1,419 @@
+{
+  "case_id": "case_urinary_ureteral_stone_left_flank_pain_001",
+  "title": "就寝中に出現した左腰背部痛",
+  "category": "urinary",
+  "difficulty": "normal",
+  "version": "1.0",
+  "scene_count": 7,
+  "overview": {
+    "chief_complaint": "左腰背部の激痛",
+    "final_diagnosis": "尿管結石",
+    "learning_points": [
+      "突然発症の腰背部痛で尿路結石を鑑別に入れる",
+      "呼吸循環が保たれていても疼痛の性状と部位から病態を絞る",
+      "叩打痛の所見を腎・尿路由来の痛みとして解釈する",
+      "重篤な鑑別を意識しつつ適切な搬送判断を行う"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "現場到着",
+      "phase": "scene_arrival",
+      "scene_goal": "現場状況と主訴を把握し、第一印象をつかむ",
+      "ideal_flow": [
+        "安全確認を行う",
+        "傷病者の姿勢と苦悶の程度を観察する",
+        "主訴を短く確認する",
+        "緊急性を意識して接触する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_assessment",
+      "text": "深夜、自宅寝室に到着した。48歳男性が布団の上に座り込み、左腰背部を押さえながら『急にものすごく痛くなった』と訴えている。家族によると就寝中に突然痛みを訴えて目を覚ましたという。",
+      "visible_data": {
+        "scene_info": [
+          "48歳男性",
+          "自宅寝室",
+          "就寝中に突然発症",
+          "左腰背部痛を訴えている",
+          "会話は成立している"
+        ]
+      },
+      "media": [
+        {
+          "file": "media/home_bedroom_male_left_flank_pain_scene1.png",
+          "description": "寝室で布団に座り、左腰背部を押さえて痛みを訴える男性の現場イラスト",
+          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "現場到着時の第一印象として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s1_o1",
+          "text": "突然発症の強い疼痛があるが、現時点では会話可能で初期評価を進められる状態",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "強い疼痛はあるが意識清明で会話可能であり、初期評価を進めつつ病態把握を行う。"
+        },
+        {
+          "id": "s1_o2",
+          "text": "直ちにCPA対応を開始すべき状態",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "意識清明で会話可能なためCPA対応の場面ではない。"
+        },
+        {
+          "id": "s1_o3",
+          "text": "軽症なので問診は不要である",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "突然発症の強い痛みでは重症鑑別も含めて評価が必要。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "ABCと意識レベルから全身状態を把握する",
+      "ideal_flow": [
+        "意識レベルを確認する",
+        "呼吸状態を確認する",
+        "循環状態を確認する",
+        "ショック兆候の有無をみる"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_survey",
+      "text": "傷病者は顔をしかめているが受け答えは明瞭で、気道は保たれている。呼吸はやや速いが会話可能で、皮膚冷汗は目立たない。",
+      "visible_data": {
+        "general_impression": [
+          "意識清明",
+          "会話可能",
+          "呼吸やや促迫",
+          "明らかなショック徴候なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の重症度評価として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s2_o1",
+          "text": "呼吸循環は現時点で保たれているが、突然発症の疼痛として原因評価を急ぐ状態",
+          "is_correct": true,
+          "score_delta": 15,
+          "feedback": "ABCは保たれているが、急性疼痛の原因検索と鑑別が必要。"
+        },
+        {
+          "id": "s2_o2",
+          "text": "無条件に現場待機して自然軽快を待つ状態",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "疼痛が一時軽減しても原因不明の突然発症痛では評価が必要。"
+        },
+        {
+          "id": "s2_o3",
+          "text": "循環虚脱状態で直ちに胸骨圧迫を開始する状態",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "循環虚脱やCPAを示す所見はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "痛みの性状と随伴症状を整理する",
+      "ideal_flow": [
+        "発症時刻を確認する",
+        "痛みの部位と性状を確認する",
+        "移動痛や放散痛の有無を確認する",
+        "嘔気・血尿・排尿症状の有無を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "focused_history",
+      "text": "傷病者は『左の背中から脇腹にかけて急に刺すように痛くなった』と話す。今は少し軽くなっているが、波があるような痛みだという。胸痛や呼吸困難はない。",
+      "visible_data": {
+        "history": [
+          "就寝中に突然発症",
+          "左腰背部から側腹部の痛み",
+          "刺すような強い痛み",
+          "痛みは波がある",
+          "胸痛なし",
+          "呼吸困難なし"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この段階で優先して追加確認したい項目を2つ選べ。",
+      "options": [
+        {
+          "id": "s3_o1",
+          "text": "血尿や排尿時症状の有無",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "尿路結石や尿路疾患の評価で重要。"
+        },
+        {
+          "id": "s3_o2",
+          "text": "悪心・嘔吐の有無",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "尿管結石では随伴しやすく、疼痛の評価にも有用。"
+        },
+        {
+          "id": "s3_o3",
+          "text": "最近の肩こりの程度",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "現時点の主訴との関連は薄い。"
+        },
+        {
+          "id": "s3_o4",
+          "text": "前日の入浴時間",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "急性腰背部痛の鑑別には直結しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "バイタルサイン測定",
+      "phase": "vital_assessment",
+      "scene_goal": "全身状態の安定性を客観的に評価する",
+      "ideal_flow": [
+        "呼吸数を確認する",
+        "脈拍を確認する",
+        "血圧を測定する",
+        "体温とSpO2を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "vital_check",
+      "text": "バイタルサインを測定した。",
+      "visible_data": {
+        "vital_signs": [
+          "意識清明",
+          "呼吸数 20/分",
+          "脈拍 90/分、整",
+          "血圧 142/68mmHg",
+          "体温 36.7℃",
+          "SpO2 98%"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "このバイタル所見の解釈として最も適切なのはどれか。",
+      "options": [
+        {
+          "id": "s4_o1",
+          "text": "著明な呼吸循環不全はなく、疼痛は強いが全身状態は比較的保たれている",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "痛みは強くても、現時点で明らかな全身不安定所見はない。"
+        },
+        {
+          "id": "s4_o2",
+          "text": "SpO2が保たれているため観察を終了してよい",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "SpO2のみで評価終了は不適切。疼痛原因の鑑別が必要。"
+        },
+        {
+          "id": "s4_o3",
+          "text": "体温が正常なので腹部疾患は完全に否定できる",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "体温正常でも急性腹症や尿路疾患は否定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "身体観察",
+      "phase": "focused_exam",
+      "scene_goal": "局所所見から病態の方向性を絞る",
+      "ideal_flow": [
+        "疼痛部位を確認する",
+        "腹部所見を確認する",
+        "腰背部の叩打痛を確認する",
+        "呼吸音や胸部所見も簡潔に確認する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "focused_physical_exam",
+      "text": "痛みは軽減してきたが、左腰背部に叩打痛を認める。腹部は平坦・軟で、強い圧痛や筋性防御は目立たない。呼吸音に左右差はない。",
+      "visible_data": {
+        "physical_exam": [
+          "左腰背部に叩打痛あり",
+          "腹部は平坦・軟",
+          "著明な腹膜刺激徴候なし",
+          "呼吸音左右差なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この局所所見から最も考えやすい病態はどれか。",
+      "options": [
+        {
+          "id": "s5_o1",
+          "text": "腎・尿路由来の疼痛",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "叩打痛は腎盂腎炎や尿路結石など腎・尿路由来を示唆する。"
+        },
+        {
+          "id": "s5_o2",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "呼吸音左右差や呼吸循環不全の所見に乏しい。"
+        },
+        {
+          "id": "s5_o3",
+          "text": "腰椎由来の慢性神経根障害",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "突然発症で叩打痛が中心であり、典型的ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "原因疾患の推定",
+      "phase": "clinical_reasoning",
+      "scene_goal": "症状と所見を統合して最も可能性の高い疾患を選ぶ",
+      "ideal_flow": [
+        "発症様式を整理する",
+        "痛みの部位と性状を整理する",
+        "身体所見を統合する",
+        "鑑別疾患の中から最も妥当なものを選ぶ"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "diagnostic_estimation",
+      "text": "突然発症の左腰背部痛で、現在はやや軽減しているが波のある痛みを訴え、左腰背部の叩打痛がある。",
+      "visible_data": {
+        "reasoning_points": [
+          "突然発症",
+          "左腰背部から側腹部の強い痛み",
+          "痛みに波がある",
+          "左腰背部叩打痛あり",
+          "全身状態は比較的安定"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で最も考えられる疾患はどれか。",
+      "options": [
+        {
+          "id": "s6_o1",
+          "text": "急性膵炎",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "背部痛はあり得るが、今回の叩打痛や波のある側腹部痛とは合いにくい。"
+        },
+        {
+          "id": "s6_o2",
+          "text": "自然気胸",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "胸部症状や呼吸音左右差がなく、主病態として考えにくい。"
+        },
+        {
+          "id": "s6_o3",
+          "text": "尿管結石",
+          "is_correct": true,
+          "score_delta": 20,
+          "feedback": "突然の側腹部〜腰背部痛、波のある痛み、叩打痛は尿管結石を強く示唆する。"
+        },
+        {
+          "id": "s6_o4",
+          "text": "腰椎すべり症",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "慢性的な機械性疼痛のことが多く、今回の急性発症とは合いにくい。"
+        },
+        {
+          "id": "s6_o5",
+          "text": "腰椎椎間板ヘルニア",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "神経症状の記載に乏しく、叩打痛主体でもない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "搬送判断と病院連絡",
+      "phase": "handover",
+      "scene_goal": "必要情報を整理して適切に申し送る",
+      "ideal_flow": [
+        "年齢・性別を伝える",
+        "発症状況を伝える",
+        "バイタルを伝える",
+        "局所所見と推定疾患を伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "hospital_handover",
+      "text": "医療機関へ受入要請の連絡を行う。",
+      "visible_data": {
+        "handover_elements": [
+          "48歳男性",
+          "就寝中に突然の左腰背部激痛",
+          "意識清明、RR20、PR90整、BP142/68、T36.7、SpO2 98%",
+          "左腰背部に叩打痛あり",
+          "尿管結石を疑う"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "最も適切な申し送りを選べ。",
+      "templates": [
+        {
+          "id": "s7_t1",
+          "text": "48歳男性、就寝中に左腰背部の激痛が突然出現しました。現在はやや軽減していますが、左腰背部に叩打痛があります。意識清明、呼吸数20、脈拍90整、血圧142/68、体温36.7℃、SpO2 98%です。尿管結石を疑って搬送します。",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "発症状況、バイタル、局所所見、推定疾患が簡潔に整理されている。"
+        },
+        {
+          "id": "s7_t2",
+          "text": "背中が痛い患者です。命に別状はなさそうなので詳細は省略します。",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "情報不足で受入判断に必要な要素が欠けている。"
+        },
+        {
+          "id": "s7_t3",
+          "text": "腰痛なので整形疾患と思われます。痛みが軽くなったので搬送しない可能性もあります。",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "急性発症の尿路疾患を過小評価している。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "就寝中に突然出現した左腰背部の激痛に対し、全身状態は比較的安定していたが、痛みに波があり左腰背部叩打痛を認めたことから尿管結石を最も強く疑う症例である。突然発症の腰背部痛では、内科・泌尿器科・胸部疾患を意識して評価する。",
+    "ideal_actions": [
+      "ABCと意識レベルを確認して全身状態を評価する",
+      "突然発症の疼痛として発症状況と痛みの性状を丁寧に聴取する",
+      "血尿や排尿症状、悪心・嘔吐の有無を確認する",
+      "腰背部叩打痛を確認して腎・尿路由来を考える",
+      "尿管結石を疑って適切に搬送・申し送りを行う"
+    ],
+    "good_points": [
+      "突然発症の強い痛みを軽視しなかった",
+      "バイタル安定でも局所所見を丁寧に拾えた",
+      "叩打痛から尿路系疾患を考えられた",
+      "整形疾患だけに寄らず鑑別できた"
+    ],
+    "cautions": [
+      "腰背部痛では大動脈疾患や腹部疾患など重篤な鑑別も常に意識する",
+      "疼痛が軽減しても原因が解決したとは限らない",
+      "SpO2や血圧が正常でも搬送適応の判断は別に必要",
+      "腰痛という言葉だけで整形外科疾患に決めつけない"
+    ]
+  }
+}
