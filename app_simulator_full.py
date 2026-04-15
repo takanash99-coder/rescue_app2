@@ -2104,7 +2104,6 @@ def main() -> None:
     trigger_scroll_top_if_needed()
 
     cases = load_all_cases()
-    st.write("loaded cases:", len(cases))
 
     if not cases:
         st.error("cases フォルダ内に症例JSONが見つからない。")
