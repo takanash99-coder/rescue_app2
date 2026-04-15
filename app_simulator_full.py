@@ -20,7 +20,7 @@ st.set_page_config(
 APP_TITLE = "救急救命士向け 臨床推論シミュレーション"
 REPO_ROOT = Path(__file__).parent
 CASES_DIR = REPO_ROOT / "cases"
-MEDIA_DIR = CASES_DIR / "media"
+MEDIA_DIR = REPO_ROOT / "media"
 
 DIFFICULTY_ORDER = ["Easy", "Normal", "Hard"]
 DIFFICULTY_LABELS = {
@@ -37,12 +37,96 @@ SCENE_MAP = {
 
 FIELD_LABEL_FALLBACK = {
     "cardiovascular": "循環器",
+    "endocrine_metabolic": "内分泌・代謝",
+    "environmental_special": "環境障害・特殊病態",
+    "gastrointestinal": "消化器",
     "neuro": "神経",
+    "orthopedic": "整形",
     "psychiatric": "精神",
+    "reproductive_obstetric": "産科・生殖器",
     "respiratory": "呼吸器",
+    "special_population": "小児・高齢者など",
     "toxicology": "中毒",
     "trauma": "外傷",
+    "urinary": "泌尿器",
     "other": "その他",
+}
+
+VISIBLE_DATA_LABELS = {
+    "location": "場所",
+    "chief_complaint": "主訴",
+    "awareness": "意識",
+    "consciousness": "意識",
+    "mental_status": "意識状態",
+    "respiratory_rate": "呼吸数",
+    "respiration_rate": "呼吸数",
+    "pulse_rate": "脈拍数",
+    "heart_rate": "心拍数",
+    "pulse_regular": "脈拍整",
+    "blood_pressure": "血圧",
+    "spo2": "SpO2",
+    "temperature": "体温",
+    "body_temperature": "体温",
+    "skin_color": "皮膚色",
+    "skin": "皮膚",
+    "breathing": "呼吸",
+    "circulation": "循環",
+    "airway": "気道",
+    "shock_sign": "ショック所見",
+    "new_medication": "新規薬剤",
+    "urine": "尿所見",
+    "course": "経過",
+    "fever": "発熱",
+    "dark_urine": "赤黒色尿",
+    "risk": "注意点",
+    "ecg_impression": "心電図所見",
+    "arrest_now": "現時点の心停止",
+    "bp": "血圧",
+    "last_seen_well": "最終健常確認時刻",
+    "sleep_place": "就寝場所",
+    "found_time": "発見時刻",
+    "trauma_sign": "外傷所見",
+    "external_injury": "外表外傷",
+    "bleeding": "出血",
+    "environment": "周囲環境",
+    "ecg": "心電図",
+    "suspected_condition": "疑う病態",
+    "age_group": "年齢区分",
+    "condition": "状態",
+    "external_abnormality": "外表異常",
+    "pregnancy_week": "妊娠週数",
+    "rupture_of_membranes": "破水",
+    "newborn_cry": "啼泣",
+    "limb_activity": "四肢活動",
+    "umbilical_cord": "臍帯",
+    "body_wetness": "体表湿潤",
+    "newborn_condition": "新生児状態",
+    "major_next_risk": "次に注意すべきリスク",
+    "newborn_after_wipe": "羊水拭き取り後",
+    "goal": "目標",
+    "maternal_risk_after_delivery": "分娩後の母体リスク",
+    "mother_status": "母体状態",
+    "newborn_status": "児の状態",
+    "performed_care": "実施処置",
+    "mechanism": "受傷機転",
+    "extrication_delay": "救出までの時間",
+    "trauma_type": "外傷種別",
+    "flail_chest": "胸郭動揺",
+    "subcutaneous_emphysema": "皮下気腫",
+    "jugular_venous_distention": "頸静脈怒張",
+    "external_bleeding": "外出血",
+    "thoracic_red_flags": "胸部危険所見",
+    "age_risk": "年齢リスク",
+    "concern": "懸念病態",
+    "seatbelt_sign": "シートベルト痕",
+    "implication": "示唆",
+    "suspected_shock_type": "疑うショック",
+    "transport_priority": "搬送優先度",
+}
+
+BOOL_JA = {
+    True: "あり",
+    False: "なし",
 }
 
 
@@ -97,6 +181,12 @@ def inject_css() -> None:
         html, body, [class*="css"], .stApp {
             color: var(--text);
             font-family: "BIZ UDPGothic", "Yu Gothic UI", "Meiryo", sans-serif !important;
+        }
+
+        .scroll-top-anchor {
+            display: block;
+            height: 1px;
+            width: 100%;
         }
 
         .app-hero {
@@ -361,6 +451,47 @@ def inject_css() -> None:
             margin-top: 4px;
         }
 
+        .ranking-help {
+            font-size: 0.92rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .ranking-row {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 14px rgba(20,35,56,0.04);
+        }
+
+        .ranking-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: var(--blue-soft);
+            color: var(--blue);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .ranking-label {
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--text);
+        }
+
+        .rank-btn > button {
+            min-height: 2.6rem !important;
+            padding: 0.25rem 0.5rem !important;
+            font-size: 1.1rem !important;
+            border-radius: 12px !important;
+        }
+
         .debrief-wrap {
             font-family: "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", "Meiryo", sans-serif !important;
         }
@@ -585,6 +716,17 @@ def inject_css() -> None:
             .debrief-panel-body {
                 font-size: 0.98rem;
             }
+
+            .ranking-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.88rem;
+            }
+
+            .rank-btn > button {
+                min-height: 2.8rem !important;
+                font-size: 1rem !important;
+            }
         }
         </style>
         """,
@@ -595,6 +737,10 @@ def inject_css() -> None:
 # =========================================================
 # スクロール制御
 # =========================================================
+def render_scroll_anchor() -> None:
+    st.markdown('<div id="top-anchor" class="scroll-top-anchor"></div>', unsafe_allow_html=True)
+
+
 def mark_scroll_top() -> None:
     st.session_state.pending_scroll_top = True
 
@@ -606,27 +752,50 @@ def trigger_scroll_top_if_needed() -> None:
     components.html(
         """
         <script>
-        function forceScrollTop() {
+        function scrollAllTheThings() {
             try {
-                if (window.parent) {
-                    window.parent.scrollTo(0, 0);
+                const parentDoc = window.parent && window.parent.document ? window.parent.document : null;
+                if (parentDoc) {
+                    const anchor = parentDoc.getElementById("top-anchor");
+                    if (anchor && anchor.scrollIntoView) {
+                        anchor.scrollIntoView({behavior: "auto", block: "start"});
+                    }
+
+                    const selectors = [
+                        "section.main",
+                        '[data-testid="stAppViewContainer"]',
+                        ".main",
+                        "body",
+                        "html"
+                    ];
+
+                    selectors.forEach((sel) => {
+                        const el = parentDoc.querySelector(sel);
+                        if (el) {
+                            el.scrollTop = 0;
+                        }
+                    });
+
+                    if (window.parent.scrollTo) {
+                        window.parent.scrollTo(0, 0);
+                    }
                 }
             } catch (e) {}
 
             try {
-                window.scrollTo(0, 0);
-            } catch (e) {}
-
-            try {
+                const anchor = document.getElementById("top-anchor");
+                if (anchor && anchor.scrollIntoView) {
+                    anchor.scrollIntoView({behavior: "auto", block: "start"});
+                }
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0;
+                window.scrollTo(0, 0);
             } catch (e) {}
         }
 
-        setTimeout(forceScrollTop, 0);
-        setTimeout(forceScrollTop, 80);
-        setTimeout(forceScrollTop, 180);
-        setTimeout(forceScrollTop, 320);
+        const delays = [0, 80, 180, 320, 520, 760];
+        delays.forEach((d) => setTimeout(scrollAllTheThings, d));
+        requestAnimationFrame(scrollAllTheThings);
         </script>
         """,
         height=0,
@@ -666,6 +835,10 @@ def reset_case_progress() -> None:
     st.session_state.score_total = 0.0
     st.session_state.score_max = 0.0
     st.session_state.hint_from_scene_index = None
+
+    ranking_keys = [k for k in list(st.session_state.keys()) if str(k).startswith("ranking_order__")]
+    for k in ranking_keys:
+        del st.session_state[k]
 
 
 # =========================================================
@@ -727,6 +900,16 @@ def get_scenes_from_case(data: Dict[str, Any]) -> List[Dict[str, Any]]:
         return scenes
 
     for i in range(1, 8):
+        key = f"scene_{i}"
+        if isinstance(data.get(key), dict):
+            x = copy.deepcopy(data[key])
+            x.setdefault("id", key)
+            scenes.append(x)
+
+    if scenes:
+        return scenes
+
+    for i in range(1, 8):
         key = f"scene{i}"
         if isinstance(data.get(key), dict):
             x = copy.deepcopy(data[key])
@@ -779,6 +962,21 @@ def extract_case_card_info(data: Dict[str, Any], path: Path) -> Dict[str, str]:
         chief = str(data["list_display"].get("chief_complaint", "症例"))
         return {"age": age, "sex": sex, "chief_complaint": chief}
 
+    patient_profile = data.get("patient_profile", {})
+    if isinstance(patient_profile, dict):
+        age_value = patient_profile.get("age")
+        sex_value = patient_profile.get("sex")
+        age = f"{age_value}歳" if isinstance(age_value, int) else "年齢不明"
+        if age_value == 0:
+            age = "0歳"
+        sex = "性別不明"
+        if str(sex_value).lower() == "male":
+            sex = "男性"
+        elif str(sex_value).lower() == "female":
+            sex = "女性"
+    else:
+        age, sex = "年齢不明", "性別不明"
+
     candidates = [
         data.get("summary", ""),
         data.get("title", ""),
@@ -795,9 +993,15 @@ def extract_case_card_info(data: Dict[str, Any], path: Path) -> Dict[str, str]:
         ])
 
     base_text = " ".join([str(x) for x in candidates if x])
-    age, sex = extract_age_sex(base_text)
-    chief = infer_chief_complaint(base_text)
 
+    if age == "年齢不明" or sex == "性別不明":
+        infer_age, infer_sex = extract_age_sex(base_text)
+        if age == "年齢不明":
+            age = infer_age
+        if sex == "性別不明":
+            sex = infer_sex
+
+    chief = infer_chief_complaint(base_text)
     return {"age": age, "sex": sex, "chief_complaint": chief}
 
 
@@ -810,7 +1014,7 @@ def build_case_payload(path: Path) -> Optional[Dict[str, Any]]:
     if not scenes:
         return None
 
-    field_key = data.get("field") or extract_field_from_path(path)
+    field_key = data.get("category") or data.get("field") or extract_field_from_path(path)
     field_label = FIELD_LABEL_FALLBACK.get(field_key, field_key)
 
     difficulty = normalize_difficulty(data.get("difficulty"))
@@ -879,10 +1083,12 @@ def find_media_path(media_value: Any) -> Optional[Path]:
 
     for raw in candidates:
         raw = raw.strip().replace("\\", "/")
+        basename = Path(raw).name
         possible = [
             REPO_ROOT / raw,
             CASES_DIR / raw,
-            MEDIA_DIR / Path(raw).name,
+            MEDIA_DIR / raw,
+            MEDIA_DIR / basename,
             Path(raw),
         ]
         for p in possible:
@@ -1173,17 +1379,46 @@ def render_media(scene: Dict[str, Any]) -> None:
         st.image(str(media_path), use_container_width=True)
 
 
+def format_visible_label(key: str) -> str:
+    return VISIBLE_DATA_LABELS.get(key, key)
+
+
+def format_visible_value(value: Any) -> str:
+    if isinstance(value, bool):
+        return BOOL_JA[value]
+    if value is None:
+        return ""
+    if isinstance(value, dict):
+        lines = []
+        for k, v in value.items():
+            label = format_visible_label(str(k))
+            val = format_visible_value(v)
+            if val != "":
+                lines.append(f"{label}：{val}")
+        return "\n".join(lines)
+    if isinstance(value, list):
+        vals = [format_visible_value(v) for v in value]
+        vals = [v for v in vals if v != ""]
+        return "\n".join([f"・{v}" for v in vals])
+    return str(value)
+
+
 def stringify_visible_data(value: Any) -> str:
     if value is None:
         return ""
     if isinstance(value, str):
         return value.strip()
     if isinstance(value, list):
-        return "\n".join([f"・{str(v)}" for v in value])
+        vals = [format_visible_value(v) for v in value]
+        vals = [v for v in vals if v != ""]
+        return "\n".join([f"・{v}" for v in vals])
     if isinstance(value, dict):
         lines = []
         for k, v in value.items():
-            lines.append(f"{k}：{v}")
+            label = format_visible_label(str(k))
+            val = format_visible_value(v)
+            if val != "":
+                lines.append(f"{label}：{val}")
         return "\n".join(lines)
     return str(value)
 
@@ -1219,6 +1454,47 @@ def get_hint_text(scene: Dict[str, Any]) -> str:
 def go_to(screen: str) -> None:
     st.session_state.screen = screen
     rerun_with_scroll_top()
+
+
+# =========================================================
+# ranking UI
+# =========================================================
+def get_ranking_state_key(case_id: str, scene_number: int) -> str:
+    return f"ranking_order__{case_id}__{scene_number}"
+
+
+def initialize_ranking_order(scene: Dict[str, Any], case_id: str, scene_number: int) -> List[str]:
+    items = normalize_ranking(scene)
+    default_labels = [x["label"] for x in items]
+    state_key = get_ranking_state_key(case_id, scene_number)
+    saved_answer = get_answer_for_scene(case_id, scene_number)
+
+    if state_key not in st.session_state:
+        if isinstance(saved_answer, list) and saved_answer:
+            known = [x for x in saved_answer if x in default_labels]
+            unknown = [x for x in default_labels if x not in known]
+            st.session_state[state_key] = known + unknown
+        else:
+            st.session_state[state_key] = default_labels.copy()
+
+    current = st.session_state[state_key]
+    current = [x for x in current if x in default_labels]
+    for label in default_labels:
+        if label not in current:
+            current.append(label)
+    st.session_state[state_key] = current
+    return current
+
+
+def move_ranking_item(case_id: str, scene_number: int, index: int, direction: int) -> None:
+    state_key = get_ranking_state_key(case_id, scene_number)
+    current = list(st.session_state.get(state_key, []))
+    target = index + direction
+    if target < 0 or target >= len(current):
+        return
+    current[index], current[target] = current[target], current[index]
+    st.session_state[state_key] = current
+    set_answer_for_scene(case_id, scene_number, current)
 
 
 # =========================================================
@@ -1483,32 +1759,46 @@ def render_multiple_choice(scene: Dict[str, Any], case_id: str, scene_number: in
 
 
 def render_ranking(scene: Dict[str, Any], case_id: str, scene_number: int) -> None:
-    items = normalize_ranking(scene)
-    labels = [x["label"] for x in items]
-    saved = get_answer_for_scene(case_id, scene_number)
+    order = initialize_ranking_order(scene, case_id, scene_number)
 
-    if not saved:
-        default_text = "\n".join([f"{i+1}. {label}" for i, label in enumerate(labels)])
-    else:
-        default_text = "\n".join([f"{i+1}. {label}" for i, label in enumerate(saved)])
-
-    st.markdown("**優先順位順に1行ずつ並べる**")
-    text = st.text_area(
-        "例：1行目が最優先",
-        value=default_text,
-        height=max(140, len(labels) * 30 + 40),
-        key=f"rank_{case_id}_{scene_number}",
+    st.markdown(
+        """
+        <div class="ranking-help">
+            優先順位順に並べる。1行目が最優先のイメージ。スマホでは ↑ ↓ を押して並べ替える。
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
-    parsed = []
-    for line in text.splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        line = re.sub(r"^\d+[\.\-\)]\s*", "", line)
-        parsed.append(line)
+    for idx, label in enumerate(order):
+        row1, row2, row3 = st.columns([0.14, 0.14, 0.72], vertical_alignment="center")
+        with row1:
+            st.markdown(f'<div class="ranking-number">{idx + 1}</div>', unsafe_allow_html=True)
+        with row2:
+            up_col, down_col = st.columns(2)
+            with up_col:
+                st.markdown('<div class="rank-btn">', unsafe_allow_html=True)
+                if st.button("↑", key=f"rank_up_{case_id}_{scene_number}_{idx}", disabled=(idx == 0), use_container_width=True):
+                    move_ranking_item(case_id, scene_number, idx, -1)
+                    rerun_with_scroll_top()
+                st.markdown('</div>', unsafe_allow_html=True)
+            with down_col:
+                st.markdown('<div class="rank-btn">', unsafe_allow_html=True)
+                if st.button("↓", key=f"rank_down_{case_id}_{scene_number}_{idx}", disabled=(idx == len(order) - 1), use_container_width=True):
+                    move_ranking_item(case_id, scene_number, idx, 1)
+                    rerun_with_scroll_top()
+                st.markdown('</div>', unsafe_allow_html=True)
+        with row3:
+            st.markdown(
+                f"""
+                <div class="ranking-row">
+                    <div class="ranking-label">{html_escape(label)}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-    set_answer_for_scene(case_id, scene_number, parsed)
+    set_answer_for_scene(case_id, scene_number, st.session_state[get_ranking_state_key(case_id, scene_number)])
 
 
 def render_template_select(scene: Dict[str, Any], case_id: str, scene_number: int) -> None:
@@ -1810,6 +2100,7 @@ def render_debrief(case_payload: Dict[str, Any]) -> None:
 def main() -> None:
     inject_css()
     init_state()
+    render_scroll_anchor()
     trigger_scroll_top_if_needed()
 
     cases = load_all_cases()
