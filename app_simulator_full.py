@@ -1,6 +1,7 @@
-import re
-import json
 import copy
+import json
+import random
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -21,19 +22,8 @@ APP_TITLE = "救急救命士向け 臨床推論シミュレーション"
 REPO_ROOT = Path(__file__).parent
 CASES_DIR = REPO_ROOT / "cases"
 MEDIA_DIR = REPO_ROOT / "media"
-
-DIFFICULTY_ORDER = ["Easy", "Normal", "Hard"]
-DIFFICULTY_LABELS = {
-    "Easy": "Easy（入門）",
-    "Normal": "Normal（標準）",
-    "Hard": "Hard（実践）",
-}
-
-SCENE_MAP = {
-    "Easy": [1, 3, 5, 7],
-    "Normal": [1, 2, 3, 4, 5, 6, 7],
-    "Hard": [1, 2, 3, 4, 5, 6, 7],
-}
+LEVEL_SIZE = 10
+DEFAULT_SCENE_COUNT = 7
 
 FIELD_LABEL_FALLBACK = {
     "cardiovascular": "循環器",
@@ -129,9 +119,17 @@ BOOL_JA = {
     False: "なし",
 }
 
+STOPWORDS = {
+    "する", "した", "して", "ます", "です", "ある", "ない", "よう", "ため", "こと",
+    "この", "その", "傷病者", "場面", "選択", "必要", "優先", "確認", "判断", "対応",
+    "実施", "行う", "行なう", "評価", "観察", "報告", "連絡", "考える", "べき", "まず",
+    "次に", "あと", "および", "また", "など", "より", "ために", "状態", "内容", "模範",
+    "方向", "理想", "良い", "よい", "患者", "救急隊", "救命士",
+}
+
 
 # =========================================================
-# HTMLエスケープ
+# 基本ユーティリティ
 # =========================================================
 def html_escape(text: Any) -> str:
     if text is None:
@@ -144,6 +142,60 @@ def html_escape(text: Any) -> str:
         .replace('"', "&quot;")
         .replace("'", "&#39;")
     )
+
+
+def to_text_lines(value: Any) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        lines: List[str] = []
+        for k, v in value.items():
+            label = VISIBLE_DATA_LABELS.get(str(k), str(k))
+            lines.append(f"{label}：{v}")
+        return lines
+    if isinstance(value, list):
+        lines: List[str] = []
+        for item in value:
+            lines.extend(to_text_lines(item))
+        return lines
+    return [str(value)]
+
+
+def normalize_text(text: Any) -> str:
+    s = str(text or "").lower()
+    s = s.replace("　", " ")
+    s = re.sub(r"\s+", " ", s)
+    return s.strip()
+
+
+def extract_keywords_from_text(text: Any, min_length: int = 2) -> List[str]:
+    raw = normalize_text(text)
+    if not raw:
+        return []
+    candidates = re.findall(r"[ぁ-んァ-ヶー一-龥a-zA-Z0-9\+\-/]{2,}", raw)
+    keywords: List[str] = []
+    for c in candidates:
+        if len(c) < min_length:
+            continue
+        if c in STOPWORDS:
+            continue
+        if c.isdigit():
+            continue
+        if c not in keywords:
+            keywords.append(c)
+    return keywords
+
+
+def unique_keep_order(items: List[str]) -> List[str]:
+    out: List[str] = []
+    seen = set()
+    for item in items:
+        if item and item not in seen:
+            seen.add(item)
+            out.append(item)
+    return out
 
 
 # =========================================================
@@ -229,7 +281,7 @@ def inject_css() -> None:
             margin-bottom: 12px;
         }
 
-        .field-card, .case-card, .scene-card, .hint-card, .debrief-card {
+        .case-card, .scene-card, .hint-card, .review-card {
             background: var(--card);
             border: 1px solid var(--line);
             border-radius: 18px;
@@ -237,40 +289,6 @@ def inject_css() -> None:
             box-shadow: var(--shadow);
             margin-bottom: 12px;
         }
-
-        .field-card {
-            min-height: 108px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-        }
-
-        .field-title {
-            font-size: 1.08rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--text);
-        }
-
-        .field-sub {
-            color: var(--muted);
-            font-size: 0.92rem;
-        }
-
-        .difficulty-pill {
-            display: inline-block;
-            border-radius: 999px;
-            padding: 5px 11px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .difficulty-pill.easy { background: var(--green); }
-        .difficulty-pill.normal { background: var(--orange); }
-        .difficulty-pill.hard { background: var(--red); }
 
         .case-main {
             font-size: 1.05rem;
@@ -284,6 +302,35 @@ def inject_css() -> None:
             font-size: 0.94rem;
             margin-bottom: 4px;
         }
+
+        .scene-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .scene-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .scene-phase, .mode-pill, .level-pill, .progress-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--gray-soft);
+            color: var(--text);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .mode-pill.random { background: #ede7f6; color: #5e35b1; }
+        .mode-pill.level { background: #e3f2fd; color: #1565c0; }
+        .level-pill { background: #fff8e1; color: #ef6c00; }
+        .progress-pill { background: #edf9ef; color: #2e7d32; }
 
         .goal-box {
             border-left: 5px solid var(--blue);
@@ -301,68 +348,12 @@ def inject_css() -> None:
             margin: 10px 0 14px 0;
         }
 
-        .caution-box {
-            border-left: 5px solid var(--red);
-            background: var(--red-soft);
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin: 10px 0 14px 0;
-        }
-
-        .good-box {
-            border-left: 5px solid var(--green);
-            background: var(--green-soft);
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin: 10px 0 14px 0;
-        }
-
-        .scene-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .scene-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--text);
-        }
-
-        .scene-phase {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: var(--gray-soft);
-            color: var(--text);
-            font-size: 0.82rem;
-            font-weight: 700;
-        }
-
         .report-box {
             background: #eaf2ff;
             border-left: 6px solid #1f5fbf;
             border-radius: 14px;
             padding: 14px 16px;
             margin: 12px 0;
-        }
-
-        .report-box .label {
-            font-size: 0.82rem;
-            font-weight: 800;
-            color: #1f5fbf;
-            margin-bottom: 6px;
-            letter-spacing: 0.03em;
-        }
-
-        .report-box .body {
-            font-size: 1.08rem;
-            font-weight: 700;
-            line-height: 1.8;
-            color: #162338;
-            white-space: pre-wrap;
         }
 
         .observation-box {
@@ -373,18 +364,20 @@ def inject_css() -> None:
             margin: 12px 0;
         }
 
-        .observation-box .label {
+        .report-box .label, .observation-box .label {
             font-size: 0.82rem;
             font-weight: 800;
-            color: #ef6c00;
             margin-bottom: 6px;
             letter-spacing: 0.03em;
         }
 
-        .observation-box .body {
+        .report-box .label { color: #1f5fbf; }
+        .observation-box .label { color: #ef6c00; }
+
+        .report-box .body, .observation-box .body {
             font-size: 1.04rem;
             font-weight: 700;
-            line-height: 1.85;
+            line-height: 1.8;
             color: #162338;
             white-space: pre-wrap;
         }
@@ -451,203 +444,40 @@ def inject_css() -> None:
             margin-top: 4px;
         }
 
-        .ranking-help {
-            font-size: 0.92rem;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-
-        .ranking-row {
-            background: #ffffff;
-            border: 1px solid var(--line);
+        .review-block {
             border-radius: 14px;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-            box-shadow: 0 4px 14px rgba(20,35,56,0.04);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border: 1px solid var(--line);
         }
 
-        .ranking-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 999px;
-            background: var(--blue-soft);
-            color: var(--blue);
+        .review-blue { background: #eef4ff; border-left: 6px solid #1f5fbf; }
+        .review-green { background: #edf9ef; border-left: 6px solid #2e7d32; }
+        .review-yellow { background: #fff8e6; border-left: 6px solid #f9a825; }
+        .review-red { background: #fdeeee; border-left: 6px solid #c62828; }
+
+        .review-title {
             font-weight: 800;
+            margin-bottom: 6px;
             font-size: 0.95rem;
         }
 
-        .ranking-label {
+        .score-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #edf3ff;
+            color: #1f5fbf;
+            font-size: 0.84rem;
+            font-weight: 800;
+        }
+
+        .stButton > button {
+            width: 100%;
+            min-height: 3rem;
+            border-radius: 14px;
             font-weight: 700;
-            line-height: 1.5;
-            color: var(--text);
-        }
-
-        .rank-btn > button {
-            min-height: 2.6rem !important;
-            padding: 0.25rem 0.5rem !important;
-            font-size: 1.1rem !important;
-            border-radius: 12px !important;
-        }
-
-        .debrief-wrap {
-            font-family: "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", "Meiryo", sans-serif !important;
-        }
-
-        .debrief-rank-card {
-            background: #ffffff;
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            padding: 22px 20px;
-            box-shadow: 0 16px 40px rgba(20,35,56,0.10);
-            margin-bottom: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .debrief-rank-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
-            transform: translateX(-120%);
-            animation: shineSweep 3.8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .debrief-rank-card.rank-shusai {
-            border-top: 6px solid #2e7d32;
-            animation: trophyPop 0.9s ease-out;
-        }
-
-        .debrief-rank-card.rank-yushu {
-            border-top: 6px solid #1f5fbf;
-            animation: floatFade 0.8s ease-out;
-        }
-
-        .debrief-rank-card.rank-ryoko {
-            border-top: 6px solid #ef6c00;
-            animation: softRise 0.7s ease-out;
-        }
-
-        .debrief-rank-card.rank-review {
-            border-top: 6px solid #c62828;
-            animation: gentleShake 0.55s ease-out;
-        }
-
-        .debrief-rank-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .debrief-rank-icon {
-            font-size: 2.2rem;
-            line-height: 1;
-        }
-
-        .debrief-rank-name {
-            font-size: 1.45rem;
-            font-weight: 900;
-            line-height: 1.2;
-        }
-
-        .debrief-rank-comment {
-            margin-top: 8px;
-            font-size: 1.02rem;
-            line-height: 1.8;
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .debrief-blue-panel,
-        .debrief-green-panel,
-        .debrief-red-panel,
-        .debrief-orange-panel {
-            border-radius: 18px;
-            padding: 16px 18px;
-            margin-bottom: 12px;
-            border: 1px solid var(--line);
-            box-shadow: var(--shadow);
-            font-family: "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", "Meiryo", sans-serif !important;
-        }
-
-        .debrief-blue-panel {
-            background: var(--blue-soft);
-            border-left: 6px solid var(--blue);
-        }
-
-        .debrief-green-panel {
-            background: var(--green-soft);
-            border-left: 6px solid var(--green);
-        }
-
-        .debrief-red-panel {
-            background: var(--red-soft);
-            border-left: 6px solid var(--red);
-        }
-
-        .debrief-orange-panel {
-            background: var(--orange-soft);
-            border-left: 6px solid var(--orange);
-        }
-
-        .debrief-panel-title {
-            font-size: 0.9rem;
-            font-weight: 900;
-            letter-spacing: 0.03em;
-            margin-bottom: 7px;
-        }
-
-        .debrief-panel-body {
-            font-size: 1.02rem;
-            line-height: 1.85;
-            font-weight: 700;
-            white-space: pre-wrap;
-        }
-
-        @keyframes trophyPop {
-            0% { transform: scale(0.92) translateY(10px); opacity: 0; }
-            55% { transform: scale(1.03) translateY(0); opacity: 1; }
-            100% { transform: scale(1.00) translateY(0); opacity: 1; }
-        }
-
-        @keyframes floatFade {
-            0% { transform: translateY(16px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes softRise {
-            0% { transform: translateY(10px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes gentleShake {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-4px); }
-            40% { transform: translateX(4px); }
-            60% { transform: translateX(-3px); }
-            80% { transform: translateX(3px); }
-            100% { transform: translateX(0); }
-        }
-
-        @keyframes shineSweep {
-            0% { transform: translateX(-120%); }
-            35% { transform: translateX(120%); }
-            100% { transform: translateX(120%); }
-        }
-
-        div[data-testid="stRadio"] label,
-        div[data-testid="stCheckbox"] label,
-        div[data-testid="stMultiSelect"] label,
-        .stRadio label,
-        .stCheckbox label,
-        .stMarkdown,
-        p, li, span {
-            color: var(--text) !important;
+            border: 1px solid #cfd8e6;
         }
 
         div[role="radiogroup"] label,
@@ -665,68 +495,12 @@ def inject_css() -> None:
             line-height: 1.5 !important;
         }
 
-        .stButton > button {
-            width: 100%;
-            min-height: 3rem;
-            border-radius: 14px;
-            font-weight: 700;
-            border: 1px solid #cfd8e6;
-        }
-
-        .tiny-space {
-            height: 4px;
-        }
-
         @media (max-width: 768px) {
-            .app-hero {
-                padding: 18px 16px;
-                border-radius: 16px;
-            }
-
-            .app-hero h1 {
-                font-size: 1.45rem;
-            }
-
-            .scene-title {
-                font-size: 1.02rem;
-            }
-
-            .summary-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .field-card, .case-card, .scene-card, .hint-card, .debrief-card {
-                padding: 14px;
-                border-radius: 16px;
-            }
-
-            .report-box .body {
-                font-size: 1.02rem;
-            }
-
-            .observation-box .body {
-                font-size: 1.0rem;
-            }
-
-            .debrief-rank-name {
-                font-size: 1.2rem;
-            }
-
-            .debrief-rank-comment,
-            .debrief-panel-body {
-                font-size: 0.98rem;
-            }
-
-            .ranking-number {
-                width: 28px;
-                height: 28px;
-                font-size: 0.88rem;
-            }
-
-            .rank-btn > button {
-                min-height: 2.8rem !important;
-                font-size: 1rem !important;
-            }
+            .app-hero { padding: 18px 16px; border-radius: 16px; }
+            .app-hero h1 { font-size: 1.45rem; }
+            .scene-title { font-size: 1.02rem; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .case-card, .scene-card, .hint-card, .review-card { padding: 14px; border-radius: 16px; }
         }
         </style>
         """,
@@ -760,7 +534,6 @@ def trigger_scroll_top_if_needed() -> None:
                     if (anchor && anchor.scrollIntoView) {
                         anchor.scrollIntoView({behavior: "auto", block: "start"});
                     }
-
                     const selectors = [
                         "section.main",
                         '[data-testid="stAppViewContainer"]',
@@ -768,14 +541,12 @@ def trigger_scroll_top_if_needed() -> None:
                         "body",
                         "html"
                     ];
-
                     selectors.forEach((sel) => {
                         const el = parentDoc.querySelector(sel);
                         if (el) {
                             el.scrollTop = 0;
                         }
                     });
-
                     if (window.parent.scrollTo) {
                         window.parent.scrollTo(0, 0);
                     }
@@ -814,15 +585,22 @@ def rerun_with_scroll_top() -> None:
 def init_state() -> None:
     defaults = {
         "screen": "cover",
-        "selected_field": None,
-        "selected_difficulty": "Normal",
+        "selected_mode": "level",
+        "selected_level_name": None,
         "selected_case_id": None,
+        "level_progress_index": 0,
+        "random_progress_index": 0,
         "scene_display_index": 0,
         "answers": {},
+        "feedbacks": {},
         "score_total": 0.0,
         "score_max": 0.0,
         "hint_from_scene_index": None,
         "pending_scroll_top": False,
+        "level_case_map": {},
+        "level_case_order": {},
+        "all_random_order": [],
+        "free_text_scene_map": {},
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -832,6 +610,7 @@ def init_state() -> None:
 def reset_case_progress() -> None:
     st.session_state.scene_display_index = 0
     st.session_state.answers = {}
+    st.session_state.feedbacks = {}
     st.session_state.score_total = 0.0
     st.session_state.score_max = 0.0
     st.session_state.hint_from_scene_index = None
@@ -844,17 +623,6 @@ def reset_case_progress() -> None:
 # =========================================================
 # JSON / Case 読み込み
 # =========================================================
-def normalize_difficulty(value: Any) -> str:
-    if not value:
-        return "Normal"
-    text = str(value).strip().lower()
-    if text in {"easy", "beginner", "入門"}:
-        return "Easy"
-    if text in {"hard", "expert", "実践"}:
-        return "Hard"
-    return "Normal"
-
-
 def safe_read_json(path: Path) -> Optional[Dict[str, Any]]:
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -923,7 +691,6 @@ def infer_chief_complaint(text: str) -> str:
     if not text:
         return "症例"
     text = str(text)
-
     keywords = [
         "胸痛", "呼吸困難", "意識障害", "腹痛", "頭痛", "発熱", "嘔吐", "痙攣",
         "吐血", "下血", "めまい", "しびれ", "ろれつ障害", "外傷", "背部痛",
@@ -932,7 +699,6 @@ def infer_chief_complaint(text: str) -> str:
     for kw in keywords:
         if kw in text:
             return kw
-
     short = text.replace("\n", " ").strip()
     return short[:18] + ("…" if len(short) > 18 else "")
 
@@ -977,11 +743,7 @@ def extract_case_card_info(data: Dict[str, Any], path: Path) -> Dict[str, str]:
     else:
         age, sex = "年齢不明", "性別不明"
 
-    candidates = [
-        data.get("summary", ""),
-        data.get("title", ""),
-    ]
-
+    candidates = [data.get("summary", ""), data.get("title", "")]
     scenes = get_scenes_from_case(data)
     if scenes:
         first = scenes[0]
@@ -991,7 +753,6 @@ def extract_case_card_info(data: Dict[str, Any], path: Path) -> Dict[str, str]:
             first.get("prompt", ""),
             str(first.get("visible_data", "")),
         ])
-
     base_text = " ".join([str(x) for x in candidates if x])
 
     if age == "年齢不明" or sex == "性別不明":
@@ -1016,11 +777,6 @@ def build_case_payload(path: Path) -> Optional[Dict[str, Any]]:
 
     field_key = data.get("category") or data.get("field") or extract_field_from_path(path)
     field_label = FIELD_LABEL_FALLBACK.get(field_key, field_key)
-
-    difficulty = normalize_difficulty(data.get("difficulty"))
-    if difficulty not in DIFFICULTY_ORDER:
-        difficulty = "Normal"
-
     card_info = extract_case_card_info(data, path)
 
     case_id = data.get("case_id") or data.get("id") or path.stem
@@ -1031,8 +787,6 @@ def build_case_payload(path: Path) -> Optional[Dict[str, Any]]:
         "path": path,
         "field_key": field_key,
         "field_label": field_label,
-        "difficulty": difficulty,
-        "difficulty_label": DIFFICULTY_LABELS[difficulty],
         "title": title,
         "summary": str(data.get("summary", "")),
         "debriefing": data.get("debriefing", {}),
@@ -1057,6 +811,215 @@ def get_case_by_id(cases: List[Dict[str, Any]], case_id: str) -> Optional[Dict[s
         if c["case_id"] == case_id:
             return c
     return None
+
+
+# =========================================================
+# Level編成 / ランダム順
+# =========================================================
+def shuffle_cases_mixed(cases: List[Dict[str, Any]], seed: Optional[int] = None) -> List[Dict[str, Any]]:
+    rnd = random.Random(seed)
+    buckets: Dict[str, List[Dict[str, Any]]] = {}
+    for case in cases:
+        buckets.setdefault(case["field_key"], []).append(case)
+
+    for values in buckets.values():
+        rnd.shuffle(values)
+
+    field_order = list(buckets.keys())
+    rnd.shuffle(field_order)
+
+    mixed: List[Dict[str, Any]] = []
+    while True:
+        added = False
+        for field in field_order:
+            if buckets[field]:
+                mixed.append(buckets[field].pop(0))
+                added = True
+        if not added:
+            break
+
+    return mixed
+
+
+def build_levels(cases: List[Dict[str, Any]]) -> Dict[str, List[str]]:
+    mixed_cases = shuffle_cases_mixed(cases)
+    levels: Dict[str, List[str]] = {}
+    for idx in range(0, len(mixed_cases), LEVEL_SIZE):
+        level_num = idx // LEVEL_SIZE + 1
+        levels[f"Level{level_num}"] = [c["case_id"] for c in mixed_cases[idx: idx + LEVEL_SIZE]]
+    return levels
+
+
+def ensure_level_data(cases: List[Dict[str, Any]]) -> None:
+    if not st.session_state.level_case_map:
+        st.session_state.level_case_map = build_levels(cases)
+
+    if not st.session_state.level_case_order:
+        level_case_order: Dict[str, List[str]] = {}
+        for level_name, case_ids in st.session_state.level_case_map.items():
+            case_order = list(case_ids)
+            random.shuffle(case_order)
+            level_case_order[level_name] = case_order
+        st.session_state.level_case_order = level_case_order
+
+    if not st.session_state.all_random_order:
+        all_ids = [c["case_id"] for c in shuffle_cases_mixed(cases)]
+        st.session_state.all_random_order = all_ids
+
+
+def reshuffle_current_orders(cases: List[Dict[str, Any]]) -> None:
+    st.session_state.level_case_map = build_levels(cases)
+    st.session_state.level_case_order = {}
+    for level_name, case_ids in st.session_state.level_case_map.items():
+        order = list(case_ids)
+        random.shuffle(order)
+        st.session_state.level_case_order[level_name] = order
+    st.session_state.all_random_order = [c["case_id"] for c in shuffle_cases_mixed(cases)]
+    st.session_state.level_progress_index = 0
+    st.session_state.random_progress_index = 0
+
+
+def get_current_case_position(mode: str) -> Tuple[int, int]:
+    if mode == "level":
+        level_name = st.session_state.selected_level_name
+        if not level_name:
+            return (0, 0)
+        case_ids = st.session_state.level_case_order.get(level_name, [])
+        if not case_ids:
+            return (0, 0)
+        return (st.session_state.level_progress_index + 1, len(case_ids))
+
+    case_ids = st.session_state.all_random_order
+    if not case_ids:
+        return (0, 0)
+    return (st.session_state.random_progress_index + 1, len(case_ids))
+
+
+def get_free_text_count_for_level(level_name: Optional[str]) -> int:
+    if not level_name:
+        return 1
+    m = re.search(r"Level(\d+)", level_name)
+    if not m:
+        return 1
+    return max(1, min(DEFAULT_SCENE_COUNT, int(m.group(1))))
+
+
+def choose_free_text_scenes_for_case(case_payload: Dict[str, Any]) -> List[int]:
+    mode = st.session_state.selected_mode
+    if mode == "all_random":
+        count = max(1, min(DEFAULT_SCENE_COUNT, 3))
+    else:
+        count = get_free_text_count_for_level(st.session_state.selected_level_name)
+
+    raw_scenes = case_payload["scenes"]
+    preferred: List[int] = []
+    for i, scene in enumerate(raw_scenes, start=1):
+        current_type = normalize_scene_type(scene)
+        if current_type not in {"ranking"}:
+            preferred.append(i)
+
+    if not preferred:
+        preferred = list(range(1, min(DEFAULT_SCENE_COUNT, len(raw_scenes)) + 1))
+
+    return preferred[:count]
+
+
+def ensure_case_free_text_map(case_payload: Dict[str, Any]) -> None:
+    case_id = case_payload["case_id"]
+    if case_id not in st.session_state.free_text_scene_map:
+        st.session_state.free_text_scene_map[case_id] = choose_free_text_scenes_for_case(case_payload)
+
+
+def get_free_text_scene_numbers(case_payload: Dict[str, Any]) -> List[int]:
+    ensure_case_free_text_map(case_payload)
+    return st.session_state.free_text_scene_map.get(case_payload["case_id"], [])
+
+
+def start_selected_level_first_case(cases: List[Dict[str, Any]]) -> None:
+    ensure_level_data(cases)
+    level_name = st.session_state.selected_level_name
+    if not level_name:
+        return
+
+    case_ids = st.session_state.level_case_order.get(level_name, [])
+    if not case_ids:
+        return
+
+    st.session_state.level_progress_index = 0
+    st.session_state.selected_case_id = case_ids[0]
+
+    case_payload = get_case_by_id(cases, case_ids[0])
+    if case_payload:
+        ensure_case_free_text_map(case_payload)
+
+    reset_case_progress()
+    go_to("intro")
+
+
+def move_to_next_case_in_level(cases: List[Dict[str, Any]]) -> None:
+    level_name = st.session_state.selected_level_name
+    if not level_name:
+        go_to("cover")
+        return
+
+    case_ids = st.session_state.level_case_order.get(level_name, [])
+    next_index = st.session_state.level_progress_index + 1
+
+    if next_index >= len(case_ids):
+        reset_case_progress()
+        st.session_state.selected_case_id = None
+        st.session_state.level_progress_index = 0
+        go_to("level_complete")
+        return
+
+    st.session_state.level_progress_index = next_index
+    st.session_state.selected_case_id = case_ids[next_index]
+
+    case_payload = get_case_by_id(cases, case_ids[next_index])
+    if case_payload:
+        ensure_case_free_text_map(case_payload)
+
+    reset_case_progress()
+    go_to("intro")
+
+
+def start_all_random_first_case(cases: List[Dict[str, Any]]) -> None:
+    ensure_level_data(cases)
+    case_ids = st.session_state.all_random_order
+    if not case_ids:
+        return
+
+    st.session_state.random_progress_index = 0
+    st.session_state.selected_case_id = case_ids[0]
+
+    case_payload = get_case_by_id(cases, case_ids[0])
+    if case_payload:
+        ensure_case_free_text_map(case_payload)
+
+    reset_case_progress()
+    go_to("intro")
+
+
+def move_to_next_case_in_random(cases: List[Dict[str, Any]]) -> None:
+    case_ids = st.session_state.all_random_order
+    next_index = st.session_state.random_progress_index + 1
+
+    if next_index >= len(case_ids):
+        reset_case_progress()
+        st.session_state.selected_case_id = None
+        st.session_state.random_progress_index = 0
+        go_to("random_complete")
+        return
+
+    st.session_state.random_progress_index = next_index
+    st.session_state.selected_case_id = case_ids[next_index]
+
+    case_payload = get_case_by_id(cases, case_ids[next_index])
+    if case_payload:
+        ensure_case_free_text_map(case_payload)
+
+    reset_case_progress()
+    go_to("intro")
 
 
 # =========================================================
@@ -1099,7 +1062,7 @@ def find_media_path(media_value: Any) -> Optional[Path]:
 
 
 # =========================================================
-# 選択肢・採点
+# scene type / options
 # =========================================================
 def normalize_scene_type(scene: Dict[str, Any]) -> str:
     t = str(scene.get("type", "")).strip().lower()
@@ -1113,8 +1076,18 @@ def normalize_scene_type(scene: Dict[str, Any]) -> str:
         "ranking": "ranking",
         "template": "template_select",
         "template_select": "template_select",
+        "freetext": "free_text",
+        "free_text": "free_text",
+        "text": "free_text",
     }
     return aliases.get(t, "single_choice")
+
+
+def get_effective_scene_type(case_payload: Dict[str, Any], scene_number: int, scene: Dict[str, Any]) -> str:
+    base_type = normalize_scene_type(scene)
+    if scene_number in get_free_text_scene_numbers(case_payload):
+        return "free_text"
+    return base_type
 
 
 def normalize_options(scene: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -1195,9 +1168,124 @@ def normalize_ranking(scene: Dict[str, Any]) -> List[Dict[str, Any]]:
     return result
 
 
-def scene_max_score(scene: Dict[str, Any]) -> float:
-    scene_type = normalize_scene_type(scene)
+# =========================================================
+# 記述式 採点補助
+# =========================================================
+def build_model_keywords(scene: Dict[str, Any]) -> Dict[str, List[str]]:
+    scoring = scene.get("scoring_keywords", {})
+    required: List[str] = []
+    bonus: List[str] = []
 
+    if isinstance(scoring, dict):
+        required = [str(x) for x in scoring.get("required", []) if str(x).strip()]
+        bonus = [str(x) for x in scoring.get("bonus", []) if str(x).strip()]
+
+    if not required:
+        source_chunks: List[str] = []
+        source_chunks.extend(to_text_lines(scene.get("ideal_flow")))
+        source_chunks.extend(to_text_lines(scene.get("action_tag")))
+        source_chunks.extend(to_text_lines(scene.get("scene_goal")))
+        source_chunks.extend(to_text_lines(scene.get("prompt")))
+        required = extract_keywords_from_text(" ".join(source_chunks))[:5]
+
+    if not bonus:
+        source_chunks = []
+        source_chunks.extend(to_text_lines(scene.get("visible_data")))
+        source_chunks.extend(to_text_lines(scene.get("text")))
+        bonus = [x for x in extract_keywords_from_text(" ".join(source_chunks)) if x not in required][:5]
+
+    return {
+        "required": unique_keep_order(required),
+        "bonus": unique_keep_order([x for x in bonus if x not in required]),
+    }
+
+
+def evaluate_clarity(answer_text: str) -> Tuple[float, str]:
+    text = str(answer_text or "").strip()
+    if not text:
+        return 0.0, "未記載。聞き手に伝わる形で、観察・判断・対応を短く整理して書くとよい。"
+
+    sentences = re.split(r"[。．\n]+", text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    has_order = any(x in text for x in ["まず", "次に", "その後", "続いて", "優先", "直ちに"])
+    has_action = any(x in text for x in ["評価", "観察", "確認", "測定", "連絡", "搬送", "報告", "装着", "実施", "判断"])
+    too_short = len(text) < 12
+    too_long = len(text) > 180
+
+    score = 0.0
+    comments: List[str] = []
+
+    if has_action:
+        score += 0.5
+    else:
+        comments.append("何をするかを具体的にすると伝わりやすい。")
+
+    if has_order or len(sentences) >= 2:
+        score += 0.3
+    else:
+        comments.append("順序がわかる書き方にするとさらに良い。")
+
+    if too_short:
+        comments.append("少し短すぎる。観察・判断・対応をもう一言加えるとよい。")
+    elif too_long:
+        comments.append("やや長い。要点を簡潔にまとめると報告向き。")
+    else:
+        score += 0.2
+
+    final_comment = " ".join(comments) if comments else "内容は比較的伝わりやすい。"
+    return min(score, 1.0), final_comment
+
+
+def evaluate_free_text_answer(scene: Dict[str, Any], answer_text: str) -> Dict[str, Any]:
+    model = build_model_keywords(scene)
+    required = model["required"]
+    bonus = model["bonus"]
+
+    answer_norm = normalize_text(answer_text)
+    matched_required = [kw for kw in required if normalize_text(kw) in answer_norm]
+    missed_required = [kw for kw in required if kw not in matched_required]
+    matched_bonus = [kw for kw in bonus if normalize_text(kw) in answer_norm]
+    weak_items = [kw for kw in bonus if kw not in matched_bonus][:3]
+
+    content_score = 0.0
+    if required:
+        content_score += (len(matched_required) / len(required)) * 0.8
+    if bonus:
+        content_score += min(len(matched_bonus) / max(len(bonus), 1), 1.0) * 0.2
+
+    clarity_score, clarity_comment = evaluate_clarity(answer_text)
+    total = min(content_score * 0.8 + clarity_score * 0.2, 1.0)
+
+    model_answer_parts: List[str] = []
+    if required:
+        model_answer_parts.append("必須: " + "、".join(required))
+    if bonus:
+        model_answer_parts.append("加点: " + "、".join(bonus))
+    model_answer_text = " / ".join(model_answer_parts) if model_answer_parts else "理想行動を簡潔にまとめる"
+
+    comment = (
+        f"内容点: 必須キーワード {len(matched_required)}/{len(required) if required else 0}、"
+        f"加点キーワード {len(matched_bonus)}/{len(bonus) if bonus else 0}。"
+        f" 伝達性: {clarity_comment}"
+    )
+
+    return {
+        "score": total,
+        "max_score": 1.0,
+        "your_answer": answer_text.strip() if str(answer_text).strip() else "未回答",
+        "model_answer": model_answer_text,
+        "green_items": matched_required + matched_bonus,
+        "yellow_items": weak_items,
+        "red_items": missed_required,
+        "comment": comment,
+    }
+
+
+# =========================================================
+# 採点
+# =========================================================
+def scene_max_score(case_payload: Dict[str, Any], scene_number: int, scene: Dict[str, Any]) -> float:
+    scene_type = get_effective_scene_type(case_payload, scene_number, scene)
     if scene_type == "single_choice":
         return 1.0
     if scene_type == "multiple_choice":
@@ -1209,12 +1297,13 @@ def scene_max_score(scene: Dict[str, Any]) -> float:
         return float(len(items) if items else 1)
     if scene_type == "template_select":
         return 1.0
+    if scene_type == "free_text":
+        return 1.0
     return 1.0
 
 
-def calculate_scene_score(scene: Dict[str, Any], answer_payload: Any) -> float:
-    scene_type = normalize_scene_type(scene)
-
+def calculate_scene_score(case_payload: Dict[str, Any], scene_number: int, scene: Dict[str, Any], answer_payload: Any) -> float:
+    scene_type = get_effective_scene_type(case_payload, scene_number, scene)
     if answer_payload is None:
         return 0.0
 
@@ -1262,7 +1351,134 @@ def calculate_scene_score(scene: Dict[str, Any], answer_payload: Any) -> float:
                 return 1.0
         return 0.0
 
+    if scene_type == "free_text":
+        return evaluate_free_text_answer(scene, str(answer_payload)).get("score", 0.0)
+
     return 0.0
+
+
+def format_correct_answer_text(scene_type: str, scene: Dict[str, Any]) -> str:
+    if scene_type == "single_choice":
+        opts = normalize_options(scene)
+        correct = [o["label"] for o in opts if o["is_correct"]]
+        return " / ".join(correct) if correct else "正解設定なし"
+    if scene_type == "multiple_choice":
+        opts = normalize_options(scene)
+        correct = [o["label"] for o in opts if o["is_correct"]]
+        return "、".join(correct) if correct else "正解設定なし"
+    if scene_type == "ranking":
+        items = normalize_ranking(scene)
+        if not items:
+            return "正解設定なし"
+        ordered = sorted(
+            items,
+            key=lambda x: x["correct_order"] if isinstance(x["correct_order"], int) else 999
+        )
+        return " → ".join([x["label"] for x in ordered])
+    if scene_type == "template_select":
+        temps = normalize_templates(scene)
+        correct = [t["label"] for t in temps if t["is_correct"]]
+        return " / ".join(correct) if correct else "正解設定なし"
+    return ""
+
+
+def evaluate_scene(case_payload: Dict[str, Any], scene_number: int, scene: Dict[str, Any], answer_payload: Any) -> Dict[str, Any]:
+    scene_type = get_effective_scene_type(case_payload, scene_number, scene)
+    max_score = scene_max_score(case_payload, scene_number, scene)
+    score = calculate_scene_score(case_payload, scene_number, scene, answer_payload)
+
+    feedback = {
+        "scene_title": str(scene.get("title") or f"Scene {scene_number}"),
+        "effective_type": scene_type,
+        "score": score,
+        "max_score": max_score,
+        "score_display": f"{score:.1f} / {max_score:.1f}",
+        "your_answer": "未回答",
+        "model_answer": "",
+        "green_items": [],
+        "yellow_items": [],
+        "red_items": [],
+        "comment": "",
+    }
+
+    if scene_type == "free_text":
+        free_feedback = evaluate_free_text_answer(scene, str(answer_payload or ""))
+        feedback.update(free_feedback)
+        feedback["score_display"] = f"{feedback['score']:.1f} / {feedback['max_score']:.1f}"
+        return feedback
+
+    if scene_type == "single_choice":
+        your = str(answer_payload) if answer_payload else "未回答"
+        correct = format_correct_answer_text(scene_type, scene)
+        feedback["your_answer"] = your
+        feedback["model_answer"] = correct
+        if score >= 1.0:
+            feedback["green_items"] = [your]
+            feedback["comment"] = "選択は適切。"
+        else:
+            if your != "未回答":
+                feedback["yellow_items"] = [your]
+            feedback["red_items"] = [correct]
+            feedback["comment"] = "正解と自分の選択を見比べて、判断根拠を確認するとよい。"
+        return feedback
+
+    if scene_type == "multiple_choice":
+        selected = answer_payload or []
+        your = "、".join(selected) if selected else "未回答"
+        correct_opts = [o["label"] for o in normalize_options(scene) if o["is_correct"]]
+        feedback["your_answer"] = your
+        feedback["model_answer"] = "、".join(correct_opts)
+        feedback["green_items"] = [x for x in selected if x in correct_opts]
+        feedback["yellow_items"] = [x for x in selected if x not in correct_opts]
+        feedback["red_items"] = [x for x in correct_opts if x not in selected]
+        feedback["comment"] = "必要な選択肢が拾えているか、不要な選択をしていないかを確認するとよい。"
+        return feedback
+
+    if scene_type == "ranking":
+        your_order = answer_payload or []
+        correct_text = format_correct_answer_text(scene_type, scene)
+        feedback["your_answer"] = " → ".join(your_order) if your_order else "未回答"
+        feedback["model_answer"] = correct_text
+
+        items = normalize_ranking(scene)
+        correct_map = {}
+        for idx, item in enumerate(items, start=1):
+            order = item["correct_order"] if isinstance(item.get("correct_order"), int) else idx
+            correct_map[item["label"]] = order
+        ordered = [x["label"] for x in sorted(items, key=lambda x: correct_map.get(x["label"], 999))]
+
+        green, yellow, red = [], [], []
+        for idx, label in enumerate(your_order, start=1):
+            if correct_map.get(label) == idx:
+                green.append(label)
+            else:
+                yellow.append(label)
+        for label in ordered:
+            if label not in your_order:
+                red.append(label)
+
+        feedback["green_items"] = green
+        feedback["yellow_items"] = yellow
+        feedback["red_items"] = red
+        feedback["comment"] = "優先順位のズレに注目して、最初に何を置くべきかを確認するとよい。"
+        return feedback
+
+    if scene_type == "template_select":
+        your = str(answer_payload) if answer_payload else "未回答"
+        correct = format_correct_answer_text(scene_type, scene)
+        feedback["your_answer"] = your
+        feedback["model_answer"] = correct
+        if score >= 1.0:
+            feedback["green_items"] = ["報告内容は適切"]
+            feedback["comment"] = "必要事項がまとまっている。"
+        else:
+            if your != "未回答":
+                feedback["yellow_items"] = ["選択したテンプレ"]
+            feedback["red_items"] = ["年齢 / 主訴 / 状態 / 疑い病態 / 依頼内容を簡潔に"]
+            feedback["comment"] = "申し送りは、相手が一度で状況をつかめる内容にするとよい。"
+        return feedback
+
+    return feedback
 
 
 # =========================================================
@@ -1287,30 +1503,17 @@ def render_progress(current_index: int, total_count: int) -> None:
     )
 
 
-def get_visible_scene_numbers(difficulty: str) -> List[int]:
-    return SCENE_MAP.get(difficulty, [1, 2, 3, 4, 5, 6, 7])
-
-
-def get_visible_scenes(case_payload: Dict[str, Any], difficulty: str) -> List[Tuple[int, Dict[str, Any]]]:
+def get_visible_scenes(case_payload: Dict[str, Any]) -> List[Tuple[int, Dict[str, Any]]]:
     all_scenes = case_payload["scenes"]
-    wanted = get_visible_scene_numbers(difficulty)
-    visible = []
-    for n in wanted:
-        idx = n - 1
-        if 0 <= idx < len(all_scenes):
-            visible.append((n, all_scenes[idx]))
-    return visible
-
-
-def field_counts(cases: List[Dict[str, Any]]) -> Dict[str, int]:
-    counts = {}
-    for c in cases:
-        counts[c["field_key"]] = counts.get(c["field_key"], 0) + 1
-    return counts
+    return [(idx, scene) for idx, scene in enumerate(all_scenes[:DEFAULT_SCENE_COUNT], start=1)]
 
 
 def get_scene_key(case_id: str, scene_number: int) -> str:
     return f"{case_id}__scene_{scene_number}"
+
+
+def get_feedback_key(case_id: str, scene_number: int) -> str:
+    return f"{case_id}__feedback_{scene_number}"
 
 
 def get_answer_for_scene(case_id: str, scene_number: int) -> Any:
@@ -1321,16 +1524,27 @@ def set_answer_for_scene(case_id: str, scene_number: int, value: Any) -> None:
     st.session_state.answers[get_scene_key(case_id, scene_number)] = value
 
 
-def recalc_total_score(case_payload: Dict[str, Any], difficulty: str) -> None:
-    visible_scenes = get_visible_scenes(case_payload, difficulty)
+def set_feedback_for_scene(case_id: str, scene_number: int, value: Dict[str, Any]) -> None:
+    st.session_state.feedbacks[get_feedback_key(case_id, scene_number)] = value
+
+
+def get_feedback_for_scene(case_id: str, scene_number: int) -> Optional[Dict[str, Any]]:
+    return st.session_state.feedbacks.get(get_feedback_key(case_id, scene_number))
+
+
+def recalc_total_score(case_payload: Dict[str, Any]) -> None:
+    visible_scenes = get_visible_scenes(case_payload)
     total = 0.0
     total_max = 0.0
     case_id = case_payload["case_id"]
 
     for scene_number, scene in visible_scenes:
         answer_payload = get_answer_for_scene(case_id, scene_number)
-        total += calculate_scene_score(scene, answer_payload)
-        total_max += scene_max_score(scene)
+        score = calculate_scene_score(case_payload, scene_number, scene, answer_payload)
+        total += score
+        total_max += scene_max_score(case_payload, scene_number, scene)
+        feedback = evaluate_scene(case_payload, scene_number, scene, answer_payload)
+        set_feedback_for_scene(case_id, scene_number, feedback)
 
     st.session_state.score_total = total
     st.session_state.score_max = total_max
@@ -1342,65 +1556,14 @@ def score_percent() -> float:
     return st.session_state.score_total / st.session_state.score_max * 100.0
 
 
-def rank_info(percent: float) -> Tuple[str, str, str, str, str]:
+def rank_info(percent: float) -> Tuple[str, str, str]:
     if percent >= 85:
-        return "秀才", "✨", "#2e7d32", "rank-shusai", "優先順位づけがかなり良い。この調子で現場の流れを固めよう。"
+        return "秀才", "✨", "優先順位づけがかなり良い。この調子で現場の流れを固めよう。"
     if percent >= 70:
-        return "優秀", "👏", "#1f5fbf", "rank-yushu", "大枠は良い。細かい判断をもう一段磨くとさらに強くなる。"
+        return "優秀", "👏", "大枠は良い。細かい判断をもう一段磨くとさらに強くなる。"
     if percent >= 50:
-        return "良好", "👍", "#ef6c00", "rank-ryoko", "流れは追えている。次は優先行動をもう少し整理しよう。"
-    return "要復習", "📝", "#c62828", "rank-review", "最初の観察と重症度判断のつながりをもう一度確認しよう。"
-
-
-def render_case_card(case_payload: Dict[str, Any]) -> None:
-    diff_class = case_payload["difficulty"].lower()
-    age = html_escape(case_payload["card_info"]["age"])
-    sex = html_escape(case_payload["card_info"]["sex"])
-    chief = html_escape(case_payload["card_info"]["chief_complaint"])
-    field_label = html_escape(case_payload["field_label"])
-    diff_label = html_escape(case_payload["difficulty_label"])
-
-    st.markdown(
-        f"""
-        <div class="case-card">
-            <div class="difficulty-pill {diff_class}">{diff_label}</div>
-            <div class="case-main">{age}{sex}、{chief}</div>
-            <div class="case-sub">{field_label}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def render_media(scene: Dict[str, Any]) -> None:
-    media = scene.get("media")
-    media_path = find_media_path(media)
-    if media_path:
-        st.image(str(media_path), use_container_width=True)
-
-
-def format_visible_label(key: str) -> str:
-    return VISIBLE_DATA_LABELS.get(key, key)
-
-
-def format_visible_value(value: Any) -> str:
-    if isinstance(value, bool):
-        return BOOL_JA[value]
-    if value is None:
-        return ""
-    if isinstance(value, dict):
-        lines = []
-        for k, v in value.items():
-            label = format_visible_label(str(k))
-            val = format_visible_value(v)
-            if val != "":
-                lines.append(f"{label}：{val}")
-        return "\n".join(lines)
-    if isinstance(value, list):
-        vals = [format_visible_value(v) for v in value]
-        vals = [v for v in vals if v != ""]
-        return "\n".join([f"・{v}" for v in vals])
-    return str(value)
+        return "良好", "👍", "流れは追えている。次は優先行動をもう少し整理しよう。"
+    return "要復習", "📝", "最初の観察と重症度判断のつながりをもう一度確認しよう。"
 
 
 def stringify_visible_data(value: Any) -> str:
@@ -1409,17 +1572,12 @@ def stringify_visible_data(value: Any) -> str:
     if isinstance(value, str):
         return value.strip()
     if isinstance(value, list):
-        vals = [format_visible_value(v) for v in value]
-        vals = [v for v in vals if v != ""]
-        return "\n".join([f"・{v}" for v in vals])
+        vals = []
+        for v in value:
+            vals.extend(to_text_lines(v))
+        return "\n".join([f"・{x}" for x in vals if x])
     if isinstance(value, dict):
-        lines = []
-        for k, v in value.items():
-            label = format_visible_label(str(k))
-            val = format_visible_value(v)
-            if val != "":
-                lines.append(f"{label}：{val}")
-        return "\n".join(lines)
+        return "\n".join([f"{VISIBLE_DATA_LABELS.get(str(k), str(k))}：{v}" for k, v in value.items()])
     return str(value)
 
 
@@ -1498,27 +1656,28 @@ def move_ranking_item(case_id: str, scene_number: int, index: int, direction: in
 
 
 # =========================================================
-# 各画面
+# Cover / Level / Random
 # =========================================================
 def render_cover(cases: List[Dict[str, Any]]) -> None:
+    ensure_level_data(cases)
+
     st.markdown(
         f"""
         <div class="app-hero">
             <h1>{html_escape(APP_TITLE)}</h1>
             <p>
-                症例を通して、観察 → 判断 → 優先順位づけ を練習するシミュレーションです。<br>
-                Easy（入門）は短め、Normal（標準）とHard（実践）は標準の流れで進みます。
+                症例を通して、観察 → 判断 → 優先順位づけ → 伝わる報告 を練習するシミュレーションです。<br>
+                Levelが上がるほど、記述式の場面が増えます。
             </p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    counts = field_counts(cases)
-    st.markdown('<div class="section-title">収録状況</div>', unsafe_allow_html=True)
+    total_cases = len(cases)
+    level_count = len(st.session_state.level_case_map)
 
     cols = st.columns(3)
-    total_cases = len(cases)
     cols[0].markdown(
         f"""
         <div class="summary-box">
@@ -1531,8 +1690,8 @@ def render_cover(cases: List[Dict[str, Any]]) -> None:
     cols[1].markdown(
         f"""
         <div class="summary-box">
-            <div class="big">{len(counts)}</div>
-            <div class="small">分野数</div>
+            <div class="big">{level_count}</div>
+            <div class="small">Level数</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1540,131 +1699,100 @@ def render_cover(cases: List[Dict[str, Any]]) -> None:
     cols[2].markdown(
         """
         <div class="summary-box">
-            <div class="big">7 / 4</div>
-            <div class="small">標準 / 入門の場面数</div>
+            <div class="big">7</div>
+            <div class="small">1症例あたり場面数</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="section-title">はじめる</div>', unsafe_allow_html=True)
-    if st.button("症例を選ぶ", type="primary", use_container_width=True):
-        st.session_state.selected_field = None
-        st.session_state.selected_difficulty = "Normal"
-        go_to("case_filter")
+    st.markdown('<div class="section-title">モードを選ぶ</div>', unsafe_allow_html=True)
 
-
-def render_case_filter(cases: List[Dict[str, Any]]) -> None:
-    st.markdown('<div class="section-title">分野と難易度を選択</div>', unsafe_allow_html=True)
-
-    counts = field_counts(cases)
-    field_keys = sorted(counts.keys(), key=lambda x: FIELD_LABEL_FALLBACK.get(x, x))
-
-    st.markdown('<div class="muted">まず分野を選ぶ。</div>', unsafe_allow_html=True)
-    cols = st.columns(2 if len(field_keys) <= 4 else 3)
-
-    for i, fk in enumerate(field_keys):
-        with cols[i % len(cols)]:
-            label = FIELD_LABEL_FALLBACK.get(fk, fk)
-            st.markdown(
-                f"""
-                <div class="field-card">
-                    <div class="field-title">{html_escape(label)}</div>
-                    <div class="field-sub">{counts[fk]}症例</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-            if st.button(f"{label}を選ぶ", key=f"field_{fk}", use_container_width=True):
-                st.session_state.selected_field = fk
-                rerun_with_scroll_top()
-
-    st.markdown('<div class="tiny-space"></div>', unsafe_allow_html=True)
-
-    st.markdown('<div class="muted">次に難易度を選ぶ。</div>', unsafe_allow_html=True)
-    diff_display = [DIFFICULTY_LABELS[d] for d in DIFFICULTY_ORDER]
-    current_idx = DIFFICULTY_ORDER.index(st.session_state.selected_difficulty)
-
-    selected_disp = st.radio(
-        "難易度",
-        diff_display,
-        index=current_idx,
-        horizontal=True,
-    )
-    reverse_map = {v: k for k, v in DIFFICULTY_LABELS.items()}
-    st.session_state.selected_difficulty = reverse_map[selected_disp]
-
-    selected_field = st.session_state.selected_field
-    if selected_field:
-        field_label = FIELD_LABEL_FALLBACK.get(selected_field, selected_field)
+    col1, col2 = st.columns(2)
+    with col1:
         st.markdown(
-            f"""
+            """
             <div class="soft-panel">
-                <b>選択中</b><br>
-                分野：{html_escape(field_label)}<br>
-                難易度：{html_escape(DIFFICULTY_LABELS[st.session_state.selected_difficulty])}
+                <div class="case-main">Level選択</div>
+                <div class="case-sub">10症例ごと。1症例ずつ出題。Levelが上がるほど記述式が増える。</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        if st.button("症例を見る", type="primary", use_container_width=True):
-            go_to("case_list")
-    else:
-        st.info("分野を選ぶと、次に症例一覧へ進める。")
+        if st.button("Levelから始める", type="primary", use_container_width=True):
+            st.session_state.selected_mode = "level"
+            go_to("level_select")
 
-    if st.button("表紙に戻る", use_container_width=True):
-        go_to("cover")
+    with col2:
+        st.markdown(
+            """
+            <div class="soft-panel">
+                <div class="case-main">全問題ランダム</div>
+                <div class="case-sub">一覧なし。1症例ずつランダム出題。</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        if st.button("全問題ランダムで始める", use_container_width=True):
+            st.session_state.selected_mode = "all_random"
+            st.session_state.selected_level_name = None
+            start_all_random_first_case(cases)
 
 
-def render_case_list(cases: List[Dict[str, Any]]) -> None:
-    selected_field = st.session_state.selected_field
-    difficulty = st.session_state.selected_difficulty
+def render_level_select(cases: List[Dict[str, Any]]) -> None:
+    ensure_level_data(cases)
+    st.markdown('<div class="section-title">Levelを選択</div>', unsafe_allow_html=True)
 
-    filtered = [
-        c for c in cases
-        if c["field_key"] == selected_field and c["difficulty"] == difficulty
-    ]
+    for level_name, case_ids in st.session_state.level_case_map.items():
+        free_text_count = get_free_text_count_for_level(level_name)
+        st.markdown(
+            f"""
+            <div class="soft-panel">
+                <div class="scene-header">
+                    <div class="case-main">{html_escape(level_name)}</div>
+                    <div class="mode-pill level">10症例</div>
+                    <div class="level-pill">記述式 {free_text_count}場面</div>
+                </div>
+                <div class="case-sub">カテゴリ混在で1症例ずつ出題</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        if st.button(f"{level_name} を開始", key=f"level_{level_name}", type="primary", use_container_width=True):
+            st.session_state.selected_mode = "level"
+            st.session_state.selected_level_name = level_name
+            start_selected_level_first_case(cases)
 
-    field_label = FIELD_LABEL_FALLBACK.get(selected_field, selected_field)
-
-    st.markdown(
-        f'<div class="section-title">{html_escape(field_label)} / {html_escape(DIFFICULTY_LABELS[difficulty])} の症例</div>',
-        unsafe_allow_html=True,
-    )
-
-    if not filtered:
-        st.warning("この条件に合う症例がまだない。別の難易度か分野を選んでみよう。")
-    else:
-        for case_payload in filtered:
-            col1, col2 = st.columns([5, 2], vertical_alignment="center")
-            with col1:
-                render_case_card(case_payload)
-            with col2:
-                if st.button("この症例を開始", key=f"start_{case_payload['case_id']}", type="primary", use_container_width=True):
-                    st.session_state.selected_case_id = case_payload["case_id"]
-                    reset_case_progress()
-                    go_to("intro")
-
-    col_a, col_b = st.columns(2)
-    with col_a:
-        if st.button("分野と難易度の選択へ戻る", use_container_width=True):
-            go_to("case_filter")
-    with col_b:
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("症例順をシャッフルし直す", use_container_width=True):
+            reshuffle_current_orders(cases)
+            rerun_with_scroll_top()
+    with col2:
         if st.button("表紙に戻る", use_container_width=True):
             go_to("cover")
 
 
+# =========================================================
+# Intro
+# =========================================================
 def render_intro(case_payload: Dict[str, Any]) -> None:
-    difficulty = st.session_state.selected_difficulty
     card = case_payload["card_info"]
+    mode = st.session_state.selected_mode
+
+    mode_html = '<div class="mode-pill random">全問題ランダム</div>' if mode == "all_random" else f'<div class="mode-pill level">{html_escape(st.session_state.selected_level_name or "Level")}</div>'
+
+    pos, total = get_current_case_position(mode)
+    progress_html = f'<div class="progress-pill">症例 {pos} / {total}</div>' if total > 0 else ""
 
     st.markdown('<div class="section-title">症例開始</div>', unsafe_allow_html=True)
-
-    diff_class = difficulty.lower()
     st.markdown(
         f"""
         <div class="case-card">
-            <div class="difficulty-pill {diff_class}">{html_escape(DIFFICULTY_LABELS[difficulty])}</div>
+            <div class="scene-header">
+                {mode_html}
+                {progress_html}
+            </div>
             <div class="case-main">{html_escape(card["age"])}{html_escape(card["sex"])}、{html_escape(card["chief_complaint"])}</div>
             <div class="case-sub">{html_escape(case_payload["field_label"])}</div>
         </div>
@@ -1672,18 +1800,13 @@ def render_intro(case_payload: Dict[str, Any]) -> None:
         unsafe_allow_html=True,
     )
 
-    guide_text = {
-        "Easy": "要点を絞った短めの流れで進む。",
-        "Normal": "標準的な流れで進む。",
-        "Hard": "実践に近い流れで、情報整理と判断の質が求められる。",
-    }[difficulty]
-
+    free_text_count = len(get_free_text_scene_numbers(case_payload))
     st.markdown(
         f"""
         <div class="soft-panel">
             <b>今回の進め方</b><br>
-            {html_escape(guide_text)}<br>
-            表示される場面数：{len(get_visible_scene_numbers(difficulty))}場面
+            7場面で進行。記述式の場面数：{free_text_count}<br>
+            記述式はキーワードと伝達性で採点する。
         </div>
         """,
         unsafe_allow_html=True,
@@ -1717,10 +1840,17 @@ def render_intro(case_payload: Dict[str, Any]) -> None:
         if st.button("この症例を開始する", type="primary", use_container_width=True):
             go_to("scene")
     with col2:
-        if st.button("症例一覧へ戻る", use_container_width=True):
-            go_to("case_list")
+        if mode == "level":
+            if st.button("Level選択へ戻る", use_container_width=True):
+                go_to("level_select")
+        else:
+            if st.button("表紙に戻る", use_container_width=True):
+                go_to("cover")
 
 
+# =========================================================
+# 各入力UI
+# =========================================================
 def render_single_choice(scene: Dict[str, Any], case_id: str, scene_number: int) -> None:
     options = normalize_options(scene)
     labels = [o["label"] for o in options]
@@ -1763,8 +1893,8 @@ def render_ranking(scene: Dict[str, Any], case_id: str, scene_number: int) -> No
 
     st.markdown(
         """
-        <div class="ranking-help">
-            優先順位順に並べる。1行目が最優先のイメージ。スマホでは ↑ ↓ を押して並べ替える。
+        <div class="muted">
+            優先順位順に並べる。1行目が最優先。スマホでは ↑ ↓ を押して並べ替える。
         </div>
         """,
         unsafe_allow_html=True,
@@ -1773,26 +1903,22 @@ def render_ranking(scene: Dict[str, Any], case_id: str, scene_number: int) -> No
     for idx, label in enumerate(order):
         row1, row2, row3 = st.columns([0.14, 0.14, 0.72], vertical_alignment="center")
         with row1:
-            st.markdown(f'<div class="ranking-number">{idx + 1}</div>', unsafe_allow_html=True)
+            st.markdown(f"**{idx + 1}**")
         with row2:
             up_col, down_col = st.columns(2)
             with up_col:
-                st.markdown('<div class="rank-btn">', unsafe_allow_html=True)
                 if st.button("↑", key=f"rank_up_{case_id}_{scene_number}_{idx}", disabled=(idx == 0), use_container_width=True):
                     move_ranking_item(case_id, scene_number, idx, -1)
                     rerun_with_scroll_top()
-                st.markdown('</div>', unsafe_allow_html=True)
             with down_col:
-                st.markdown('<div class="rank-btn">', unsafe_allow_html=True)
                 if st.button("↓", key=f"rank_down_{case_id}_{scene_number}_{idx}", disabled=(idx == len(order) - 1), use_container_width=True):
                     move_ranking_item(case_id, scene_number, idx, 1)
                     rerun_with_scroll_top()
-                st.markdown('</div>', unsafe_allow_html=True)
         with row3:
             st.markdown(
                 f"""
-                <div class="ranking-row">
-                    <div class="ranking-label">{html_escape(label)}</div>
+                <div class="soft-panel" style="margin-bottom:6px; padding:10px 12px;">
+                    {html_escape(label)}
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -1819,8 +1945,20 @@ def render_template_select(scene: Dict[str, Any], case_id: str, scene_number: in
     set_answer_for_scene(case_id, scene_number, selected)
 
 
-def render_scene_input(scene: Dict[str, Any], case_id: str, scene_number: int) -> None:
-    scene_type = normalize_scene_type(scene)
+def render_free_text(scene: Dict[str, Any], case_id: str, scene_number: int) -> None:
+    saved = get_answer_for_scene(case_id, scene_number) or ""
+    answer = st.text_area(
+        "回答を記載",
+        value=saved,
+        height=160,
+        key=f"free_text_{case_id}_{scene_number}",
+        placeholder="例：まず意識・呼吸・循環を初期評価し、次に...",
+    )
+    set_answer_for_scene(case_id, scene_number, answer)
+
+
+def render_scene_input(case_payload: Dict[str, Any], scene_number: int, scene: Dict[str, Any]) -> None:
+    scene_type = get_effective_scene_type(case_payload, scene_number, scene)
     prompt = scene.get("prompt") or "この場面で実施する行動を選ぶ"
 
     st.markdown(
@@ -1832,6 +1970,8 @@ def render_scene_input(scene: Dict[str, Any], case_id: str, scene_number: int) -
         unsafe_allow_html=True,
     )
 
+    case_id = case_payload["case_id"]
+
     if scene_type == "single_choice":
         render_single_choice(scene, case_id, scene_number)
     elif scene_type == "multiple_choice":
@@ -1840,17 +1980,26 @@ def render_scene_input(scene: Dict[str, Any], case_id: str, scene_number: int) -
         render_ranking(scene, case_id, scene_number)
     elif scene_type == "template_select":
         render_template_select(scene, case_id, scene_number)
+    elif scene_type == "free_text":
+        render_free_text(scene, case_id, scene_number)
     else:
         render_single_choice(scene, case_id, scene_number)
 
 
-def render_scene(case_payload: Dict[str, Any]) -> None:
-    difficulty = st.session_state.selected_difficulty
-    visible_scenes = get_visible_scenes(case_payload, difficulty)
-    total_scenes = len(visible_scenes)
+# =========================================================
+# Scene / Hint / Debrief
+# =========================================================
+def render_media(scene: Dict[str, Any]) -> None:
+    media = scene.get("media")
+    media_path = find_media_path(media)
+    if media_path:
+        st.image(str(media_path), use_container_width=True)
 
-    idx = st.session_state.scene_display_index
-    idx = max(0, min(idx, total_scenes - 1))
+
+def render_scene(case_payload: Dict[str, Any]) -> None:
+    visible_scenes = get_visible_scenes(case_payload)
+    total_scenes = len(visible_scenes)
+    idx = max(0, min(st.session_state.scene_display_index, total_scenes - 1))
     scene_number, scene = visible_scenes[idx]
 
     render_progress(idx, total_scenes)
@@ -1858,6 +2007,12 @@ def render_scene(case_payload: Dict[str, Any]) -> None:
     title = html_escape(scene.get("title") or f"Scene {scene_number}")
     phase = scene.get("phase")
     phase_html = f'<div class="scene-phase">{html_escape(phase)}</div>' if phase else ""
+    level_tag = ""
+    if scene_number in get_free_text_scene_numbers(case_payload):
+        level_tag = '<div class="level-pill">この場面は記述式</div>'
+
+    pos, total = get_current_case_position(st.session_state.selected_mode)
+    progress_html = f'<div class="progress-pill">症例 {pos} / {total}</div>' if total > 0 else ""
 
     st.markdown(
         f"""
@@ -1865,6 +2020,8 @@ def render_scene(case_payload: Dict[str, Any]) -> None:
             <div class="scene-header">
                 <div class="scene-title">{title}</div>
                 {phase_html}
+                {level_tag}
+                {progress_html}
             </div>
         """,
         unsafe_allow_html=True,
@@ -1903,29 +2060,26 @@ def render_scene(case_payload: Dict[str, Any]) -> None:
             st.session_state.hint_from_scene_index = idx
             go_to("hint")
     with col_show:
-        st.markdown(
-            """
-            <div class="muted">必要なときだけヒントを見る。まずは自分で考える。</div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown('<div class="muted">必要なときだけヒントを見る。まずは自分で考える。</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="tiny-space"></div>', unsafe_allow_html=True)
-    render_scene_input(scene, case_payload["case_id"], scene_number)
+    render_scene_input(case_payload, scene_number, scene)
 
     nav1, nav2, nav3 = st.columns(3)
     with nav1:
-        prev_disabled = idx <= 0
-        if st.button("前へ", disabled=prev_disabled, use_container_width=True):
+        if st.button("前へ", disabled=(idx <= 0), use_container_width=True):
             st.session_state.scene_display_index -= 1
             rerun_with_scroll_top()
     with nav2:
-        if st.button("症例一覧へ戻る", use_container_width=True):
-            go_to("case_list")
+        if st.session_state.selected_mode == "level":
+            if st.button("Level選択へ戻る", use_container_width=True):
+                go_to("level_select")
+        else:
+            if st.button("表紙に戻る", use_container_width=True):
+                go_to("cover")
     with nav3:
         next_label = "ふりかえりへ" if idx >= total_scenes - 1 else "次へ"
         if st.button(next_label, type="primary", use_container_width=True):
-            recalc_total_score(case_payload, difficulty)
+            recalc_total_score(case_payload)
             if idx >= total_scenes - 1:
                 go_to("debrief")
             else:
@@ -1934,15 +2088,12 @@ def render_scene(case_payload: Dict[str, Any]) -> None:
 
 
 def render_hint(case_payload: Dict[str, Any]) -> None:
-    difficulty = st.session_state.selected_difficulty
-    visible_scenes = get_visible_scenes(case_payload, difficulty)
-
+    visible_scenes = get_visible_scenes(case_payload)
     idx = st.session_state.hint_from_scene_index
     if idx is None:
         idx = st.session_state.scene_display_index
     idx = max(0, min(idx, len(visible_scenes) - 1))
     scene_number, scene = visible_scenes[idx]
-
     title = html_escape(scene.get("title") or f"Scene {scene_number}")
     hint_text = html_escape(get_hint_text(scene)).replace(chr(10), "<br>")
 
@@ -1951,9 +2102,7 @@ def render_hint(case_payload: Dict[str, Any]) -> None:
         f"""
         <div class="hint-card">
             <div class="scene-title">{title}</div>
-            <div class="hint-box">
-                {hint_text}
-            </div>
+            <div class="hint-box">{hint_text}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1964,43 +2113,43 @@ def render_hint(case_payload: Dict[str, Any]) -> None:
         if st.button("元の場面へ戻る", type="primary", use_container_width=True):
             go_to("scene")
     with col2:
-        if st.button("症例一覧へ戻る", use_container_width=True):
-            go_to("case_list")
+        if st.session_state.selected_mode == "level":
+            if st.button("Level選択へ戻る", use_container_width=True):
+                go_to("level_select")
+        else:
+            if st.button("表紙に戻る", use_container_width=True):
+                go_to("cover")
 
 
-def render_debrief(case_payload: Dict[str, Any]) -> None:
-    difficulty = st.session_state.selected_difficulty
-    recalc_total_score(case_payload, difficulty)
-    percent = score_percent()
-    rank_name, rank_icon, rank_color, rank_class, rank_comment = rank_info(percent)
-
-    debrief = case_payload.get("debriefing", {}) or {}
-    summary = debrief.get("summary") or case_payload.get("summary", "")
-    ideal_actions = debrief.get("ideal_actions") or []
-    good_points = debrief.get("good_points") or []
-    cautions = debrief.get("cautions") or []
-
-    def list_or_text(value: Any) -> str:
-        if not value:
-            return ""
-        if isinstance(value, list):
-            return "<br>".join([f"・{html_escape(str(x))}" for x in value])
-        return html_escape(str(value)).replace(chr(10), "<br>")
-
-    summary_body = html_escape(summary).replace(chr(10), "<br>") if summary else ""
-    ideal_body = list_or_text(ideal_actions)
-    good_body = list_or_text(good_points)
-    caution_body = list_or_text(cautions)
-
-    st.markdown('<div class="section-title">ふりかえり</div>', unsafe_allow_html=True)
-    st.markdown('<div class="debrief-wrap">', unsafe_allow_html=True)
-
+def render_review_block(title: str, css_class: str, items: List[str], empty_text: str) -> None:
+    body = "<br>".join([f"・{html_escape(x)}" for x in items]) if items else html_escape(empty_text)
     st.markdown(
         f"""
-        <div class="debrief-rank-card {rank_class}">
-            <div class="debrief-rank-top">
-                <div class="debrief-rank-icon">{html_escape(rank_icon)}</div>
-                <div class="debrief-rank-name" style="color:{rank_color};">{html_escape(rank_name)}</div>
+        <div class="review-block {css_class}">
+            <div class="review-title">{html_escape(title)}</div>
+            <div>{body}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_debrief(case_payload: Dict[str, Any], cases: List[Dict[str, Any]]) -> None:
+    recalc_total_score(case_payload)
+    percent = score_percent()
+    rank_name, rank_icon, rank_comment = rank_info(percent)
+    debrief = case_payload.get("debriefing", {}) or {}
+
+    pos, total = get_current_case_position(st.session_state.selected_mode)
+    progress_html = f'<div class="progress-pill">症例 {pos} / {total}</div>' if total > 0 else ""
+
+    st.markdown('<div class="section-title">ふりかえり</div>', unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div class="case-card">
+            <div class="scene-header">
+                <div class="case-main">{html_escape(rank_icon)} {html_escape(rank_name)}</div>
+                {progress_html}
             </div>
             <div class="summary-grid">
                 <div class="summary-box">
@@ -2016,72 +2165,85 @@ def render_debrief(case_payload: Dict[str, Any]) -> None:
                     <div class="small">満点</div>
                 </div>
             </div>
-            <div class="debrief-rank-comment">{html_escape(rank_comment)}</div>
+            <div class="case-sub" style="margin-top:10px;">{html_escape(rank_comment)}</div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    if summary_body:
+    if debrief.get("summary"):
         st.markdown(
             f"""
-            <div class="debrief-blue-panel">
-                <div class="debrief-panel-title" style="color:#1f5fbf;">今回の要点</div>
-                <div class="debrief-panel-body">{summary_body}</div>
+            <div class="review-block review-blue">
+                <div class="review-title">今回の要点</div>
+                <div>{html_escape(str(debrief["summary"])).replace(chr(10), "<br>")}</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    if ideal_body:
+    st.markdown('<div class="section-title">場面ごとの復習</div>', unsafe_allow_html=True)
+    for scene_number, scene in get_visible_scenes(case_payload):
+        feedback = get_feedback_for_scene(case_payload["case_id"], scene_number)
+        if not feedback:
+            feedback = evaluate_scene(case_payload, scene_number, scene, get_answer_for_scene(case_payload["case_id"], scene_number))
+            set_feedback_for_scene(case_payload["case_id"], scene_number, feedback)
+
+        title = feedback["scene_title"]
+        score_display = feedback["score_display"]
+        input_type_text = {
+            "single_choice": "選択式",
+            "multiple_choice": "複数選択",
+            "ranking": "優先順位",
+            "template_select": "テンプレ選択",
+            "free_text": "記述式",
+        }.get(feedback["effective_type"], feedback["effective_type"])
+
         st.markdown(
             f"""
-            <div class="debrief-orange-panel">
-                <div class="debrief-panel-title" style="color:#ef6c00;">優先行動の整理</div>
-                <div class="debrief-panel-body">{ideal_body}</div>
+            <div class="review-card">
+                <div class="scene-header">
+                    <div class="scene-title">{html_escape(title)}</div>
+                    <span class="score-chip">{html_escape(score_display)}</span>
+                    <span class="scene-phase">{html_escape(input_type_text)}</span>
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    if good_body:
         st.markdown(
             f"""
-            <div class="debrief-green-panel">
-                <div class="debrief-panel-title" style="color:#2e7d32;">できたこと</div>
-                <div class="debrief-panel-body">{good_body}</div>
+            <div class="review-block review-blue">
+                <div class="review-title">あなたの回答</div>
+                <div>{html_escape(feedback["your_answer"]).replace(chr(10), "<br>")}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            f"""
+            <div class="review-block review-blue">
+                <div class="review-title">模範の方向性</div>
+                <div>{html_escape(feedback["model_answer"]).replace(chr(10), "<br>")}</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    if caution_body:
+        render_review_block("緑：合っていた要素", "review-green", feedback.get("green_items", []), "該当なし")
+        render_review_block("黄：弱い要素 / 位置ズレ", "review-yellow", feedback.get("yellow_items", []), "該当なし")
+        render_review_block("赤：不足 / 優先順位ミス", "review-red", feedback.get("red_items", []), "該当なし")
+
         st.markdown(
             f"""
-            <div class="debrief-red-panel">
-                <div class="debrief-panel-title" style="color:#c62828;">次に直すこと</div>
-                <div class="debrief-panel-body">{caution_body}</div>
+            <div class="review-block review-blue">
+                <div class="review-title">コメント</div>
+                <div>{html_escape(feedback.get("comment", "")).replace(chr(10), "<br>")}</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-
-    with st.expander("自分の回答を見る"):
-        visible_scenes = get_visible_scenes(case_payload, difficulty)
-        for scene_number, scene in visible_scenes:
-            ans = get_answer_for_scene(case_payload["case_id"], scene_number)
-            title = scene.get("title") or f"Scene {scene_number}"
-            st.markdown(f"**{title}**")
-            if ans is None or ans == []:
-                st.write("未回答")
-            elif isinstance(ans, list):
-                for a in ans:
-                    st.write(f"・{a}")
-            else:
-                st.write(str(ans))
-            st.markdown("---")
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -2089,9 +2251,58 @@ def render_debrief(case_payload: Dict[str, Any]) -> None:
             reset_case_progress()
             go_to("intro")
     with col2:
-        if st.button("症例一覧へ戻る", use_container_width=True):
-            reset_case_progress()
-            go_to("case_list")
+        if st.session_state.selected_mode == "level":
+            if st.button("次の症例へ", use_container_width=True):
+                move_to_next_case_in_level(cases)
+        else:
+            if st.button("次の症例へ", use_container_width=True):
+                move_to_next_case_in_random(cases)
+
+
+def render_level_complete() -> None:
+    level_name = st.session_state.selected_level_name or "Level"
+    st.markdown(
+        f"""
+        <div class="section-title">{html_escape(level_name)} クリア</div>
+        <div class="soft-panel">
+            <div class="case-main">このLevelの症例が終わったよ。</div>
+            <div class="case-sub">次のLevelに進むか、シャッフルしてもう一度挑戦できる。</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Level選択へ戻る", type="primary", use_container_width=True):
+            go_to("level_select")
+    with col2:
+        if st.button("表紙に戻る", use_container_width=True):
+            go_to("cover")
+
+
+def render_random_complete() -> None:
+    st.markdown(
+        """
+        <div class="section-title">全問題ランダム クリア</div>
+        <div class="soft-panel">
+            <div class="case-main">ランダム出題が終わったよ。</div>
+            <div class="case-sub">シャッフルしてもう一度挑戦するか、表紙へ戻れる。</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("シャッフルしてもう一度", type="primary", use_container_width=True):
+            st.session_state.random_progress_index = 0
+            st.session_state.selected_case_id = None
+            st.session_state.screen = "cover"
+            rerun_with_scroll_top()
+    with col2:
+        if st.button("表紙に戻る", use_container_width=True):
+            go_to("cover")
 
 
 # =========================================================
@@ -2104,7 +2315,6 @@ def main() -> None:
     trigger_scroll_top_if_needed()
 
     cases = load_all_cases()
-
     if not cases:
         st.error("cases フォルダ内に症例JSONが見つからない。")
         st.stop()
@@ -2114,21 +2324,23 @@ def main() -> None:
         current_case = get_case_by_id(cases, st.session_state.selected_case_id)
 
     screen = st.session_state.screen
-
     if screen == "cover":
         render_cover(cases)
 
-    elif screen == "case_filter":
-        render_case_filter(cases)
+    elif screen == "level_select":
+        render_level_select(cases)
 
-    elif screen == "case_list":
-        render_case_list(cases)
+    elif screen == "level_complete":
+        render_level_complete()
+
+    elif screen == "random_complete":
+        render_random_complete()
 
     elif screen in {"intro", "scene", "hint", "debrief"}:
         if not current_case:
-            st.warning("症例が選択されていない。症例一覧へ戻る。")
-            if st.button("症例一覧へ戻る", use_container_width=True):
-                go_to("case_list")
+            st.warning("症例が選択されていない。")
+            if st.button("表紙に戻る", use_container_width=True):
+                go_to("cover")
             st.stop()
 
         if screen == "intro":
@@ -2138,8 +2350,7 @@ def main() -> None:
         elif screen == "hint":
             render_hint(current_case)
         elif screen == "debrief":
-            render_debrief(current_case)
-
+            render_debrief(current_case, cases)
     else:
         go_to("cover")
 
