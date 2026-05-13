@@ -1,0 +1,643 @@
+{
+  "case_id": "pedestrian_vehicle_severe_head_injury_herniation_001",
+  "version": "2.0",
+  "title": "歩行者が乗用車にはねられ、重症頭部外傷と脳ヘルニア切迫を疑う症例",
+  "category": "trauma",
+  "difficulty": "Hard",
+  "estimated_time": 12,
+  "keywords": [
+    "交通外傷",
+    "重症頭部外傷",
+    "頭蓋内圧亢進",
+    "脳ヘルニア",
+    "頭皮圧迫止血"
+  ],
+  "metadata": {
+    "case_no": 94,
+    "source_hint": "第47回国家試験D問題33を参考に再構成",
+    "boss_candidate": false,
+    "ai_grading_candidate": false,
+    "free_text": false,
+    "interactive": false,
+    "media_required": true,
+    "image_file": "scalp_injury_diagram_with_laceration.png"
+  },
+  "patient_profile": {
+    "age": 75,
+    "sex": "male",
+    "chief_complaint": "乗用車にはねられた後の頭部外傷",
+    "background": "歩行中に乗用車にはね飛ばされ、通行人が救急要請した。頭部に創があり、反応低下と嘔吐を認める。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": {
+      "scene_safety_checked": false,
+      "cervical_spine_protected": false,
+      "airway_risk_recognized": false,
+      "load_and_go": false,
+      "head_wound_identified": false,
+      "suspected_raised_icp": false,
+      "scalp_pressure_hemostasis": false,
+      "head_elevation_with_smr": false
+    },
+    "danger_tags": [
+      "交通外傷",
+      "高エネルギー外傷",
+      "意識障害",
+      "反復嘔吐",
+      "瞳孔不同",
+      "頭蓋内圧亢進疑い"
+    ]
+  },
+  "result_rank": [
+    {
+      "rank": "Excellent",
+      "score_min": 85,
+      "life_min": 85,
+      "summary": "交通外傷として現場安全を確認し、初期評価で気道リスクと重症頭部外傷を疑い、早期収容後の観察結果から頭蓋内圧亢進を判断できた。搬送中処置として脊椎運動制限を保った頭側挙上と頭皮圧迫止血を選択できた。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 65,
+      "life_min": 70,
+      "summary": "重症頭部外傷を疑うことはできているが、初期評価での気道リスクや搬送中処置の優先順位に一部弱さがある。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 45,
+      "life_min": 50,
+      "summary": "頭部外傷の危険性には気づけているが、反復嘔吐、瞳孔不同、高血圧と徐脈を頭蓋内圧亢進に結びつける判断が不十分である。"
+    },
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "life_min": 0,
+      "summary": "頭皮創や鼻出血など局所所見にとらわれ、意識障害、反復嘔吐、瞳孔不同を伴う重症頭部外傷を見逃している。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch_pac",
+      "scene_goal": "歩行者対乗用車の交通外傷として、傷病者の反応を確認し重症度を見積もる。",
+      "ideal_flow": [
+        "歩行者が乗用車にはねられたことを把握する",
+        "傷病者が呼びかけに反応するかを確認する",
+        "呼吸や出血の有無を想定する",
+        "高エネルギー外傷として出場準備を行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "交通外傷",
+        "意識確認"
+      ],
+      "text": "通行人から「高齢男性が乗用車にはねられて倒れている」と救急要請があった。出場途上で通報者へ追加確認を行う。",
+      "visible_data": {
+        "dispatch_information": [
+          "75歳男性",
+          "歩行中に乗用車にはねられた",
+          "通行人が救急要請",
+          "詳しい状態は未確認"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "歩行者が乗用車にはねられたとの通報で、出場途上に通報者へ確認する内容として優先度が高いものはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "事故車両の色",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "事故車両の情報は警察活動などでは重要になるが、救急隊が出場途上で最初に重症度を見積もる情報としては優先度が下がる。"
+        },
+        {
+          "option_id": "B",
+          "text": "傷病者が呼びかけに反応するか",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "prearrival_consciousness_checked"
+          ],
+          "rationale": "呼びかけへの反応は意識状態を推測する重要な情報である。交通外傷では反応低下があれば重症頭部外傷やショックを想定する。"
+        },
+        {
+          "option_id": "C",
+          "text": "通報者が事故を撮影しているか",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "撮影の有無は救急活動の重症度判断には直結しない。傷病者の反応や呼吸、出血の有無を優先する。"
+        },
+        {
+          "option_id": "D",
+          "text": "傷病者の普段の歩行速度",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "日常生活情報として参考になる場合はあるが、受傷直後の重症度評価としては反応の有無が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価",
+      "phase": "scene_safety",
+      "scene_goal": "交通外傷現場で二次事故の危険を確認し、安全に接近する。",
+      "ideal_flow": [
+        "現場周囲の安全を確認する",
+        "後続車や交通流を確認する",
+        "事故車両の位置や燃料漏れを確認する",
+        "必要に応じて警察・消防隊と連携する",
+        "安全を確保して傷病者へ接近する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "状況評価",
+        "現場安全",
+        "交通外傷"
+      ],
+      "text": "現場は片側一車線の道路上で、傷病者は車道脇に倒れている。事故車両は少し離れた場所に停車しており、通行人が周囲に集まっている。",
+      "visible_data": {
+        "scene_information": [
+          "道路上の交通事故現場",
+          "傷病者は車道脇に倒れている",
+          "事故車両は近くに停車",
+          "通行人が周囲にいる",
+          "後続車の通行がある"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "交通事故現場で傷病者に接近する前に、状況評価として優先して確認すべき内容はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "後続車などによる二次事故の危険",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "scene_safety_checked"
+          ],
+          "rationale": "交通事故現場では、救急隊や傷病者が後続車に巻き込まれる危険がある。接近前に交通危険を確認し、安全を確保する。"
+        },
+        {
+          "option_id": "B",
+          "text": "傷病者の既往歴",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "既往歴は重要な情報だが、接近前の状況評価では現場安全の確認が優先される。"
+        },
+        {
+          "option_id": "C",
+          "text": "通報者の氏名",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "通報者情報の確認よりも、交通外傷現場ではまず二次事故の危険を評価する。"
+        },
+        {
+          "option_id": "D",
+          "text": "搬送先候補の選定",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "搬送先選定は後の重要な判断であるが、接近前にはまず現場安全を確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "数値バイタルを測定する前に、気道・呼吸・循環・意識の生命危機を手早く確認する。",
+      "ideal_flow": [
+        "用手的に頚椎を保護する",
+        "呼びかけへの反応を確認する",
+        "気道内の嘔吐物を確認する",
+        "呼吸様式を確認する",
+        "脈の触知と皮膚所見を確認する",
+        "大量外出血の有無を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "初期評価",
+        "気道管理",
+        "頚椎保護",
+        "L&G判断"
+      ],
+      "text": "安全を確認して傷病者へ接触した。傷病者は路上に仰臥位で倒れている。呼びかけへの反応は鈍く、刺激に対して四肢を動かす。口腔内に嘔吐物があり、反復して嘔吐している。呼吸は浅いが自発呼吸はある。脈は触れる。頭部に創があり、右鼻出血を認める。活動性の大量外出血は認めない。",
+      "visible_data": {
+        "initial_assessment": [
+          "仰臥位で倒れている",
+          "呼びかけへの反応は鈍い",
+          "刺激に対して四肢を動かす",
+          "口腔内に嘔吐物あり",
+          "反復して嘔吐している",
+          "浅い自発呼吸あり",
+          "脈は触れる",
+          "頭部に創あり",
+          "右鼻出血あり",
+          "活動性の大量外出血なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "接触直後の初期評価で、優先して対応すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "頭部に創があること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "頭部創は重要だが、初期評価ではまず生命危機に直結する気道・呼吸・循環を優先する。"
+        },
+        {
+          "option_id": "B",
+          "text": "口腔内に嘔吐物があること",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [
+            "airway_risk_recognized"
+          ],
+          "rationale": "口腔内の嘔吐物は気道閉塞や誤嚥につながる。頚椎保護を保ちながら気道を確保し、必要に応じて吸引や清拭を行う。"
+        },
+        {
+          "option_id": "C",
+          "text": "右鼻出血があること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "鼻出血も観察すべき所見だが、初期評価で最優先となるのは気道内の嘔吐物による気道リスクである。"
+        },
+        {
+          "option_id": "D",
+          "text": "四肢を動かしていること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "四肢の動きは神経所見として参考になるが、気道リスクの対応より優先されない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "L&G判断",
+      "phase": "load_and_go_decision",
+      "scene_goal": "初期評価の結果から重症頭部外傷を疑い、現場滞在を短くして早期収容へ進む。",
+      "ideal_flow": [
+        "頚椎保護を継続する",
+        "気道内の嘔吐物に対応する",
+        "反応低下と反復嘔吐を重視する",
+        "重症頭部外傷を疑う",
+        "早期収容を優先する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "L&G",
+        "重症頭部外傷",
+        "早期収容"
+      ],
+      "text": "用手的頚椎保護を継続し、口腔内を清拭して気道を確保した。呼吸は浅いが自発呼吸はある。脈は触れる。反応は低下しており、反復嘔吐がある。活動性の大量外出血は認めない。",
+      "visible_data": {
+        "initial_assessment_summary": [
+          "反応低下あり",
+          "反復嘔吐あり",
+          "浅い自発呼吸あり",
+          "脈は触れる",
+          "頭部創あり",
+          "大量外出血なし",
+          "頚椎保護継続中"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価の結果から、この時点の活動方針として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "四肢が動くため、現場で詳細な神経診察を続ける。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "四肢が動いていても、反応低下と反復嘔吐があり重症頭部外傷を否定できない。現場滞在を長くしない。"
+        },
+        {
+          "option_id": "B",
+          "text": "鼻出血があるため、鼻腔内観察を最優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "鼻出血も観察対象だが、反応低下と反復嘔吐を伴う重症頭部外傷疑いでは早期収容を優先する。"
+        },
+        {
+          "option_id": "C",
+          "text": "反復嘔吐と反応低下があるため、早期収容を優先する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "load_and_go"
+          ],
+          "rationale": "反応低下と反復嘔吐があり、重症頭部外傷と気道リスクを疑う。頚椎保護と気道管理を維持しながら早期収容へ進む。"
+        },
+        {
+          "option_id": "D",
+          "text": "頭皮創があるため、現場で創部処置を完結させる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "頭皮創への止血は必要だが、現場で処置を完結させるより早期収容と搬送中処置につなげる。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "全身観察：頭部・顔面",
+      "phase": "whole_body_assessment_head_face",
+      "scene_goal": "頭部・顔面の全身観察で、頭部創と神経学的異常を確認する。",
+      "ideal_flow": [
+        "脊椎運動制限を保つ",
+        "頭部創を観察する",
+        "鼻出血を確認する",
+        "嘔吐の継続を確認する",
+        "瞳孔不同と対光反射を確認する",
+        "重症頭部外傷を疑う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "全身観察",
+        "頭部外傷",
+        "瞳孔不同"
+      ],
+      "text": "車内収容後、脊椎運動制限を保ちながら全身観察を行った。頭部・顔面の観察では、頭頂部に大きな裂創を認め、創部から出血が続いている。右鼻出血があり、反復する嘔吐もみられる。瞳孔は右が大きく、右対光反射は鈍い。頭部創の模式図を示す。",
+      "visible_data": {
+        "head_face_findings": [
+          "頭頂部に大きな裂創あり",
+          "創部から出血が続いている",
+          "右鼻出血あり",
+          "反復嘔吐あり",
+          "瞳孔は右が大きい",
+          "右対光反射が鈍い"
+        ],
+        "image_description": "頭頂部の裂創部位を赤の網掛けで示した模式図"
+      },
+      "media": [
+        "media/scalp_injury_diagram_with_laceration.png"
+      ],
+      "type": "single_choice",
+      "prompt": "頭部・顔面の観察結果から、特に重視すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "頭髪に血液が付着していること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "血液付着は観察対象だが、重症頭部外傷を示す所見としては瞳孔不同や対光反射低下を重視する。"
+        },
+        {
+          "option_id": "B",
+          "text": "右鼻出血を認めること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "鼻出血も重要な所見だが、単独で病態を判断せず、意識障害や瞳孔所見、嘔吐と合わせて評価する。"
+        },
+        {
+          "option_id": "C",
+          "text": "瞳孔不同と対光反射の低下を認めること",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [
+            "suspected_raised_icp"
+          ],
+          "rationale": "頭部外傷後の瞳孔不同や対光反射低下は、頭蓋内圧亢進や脳ヘルニア切迫を疑う重要な所見である。"
+        },
+        {
+          "option_id": "D",
+          "text": "四肢の動きが確認できること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "四肢の動きは神経所見として参考になるが、瞳孔不同や対光反射低下を軽視してよい理由にはならない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "搬送中処置：国試の芯",
+      "phase": "transport_care_exam_core",
+      "scene_goal": "全身観察と車内での観察結果から、重症頭部外傷に対する搬送中処置を選択する。",
+      "ideal_flow": [
+        "頭部創の出血に対応する",
+        "頭蓋内圧亢進を疑う",
+        "脊椎運動制限を保つ",
+        "頭側挙上を行う",
+        "頭皮創を圧迫止血する",
+        "反復嘔吐に注意して気道管理を継続する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": [
+        "国試の芯",
+        "頭側挙上",
+        "頭皮圧迫止血"
+      ],
+      "text": "全身観察では、頭頂部創、右鼻出血、反復嘔吐を認めた。車内での観察では、意識JCS100、呼吸数12/分、脈拍44/分、血圧208/128mmHg、SpO2 94％であった。瞳孔は右5.0mm、左3.0mmで、右対光反射は鈍い。",
+      "visible_data": {
+        "transport_observation": [
+          "JCS100",
+          "呼吸数12/分",
+          "脈拍44/分",
+          "血圧208/128mmHg",
+          "SpO2 94%",
+          "右瞳孔5.0mm",
+          "左瞳孔3.0mm",
+          "右対光反射鈍麻",
+          "反復嘔吐あり",
+          "頭頂部創から出血あり"
+        ]
+      },
+      "media": [
+        "media/scalp_injury_diagram_with_laceration.png"
+      ],
+      "type": "multiple_choice",
+      "prompt": "観察結果を踏まえ、搬送中に実施する処置として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "血糖値を測定する。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "意識障害の鑑別として血糖測定が有用な場面はあるが、この症例で搬送中に実施すべき処置の中心は頭側挙上と頭皮圧迫止血である。"
+        },
+        {
+          "option_id": "B",
+          "text": "脊椎運動制限を保ちながら頭側を挙上する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "head_elevation_with_smr"
+          ],
+          "rationale": "重症頭部外傷で頭蓋内圧亢進が疑われる場合、脊椎運動制限を保ったままストレッチャーやバックボードごと頭側を挙上する。"
+        },
+        {
+          "option_id": "C",
+          "text": "頭皮創を圧迫して止血する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "scalp_pressure_hemostasis"
+          ],
+          "rationale": "頭皮は血流が豊富で出血しやすい。創部を観察し、必要に応じて圧迫止血を行う。"
+        },
+        {
+          "option_id": "D",
+          "text": "静脈路確保の指示要請を最優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "静脈路確保が必要となる場面はあるが、この設問では重症頭部外傷に対する搬送中処置として頭側挙上と頭皮止血が優先される。"
+        },
+        {
+          "option_id": "E",
+          "text": "経口エアウェイを挿入する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -2,
+          "status_effect": [],
+          "rationale": "反復嘔吐があり、意識も完全消失ではないため、経口エアウェイは嘔吐や咽頭反射の問題を生じやすい。気道管理は清拭・吸引などを優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態生理：頭蓋内圧亢進と脳ヘルニア",
+      "phase": "pathophysiology",
+      "scene_goal": "徐脈、高血圧、瞳孔不同、反復嘔吐から頭蓋内圧亢進と脳ヘルニア切迫を理解する。",
+      "ideal_flow": [
+        "重症頭部外傷を想定する",
+        "瞳孔不同と対光反射低下を理解する",
+        "反復嘔吐を頭蓋内圧亢進の所見として捉える",
+        "徐脈と高血圧を危険所見として捉える",
+        "脳ヘルニア切迫を疑う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "病態生理",
+        "頭蓋内圧亢進",
+        "脳ヘルニア"
+      ],
+      "text": "搬送中、傷病者には反復嘔吐、瞳孔不同、右対光反射鈍麻、高血圧、徐脈がみられている。病態を整理する。",
+      "visible_data": {
+        "pathophysiology_context": [
+          "重症頭部外傷疑い",
+          "JCS100",
+          "右瞳孔散大",
+          "右対光反射鈍麻",
+          "反復嘔吐",
+          "脈拍44/分",
+          "血圧208/128mmHg"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で、徐脈、高血圧、瞳孔不同、反復嘔吐を認める場合に疑う病態として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "鼻出血による循環血液量減少",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "鼻出血は観察所見の一つだが、徐脈、高血圧、瞳孔不同、反復嘔吐を説明する中心病態ではない。"
+        },
+        {
+          "option_id": "B",
+          "text": "頭蓋内圧亢進による脳ヘルニア切迫",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "herniation_risk_understood"
+          ],
+          "rationale": "重症頭部外傷では、頭蓋内出血や脳浮腫により頭蓋内圧が上昇し、意識障害、瞳孔不同、対光反射低下、反復嘔吐、徐脈・高血圧を来すことがある。脳ヘルニア切迫を疑い、早期搬送につなげる。"
+        },
+        {
+          "option_id": "C",
+          "text": "低血糖による一過性意識障害",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "低血糖は意識障害の鑑別に入るが、瞳孔不同、対光反射低下、高血圧と徐脈を伴う頭部外傷では頭蓋内圧亢進を優先して考える。"
+        },
+        {
+          "option_id": "D",
+          "text": "頭皮創のみの局所損傷",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "頭皮創のみでは、瞳孔不同、反復嘔吐、徐脈、高血圧は説明しにくい。重症頭部外傷として扱う必要がある。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "75歳男性の交通外傷症例。歩行中に乗用車にはねられ、接触時から反応低下と反復嘔吐を認めた。初期評価では数値バイタル測定より、頚椎保護、気道内嘔吐物への対応、呼吸・循環・意識の確認を優先する。車内収容後の全身観察で頭頂部裂創、右鼻出血、瞳孔不同、右対光反射鈍麻を認め、徐脈・高血圧もあるため、頭蓋内圧亢進と脳ヘルニア切迫を疑う。搬送中処置として、脊椎運動制限を保った頭側挙上と頭皮創の圧迫止血が重要である。",
+    "ideal_actions": [
+      "交通事故現場で後続車などの二次事故危険を確認する",
+      "接触時に用手的頚椎保護を行う",
+      "初期評価では気道内の嘔吐物を確認し、必要に応じて清拭・吸引を行う",
+      "反応低下と反復嘔吐から重症頭部外傷を疑い、早期収容する",
+      "車内収容後に頭部・顔面を含む全身観察を行う",
+      "瞳孔不同、対光反射低下、徐脈、高血圧から頭蓋内圧亢進を疑う",
+      "脊椎運動制限を保ちながら頭側を挙上する",
+      "頭皮創を圧迫して止血する"
+    ],
+    "good_points": [
+      "初期評価では数値バイタルではなく、生命危機に直結する気道・呼吸・循環・意識を短時間で確認する",
+      "反復嘔吐は気道リスクであり、重症頭部外傷を疑う手がかりにもなる",
+      "瞳孔不同と対光反射低下は脳ヘルニア切迫を疑う重要所見である",
+      "頭皮創は出血しやすいため、搬送中も圧迫止血を継続する"
+    ],
+    "cautions": [
+      "反復嘔吐がある傷病者では、経口エアウェイ挿入は不適切となりやすい",
+      "脊椎運動制限を解除して上半身だけを起こさない",
+      "鼻出血や頭皮創だけに注意を奪われ、瞳孔不同や徐脈・高血圧を見逃さない",
+      "意識障害、瞳孔不同、反復嘔吐を伴う頭部外傷では早期搬送を優先する"
+    ]
+  }
+}

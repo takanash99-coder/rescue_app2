@@ -1,6 +1,6 @@
 {
   "case_id": "trauma_cardiac_tamponade_jvd_001",
-  "version": "2.0",
+  "version": "3.0",
   "title": "頸静脈怒張を伴う胸部外傷から心タンポナーデを疑う症例",
   "category": "trauma",
   "difficulty": "Hard",
@@ -13,74 +13,9 @@
     "閉塞性ショック",
     "心膜腔内圧"
   ],
-  "overview": "48歳女性。オートバイ運転中に電柱へ衝突し受傷した。現場では意識障害、頻呼吸、頻脈、境界域低血圧、四肢冷感を認める。胸壁前面に打撲痕があり、頸部には頸静脈怒張を示す所見がみられる。一方で呼吸音の左右差や皮下気腫はない。胸部外傷後の閉塞性ショック、とくに心タンポナーデを想起し、病態生理として心膜腔内圧上昇を選べるかがテーマの症例。",
-  "patient_profile": {
-    "age": 48,
-    "sex": "female",
-    "chief_complaint": "交通外傷後の意識障害と循環不全",
-    "background": [
-      "オートバイ運転中",
-      "電柱に衝突"
-    ],
-    "setting": "路上"
-  },
-  "initial_state": {
-    "life": 76,
-    "max_life": 100,
-    "score": 0,
-    "flags": [
-      "blunt_chest_trauma",
-      "altered_consciousness",
-      "tachypnea",
-      "tachycardia",
-      "jugular_venous_distension",
-      "cold_extremities"
-    ],
-    "danger_tags": [
-      "obstructive_shock",
-      "cardiac_tamponade",
-      "circulatory_collapse",
-      "impending_cardiac_arrest"
-    ],
-    "time_pressure": 9
-  },
-  "result_rank": [
-    {
-      "rank": "Bad",
-      "score_min": 0,
-      "score_max": 49,
-      "life_min": 0,
-      "life_max": 49,
-      "summary": "高エネルギー胸部外傷としての重症度評価が不十分で、閉塞性ショックを見逃している。"
-    },
-    {
-      "rank": "Normal",
-      "score_min": 50,
-      "score_max": 74,
-      "life_min": 50,
-      "life_max": 69,
-      "summary": "ショックは認識できているが、心タンポナーデを示す所見の結びつけがやや弱い。"
-    },
-    {
-      "rank": "Good",
-      "score_min": 75,
-      "score_max": 89,
-      "life_min": 70,
-      "life_max": 84,
-      "summary": "頸静脈怒張と胸部外傷から閉塞性ショックを疑い、搬送優先で適切に対応できている。"
-    },
-    {
-      "rank": "Excellent",
-      "score_min": 90,
-      "score_max": 100,
-      "life_min": 85,
-      "life_max": 100,
-      "summary": "高エネルギー胸部外傷、頸静脈怒張、呼吸音左右差なしを統合し、心タンポナーデの病態生理まで正確に理解できている。"
-    }
-  ],
   "scenes": [
     {
-      "id": "scene_1",
+      "id": "scene1",
       "title": "通報内容の整理",
       "phase": "通報内容＋プレアライバルコール",
       "scene_goal": "高エネルギー機転の胸部外傷として重症例を想定する。",
@@ -157,7 +92,7 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "受傷機転からは胸部・循環器損傷を強く警戒すべき。"
+          "rationale": "受傷機転からは胸部・循環器損傷を強く警戒すべきである。"
         },
         {
           "option_id": "q1_o4",
@@ -180,7 +115,7 @@
       ]
     },
     {
-      "id": "scene_2",
+      "id": "scene2",
       "title": "初期評価",
       "phase": "初期評価",
       "scene_goal": "意識障害と循環不全を伴う外傷性ショックとして把握する。",
@@ -200,9 +135,9 @@
       "visible_data": {
         "vital_signs": {
           "JCS": "3",
-          "RR": 28,
+          "RR": "28/分",
           "HR": "120/分・整",
-          "BP": "100/74"
+          "BP": "100/74mmHg"
         },
         "general_impression": [
           "路肩で座位保持",
@@ -214,7 +149,7 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点で最も優先して捉えるべき状態はどれか。1つ選べ。",
+      "prompt": "この時点で最も優先して捉えるべき状態はどれか。",
       "options": [
         {
           "option_id": "q2_o1",
@@ -230,7 +165,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "頻脈、頻呼吸、末梢冷感は循環不全を示す重要所見。"
+          "rationale": "頻脈、頻呼吸、末梢冷感は循環不全を示す重要所見である。"
         },
         {
           "option_id": "q2_o2",
@@ -284,12 +219,12 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "外傷患者では代償期ショックもあり、末梢冷感や頻脈を重視すべき。"
+          "rationale": "外傷患者では代償期ショックもあり、末梢冷感や頻脈を重視すべきである。"
         }
       ]
     },
     {
-      "id": "scene_3",
+      "id": "scene3",
       "title": "所見の整理",
       "phase": "情報収集＋バイタル評価",
       "scene_goal": "頸静脈怒張と胸部所見から閉塞性ショックを疑う材料を整理する。",
@@ -319,14 +254,7 @@
         ]
       },
       "media": [
-        {
-          "media_id": "media_scene3_neck",
-          "type": "image",
-          "path": "media/neck_jugular_venous_distension_001.png",
-          "description": "再構成画像",
-          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。頸静脈怒張が分かればよい。",
-          "caption": "頸部の頸静脈怒張所見"
-        }
+        "media/neck_jugular_venous_distension_001.png"
       ],
       "type": "multiple_choice",
       "prompt": "この時点で特に重視すべき所見を2つ選べ。",
@@ -345,7 +273,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "閉塞性ショックを示唆する重要な身体所見。"
+          "rationale": "閉塞性ショックを示唆する重要な身体所見である。"
         },
         {
           "option_id": "q3_o2",
@@ -402,7 +330,7 @@
       ]
     },
     {
-      "id": "scene_4",
+      "id": "scene4",
       "title": "活動方針の再判断",
       "phase": "活動方針の再判断",
       "scene_goal": "心タンポナーデを含む閉塞性ショックを疑い搬送優先とする。",
@@ -431,7 +359,7 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点での活動方針として最も適切なのはどれか。1つ選べ。",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。",
       "options": [
         {
           "option_id": "q4_o1",
@@ -449,7 +377,7 @@
               "undertriage"
             ]
           },
-          "rationale": "胸部外傷後の閉塞性ショックは致死的であり、迅速搬送が必要。"
+          "rationale": "胸部外傷後の閉塞性ショックは致死的であり、迅速搬送が必要である。"
         },
         {
           "option_id": "q4_o2",
@@ -503,12 +431,12 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "胸部外傷では閉塞性ショックも必ず鑑別に入れるべき。"
+          "rationale": "胸部外傷では閉塞性ショックも必ず鑑別に入れるべきである。"
         }
       ]
     },
     {
-      "id": "scene_5",
+      "id": "scene5",
       "title": "全身観察",
       "phase": "全身観察",
       "scene_goal": "心タンポナーデを支持する所見と否定的所見を整理する。",
@@ -536,14 +464,7 @@
         ]
       },
       "media": [
-        {
-          "media_id": "media_scene5_neck",
-          "type": "image",
-          "path": "media/neck_jugular_venous_distension_001.png",
-          "description": "再構成画像",
-          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。頸静脈怒張が分かればよい。",
-          "caption": "頸部の頸静脈怒張"
-        }
+        "media/neck_jugular_venous_distension_001.png"
       ],
       "type": "multiple_choice",
       "prompt": "この症例で心タンポナーデを支持する所見を2つ選べ。",
@@ -562,7 +483,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "静脈還流障害を反映する重要所見。"
+          "rationale": "静脈還流障害を反映する重要所見である。"
         },
         {
           "option_id": "q5_o2",
@@ -578,7 +499,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "胸部外傷後のショックと頸静脈怒張の組み合わせは重要。"
+          "rationale": "胸部外傷後のショックと頸静脈怒張の組み合わせは重要である。"
         },
         {
           "option_id": "q5_o3",
@@ -619,7 +540,7 @@
       ]
     },
     {
-      "id": "scene_6",
+      "id": "scene6",
       "title": "病態生理の判断",
       "phase": "評価・ファーストコール・特定行為",
       "scene_goal": "心タンポナーデによる閉塞性ショックの病態生理を選択して申し送る。",
@@ -648,17 +569,10 @@
         ]
       },
       "media": [
-        {
-          "media_id": "media_scene6_neck",
-          "type": "image",
-          "path": "media/neck_jugular_venous_distension_001.png",
-          "description": "再構成画像",
-          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像。頸静脈怒張が分かればよい。",
-          "caption": "頸静脈怒張の所見"
-        }
+        "media/neck_jugular_venous_distension_001.png"
       ],
       "type": "single_choice",
-      "prompt": "この病態で生じる生理学的変化はどれか。1つ選べ。",
+      "prompt": "この病態で生じる生理学的変化はどれか。",
       "options": [
         {
           "option_id": "q6_o1",
@@ -676,7 +590,7 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "心タンポナーデの本態は心膜腔内圧上昇による心充満障害。"
+          "rationale": "心タンポナーデの本態は心膜腔内圧上昇による心充満障害である。"
         },
         {
           "option_id": "q6_o2",
@@ -694,7 +608,7 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "主な機序は収縮力低下ではなく、外からの圧迫による拡張障害。"
+          "rationale": "主な機序は収縮力低下ではなく、外からの圧迫による拡張障害である。"
         },
         {
           "option_id": "q6_o3",
@@ -712,7 +626,7 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "出血性ショックとは異なり、閉塞性ショックの機序を問う設問。"
+          "rationale": "出血性ショックとは異なり、閉塞性ショックの機序を問う設問である。"
         },
         {
           "option_id": "q6_o4",
@@ -731,29 +645,11 @@
             ]
           },
           "rationale": "心タンポナーデでは心膜腔内圧が上昇し、心室拡張と静脈還流が障害される。"
-        },
-        {
-          "option_id": "q6_o5",
-          "text": "全身血管抵抗の低下",
-          "is_correct": false,
-          "score_delta": -2,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "physiology_error"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "wrong_shock_mechanism"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "分布異常性ショック寄りの発想であり、この症例には合わない。"
         }
       ]
     },
     {
-      "id": "scene_7",
+      "id": "scene7",
       "title": "車内活動",
       "phase": "車内活動",
       "scene_goal": "閉塞性ショック進行を警戒しながら循環動態を継続監視する。",
@@ -797,7 +693,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "循環不全進行の評価として重要。"
+          "rationale": "循環不全進行の評価として重要である。"
         },
         {
           "option_id": "q7_o2",
@@ -813,7 +709,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "心タンポナーデでは急速な循環虚脱に注意が必要。"
+          "rationale": "心タンポナーデでは急速な循環虚脱に注意が必要である。"
         },
         {
           "option_id": "q7_o3",
@@ -829,7 +725,7 @@
             "add_danger_tags": [],
             "remove_danger_tags": []
           },
-          "rationale": "重要なのは写真ではなく、実際の循環動態と病態進行の評価。"
+          "rationale": "重要なのは写真ではなく、実際の循環動態と病態進行の評価である。"
         },
         {
           "option_id": "q7_o4",

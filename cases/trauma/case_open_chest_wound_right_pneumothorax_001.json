@@ -1,0 +1,515 @@
+{
+  "case_id": "trauma_open_chest_wound_right_pneumothorax_001",
+  "version": "2.0",
+  "title": "ガラス戸で右胸部を受傷し、開放性胸部外傷への処置を判断する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "胸部外傷",
+    "開放性気胸",
+    "右胸部創",
+    "呼吸音減弱",
+    "胸部創被覆"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "通報内容から胸部外傷と呼吸障害の可能性を想定し、家族への適切な口頭指導を選択する。",
+      "ideal_flow": [
+        "胸部をガラスで受傷した情報から胸部外傷を疑う",
+        "呼吸状態を確認してもらう",
+        "創部を不用意に触らせない",
+        "ガラス片による二次受傷を避ける"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "50歳の男性。自宅でつまずいて転倒した際、ガラス戸で右胸部を受傷したため、家族が救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "自宅内で転倒した",
+          "ガラス戸で右胸部を受傷した",
+          "家族が通報している",
+          "傷病者は息苦しそうにしている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "家族への口頭指導として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "胸の傷を確認するため、家族に創部を広げて中を見てもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "創部を広げる行為は損傷悪化や感染、出血増加につながる可能性がある。"
+        },
+        {
+          "option_id": "2",
+          "text": "ガラス片に注意しながら安全な位置で待機し、反応と呼吸の状態を確認してもらう。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "家族の安全確保を優先し、反応と呼吸状態を確認してもらうのが適切である。"
+        },
+        {
+          "option_id": "3",
+          "text": "創部から空気が出ている場合は、家族に強く押し込むよう指示する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "強い圧迫や押し込みは損傷を悪化させるおそれがある。"
+        },
+        {
+          "option_id": "4",
+          "text": "呼吸が苦しそうでも、救急隊到着まで仰臥位で静かに待つよう伝える。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "呼吸苦がある場合、楽な姿勢を保つことが望ましい。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価",
+      "phase": "scene_size_up",
+      "scene_goal": "自宅内のガラス損傷現場で、二次受傷リスクを評価して安全に接触する。",
+      "ideal_flow": [
+        "ガラス片の位置を確認する",
+        "家族や傷病者の安全を確保する",
+        "活動導線を確保する",
+        "胸部外傷を想定して接触する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_safety",
+      "text": "現場は自宅の居間で、ガラス戸が割れている。床にはガラス片が散乱しており、傷病者は右胸を押さえて座り込んでいる。",
+      "visible_data": {
+        "scene_findings": [
+          "ガラス戸が割れている",
+          "床にガラス片が散乱している",
+          "傷病者は右胸部を押さえている",
+          "家族がそばで見守っている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "接触前にまず優先すべき確認として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "創部の深さを確認するため、すぐに衣服を大きく引き裂く。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "接触前にはまず現場安全を確認する。"
+        },
+        {
+          "option_id": "2",
+          "text": "ガラス片による二次受傷の危険と活動スペースを確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "ガラス片が散乱する現場では、救急隊・家族・傷病者の二次受傷防止が重要である。"
+        },
+        {
+          "option_id": "3",
+          "text": "家族から既往歴を詳しく聞き取ってから傷病者に接触する。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "情報収集も必要だが、まず安全確認と初期評価が優先される。"
+        },
+        {
+          "option_id": "4",
+          "text": "出血が少なければ胸部外傷の可能性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "胸部外傷では外出血量だけで重症度を判断できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "初期評価で呼吸障害を示す危険所見を捉え、胸部外傷として全身観察へ進む。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "気道開通を確認する",
+        "呼吸の速さと努力呼吸を確認する",
+        "右胸部創の存在を把握する",
+        "大量外出血の有無を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment",
+      "text": "傷病者は呼びかけに明瞭に応答する。気道は開通しているが、呼吸は速く苦しそうである。右側胸部に創があり、呼吸に合わせて血液を含む泡が見える。大量外出血は目立たない。",
+      "visible_data": {
+        "initial_assessment": [
+          "意識は清明である",
+          "気道は開通している",
+          "呼吸は速く苦しそうである",
+          "右側胸部に創を認める",
+          "呼吸に合わせて血液を含む泡が見える",
+          "大量外出血は目立たない"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価で最も注意すべき問題はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "創部の皮膚損傷のみで、呼吸状態への影響は少ないこと。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "呼吸苦と胸部創があり、呼吸障害を伴う胸部外傷を疑う。"
+        },
+        {
+          "option_id": "2",
+          "text": "胸部創に伴う呼吸障害が進行する可能性。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "呼吸に合わせた泡立つ血液は胸腔との交通を示唆し、呼吸障害に注意が必要である。"
+        },
+        {
+          "option_id": "3",
+          "text": "意識清明であるため、緊急度は低いこと。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識清明でも呼吸障害を伴う胸部外傷は緊急度が高い。"
+        },
+        {
+          "option_id": "4",
+          "text": "出血量が少ないため、創部処置は搬送後でよいこと。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "出血量だけで判断せず、空気の出入りを伴う胸部創として評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "全身観察と処置判断",
+      "phase": "whole_body_assessment",
+      "scene_goal": "人体図で胸部創の所見を確認し、観察結果から必要な処置を判断する。",
+      "ideal_flow": [
+        "全身観察で胸部創の位置を確認する",
+        "創部から泡立つ血液が出る所見を捉える",
+        "胸部創からの空気の出入りを考える",
+        "創部を被覆して空気流入を抑える処置を選択する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "chest_wound_management",
+      "text": "全身観察を行う。人体図で右側胸部を確認すると、右側胸部に約5cmの創を認め、血液を含む泡が呼吸に合わせて吹き出している。",
+      "visible_data": {
+        "body_map_template": "media/neutral_mannequin_body_diagram_template.png",
+        "body_regions": [
+          {
+            "region_id": "head_face",
+            "label": "頭部・顔面",
+            "finding": "明らかな外傷や大量出血はない。",
+            "clinical_meaning": "頭部外傷を強く疑う所見は目立たない。"
+          },
+          {
+            "region_id": "neck",
+            "label": "頚部",
+            "finding": "気管の明らかな偏位は目立たない。",
+            "clinical_meaning": "現時点で明らかな緊張性変化は目立たないが、経過に注意する。"
+          },
+          {
+            "region_id": "right_chest",
+            "label": "右側胸部",
+            "finding": "右側胸部に約5cmの創を認める。血液を含む泡が呼吸に合わせて吹き出している。",
+            "clinical_meaning": "胸壁から空気が出入りしている可能性があり、呼吸状態悪化に注意する。"
+          },
+          {
+            "region_id": "left_chest",
+            "label": "左胸部",
+            "finding": "明らかな創や胸郭変形はない。",
+            "clinical_meaning": "左胸部外傷を示す所見は目立たない。"
+          },
+          {
+            "region_id": "abdomen",
+            "label": "腹部",
+            "finding": "強い圧痛や膨隆は目立たない。",
+            "clinical_meaning": "腹部外傷を強く疑う所見は乏しい。"
+          },
+          {
+            "region_id": "pelvis",
+            "label": "骨盤",
+            "finding": "骨盤部の強い疼痛は訴えない。",
+            "clinical_meaning": "骨盤外傷を強く疑う所見は乏しい。"
+          },
+          {
+            "region_id": "extremities",
+            "label": "四肢",
+            "finding": "明らかな変形や大量外出血はない。",
+            "clinical_meaning": "四肢外傷より胸部創の評価を優先する。"
+          }
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "single_choice",
+      "prompt": "右側胸部の観察結果から、現場で優先すべき処置はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "創部を開放したまま、出血量のみを観察する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "空気の出入りを伴う胸部創では、出血量だけでなく胸腔内への空気流入を考える。"
+        },
+        {
+          "option_id": "2",
+          "text": "胸部創を被覆し、空気の出入りを抑える。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "呼吸に合わせて泡立つ血液が出る胸部創では、創部を被覆して空気流入を抑える。"
+        },
+        {
+          "option_id": "3",
+          "text": "創部を強く圧迫し、完全に密閉した状態を保つ。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "完全密閉は胸腔内圧上昇を招く可能性があり、呼吸・循環の変化に注意が必要である。"
+        },
+        {
+          "option_id": "4",
+          "text": "タオルを丸めて創部に当て、胸壁の動きを固定する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "胸壁動揺への対応に近い考え方であり、この症例では胸部創からの空気流入を抑える処置が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後の再評価と悪化予測",
+      "phase": "reassessment",
+      "scene_goal": "車内収容後の所見から、今後起こり得る状態変化を予測する。",
+      "ideal_flow": [
+        "車内収容後に数値バイタルを確認する",
+        "胸部創の被覆後も呼吸状態を評価する",
+        "胸腔内への空気貯留による悪化を考える",
+        "呼吸と循環の変化を継続評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_and_risk_prediction",
+      "text": "車内収容後、意識清明。呼吸数32/分、脈拍92/分、整。血圧140/80mmHg。SpO2値90％。右側胸部創は被覆済みだが、呼吸苦は続いている。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "意識清明",
+          "respiratory_rate": "32/分",
+          "pulse": "92/分、整",
+          "blood_pressure": "140/80mmHg",
+          "spo2": "90%"
+        },
+        "findings": [
+          "右側胸部創は被覆済み",
+          "呼吸苦が続いている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で今後注意すべき状態変化として最も重要なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "胸腔内に空気がたまり、呼吸状態や循環が悪化する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸部開放創では、胸腔内への空気貯留により呼吸・循環が悪化する可能性がある。"
+        },
+        {
+          "option_id": "2",
+          "text": "創部の出血が止まれば、呼吸状態も直ちに改善する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "出血停止だけでは胸腔内の空気貯留や肺の虚脱は解決しない。"
+        },
+        {
+          "option_id": "3",
+          "text": "腹部膨満が進行し、腹部外傷が主病態となる。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "現時点の中心は右胸部創に伴う呼吸障害である。"
+        },
+        {
+          "option_id": "4",
+          "text": "四肢冷感のみが出現し、胸部所見は搬送中に軽快する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "胸部創は呼吸状態悪化につながるため、軽視できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯",
+      "phase": "core_question",
+      "scene_goal": "胸部創と呼吸状態から、開放性胸部外傷でみられる所見を選択する。",
+      "ideal_flow": [
+        "右側胸部創と呼吸苦を整理する",
+        "右胸腔内の空気流入を考える",
+        "右肺の拡張低下を想定する",
+        "最も考えやすい身体所見を選ぶ"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "exam_core",
+      "text": "右側胸部に長さ約5cmの創を認め、血液を含む泡が呼吸に合わせて吹き出していた。",
+      "visible_data": {
+        "core_findings": [
+          "右側胸部創",
+          "血液を含む泡が呼吸に合わせて吹き出す",
+          "呼吸数32/分",
+          "SpO2値90％"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者にみられる所見として最も考えやすいのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "心音減弱",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "心タンポナーデなどで考える所見であり、この症例の主所見ではない。"
+        },
+        {
+          "option_id": "2",
+          "text": "左胸郭膨隆",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "損傷側は右であり、左胸郭膨隆は考えにくい。"
+        },
+        {
+          "option_id": "3",
+          "text": "右呼吸音減弱",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "右胸腔内へ空気が流入し、右肺が拡張しにくくなるため右呼吸音減弱が考えやすい。"
+        },
+        {
+          "option_id": "4",
+          "text": "気管右側偏位",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "緊張性気胸で偏位する場合は、通常は患側と反対側への偏位を考える。"
+        },
+        {
+          "option_id": "5",
+          "text": "右胸郭奇異運動",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "胸郭奇異運動はフレイルチェストでみられる所見であり、この症例の中心ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "clinical_reasoning",
+      "scene_goal": "右胸部開放創で右呼吸音が減弱する理由を理解する。",
+      "ideal_flow": [
+        "胸壁の創から空気が出入りすることを理解する",
+        "右肺が広がりにくくなることを考える",
+        "呼吸音減弱と病態を結びつける"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "pathophysiology_understanding",
+      "text": "右側胸部の創から空気が出入りすると、右肺の広がりが妨げられる。",
+      "visible_data": {
+        "clinical_focus": [
+          "右側胸部創",
+          "空気の出入り",
+          "右呼吸音減弱"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で右呼吸音が減弱する理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "胸壁の創から空気が出入りし、右肺が十分に広がりにくくなるため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸腔内へ空気が流入すると、損傷側の肺が拡張しにくくなり呼吸音が減弱する。"
+        },
+        {
+          "option_id": "2",
+          "text": "心臓の拍動が弱くなり、右胸部の血流が低下するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "右呼吸音減弱の主な理由ではない。"
+        },
+        {
+          "option_id": "3",
+          "text": "右胸郭が骨折により大きく外側へ膨らむため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "この症例では胸郭膨隆よりも胸部開放創による空気流入が中心である。"
+        },
+        {
+          "option_id": "4",
+          "text": "気管が右側へ移動し、右主気管支が閉塞するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "この症例の右呼吸音減弱を説明する内容として不適切である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "50歳男性が転倒時にガラス戸で右胸部を受傷した症例。右側胸部に約5cmの創があり、血液を含む泡が呼吸に合わせて吹き出していた。胸壁から空気が出入りすることで右肺が広がりにくくなり、右呼吸音減弱が考えられる。現場では胸部創を被覆して空気の出入りを抑え、被覆後も呼吸・循環の悪化に注意することが学習の中心である。",
+    "ideal_actions": [
+      "ガラス片による二次受傷を防ぎ、安全に接触する",
+      "胸部創と呼吸苦から呼吸障害を伴う胸部外傷を疑う",
+      "人体図で右側胸部創の位置と性状を確認する",
+      "血液を含む泡が呼吸に合わせて出る所見を重視する",
+      "胸部創を被覆して空気の出入りを抑える",
+      "被覆後も胸腔内空気貯留による悪化に注意する",
+      "右呼吸音減弱の病態を理解する"
+    ],
+    "good_points": [
+      "人体図を使って右側胸部創を確認する流れにできる",
+      "開放性胸部外傷とフレイルチェストの処置の違いを学べる",
+      "処置判断、悪化予測、国試知識、病態理解までつなげられる"
+    ],
+    "cautions": [
+      "胸部創を出血量だけで評価しない",
+      "呼吸に合わせて泡立つ血液を見逃さない",
+      "胸壁動揺への固定処置と胸部開放創の被覆処置を混同しない",
+      "創部被覆後も呼吸状態や循環の悪化を継続評価する"
+    ]
+  }
+}

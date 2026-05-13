@@ -1,0 +1,675 @@
+{
+  "case_id": "postpartum_atonic_bleeding_home_delivery_001",
+  "version": "2.0",
+  "title": "自宅分娩後、胎盤娩出後も出血が持続し弛緩出血を疑う症例",
+  "category": "reproductive_obstetric",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "自宅分娩",
+    "臍帯処置",
+    "アプガースコア",
+    "産後出血",
+    "弛緩出血"
+  ],
+  "metadata": {
+    "case_no": 91,
+    "source_hint": "第47回国家試験D問題30を参考に再構成",
+    "boss_candidate": false,
+    "ai_grading_candidate": false,
+    "free_text": false,
+    "interactive": false,
+    "media_required": false
+  },
+  "patient_profile": {
+    "age": 38,
+    "sex": "female",
+    "chief_complaint": "自宅で出産後、膣口からの出血が続いている",
+    "background": "自宅で分娩し、本人が救急要請した。新生児は元気に泣いており、胎盤も娩出されている。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": {
+      "mother_unstable": false,
+      "newborn_unstable": false,
+      "postpartum_bleeding": true,
+      "placenta_delivered": true,
+      "cord_cut": false,
+      "suspected_atonic_bleeding": false
+    },
+    "danger_tags": [
+      "産後出血",
+      "母体循環悪化リスク",
+      "新生児低体温リスク"
+    ]
+  },
+  "result_rank": [
+    {
+      "rank": "Excellent",
+      "score_min": 85,
+      "life_min": 85,
+      "summary": "母児双方の初期評価、臍帯処置、新生児評価、産後出血の観察を適切に行い、弛緩出血の病態まで理解できた。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 65,
+      "life_min": 70,
+      "summary": "弛緩出血を疑う判断はできているが、臍帯処置や新生児評価の一部に弱さがある。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 45,
+      "life_min": 50,
+      "summary": "母体出血の危険性には気づけているが、分娩直後の手順や新生児評価が不十分である。"
+    },
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "life_min": 0,
+      "summary": "産後出血の評価が遅れ、母体の循環悪化や新生児管理のリスクを見逃している。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch_pac",
+      "scene_goal": "自宅分娩後の通報で、新生児の状態を優先して確認する。",
+      "ideal_flow": [
+        "自宅分娩後であることを把握する",
+        "新生児の啼泣の有無を確認する",
+        "新生児蘇生の必要性を想定する",
+        "母児双方の対応を準備する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "新生児評価",
+        "分娩直後対応"
+      ],
+      "text": "38歳女性から「自宅で赤ちゃんが生まれました」と救急要請があった。本人は会話可能で、電話口では落ち着いている。出場途上で追加確認を行う。",
+      "visible_data": {
+        "dispatch_information": [
+          "38歳女性が自宅で出産した",
+          "本人が救急要請している",
+          "電話での会話は可能",
+          "新生児の詳細な状態は未確認"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "自宅分娩後の通報で、出場途上に本人へ最初に確認する内容として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "胎盤を保存しているか。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "胎盤の確認も後で必要になるが、出場途上の最初の確認としては新生児の呼吸状態が優先される。"
+        },
+        {
+          "option_id": "B",
+          "text": "新生児が泣いているか。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "newborn_breathing_estimated"
+          ],
+          "rationale": "啼泣の有無は新生児の呼吸状態を推測する重要な情報である。啼泣がなければ新生児蘇生を想定する。"
+        },
+        {
+          "option_id": "C",
+          "text": "出産予定日はいつだったか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "妊娠週数の推定には役立つが、最初に確認すべき生命危機の評価としては優先度が下がる。"
+        },
+        {
+          "option_id": "D",
+          "text": "臍帯を切断してよいか。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "電話口で本人に臍帯切断を促すより、まず新生児の啼泣や呼吸状態を確認することが重要である。"
+        },
+        {
+          "option_id": "E",
+          "text": "妊婦健診を受けていたか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "背景情報としては有用だが、出場途上の最初の確認としては新生児の状態確認を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "母体の初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "救急隊接触時に母体の生命徴候を優先して評価する。",
+      "ideal_flow": [
+        "母体の意識状態を確認する",
+        "呼吸状態を確認する",
+        "脈拍や皮膚所見から循環を評価する",
+        "産後出血の有無を意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "初期評価",
+        "母体評価",
+        "産後出血"
+      ],
+      "text": "救急隊が自宅へ到着した。母体は布団上に座位でおり、会話は可能である。新生児はタオルに包まれ、元気に泣いている。",
+      "visible_data": {
+        "scene_observation": [
+          "母体は会話可能",
+          "新生児は啼泣あり",
+          "室内に分娩後の血液付着がみられる",
+          "胎盤は娩出されているように見える"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊到着時、母体の初期評価として優先して確認する内容はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "体重の変化",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "産後の評価として体重変化は初期評価の優先項目ではない。"
+        },
+        {
+          "option_id": "B",
+          "text": "分娩予定日",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "背景情報として確認してよいが、初期評価では生命徴候を優先する。"
+        },
+        {
+          "option_id": "C",
+          "text": "意識状態",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "mother_initial_assessed"
+          ],
+          "rationale": "初期評価では意識、呼吸、循環を確認する。産後出血では循環悪化に伴い意識状態が変化することがある。"
+        },
+        {
+          "option_id": "D",
+          "text": "新生児の性別",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "新生児の性別は初期評価の優先項目ではない。"
+        },
+        {
+          "option_id": "E",
+          "text": "胎盤の大きさ",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "胎盤の確認は重要だが、接触直後は母体の生命徴候評価が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "臍帯処置",
+      "phase": "delivery_care",
+      "scene_goal": "胎盤娩出後の臍帯切断手順を理解する。",
+      "ideal_flow": [
+        "新生児の状態が安定していることを確認する",
+        "第1臍帯クリップの位置を確認する",
+        "第2臍帯クリップの位置を確認する",
+        "両クリップの間を安全に切断する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "臍帯処置",
+        "分娩介助",
+        "新生児保護"
+      ],
+      "text": "新生児は元気に泣いており、胎盤も娩出されている。臍帯切断を行う場面である。",
+      "visible_data": {
+        "mother": [
+          "意識清明",
+          "会話可能"
+        ],
+        "newborn": [
+          "啼泣あり",
+          "自発呼吸あり",
+          "活気あり"
+        ],
+        "placenta": [
+          "胎盤は娩出済み"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "胎盤娩出後、臍帯を切断する際の対応として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "第1臍帯クリップを新生児の臍輪から5〜10cm離して挟圧する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "cord_clamp_correct"
+          ],
+          "rationale": "第1臍帯クリップは新生児の臍輪から5〜10cm離して挟圧する。第2クリップはその胎盤側2〜3cmの位置に置き、両者の間を切断する。"
+        },
+        {
+          "option_id": "B",
+          "text": "第1臍帯クリップを新生児の臍輪の直近で挟圧する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "臍輪直近で挟圧するのではなく、臍輪から5〜10cm離して第1クリップをかける。"
+        },
+        {
+          "option_id": "C",
+          "text": "第2臍帯クリップは胎盤側にできるだけ遠く離して挟圧する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "第2クリップは第1クリップから胎盤側へ2〜3cm離した位置に挟圧する。"
+        },
+        {
+          "option_id": "D",
+          "text": "臍帯は第2臍帯クリップより胎盤側で切断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "臍帯は第1クリップと第2クリップの間を切断する。"
+        },
+        {
+          "option_id": "E",
+          "text": "はさみの先端を新生児側に向けて切断する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "切断時は、はさみを持たない手で新生児を保護し、はさみの先端を新生児に向けない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "産後出血の再判断",
+      "phase": "reassessment",
+      "scene_goal": "胎盤娩出後に出血が持続する母体で、子宮収縮の状態を確認する。",
+      "ideal_flow": [
+        "胎盤娩出済みであることを確認する",
+        "会陰裂傷の有無を確認する",
+        "出血の持続を確認する",
+        "子宮底の硬さを確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "産後出血",
+        "子宮底確認",
+        "再判断"
+      ],
+      "text": "臍帯処置後、母体の観察を続ける。本人に痛みの訴えはなく、会陰部に明らかな裂傷はみられない。しかし膣口から中等量の出血が続いている。",
+      "visible_data": {
+        "vitals": {
+          "consciousness": "清明",
+          "respiratory_rate": "24/分",
+          "pulse": "104/分、整",
+          "blood_pressure": "104/60mmHg",
+          "temperature": "36.8℃",
+          "spo2": "99%"
+        },
+        "observation": [
+          "胎盤娩出済み",
+          "臍帯処置済み",
+          "会陰裂傷なし",
+          "膣口から中等量の出血が持続"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "胎盤は娩出済みで、会陰裂傷はない。膣口から中等量の出血が続いている。追加で確認する内容として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "子宮底の硬さ",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "uterine_tone_checked"
+          ],
+          "rationale": "胎盤娩出後も出血が続く場合、子宮収縮の状態を確認する。子宮底が軟らかい場合は子宮収縮不良による出血を疑う。"
+        },
+        {
+          "option_id": "B",
+          "text": "新生児の出生体重",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "出生体重は新生児評価の一部として重要だが、母体出血の原因評価としては子宮収縮の確認が優先される。"
+        },
+        {
+          "option_id": "C",
+          "text": "胎児の性別",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "性別は母体出血の評価には関係しない。"
+        },
+        {
+          "option_id": "D",
+          "text": "分娩した部屋の広さ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "環境確認は必要だが、出血が持続している場面では母体の状態評価が優先される。"
+        },
+        {
+          "option_id": "E",
+          "text": "母体の食事内容",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "食事内容は搬送先で参考になることもあるが、産後出血の原因評価として優先されない。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "アプガースコア",
+      "phase": "newborn_assessment",
+      "scene_goal": "出生後の新生児評価として、アプガースコアの評価項目を理解する。",
+      "ideal_flow": [
+        "新生児の呼吸状態を確認する",
+        "心拍数を確認する",
+        "筋緊張や刺激への反応を確認する",
+        "皮膚色を確認する",
+        "出生後1分と5分の評価を意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "新生児評価",
+        "アプガースコア",
+        "出生直後管理"
+      ],
+      "text": "新生児は元気に泣いている。出生後の状態評価として、アプガースコアを意識して観察する。",
+      "visible_data": {
+        "newborn": [
+          "啼泣あり",
+          "自発呼吸あり",
+          "四肢を動かしている",
+          "皮膚色はおおむね良好"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出生後の新生児評価として、アプガースコアで評価する項目はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "啼泣の大きさ",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "啼泣は呼吸状態を推測する手がかりになるが、アプガースコアの正式な評価項目名としては呼吸状態である。"
+        },
+        {
+          "option_id": "B",
+          "text": "出生体重",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "出生体重は新生児管理に重要だが、アプガースコアの評価項目ではない。"
+        },
+        {
+          "option_id": "C",
+          "text": "呼吸状態",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "apgar_understood"
+          ],
+          "rationale": "アプガースコアは通常、出生後1分と5分に評価する。項目は心拍数、呼吸状態、筋緊張、刺激への反応、皮膚色である。"
+        },
+        {
+          "option_id": "D",
+          "text": "妊娠週数",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "妊娠週数は新生児の成熟度評価に関係するが、アプガースコアの項目ではない。"
+        },
+        {
+          "option_id": "E",
+          "text": "臍帯の長さ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "臍帯の長さはアプガースコアの評価項目ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "産後出血の病態判断",
+      "phase": "exam_core",
+      "scene_goal": "胎盤娩出後、裂傷がないにもかかわらず出血が持続する病態を判断する。",
+      "ideal_flow": [
+        "胎盤娩出後であることを確認する",
+        "会陰裂傷がないことを確認する",
+        "膣口からの出血持続を確認する",
+        "子宮収縮不良による出血を疑う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "国試の芯",
+        "弛緩出血",
+        "産後出血"
+      ],
+      "text": "胎盤は娩出されている。本人に痛みの訴えはなく、会陰裂傷もない。しかし、膣口から中等量の出血が持続している。",
+      "visible_data": {
+        "maternal_findings": [
+          "意識清明",
+          "呼吸数24/分",
+          "脈拍104/分、整",
+          "血圧104/60mmHg",
+          "SpO2 99%",
+          "会陰裂傷なし",
+          "膣口から中等量の出血が持続"
+        ],
+        "delivery_findings": [
+          "新生児は啼泣あり",
+          "胎盤娩出済み",
+          "臍帯処置済み"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "胎盤娩出後、会陰裂傷はなく、膣口から中等量の出血が持続している。考えられる病態として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "子宮破裂",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "子宮破裂では強い腹痛や母体ショック、胎児機能不全などが問題となる。今回の所見とは合いにくい。"
+        },
+        {
+          "option_id": "B",
+          "text": "膣壁血腫",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "膣壁血腫では疼痛や腫脹が目立つことがある。今回のように裂傷がなく出血が持続する所見からは子宮収縮不良を考える。"
+        },
+        {
+          "option_id": "C",
+          "text": "羊水塞栓",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -2,
+          "status_effect": [],
+          "rationale": "羊水塞栓では急激な呼吸循環不全や意識障害、DICなどが問題となる。今回の安定した母体所見とは合いにくい。"
+        },
+        {
+          "option_id": "D",
+          "text": "弛緩出血",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [
+            "suspected_atonic_bleeding"
+          ],
+          "rationale": "胎盤娩出後に会陰裂傷がなく、膣口から出血が持続する場合は弛緩出血を疑う。子宮収縮不良により胎盤剝離部の血管が閉鎖されにくくなる。"
+        },
+        {
+          "option_id": "E",
+          "text": "子宮内反",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "子宮内反では胎盤娩出前後に強い疼痛やショックを来すことがある。今回の所見では弛緩出血がより考えやすい。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "弛緩出血の病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "弛緩出血で出血が持続する理由を理解し、継続観察につなげる。",
+      "ideal_flow": [
+        "子宮収縮不良を理解する",
+        "胎盤剝離部の血管閉鎖不全を理解する",
+        "出血量の変化を継続観察する",
+        "母体の循環動態悪化を想定する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "病態理解",
+        "産後出血",
+        "継続観察"
+      ],
+      "text": "母体は現時点では意識清明で血圧も保たれているが、膣口からの出血は続いている。搬送準備を進めながら、病態を整理する。",
+      "visible_data": {
+        "current_status": [
+          "母体の意識は清明",
+          "膣口からの出血が持続",
+          "新生児は安定",
+          "産科対応可能な医療機関へ搬送準備中"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "弛緩出血で出血が続く主な理由はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "子宮の収縮が弱い。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "pathophysiology_understood"
+          ],
+          "rationale": "弛緩出血では子宮の収縮が不十分となり、胎盤剝離部の血管が閉鎖されにくくなる。出血量、意識状態、脈拍、血圧を継続して観察する。"
+        },
+        {
+          "option_id": "B",
+          "text": "新生児の啼泣が強い。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "新生児の啼泣は母体出血の直接原因ではない。"
+        },
+        {
+          "option_id": "C",
+          "text": "臍帯が短い。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "臍帯の長さは弛緩出血の主な原因ではない。"
+        },
+        {
+          "option_id": "D",
+          "text": "会陰裂傷がない。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "会陰裂傷がないことは外陰部からの出血源を考えるうえで参考になるが、出血が続く理由そのものではない。"
+        },
+        {
+          "option_id": "E",
+          "text": "体温が正常である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "体温が正常であることは弛緩出血の原因ではない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "38歳女性の自宅分娩後症例。新生児は元気に啼泣し、胎盤も娩出されていた。臍帯処置では第1クリップを臍輪から5〜10cm、第2クリップを胎盤側2〜3cmに挟圧し、その間を切断する。母体は会陰裂傷がないにもかかわらず膣口から中等量の出血が持続しており、子宮収縮不良による弛緩出血を疑うことが学習の中心である。",
+    "ideal_actions": [
+      "出場途上で新生児の啼泣を確認する",
+      "母体の意識、呼吸、循環を初期評価する",
+      "胎盤娩出後の臍帯処置手順を正しく行う",
+      "新生児をアプガースコアの項目で評価する",
+      "胎盤娩出後の出血持続では子宮底の硬さを確認する",
+      "弛緩出血を疑い、母体の循環動態を継続観察する",
+      "母児ともに産科対応可能な医療機関へ搬送する"
+    ],
+    "good_points": [
+      "新生児の啼泣確認を優先できれば、新生児蘇生の必要性を早期に見積もれる",
+      "臍帯処置の位置と切断部位を理解していれば、安全な分娩後対応につながる",
+      "アプガースコアの項目を理解していれば、新生児の状態を系統的に評価できる",
+      "会陰裂傷がなくても出血が続く場合に、子宮収縮不良を考えられる"
+    ],
+    "cautions": [
+      "母体の会話が可能でも、産後出血では循環動態が急変することがある",
+      "臍帯切断時は、はさみの先端を新生児に向けない",
+      "新生児が元気に泣いていても、保温と継続観察を怠らない",
+      "弛緩出血では出血量、意識状態、脈拍、血圧の変化を継続して確認する"
+    ]
+  }
+}

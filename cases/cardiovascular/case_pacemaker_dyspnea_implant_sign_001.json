@@ -1,0 +1,670 @@
+{
+  "case_id": "case_pacemaker_dyspnea_implant_sign_001",
+  "version": "2.0",
+  "title": "呼吸困難を訴える高齢女性、モニター波形から植込み型ペースメーカーを推測する症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "呼吸困難",
+    "心不全",
+    "ペースメーカー",
+    "モニター波形",
+    "ペースメーカースパイク"
+  ],
+  "overview": "84歳女性。心疾患で通院中。数日前から息苦しさが出現し、前夜も症状が続いていた。家族が心配して付き添っていたところ、呼吸困難が増悪したため救急要請となった。現着時は低酸素血症と頻呼吸を認め、モニター波形から植込み型ペースメーカーの存在を推測することが学習の中心である。",
+  "patient_profile": {
+    "age": 84,
+    "sex": "女性",
+    "chief_complaint": "呼吸困難",
+    "background": "心疾患で通院加療中。家族は非同居で、詳しい病名や治療内容は把握していない。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [],
+    "time_pressure": "moderate"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "波形読影と呼吸循環評価が的確で、病態把握まで安定している。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "大きな流れは良い。細かな波形理解と搬送判断も押さえられている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "重症度判断は概ね良いが、波形の意味づけや病態理解に改善余地がある。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "一部の判断は適切だが、主訴とモニター所見の結びつけが弱い。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "優先順位の整理と波形読影を復習したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場途上の指示",
+      "phase": "dispatch",
+      "scene_goal": "呼吸困難傷病者に対する出場途上の基本的な口頭指示を選ぶ。",
+      "ideal_flow": [
+        "呼吸困難の重症度を意識する",
+        "無理に歩かせない",
+        "呼吸しやすい体位で安静を保つ"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "prearrival",
+        "dyspnea",
+        "positioning"
+      ],
+      "text": "家族から『息が苦しそうで、今は会話はできるが動くとつらそうです』と追加情報が入った。到着まで数分を要する見込みである。",
+      "visible_data": {
+        "dispatch_information": "84歳女性。心疾患で通院中。呼吸困難で家族が通報。",
+        "additional_information": "数日前から息苦しさがあり、前夜も症状が続いていた。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で家族へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "平らに寝かせて安静にしてもらう。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["supine_worsening"]
+          },
+          "rationale": "呼吸困難では仰臥位で苦しさが増すことがある。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "呼吸しやすい体位で安静にしてもらう。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["positioning_done"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "到着前は楽な体位の保持が重要で、無理な体位変更は避ける。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "水分を多めに飲ませてもらう。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["aspiration_risk"]
+          },
+          "rationale": "呼吸困難時に水分摂取を優先する状況ではない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "玄関まで歩いて来てもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["exertion"]
+          },
+          "rationale": "歩行負荷で呼吸困難が悪化するおそれがある。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "現着直後の優先評価を整理する。",
+      "ideal_flow": [
+        "呼びかけで反応確認",
+        "呼吸状態を最優先で再評価",
+        "酸素投与継続下で重症度を判断する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "primary_survey",
+        "respiratory_assessment",
+        "oxygenation"
+      ],
+      "text": "傷病者は自宅の椅子にもたれるように座っている。呼びかけに応じるが返答は短い。両下腿に浮腫を認める。リザーバ付きフェイスマスク10L/分で酸素投与を開始した。",
+      "visible_data": {
+        "level_of_consciousness": "JCS 3",
+        "respiratory_rate": "32/分",
+        "pulse": "84/分・整",
+        "blood_pressure": "150/100 mmHg",
+        "temperature": "35.5℃",
+        "spo2": "86％（室内気）",
+        "physical_findings": [
+          "両下肢浮腫"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "現着直後に優先して評価すべきものとして最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "呼吸状態と酸素化の改善状況",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["respiratory_priority"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "主訴は呼吸困難であり、初期評価では呼吸状態の把握を優先する。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "詳細な既往歴の聴取",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "病歴は重要だが、まずは現在の呼吸循環状態を優先する。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "痛み刺激による意識評価の細分化",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "JCS3で反応があり、まずは呼吸と循環の評価が優先である。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "四肢の関節可動域の確認",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "この時点で優先度は低い。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "家族からの情報収集",
+      "phase": "focused_history",
+      "scene_goal": "情報が限られる状況で、今の病態把握に役立つ情報を選ぶ。",
+      "ideal_flow": [
+        "家族が非同居で情報が限られることを理解する",
+        "今の症状経過を短く押さえる",
+        "答えにつながる情報を出しすぎない"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "history",
+        "family_interview",
+        "symptom_course"
+      ],
+      "text": "付き添いの家族は別居しており、普段の病名や通院内容はよく分からないという。『数日前から息苦しそうで、心配だったので泊まりに来ていました。昨夜も息が苦しそうでした』と話している。",
+      "visible_data": {
+        "family_information": [
+          "家族は非同居",
+          "詳しい病名・治療内容は不明",
+          "数日前から息苦しさが出現",
+          "昨夜も呼吸困難があった"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で病態把握に最も有用な家族情報はどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "ここ数日の呼吸困難の経過",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["course_grasped"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "非同居家族でも把握しやすく、現在の病態推定に役立つ。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "若い頃の手術歴",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "直近の呼吸困難との関連は薄い。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "趣味や外出頻度",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "現時点の重症度判断には結びつきにくい。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "通院先の正確な病名",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "重要ではあるが、家族が把握しておらず今すぐ得られる情報ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "モニター波形の読影",
+      "phase": "monitor_interpretation",
+      "scene_goal": "ペースメーカースパイクを見抜き、植込み機器の存在を推測する。",
+      "ideal_flow": [
+        "波形の規則性を見る",
+        "QRS直前のスパイクに気づく",
+        "植込み型ペースメーカーの存在を考える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "ecg_monitor",
+        "pacemaker",
+        "national_exam_core"
+      ],
+      "text": "モニター装着後、規則的な波形が表示された。各拍の直前に細いスパイク状の波形を認め、その後に幅の広いQRSが続いている。",
+      "visible_data": {
+        "monitor_findings": "モニター波形は画像参照",
+        "clinical_context": [
+          "呼吸困難",
+          "低酸素血症",
+          "心疾患で通院中"
+        ]
+      },
+      "media": [
+        "media/pacemaker_ecg_monitor_spike_scene4.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この傷病者について正しいのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "自然の洞調律を示している。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "QRS直前に規則的なスパイクがあり、自然の洞調律とは言いにくい。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "直ちに除細動を行う適応である。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["inappropriate_defibrillation"]
+          },
+          "rationale": "規則的なペーシング波形であり、除細動の適応ではない。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "この波形だけで致死性不整脈へ移行しやすいと判断できる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "この波形の主な読みどころはペーシング所見であり、それだけで致死性不整脈移行を示すものではない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "左鎖骨下胸壁に植込み機器による膨らみを認める可能性がある。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["pacemaker_suspected"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ペースメーカースパイクを認めるため、左前胸部の植込み部位が推測される。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "波形の意味づけ",
+      "phase": "interpretation_review",
+      "scene_goal": "スパイク後にQRSが続くことの意味を理解する。",
+      "ideal_flow": [
+        "スパイクの存在を押さえる",
+        "その後にQRSが出現していることを見る",
+        "ペーシング捕捉を考える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "pacemaker_spike",
+        "capture",
+        "ecg_learning"
+      ],
+      "text": "モニター波形では、各拍の前に細いスパイクがあり、その直後に幅広いQRS波形がみられる。",
+      "visible_data": {
+        "waveform_features": [
+          "規則的なスパイク",
+          "スパイク後にQRS",
+          "QRSは幅広い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この波形の理解として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "洞房結節からの自然興奮を示している。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "スパイクが規則的に先行しており、自然興奮のみとは考えにくい。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "スパイクの後に心室が捕捉されている所見である。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["capture_understood"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "スパイク後にQRSが続いており、ペーシングが心室を捕捉していると解釈できる。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "心室細動への移行を示す所見である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "規則的なペーシング波形であり、心室細動の所見ではない。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "一過性のアーチファクトで臨床的意義は乏しい。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "規則的かつ再現性のあるスパイクであり、アーチファクトとは考えにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態理解",
+      "phase": "clinical_reasoning",
+      "scene_goal": "主訴と身体所見から呼吸困難の原因を推定する。",
+      "ideal_flow": [
+        "低酸素血症を重視する",
+        "下肢浮腫と心疾患背景をつなげる",
+        "急性心不全増悪を考える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "clinical_reasoning",
+        "heart_failure",
+        "dyspnea"
+      ],
+      "text": "呼吸数増加、SpO2低下、両下肢浮腫を認める。心疾患の既往があり、ここ数日で呼吸苦が増悪している。",
+      "visible_data": {
+        "important_findings": [
+          "呼吸数32/分",
+          "SpO2低下",
+          "両下肢浮腫",
+          "心疾患で通院中",
+          "数日前から増悪する呼吸困難"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も考えやすい病態はどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "急性増悪した心不全",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["heart_failure_considered"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸困難、低酸素血症、浮腫、心疾患既往から心不全増悪が最も考えやすい。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "アナフィラキシー",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "発疹や血圧低下などの情報がなく、所見は一致しにくい。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "外傷歴や片側胸郭所見の情報がなく、浮腫とも合致しにくい。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "低酸素血症や浮腫、心疾患既往を説明しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "搬送先判断",
+      "phase": "transport_decision",
+      "scene_goal": "呼吸困難と循環器背景を踏まえて適切な搬送先を選ぶ。",
+      "ideal_flow": [
+        "重症呼吸困難として扱う",
+        "循環器背景と植込み機器を申し送る",
+        "急性心不全対応可能な医療機関を選定する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "transport",
+        "hospital_selection",
+        "handoff"
+      ],
+      "text": "酸素投与継続下で搬送を開始する。心疾患で通院中、呼吸困難が数日前から増悪、両下肢浮腫あり、モニターではペースメーカースパイクを伴う波形を認める。",
+      "visible_data": {
+        "handoff_points": [
+          "高齢女性",
+          "呼吸困難・低酸素血症",
+          "両下肢浮腫",
+          "心疾患で通院中",
+          "植込み型ペースメーカーが示唆される波形"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送先として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "皮膚科単科の診療所",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["inappropriate_destination"]
+          },
+          "rationale": "呼吸循環管理に対応できない。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "循環器診療と急性心不全対応が可能な救急医療機関",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": ["appropriate_destination"],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "主病態として心不全増悪が考えやすく、循環器対応が望ましい。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "回復期リハビリテーション病院",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["inappropriate_destination"]
+          },
+          "rationale": "急性期対応が目的ではない。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "精神科単科病院",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": ["inappropriate_destination"]
+          },
+          "rationale": "身体疾患の急性対応には不適切である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "84歳女性の呼吸困難症例。現着時は頻呼吸、低酸素血症、両下肢浮腫を認めた。モニター波形では各拍の直前にスパイクがあり、その後に幅広いQRSが続いていたため、植込み型ペースメーカーを推測できることが本症例の国試の芯である。加えて、心疾患背景と浮腫、数日前からの呼吸困難増悪から急性心不全増悪を考え、循環器対応可能な救急医療機関へ搬送する判断につなげる。",
+    "ideal_actions": [
+      "呼吸困難傷病者に対し、呼吸しやすい体位を保持して無理な歩行を避ける。",
+      "現着直後は呼吸状態と酸素化の再評価を優先する。",
+      "家族からは詳しい病名よりも、ここ数日の症状経過を短く把握する。",
+      "モニター波形のスパイクを見抜き、植込み型ペースメーカーの存在を推測する。",
+      "スパイク後にQRSが続くことから、ペーシングの捕捉を理解する。",
+      "心疾患既往、低酸素血症、下肢浮腫から急性心不全増悪を考える。",
+      "循環器診療と急性心不全対応が可能な医療機関を選定する。"
+    ],
+    "good_points": [
+      "国試の芯をScene4に置き、前半で答えを出しすぎない構成にしている。",
+      "家族情報は非同居設定により必要最小限に抑え、情報過多を避けている。",
+      "ペースメーカーの知識だけで終わらず、主訴である呼吸困難の病態理解へつなげている。"
+    ],
+    "cautions": [
+      "Scene3より前に『ペースメーカー』という語を出しすぎると、Scene4の学習価値が下がる。",
+      "波形の読みどころはスパイクの存在であり、除細動適応や致死性不整脈の話に飛びすぎない。",
+      "呼吸困難症例では、既往の詳細聴取よりも呼吸循環状態の評価を優先する。"
+    ]
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "case_id": "hot_hypoventilation_bvm_management_001",
+  "version": "2.0",
+  "title": "在宅酸素療法中の慢性肺疾患患者で低換気を見抜き、BVM換気を優先する症例",
+  "category": "respiratory",
+  "difficulty": "Normal",
+  "algorithm_type": "内因性L&G",
+  "estimated_time": 10,
+  "keywords": [
+    "慢性肺疾患",
+    "在宅酸素療法",
+    "意識障害",
+    "低換気",
+    "BVM換気",
+    "CO2貯留"
+  ],
+  "source_reference": {
+    "exam": "第47回救急救命士国家試験",
+    "section": "D問題18",
+    "note": "元問題の学習意図を症例化し、処置選択型ロールプレイと処置後再評価の分岐を加えて再構成した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "意識障害",
+      "低換気",
+      "換気不全疑い",
+      "内因性L&G候補"
+    ],
+    "time_pressure": "high"
+  },
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出動途上の確認",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "HOT導入中の意識障害症例で、出動途上に優先して確認すべき内容を整理する。",
+      "ideal_flow": [
+        "反応の有無を確認する",
+        "呼吸の状態を確認する",
+        "在宅酸素療法の使用状況を確認する",
+        "急な変化の有無を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "78歳男性。慢性肺疾患で在宅酸素療法を導入中である。朝、家族が意識を失っているようだと気づき、救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "78歳男性",
+          "慢性肺疾患で在宅酸素療法を導入中",
+          "朝に家族が発見",
+          "意識が悪い様子"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出動途上で家族に優先して確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "普段の食事量と睡眠時間を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "生活背景も参考になるが、まずは現在の反応と呼吸状態を優先して確認する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "体温を測定してもらい、発熱の有無を確認する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "発熱確認のみでは切迫度評価として不十分である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "歩けるか確認するため、座位にして待ってもらう。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "意識障害が疑われるため、無理な体位変換や移動を指示しない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "反応、呼吸の状態、酸素使用状況を確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pac_respiratory_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "重症呼吸障害疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害を伴うHOT症例では、まず反応・呼吸・酸素使用状況を確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "数値バイタルに先行して、低換気を伴う切迫した重症内因性疾患として判断する。",
+      "ideal_flow": [
+        "反応を確認する",
+        "気道開通を確認する",
+        "呼吸の有無と質を確認する",
+        "循環が保たれているか確認する",
+        "低換気を伴う重症内因性疾患として対応する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "primary_assessment",
+      "text": "接触時、傷病者は仰臥位で、呼びかけに対する反応は乏しい。気道は開通している。呼吸はあるが、遅く浅く少ない。橈骨動脈は触知できる。顔色不良を認める。在宅酸素療法は継続中である。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけへの反応は乏しい",
+          "気道は開通",
+          "呼吸はあるが遅く浅く少ない",
+          "橈骨動脈は触知可能",
+          "顔色不良",
+          "在宅酸素療法継続中"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "観察所見から、緊急度は高くないと判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "意識障害と低換気があり、緊急度は高い。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "観察所見から、循環停止として直ちに胸骨圧迫を開始する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "呼吸は少ないが存在し、循環も触知されているためCPAではない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "観察所見から、低換気を伴う重症内因性疾患として対応する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hypoventilation_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "換気不全疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸はあるが遅く少なく、意識障害もあるため低換気を伴う重症内因性疾患として扱う。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "観察所見から、外傷による意識障害を第一に考える。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "外傷の情報はなく、まずは呼吸障害を伴う内因性病態を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインとL&G判断",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "呼吸数6/分と意識障害から換気不全を重視し、内因性L&Gを判断する。",
+      "ideal_flow": [
+        "数値バイタルを確認する",
+        "SpO2だけでなく呼吸数を重視する",
+        "前日の酸素増量情報を確認する",
+        "換気不全を伴う重症内因性疾患としてL&Gで活動する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "vital_and_strategy",
+      "text": "バイタルサインを測定した。意識JCS100、呼吸数6/分、脈拍72/分・整、血圧162/92mmHg、体温35.0℃、SpO2 82％（酸素2L/分投与中）である。四肢の麻痺は認めない。家族から「前日の受診時に酸素量が増量された」と聴取した。",
+      "visible_data": {
+        "vital_signs": [
+          "JCS100",
+          "呼吸数 6/分",
+          "脈拍 72/分・整",
+          "血圧 162/92 mmHg",
+          "体温 35.0℃",
+          "SpO2 82％（酸素2L/分投与中）"
+        ],
+        "additional_information": [
+          "四肢麻痺なし",
+          "前日の受診時に酸素量が増量された"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "観察所見から、低体温症を主病態として対応する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "体温低下はあるが、呼吸数6/分と意識障害から換気不全を優先する。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "観察所見から、換気不全を伴う重症内因性疾患としてL&Gで活動する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "load_and_go_decided"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "低換気進行"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害と著しい低換気があり、換気不全を伴う重症内因性疾患としてL&Gで活動する。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "観察所見から、脳卒中を第一に考えて麻痺の再評価を優先する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "麻痺はなく、まずは呼吸障害と換気不全の対応を優先する。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "観察所見から、酸素流量を上げれば十分と判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "この症例では酸素化だけでなく、換気そのものが不十分である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "処置選択",
+      "phase": "活動方針の再判断",
+      "scene_goal": "人体画像を用いて最優先処置を選択し、誤処置なら改善しない／悪化する体験をさせる。",
+      "ideal_flow": [
+        "低換気を主問題として捉える",
+        "酸素投与法の変更ではなく換気補助を考える",
+        "最優先処置を選択する",
+        "選択に応じた経過を次場面へ反映させる"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": "treatment_selection",
+      "text": "傷病者は反応が乏しく、呼吸は浅く少ない。HOT導入中で酸素2L/分投与中だがSpO2は低値である。人体画像を見ながら、今もっとも優先すべき処置を選択する。",
+      "visible_data": {
+        "current_status": [
+          "意識JCS100",
+          "呼吸数 6/分",
+          "SpO2 82％（酸素2L/分投与中）",
+          "循環は保たれている",
+          "四肢麻痺なし"
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "treatment_select",
+      "prompt": "この傷病者に対して、いま最も優先すべき処置はどれか。",
+      "treatment_bar": {
+        "display": true,
+        "title": "処置を選択",
+        "style": "horizontal_buttons",
+        "position": "below_media",
+        "instruction": "人体画像を見ながら、最も優先すべき処置を1つ選んでください。",
+        "target_area_hint": "顔面・気道周囲を意識して選択する"
+      },
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "血糖値を測定する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "wrong_treatment_selected",
+              "glucose_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "低換気持続"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "血糖確認は参考になるが、この場面の最優先処置ではない。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "電気毛布で保温する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -6,
+          "status_effect": {
+            "add_flags": [
+              "wrong_treatment_selected",
+              "warming_started"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "低換気持続"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "保温は補助的対応にはなるが、主問題である低換気を改善しない。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "ベンチュリーマスクで酸素投与する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -8,
+          "status_effect": {
+            "add_flags": [
+              "wrong_treatment_selected",
+              "venturi_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "低換気持続",
+              "状態悪化リスク"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "酸素投与法の変更だけでは換気不全を改善できない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "バッグ・バルブ・マスクで換気を補助する。",
+          "is_correct": true,
+          "score_delta": 16,
+          "life_delta": 10,
+          "status_effect": {
+            "add_flags": [
+              "bvm_started"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "低換気進行"
+            ]
+          },
+          "rationale": "呼吸数が著しく少なく、酸素化だけでなく換気そのものが不十分であるため、BVM換気が最も有効である。"
+        },
+        {
+          "option_id": "s4_o5",
+          "text": "リザーバ付き酸素マスクで酸素投与する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -8,
+          "status_effect": {
+            "add_flags": [
+              "wrong_treatment_selected",
+              "reservoir_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "低換気持続",
+              "状態悪化リスク"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高濃度酸素投与だけでは、低換気による換気不全は改善しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "処置後の再評価",
+      "phase": "車内活動",
+      "scene_goal": "選択した処置の効果を再評価し、誤処置なら悪化・修正、正処置なら改善を学ぶ。",
+      "ideal_flow": [
+        "選択した処置後の状態を再評価する",
+        "改善の有無を確認する",
+        "誤処置なら方針修正を行う",
+        "正処置なら継続評価につなげる"
+      ],
+      "ideal_score_delta": 14,
+      "action_tag": "post_treatment_reassessment",
+      "text": "選択した処置の後、傷病者の状態を再評価する。",
+      "visible_data": {
+        "instruction": [
+          "前場面で選択した処置に応じて状態が変化する",
+          "誤処置では改善しない、または悪化する"
+        ]
+      },
+      "media": [],
+      "type": "conditional_single_choice",
+      "conditional_content": [
+        {
+          "content_id": "scene5_correct_path",
+          "required_flags": [
+            "bvm_started"
+          ],
+          "text": "BVM換気を開始した。胸郭挙上を認める。SpO2は82％から92％へ改善し、顔色もやや改善した。補助換気下で呼吸は安定し、意識はJCS100からJCS30程度へ改善傾向を認める。",
+          "visible_data": {
+            "reassessment": [
+              "胸郭挙上あり",
+              "SpO2 92％へ改善",
+              "補助換気下で呼吸安定",
+              "JCS30程度へ改善傾向"
+            ]
+          },
+          "prompt": "処置後の再評価として継続すべき対応はどれか。",
+          "options": [
+            {
+              "option_id": "s5a_o1",
+              "text": "反応が改善傾向のため、補助換気を終了する。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -2,
+              "rationale": "改善傾向でも、低換気が再燃する可能性があるため換気補助を継続する。"
+            },
+            {
+              "option_id": "s5a_o2",
+              "text": "胸郭挙上、SpO2、意識レベルを確認しながら補助換気を継続する。",
+              "is_correct": true,
+              "score_delta": 14,
+              "life_delta": 5,
+              "rationale": "処置後は胸郭挙上、酸素化、意識レベルを再評価しつつ補助換気を継続する。"
+            },
+            {
+              "option_id": "s5a_o3",
+              "text": "酸素化が改善したため、搬送先の緊急度を下げる。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -1,
+              "rationale": "改善しても重症呼吸障害症例であり、緊急度は高い。"
+            },
+            {
+              "option_id": "s5a_o4",
+              "text": "換気補助よりも詳しい既往歴の確認を優先する。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": -1,
+              "rationale": "既往確認は重要だが、まずは換気補助と再評価を優先する。"
+            }
+          ]
+        },
+        {
+          "content_id": "scene5_wrong_path",
+          "required_flags": [
+            "wrong_treatment_selected"
+          ],
+          "text": "選択した処置後も呼吸は浅く少ないままである。SpO2は82％から84％へわずかに変化するのみで、意識レベルはJCS100のままである。呼吸数は5/分となり、低換気が続いている。",
+          "visible_data": {
+            "reassessment": [
+              "呼吸は浅く少ないまま",
+              "SpO2 84％程度で改善乏しい",
+              "JCS100のまま",
+              "呼吸数 5/分",
+              "低換気持続"
+            ]
+          },
+          "prompt": "この再評価結果を踏まえ、次に優先すべき対応はどれか。",
+          "options": [
+            {
+              "option_id": "s5b_o1",
+              "text": "低換気が持続しているため、BVMによる補助換気へ切り替える。",
+              "is_correct": true,
+              "score_delta": 14,
+              "life_delta": 4,
+              "rationale": "改善しない主因は低換気であり、ここでBVM換気へ修正する必要がある。"
+            },
+            {
+              "option_id": "s5b_o2",
+              "text": "酸素流量をさらに増やし、意識改善を待つ。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -3,
+              "rationale": "酸素濃度を上げるだけでは換気不全を改善しない。"
+            },
+            {
+              "option_id": "s5b_o3",
+              "text": "麻痺がないため、現場で経過観察を続ける。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -4,
+              "rationale": "意識障害と低換気が続いており、経過観察は不適切である。"
+            },
+            {
+              "option_id": "s5b_o4",
+              "text": "体温低下への対応を優先し、呼吸評価は後にする。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -3,
+              "rationale": "主問題は低換気であり、呼吸対応を遅らせない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "処置理由の理解",
+      "phase": "国試知識",
+      "scene_goal": "酸素投与法の変更ではなく、BVM換気が優先される理由を理解する。",
+      "ideal_flow": [
+        "SpO2だけでなく呼吸数を重視する",
+        "酸素化と換気を区別する",
+        "換気不全に対する処置を整理する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "treatment_reasoning",
+      "text": "この症例では、HOT導入中にもかかわらず意識障害があり、呼吸は著しく少ない。酸素投与中でもSpO2は低値であった。",
+      "visible_data": {
+        "key_points": [
+          "呼吸数 6/分",
+          "SpO2 82％（酸素2L/分投与中）",
+          "意識JCS100",
+          "前日に酸素量が増量された"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で、酸素投与方法の変更だけでは不十分な理由として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "酸素化だけでなく換気そのものが不十分と考えられるため。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "呼吸数が著しく少なく、主問題は換気不全であるためBVM換気が必要となる。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "意識障害は低血糖が主因であり、酸素投与では対応できないため。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "低血糖も鑑別には残るが、主たる問題は低換気である。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "体温低下が主病態であり、酸素投与は禁忌となるため。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "体温低下はあるが、主病態は低換気を伴う呼吸障害である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "脳卒中が主病態であり、呼吸処置より神経観察が優先されるため。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "麻痺はなく、まず呼吸障害への対応を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "病態理解",
+      "scene_goal": "慢性肺疾患と酸素増量後の低換気から、CO2貯留を伴う換気不全を理解する。",
+      "ideal_flow": [
+        "慢性肺疾患の背景を踏まえる",
+        "低換気を主問題として捉える",
+        "CO2貯留を伴う換気不全を考える",
+        "BVM換気の意義を整理する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "pathophysiology_reasoning",
+      "text": "慢性肺疾患で在宅酸素療法中の傷病者が、前日の酸素量増量後に意識障害と著しい低換気を呈した。BVM換気で改善傾向を示した。",
+      "visible_data": {
+        "summary_findings": [
+          "慢性肺疾患",
+          "在宅酸素療法中",
+          "前日に酸素量増量",
+          "意識障害",
+          "呼吸数 6/分",
+          "BVM換気で改善傾向"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で意識障害を来した機序として最も考えやすいものはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "低血糖により、左右差のない意識障害が出現した。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "鑑別には残るが、この症例の主問題は著しい低換気である。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "低体温により、呼吸数と意識レベルが低下した。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "体温低下はあるが、低換気と酸素量増量の情報から換気不全を優先する。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "脳卒中により、片麻痺を伴わず意識障害のみが進行した。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "麻痺はなく、まずは呼吸障害が主病態である。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "慢性肺疾患を背景に低換気が進行し、CO2貯留を伴う換気不全が進行した。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "慢性肺疾患、酸素量増量、呼吸数低下、意識障害からCO2貯留を伴う換気不全が考えやすい。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "78歳男性、慢性肺疾患で在宅酸素療法中の症例。初期評価では呼吸はあるが遅く少なく、循環は保たれていたため、低換気を伴う重症内因性疾患として対応する。バイタルでは呼吸数6/分、SpO2 82％（酸素2L/分投与中）、意識JCS100であり、前日に酸素量が増量されていた。主問題は酸素化だけでなく換気不全であり、最も有効な処置はBVMによる補助換気である。処置選択型では、誤処置では改善しない・悪化する一方、BVM換気では胸郭挙上、SpO2、意識レベルの改善傾向が得られるように設計している。",
+    "ideal_actions": [
+      "出動途上で反応、呼吸状態、酸素使用状況を確認する",
+      "初期評価で低換気を伴う重症内因性疾患として判断する",
+      "呼吸数6/分を重視し、SpO2だけで判断しない",
+      "換気不全を伴う重症内因性疾患としてL&Gで活動する",
+      "処置選択ではBVM換気を最優先で選ぶ",
+      "処置後は胸郭挙上、SpO2、意識レベルを再評価する",
+      "誤処置で改善しない場合は方針を修正してBVM換気へ切り替える",
+      "CO2貯留を伴う換気不全を病態理解につなげる"
+    ],
+    "good_points": [
+      "SpO2低下だけでなく、呼吸数6/分という低換気を重視できた",
+      "HOT中という情報に引っ張られすぎず、酸素増量ではなく換気補助を選べた",
+      "処置選択後の再評価で改善の有無を確認できた",
+      "誤処置なら改善しない／悪化する流れから主病態を修正できた",
+      "CO2貯留を伴う換気不全という病態理解につなげられた"
+    ],
+    "cautions": [
+      "SpO2が低いからといって酸素濃度の変更だけで対応しない",
+      "HOT導入中でも、意識障害と呼吸数低下があれば換気不全を疑う",
+      "保温や血糖測定は補助的には意味があっても、この場面の最優先ではない",
+      "誤処置を選んだ場合は、再評価で改善しない・悪化することを前提に次の行動を修正する",
+      "BVM換気後も胸郭挙上、SpO2、意識レベルを継続して確認する"
+    ]
+  }
+}

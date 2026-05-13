@@ -1,0 +1,544 @@
+{
+  "case_id": "cardiovascular_ami_tennis_st_elevation_001",
+  "version": "2.0",
+  "title": "炎天下のテニス中に胸背部痛を訴え、心電図モニター所見から急性心筋梗塞を疑う症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "circulatory_emergency_protocol",
+  "estimated_time": 8,
+  "keywords": [
+    "胸背部痛",
+    "血圧低下",
+    "発汗",
+    "心電図モニター",
+    "急性心筋梗塞",
+    "内因性L&G"
+  ],
+  "patient_profile": {
+    "age": 56,
+    "sex": "女性",
+    "chief_complaint": "胸背部痛",
+    "background": "真夏の炎天下でテニス中に胸背部痛が出現した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "chest_back_pain",
+      "shock",
+      "possible_cardiovascular_emergency"
+    ],
+    "time_pressure": "high"
+  },
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "出動中ブリーフィングとPAC",
+      "phase": "dispatch_briefing",
+      "scene_goal": "限られた通報内容から、重症内因性疾患を疑うハイリスク徴候を優先して確認する。",
+      "ideal_flow": [
+        "炎天下での活動という情報だけで熱中症に固定しない。",
+        "胸背部痛を重症内因性疾患のサインとして捉える。",
+        "通報者へPACを実施し、全身状態、痛みの持続、痛みの広がりを優先して確認する。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "dispatch_briefing",
+        "risk_assessment"
+      ],
+      "text": "出動中のブリーフィングで、「真夏の炎天下、テニス中、56歳女性、胸背部痛」と共有された。通報者へPACを実施し、追加情報を確認する。",
+      "visible_data": {
+        "dispatch_information": {
+          "season": "真夏",
+          "location": "屋外テニスコート",
+          "patient": "56歳女性",
+          "chief_complaint": "胸背部痛",
+          "situation": "テニス中に症状が出現し、同伴者が救急要請した。"
+        },
+        "pac_result": {
+          "general_condition": "顔色不良と強い発汗がある。",
+          "pain_course": "休んでも胸背部痛は続いている。",
+          "pain_area": "胸の奥から背中にかけて痛いと訴えている。",
+          "breathing": "呼吸は速く、短い言葉で返答している。",
+          "heat_exposure": "炎天下でしばらくテニスをしていた。"
+        }
+      },
+      "media": [],
+      "type": "ranking",
+      "prompt": "通報者へPACを実施し、追加情報を確認する。重症内因性疾患を疑うハイリスク徴候として、優先度が高い順に並べ替えよ。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "普段の運動頻度やテニス歴"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "安静にしても痛みが続いているか"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "暑熱環境への曝露時間や飲水状況"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "顔色不良、冷汗、息苦しさなどの全身状態"
+        },
+        {
+          "option_id": "s1_o5",
+          "text": "痛みの部位と背部・肩・顎・腕などへの広がり"
+        }
+      ],
+      "ranking": {
+        "ideal_order": [
+          "s1_o4",
+          "s1_o2",
+          "s1_o5",
+          "s1_o3",
+          "s1_o1"
+        ],
+        "rationale": "生命危険性の判断では、まず顔色不良・冷汗・息苦しさなどの全身状態を確認する。次に痛みの持続、部位や広がりを確認し、暑熱環境や運動歴は背景情報として整理する。"
+      }
+    },
+    {
+      "id": "scene_2",
+      "title": "接触時の初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "初期評価で循環不全を伴う重症内因性疾患を疑う。",
+      "ideal_flow": [
+        "反応、気道、呼吸、脈拍を確認する。",
+        "橈骨動脈の弱さ、顔色不良、発汗を重症徴候として捉える。",
+        "CPAではなくても切迫した循環不全を疑う。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "shock_assessment"
+      ],
+      "text": "接触時、傷病者はコート脇で座位となっており、呼びかけに開眼する。気道は開通している。呼吸は速く浅い。橈骨動脈は触知できるが弱い。顔色不良と発汗を認め、胸背部痛を訴えている。",
+      "visible_data": {
+        "consciousness": "呼びかけに開眼する。",
+        "airway": "開通している。",
+        "breathing": "速く浅い呼吸。",
+        "circulation": "橈骨動脈は触知できるが弱い。",
+        "appearance": "顔色不良、発汗あり。",
+        "complaint": "胸背部痛が続いている。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "呼吸は保たれているため、まず胸背部痛の詳細聴取を進める",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "詳細聴取は必要だが、初期評価では循環不全を示す所見を先に捉える必要がある。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "暑熱環境での活動後であり、体温上昇の有無を中心に評価する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "暑熱環境は重要だが、胸背部痛と循環不全所見を見落としてはならない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "呼吸と脈拍は確認できるが、循環不全を伴う重症内因性疾患を疑う",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "弱い橈骨動脈、顔色不良、発汗、胸背部痛から、CPAではなくても重症内因性疾患を疑う。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "胸背部痛があるため、痛みの部位確認を行ってから重症度を判断する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "rationale": "痛みの部位確認は必要だが、初期評価で循環不全所見を先に拾うことが重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "バイタルサインと内因性L&G判断",
+      "phase": "vital_signs_and_priority",
+      "scene_goal": "低血圧を伴う胸背部痛から、内因性L&Gとして迅速な搬送準備を判断する。",
+      "ideal_flow": [
+        "バイタルサインを確認する。",
+        "血圧80/56mmHgを重症徴候として捉える。",
+        "胸背部痛の持続と血圧低下から内因性L&Gとして活動する。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "load_and_go",
+        "priority_decision"
+      ],
+      "text": "バイタルサインは、呼吸数24/分、脈拍114/分・整、血圧80/56mmHg、SpO₂93％。胸背部痛は持続している。",
+      "visible_data": {
+        "vitals": {
+          "respiratory_rate": "24/分",
+          "pulse": "114/分・整",
+          "blood_pressure": "80/56mmHg",
+          "spo2": "93％"
+        },
+        "symptoms": {
+          "pain": "胸背部痛が持続している。",
+          "sweating": "発汗あり。",
+          "appearance": "顔色不良。"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "SpO₂が90％台であるため、呼吸状態の観察を継続してから搬送方針を決める",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "SpO₂だけで判断せず、低血圧と胸背部痛の持続を重視する。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "低血圧を伴うため、内因性L&Gとして迅速な搬送準備を進める",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸背部痛に血圧低下を伴っており、現場滞在を短くして迅速搬送を優先する。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "脈拍が整であるため、重篤な循環器病態の可能性は低いと判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "脈拍が整でも、胸背部痛と低血圧があれば重症病態を否定できない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "発汗と暑熱環境を重視し、現場で冷却と水分摂取を進めながら再評価する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "暑熱環境への対応も必要だが、低血圧を伴う胸背部痛では迅速搬送を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "ファーストコールと並行する観察・対応",
+      "phase": "first_call_and_ongoing_care",
+      "scene_goal": "内因性L&G判断後、ファーストコールと並行して必要な観察・対応を進める。",
+      "ideal_flow": [
+        "ファーストコールを行い、重症度と主訴を早期に医療機関へ共有する。",
+        "発症時刻、痛みの経過、既往歴、内服薬を確認する。",
+        "酸素投与を考慮し、車内でモニター装着と心電図評価を進める。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "first_call",
+        "focused_history",
+        "monitoring"
+      ],
+      "text": "内因性L&Gとして活動する方針となった。ファーストコールと並行して必要な観察・対応を進める。",
+      "visible_data": {
+        "priority": "低血圧を伴う胸背部痛が持続している。",
+        "activity_policy": "現場滞在を短くし、ファーストコールと搬送準備を並行する。"
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "ファーストコールと並行して優先したい観察・対応として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "飲水後の症状変化を確認し、血圧が改善するか観察する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -4,
+          "rationale": "暑熱環境は背景として重要だが、低血圧を伴う胸背部痛では改善待ちより迅速な対応を優先する。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "発症時刻、痛みの持続、既往歴、内服薬を確認する",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "rationale": "発症時刻や既往・内服は、循環器疾患や大血管疾患の判断、搬送先選定に重要である。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "テニスコート上で詳細な問診を完了してから移動する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "必要な情報収集は行うが、内因性L&Gでは現場滞在を延ばさない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "酸素投与を考慮し、車内でモニター装着と心電図評価を進める",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "rationale": "低酸素やショックを評価しながら、心電図モニターで循環器病態を確認する。"
+        },
+        {
+          "option_id": "s4_o5",
+          "text": "運動による筋肉痛の可能性を確認し、患部の安静を優先する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -4,
+          "rationale": "筋骨格系疼痛も鑑別には入るが、低血圧を伴う持続性胸背部痛では優先度が下がる。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "車内収容後のモニター確認",
+      "phase": "monitor_assessment",
+      "scene_goal": "Ⅱ誘導モニター波形から、重症循環器病態を示す所見を読み取る。",
+      "ideal_flow": [
+        "車内収容後にモニターを装着する。",
+        "波形を確認し、ST部分の変化に注目する。",
+        "胸背部痛、低血圧、発汗と合わせて循環器病態を疑う。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "ecg_monitor",
+        "waveform_assessment"
+      ],
+      "text": "車内収容後、モニターを装着した。Ⅱ誘導モニター波形を確認する。",
+      "visible_data": {
+        "monitor": {
+          "rhythm": "規則的な波形",
+          "lead": "Ⅱ誘導モニター波形",
+          "note": "波形のST部分に注目する。"
+        }
+      },
+      "media": [
+        "media/ecg_lead2_st_elevation_ami_scene5.png"
+      ],
+      "observation_points": [
+        {
+          "point_id": "monitor_waveform",
+          "label": "モニター波形を見る",
+          "description": "Ⅱ誘導波形でST部分が基線より上昇している。胸背部痛、冷汗、血圧低下と合わせて重症循環器病態を疑う所見である。",
+          "media": [
+            "media/ecg_lead2_st_elevation_ami_scene5.png"
+          ]
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "提示されたⅡ誘導波形で注目すべき所見はどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "心房粗動を疑う鋸歯状波",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "鋸歯状波は心房粗動を疑う所見であり、この波形の主な注目点ではない。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "幅広いQRS波の連続",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "幅広いQRS波が連続する所見ではなく、心室頻拍を示す波形ではない。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "ST部分の上昇",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "Ⅱ誘導でST部分の上昇を認め、胸背部痛や血圧低下と合わせて急性冠症候群を疑う。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "規則的な狭QRS頻拍",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "脈拍数や波形から、主な問題は狭QRS頻拍ではない。"
+        },
+        {
+          "option_id": "s5_o5",
+          "text": "徐脈を伴う房室伝導障害",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "徐脈や房室伝導障害を示す所見ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "最も考えられる病態",
+      "phase": "core_exam_question",
+      "scene_goal": "暑熱環境に引っ張られず、胸背部痛、血圧低下、心電図モニター波形から最も疑う病態を判断する。",
+      "ideal_flow": [
+        "真夏の運動中という背景だけで熱中症に固定しない。",
+        "胸背部痛、低血圧、発汗、心電図モニター波形を統合する。",
+        "急性心筋梗塞を最も疑う。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "clinical_reasoning",
+        "exam_core"
+      ],
+      "text": "真夏の運動中に発症し発汗を認めるが、胸背部痛が持続している。さらに血圧低下と、提示された心電図モニター波形の所見を認める。",
+      "visible_data": {
+        "summary": {
+          "environment": "真夏の炎天下でテニス中に発症。",
+          "symptoms": "胸背部痛が持続。",
+          "vitals": "血圧80/56mmHg、脈拍114/分、SpO₂93％。",
+          "monitor": "Ⅱ誘導モニター波形で異常所見を認める。"
+        }
+      },
+      "media": [
+        "media/ecg_lead2_st_elevation_ami_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この傷病者で最も考えられる病態はどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "熱中症",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "暑熱環境と発汗は合うが、持続する胸背部痛、低血圧、心電図モニター所見から最優先ではない。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "上室性頻拍",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "脈拍は114/分で整だが、上室性頻拍を主病態とする波形や経過ではない。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "肺血栓塞栓症",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "rationale": "胸部症状や低酸素は鑑別に入るが、提示された心電図モニター所見と胸背部痛からは最も考えにくい。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "急性心筋梗塞",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸背部痛、冷汗、血圧低下、Ⅱ誘導モニター波形の所見から、急性心筋梗塞を最も疑う。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "大動脈瘤破裂",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "rationale": "胸背部痛とショックから大血管疾患は鑑別に入るが、今回の心電図所見を踏まえると急性心筋梗塞が最も考えられる。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "病態理解と搬送方針",
+      "phase": "pathophysiology_and_transport",
+      "scene_goal": "急性心筋梗塞の病態を理解し、再灌流療法に対応できる医療機関への搬送を考える。",
+      "ideal_flow": [
+        "胸背部痛、冷汗、低血圧、心電図モニター所見を統合する。",
+        "心筋虚血を疑う。",
+        "再灌流療法に対応できる医療機関への搬送を考慮する。"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "transport_decision"
+      ],
+      "text": "胸背部痛、冷汗、血圧低下、心電図モニター所見を踏まえて、病態理解と搬送方針を整理する。",
+      "visible_data": {
+        "clinical_summary": {
+          "main_findings": [
+            "胸背部痛の持続",
+            "冷汗",
+            "血圧低下",
+            "心電図モニター所見"
+          ],
+          "transport_consideration": "循環器対応が可能な医療機関を考慮する。"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の病態理解と搬送方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "暑熱環境での発症であり、脱水による循環血液量減少を主に考えて冷却と補液対応を優先する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "暑熱環境への対応は必要だが、胸背部痛、血圧低下、心電図所見から心筋虚血を優先して考える。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "胸背部痛、冷汗、血圧低下、心電図モニター所見から心筋虚血を疑い、再灌流療法に対応できる医療機関を考慮する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "急性心筋梗塞では冠動脈閉塞による心筋虚血・壊死を疑い、再灌流療法に対応できる施設を考慮する。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "脈拍が整であるため頻脈性不整脈の関与は低く、呼吸状態の悪化を中心に搬送先を選定する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "脈拍の整・不整だけで病態を判断せず、胸背部痛と心電図所見を重視する。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "背部痛を伴うため大動脈疾患を最優先し、心電図所見よりも疼痛部位の変化を中心に評価する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "rationale": "大動脈疾患は鑑別に入るが、今回の心電図所見と低血圧から心筋虚血を優先して判断する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "真夏の炎天下でテニス中に胸背部痛を訴えた56歳女性の症例。暑熱環境に引っ張られず、胸背部痛、冷汗、血圧低下、Ⅱ誘導モニター波形の所見から急性心筋梗塞を疑い、内因性L&Gとしてファーストコールと迅速搬送を進めることが学習の中心である。",
+    "ideal_actions": [
+      "出動中PACで顔色不良、冷汗、息苦しさ、痛みの持続、痛みの広がりを確認する。",
+      "初期評価で弱い橈骨動脈、顔色不良、発汗から循環不全を疑う。",
+      "血圧80/56mmHgと持続する胸背部痛から内因性L&Gとして活動する。",
+      "ファーストコールと並行して発症時刻、痛みの経過、既往歴、内服薬を確認する。",
+      "車内収容後に酸素投与を考慮し、モニター装着と心電図評価を行う。",
+      "Ⅱ誘導モニター波形のST部分上昇を読み取り、急性心筋梗塞を疑う。",
+      "再灌流療法に対応できる医療機関への搬送を考慮する。"
+    ],
+    "good_points": [
+      "暑熱環境でも胸背部痛を重症内因性疾患として扱えた。",
+      "低血圧を重症徴候として捉え、迅速搬送へつなげられた。",
+      "モニター波形所見を病態判断に結びつけられた。"
+    ],
+    "cautions": [
+      "真夏の運動中という情報だけで熱中症に固定しない。",
+      "CPAでなくても、血圧低下を伴う胸背部痛は重症として扱う。",
+      "現場で詳細問診に時間をかけすぎず、ファーストコールと搬送準備を並行する。",
+      "背部痛を伴う場合は大血管疾患も鑑別に残しつつ、心電図所見を踏まえて優先度を判断する。"
+    ]
+  }
+}

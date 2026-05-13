@@ -1,0 +1,738 @@
+{
+  "case_id": "respiratory_pediatric_asthma_house_dust_orthopnea_001",
+  "version": "2.0",
+  "title": "掃除中の咳込みから小児喘息発作を疑い、呼吸観察と酸素投与を判断する症例",
+  "category": "respiratory",
+  "difficulty": "Normal",
+  "algorithm_type": "呼吸困難プロトコル",
+  "estimated_time": 10,
+  "keywords": [
+    "小児呼吸困難",
+    "喘息発作",
+    "ハウスダスト",
+    "起坐呼吸",
+    "酸素投与"
+  ],
+  "ai_grading_candidate": true,
+  "ai_grading_scene": "scene3",
+  "ai_grading_reason": "母親からのSAMPLEを中心とした対話式情報収集",
+  "boss_candidate": false,
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容",
+      "phase": "dispatch",
+      "scene_goal": "咳込みが止まらない小児の通報から、呼吸困難の可能性を推理する。",
+      "ideal_flow": [
+        "小児の咳込みを呼吸困難の可能性として捉える",
+        "母親へ呼吸状態を確認する",
+        "ハイリスク症候の有無を意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "8歳男児の母親から、息子の咳込みが止まらないとの通報があった。母親は自宅で掃除中だった。",
+      "visible_data": {
+        "dispatch_information": [
+          "8歳男児",
+          "咳込みが止まらない",
+          "自宅内",
+          "母親からの通報",
+          "意識はあるとの情報"
+        ]
+      },
+      "media": [
+        "media/worried_woman_tending_to_sick_boy.png"
+      ],
+      "type": "single_choice",
+      "prompt": "出場途上で母親に確認する内容として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "呼吸の様子",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "checked_breathing_status"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "小児の咳込みでは、呼吸困難、会話の可否、顔色、意識状態などを早期に確認する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "最終排尿",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_question"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "重要な情報になる場合もあるが、咳込みが止まらない小児では呼吸状態の確認が優先される。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "体重の変化",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "慢性的な評価としては有用なこともあるが、出場途上の優先確認事項ではない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "普段の成績",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_question"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "今回の呼吸状態の把握には直接関係しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "接触時の初期評価から、呼吸困難としてStep3へ進むか判断する。",
+      "ideal_flow": [
+        "意識を確認する",
+        "気道開通を確認する",
+        "呼吸状態を確認する",
+        "切迫した状態か判断する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "initial_assessment",
+      "text": "救急隊が接触すると、男児は意識清明で、座った姿勢で咳込みを繰り返している。短い返答は可能だが、息苦しそうにしている。",
+      "visible_data": {
+        "initial_assessment": [
+          "意識清明",
+          "発語あり",
+          "咳込みあり",
+          "呼吸苦あり",
+          "短い返答は可能"
+        ]
+      },
+      "media": [
+        "media/worried_woman_tending_to_sick_boy.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価で最も優先して確認する項目はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "呼吸状態",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "prioritized_breathing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "小児の咳込みと呼吸苦では、気道・呼吸状態、努力呼吸、会話の可否などを優先して評価する。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "皮膚温",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "secondary_assessment_first"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "皮膚所見も観察するが、初期評価では呼吸状態の確認が優先される。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "腹部膨隆",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "腹部所見は必要に応じて確認するが、この場面の最優先ではない。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "四肢変形",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "trauma_focus_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷を疑う通報ではなく、呼吸困難の評価を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "vitals_and_history",
+      "scene_goal": "バイタルサインを測定し、母親から発症状況と既往を聞き取る。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "母親から発症状況を聞く",
+        "アレルギーや既往を確認する",
+        "誘因を考える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "dialogue_history_taking",
+      "text": "バイタルサインを測定しながら、母親から情報収集を行う。",
+      "visible_data": {
+        "vital_signs": [
+          {
+            "consciousness": "意識清明",
+            "pulse": "120回/分・整",
+            "blood_pressure": "100/70mmHg",
+            "spo2": "91%"
+          }
+        ],
+        "patient_condition": [
+          "咳込みが続いている",
+          "座位を保っている",
+          "短文で返答可能"
+        ]
+      },
+      "media": [
+        "media/worried_woman_tending_to_sick_boy.png"
+      ],
+      "type": "template_select",
+      "prompt": "母親から今回の呼吸困難に関係する情報を得る。最も適切な質問はどれか。1つ選べ。",
+      "templates": [
+        {
+          "template_id": "s3_t1",
+          "text": "咳込みは何をしている時に始まりましたか。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "response": "掃除をしていたら、急に咳込みが強くなりました。以前からハウスダストで息苦しくなることがあります。",
+          "status_effect": {
+            "add_flags": [
+              "identified_trigger"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "発症時の状況を聞くことで、掃除中のハウスダスト曝露と呼吸困難の関連を把握できる。"
+        },
+        {
+          "template_id": "s3_t2",
+          "text": "最近、学校の成績は変わりましたか。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "response": "今はそれより息が苦しそうで……。",
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_history"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "今回の急な呼吸困難との関連は低い。"
+        },
+        {
+          "template_id": "s3_t3",
+          "text": "昨日は何時に寝ましたか。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "response": "昨日は普段どおり寝ていたと思います。",
+          "status_effect": {
+            "add_flags": [
+              "low_value_history"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "生活状況として参考になる場合はあるが、今回の誘因確認としては優先度が低い。"
+        },
+        {
+          "template_id": "s3_t4",
+          "text": "好きな遊びは何ですか。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "response": "今は遊びの話どころではありません。",
+          "status_effect": {
+            "add_flags": [
+              "missed_key_history"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "今回の呼吸困難の評価には直接つながらない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の再判断",
+      "phase": "reassessment_and_plan",
+      "scene_goal": "SpO2低下と呼吸苦から、体位管理と酸素投与を判断する。",
+      "ideal_flow": [
+        "SpO2低下を評価する",
+        "安楽体位を保つ",
+        "適切な酸素デバイスと流量を選ぶ",
+        "搬送準備を進める"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "oxygen_device_selection",
+      "text": "男児は咳込みと呼吸苦が続いている。SpO2は91％で、横になることを嫌がっている。",
+      "visible_data": {
+        "reassessment": [
+          "SpO2 91%",
+          "呼吸苦あり",
+          "短文で返答可能",
+          "横になることを嫌がる"
+        ],
+        "oxygen_device_reference": [
+          "鼻カニューレ：1〜4L/分程度",
+          "フェイスマスク：4〜8L/分程度",
+          "リザーバー付きマスク：6〜10L/分程度"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "活動方針として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "安楽体位を保ち、フェイスマスク6L/分で酸素投与する。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "appropriate_oxygen_and_position"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "hypoxia_unaddressed"
+            ]
+          },
+          "rationale": "呼吸苦とSpO2低下があるため、安楽体位を保ち、最低流量を満たしたフェイスマスクで酸素投与を行う。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "仰臥位にして、鼻カニューレ1L/分で経過をみる。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "insufficient_oxygen"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hypoxia_unaddressed"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸苦があり横になることを嫌がっているため、仰臥位固定は適切ではない。酸素流量も不足しやすい。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "座位を避け、フェイスマスク2L/分で酸素投与する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "mask_low_flow_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "co2_rebreathing_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "フェイスマスクの低流量使用は呼気再吸入の危険がある。呼吸困難では安楽体位を保つ。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "歩行させて、リザーバー付きマスク10L/分を準備する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_exertion"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_worsening"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸苦がある小児を歩行させるべきではない。酸素投与と搬送準備を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "重点観察",
+      "phase": "focused_assessment",
+      "scene_goal": "小児呼吸困難で観察すべき呼吸所見を選択する。",
+      "ideal_flow": [
+        "呼吸時の姿勢を観察する",
+        "陥没呼吸を確認する",
+        "喘鳴の有無を確認する",
+        "会話の可否を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "respiratory_focused_assessment",
+      "text": "酸素投与を開始し、搬送準備を進めながら呼吸状態を重点的に観察する。",
+      "visible_data": {
+        "focused_observation": [
+          "座位を保つ",
+          "短文で返答可能",
+          "咳込みあり",
+          "呼吸苦あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で重点的に観察すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "呼吸時の姿勢",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "observed_breathing_posture"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難では、体位、陥没呼吸、喘鳴、会話の可否、チアノーゼなどを重点的に観察する。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "爪の長さ",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_observation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難の重点観察として優先度は低い。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "瞳孔不同",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_protocol_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害や頭蓋内病変を疑う場面では重要だが、この場面では呼吸所見が優先される。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "皮膚の擦過傷",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "trauma_observation_priority_error"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷を示す通報ではなく、呼吸困難の重点観察としては優先されない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "呼吸観察",
+      "phase": "exam_core",
+      "scene_goal": "国家試験の核である呼吸観察所見を判断する。",
+      "ideal_flow": [
+        "喘息発作で起こりやすい呼吸所見を考える",
+        "選択肢から最も適切な所見を選ぶ",
+        "起坐呼吸と呼吸困難の関係を理解する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "exam_core_question",
+      "text": "この傷病者では、呼吸困難を軽減するために特徴的な姿勢をとることがある。",
+      "visible_data": {
+        "exam_focus": [
+          "呼吸の観察所見",
+          "小児呼吸困難",
+          "体位"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の呼吸の観察で認められる所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "徐呼吸",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_bradypnea"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "喘息発作などの呼吸困難では頻呼吸となることが多く、徐呼吸は悪化や呼吸停止前に注意する所見である。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "起坐呼吸",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "recognized_orthopnea"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難では横になると苦しさが増し、座位や前傾姿勢をとることがある。この選択肢では起坐呼吸が最も適切である。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "奇異呼吸",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_paradoxical_respiration"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "奇異呼吸は胸郭外傷や呼吸筋疲労などで問題となるが、この症例の典型所見としては優先されない。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "吸気延長",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_inspiratory_prolongation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "喘息では主に呼気障害が問題となり、呼気延長や喘鳴が重要となる。吸気延長ではない。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "呼吸音増大",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_increased_breath_sounds"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "気道狭窄が強くなると呼吸音は減弱することもある。呼吸音増大は典型的な判断ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "喘息の病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "ハウスダストを契機に喘息発作が起こる機序を理解する。",
+      "ideal_flow": [
+        "ハウスダストをアレルゲンとして捉える",
+        "気道炎症と気管支狭窄を理解する",
+        "呼気障害と起坐呼吸を結びつける"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "asthma_pathophysiology",
+      "text": "母親の話では、掃除中に咳込みが強くなり、以前からハウスダストで息苦しくなることがあったという。",
+      "visible_data": {
+        "learning_focus": [
+          "ハウスダスト",
+          "アレルギー性炎症",
+          "気管支狭窄",
+          "呼気障害",
+          "起坐呼吸"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ハウスダストをきっかけに喘息発作が起こる主な機序として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "気道のアレルギー性炎症により気管支が狭くなる。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "understood_asthma_mechanism"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "ハウスダストはアレルゲンとなり、気道炎症や気管支収縮を引き起こす。気管支狭窄により呼気障害、喘鳴、呼吸困難が生じる。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "肺胞が破裂して胸腔内に空気が漏れる。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "misread_as_pneumothorax"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "これは気胸の病態であり、ハウスダストを契機とした喘息発作の主機序ではない。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "横隔膜の麻痺により吸気ができなくなる。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_respiratory_mechanism"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "喘息発作の主な問題は横隔膜麻痺ではなく、気道炎症と気管支狭窄である。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "血液中の酸素が過剰になり呼吸が抑制される。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "incorrect_oxygen_understanding"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "この症例ではSpO2低下と呼吸苦があり、酸素過剰による呼吸抑制が主病態ではない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "8歳男児が自宅で咳込みを繰り返し、SpO2 91％と呼吸苦を認めた症例。母親から、掃除中に悪化したこと、ハウスダストで息苦しくなる既往があることを聞き取り、小児喘息発作を疑う。安楽体位を保ち、適切な流量で酸素投与を行い、呼吸時の姿勢や喘鳴、会話の可否などを継続観察する。国試の核は、呼吸困難時に認められる起坐呼吸を判断することである。",
+    "ideal_actions": [
+      "通報段階で小児呼吸困難の可能性を考える",
+      "初期評価で意識・気道・呼吸状態を確認する",
+      "SpO2低下と呼吸苦を評価する",
+      "母親から発症状況、誘因、既往を聞き取る",
+      "安楽体位を保つ",
+      "フェイスマスク6L/分で酸素投与を行う",
+      "呼吸時の姿勢、喘鳴、陥没呼吸、会話の可否を観察する",
+      "ハウスダストによるアレルギー性気道炎症と気管支狭窄を理解する"
+    ],
+    "good_points": [
+      "咳込みを単なる咳として扱わず、小児呼吸困難として評価できる",
+      "母親から掃除中の悪化とハウスダストの情報を引き出せる",
+      "酸素デバイスと流量を意識して選択できる",
+      "起坐呼吸を呼吸困難の観察所見として理解できる",
+      "ハウスダストと喘息発作の機序を結びつけられる"
+    ],
+    "cautions": [
+      "小児の呼吸状態は急変しやすいため、会話困難や意識低下に注意する",
+      "フェイスマスクを低流量で使用すると呼気再吸入の危険がある",
+      "喘息では吸気延長ではなく、主に呼気障害が問題となる",
+      "喘鳴が弱くなる場合は改善ではなく、換気不良の悪化を疑うことがある",
+      "画像の掃除機は誘因の伏線だが、Scene3の母親への情報収集で自然に確認する"
+    ]
+  }
+}

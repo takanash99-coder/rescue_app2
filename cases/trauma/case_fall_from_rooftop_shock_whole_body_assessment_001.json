@@ -1,0 +1,593 @@
+{
+  "case_id": "fall_from_rooftop_shock_whole_body_assessment_001",
+  "version": "2.0",
+  "title": "3階屋上からの墜落後、ショック徴候から全身観察を優先する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "高所墜落",
+    "高エネルギー外傷",
+    "初期評価",
+    "全身観察",
+    "出血性ショック"
+  ],
+  "metadata": {
+    "case_no": 93,
+    "source_hint": "第47回国家試験D問題32を参考に再構成",
+    "boss_candidate": false,
+    "ai_grading_candidate": false,
+    "free_text": false,
+    "interactive": false,
+    "body_map": true,
+    "media_required": true
+  },
+  "patient_profile": {
+    "age": 20,
+    "sex": "female",
+    "chief_complaint": "3階建てアパート屋上からの墜落",
+    "background": "3階建てアパートの屋上から墜落し、通行人が救急要請した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": {
+      "scene_safety_checked": false,
+      "high_energy_trauma": true,
+      "shock_suspected": false,
+      "whole_body_assessment_done": false,
+      "suspected_internal_bleeding": false,
+      "body_map_used": false
+    },
+    "danger_tags": [
+      "高所墜落",
+      "高エネルギー外傷",
+      "ショック疑い",
+      "内出血疑い",
+      "多発外傷"
+    ]
+  },
+  "result_rank": [
+    {
+      "rank": "Excellent",
+      "score_min": 85,
+      "life_min": 85,
+      "summary": "高所墜落を高エネルギー外傷として捉え、状況評価、初期評価、全身観察を順序立てて実施し、外表出血が乏しくても内出血を伴う多発外傷を疑えた。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 65,
+      "life_min": 70,
+      "summary": "ショック徴候と全身観察の必要性は理解できているが、墜落外傷特有の危険評価や部位別観察の一部に弱さがある。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 45,
+      "life_min": 50,
+      "summary": "高所墜落の危険性には気づけているが、初期評価結果から全身観察へつなげる判断が不十分である。"
+    },
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "life_min": 0,
+      "summary": "会話可能で外表出血がないことに安心し、ショック徴候や多発外傷を見逃している。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch_pac",
+      "scene_goal": "墜落外傷として受傷機転を把握し、高エネルギー外傷を想定する。",
+      "ideal_flow": [
+        "屋上からの墜落であることを把握する",
+        "墜落した高さを確認する",
+        "高エネルギー外傷を想定する",
+        "多発外傷とショックの可能性を考える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "受傷機転",
+        "高所墜落"
+      ],
+      "text": "通行人から「アパートの屋上から人が落ちた」と救急要請があった。出場途上で通報者へ追加確認を行う。",
+      "visible_data": {
+        "dispatch_information": [
+          "20歳女性",
+          "3階建てアパートの屋上から墜落",
+          "通行人が救急要請",
+          "詳しい外傷部位は未確認"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "3階建てアパートの屋上から人が落ちたとの通報を受けた。出場途上で通報者に確認する内容として、最も優先度が高いものはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "傷病者の既往歴",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "既往歴は後で確認する情報であり、出場途上ではまず受傷機転の重症度を見積もる。"
+        },
+        {
+          "option_id": "B",
+          "text": "墜落した高さ",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "high_energy_trauma_recognized"
+          ],
+          "rationale": "墜落外傷では、高さから受傷エネルギーを見積もる。3階屋上からの墜落では多発外傷や内出血を想定する。"
+        },
+        {
+          "option_id": "C",
+          "text": "傷病者の最終食事時刻",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "最終食事時刻は参考情報になる場合があるが、墜落通報で最初に確認する内容としては優先度が下がる。"
+        },
+        {
+          "option_id": "D",
+          "text": "通報者と傷病者の関係",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "情報の信頼性確認には役立つが、受傷機転の重症度評価としては墜落した高さの確認が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価",
+      "phase": "scene_safety",
+      "scene_goal": "墜落現場特有の危険を確認し、安全に接近する。",
+      "ideal_flow": [
+        "現場周囲の安全を確認する",
+        "屋上や外壁からの落下物を確認する",
+        "再転落や二次事故の危険を確認する",
+        "安全を確保して傷病者へ接近する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "状況評価",
+        "現場安全",
+        "墜落現場"
+      ],
+      "text": "現場は3階建てアパート前の歩道である。傷病者は建物の近くに倒れており、通行人がそばにいる。",
+      "visible_data": {
+        "scene_information": [
+          "3階建てアパート前",
+          "傷病者は建物の近くに倒れている",
+          "通行人が救急隊の到着を待っている",
+          "屋上や外壁の状況は未確認"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "現場到着時、3階建てアパートからの墜落現場で、状況評価として優先する内容はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "傷病者の訴える痛みの部位",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "痛みの部位は接触後に確認する内容であり、状況評価ではまず現場安全を確認する。"
+        },
+        {
+          "option_id": "B",
+          "text": "通報者からの詳しい聴取",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "聴取は重要だが、墜落現場では接近前に二次災害の危険を確認する。"
+        },
+        {
+          "option_id": "C",
+          "text": "屋上や外壁からの落下物の危険",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "scene_safety_checked"
+          ],
+          "rationale": "状況評価では現場安全を優先する。墜落現場では屋上、外壁、ベランダからの落下物や再転落、車道上での二次事故に注意する。"
+        },
+        {
+          "option_id": "D",
+          "text": "搬送先候補の選定",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "搬送先選定は重要だが、現場到着直後は安全確認を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価①：所見を拾う",
+      "phase": "initial_assessment_findings",
+      "scene_goal": "接触直後の初期評価でショックを疑う所見を拾う。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "呼吸様式を確認する",
+        "脈の強さを確認する",
+        "皮膚の冷感と湿潤を確認する",
+        "活動性外出血の有無を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "初期評価",
+        "ショック徴候",
+        "外傷"
+      ],
+      "text": "安全を確認して傷病者へ接触した。傷病者は仰臥位で倒れている。呼びかけに開眼し、短い会話は可能である。呼吸は浅く速い。脈は弱く触知する。皮膚は冷たく湿っている。活動性外出血は認めない。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに開眼",
+          "短い会話は可能",
+          "呼吸は浅く速い",
+          "脈は弱く触知",
+          "皮膚は冷たく湿っている",
+          "活動性外出血なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "接触直後の初期評価で、最も重視すべき異常所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "呼びかけに開眼すること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "呼びかけに開眼することは意識評価の情報だが、この場面で重視すべき異常はショックを疑う循環所見である。"
+        },
+        {
+          "option_id": "B",
+          "text": "脈が弱く、皮膚が冷たく湿っていること",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "shock_signs_recognized"
+          ],
+          "rationale": "弱い脈と冷汗湿潤皮膚はショックを疑う重要な所見である。会話可能でも重症外傷は否定できない。"
+        },
+        {
+          "option_id": "C",
+          "text": "会話が可能であること",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "会話可能であっても、浅速呼吸や弱い脈、冷汗湿潤皮膚があれば重症化を想定する。"
+        },
+        {
+          "option_id": "D",
+          "text": "活動性外出血を認めないこと",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "活動性外出血がなくても、内出血によるショックは否定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "初期評価②：結果から疑う状態",
+      "phase": "initial_assessment_judgment",
+      "scene_goal": "初期評価結果から、高所墜落によるショックを疑う。",
+      "ideal_flow": [
+        "高所墜落という受傷機転を重視する",
+        "浅速呼吸を重視する",
+        "弱い脈と冷汗湿潤皮膚を重視する",
+        "外表出血がなくても内出血を疑う",
+        "全身観察へ進む判断につなげる"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "初期評価",
+        "ショック判断",
+        "高所墜落"
+      ],
+      "text": "初期評価では、呼びかけに開眼し会話は可能であったが、呼吸は浅く速く、脈は弱く触知し、皮膚は冷たく湿っていた。活動性外出血は認めなかった。",
+      "visible_data": {
+        "assessment_summary": [
+          "高所墜落",
+          "会話可能",
+          "浅く速い呼吸",
+          "弱い脈",
+          "冷汗湿潤皮膚",
+          "活動性外出血なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価の結果から、この時点で最も疑うべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "単純な四肢外傷",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "高所墜落でショック徴候があるため、局所外傷として扱うのは不十分である。"
+        },
+        {
+          "option_id": "B",
+          "text": "軽度の頭部打撲",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "会話可能でも、浅速呼吸や弱い脈、冷汗湿潤皮膚があり、軽度頭部打撲だけとは判断できない。"
+        },
+        {
+          "option_id": "C",
+          "text": "一時的な過換気発作",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "呼吸が速いだけでなく、脈が弱く皮膚が冷たく湿っているため、ショックを疑う。"
+        },
+        {
+          "option_id": "D",
+          "text": "高所墜落によるショック",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "shock_suspected"
+          ],
+          "rationale": "高所墜落後に浅速呼吸、弱い脈、冷汗湿潤皮膚を認める場合、外表出血がなくても内出血を伴うショックを疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "全身観察・人体図",
+      "phase": "whole_body_assessment",
+      "scene_goal": "人体図を使って全身観察を行い、所見から出血性ショックを疑う。",
+      "ideal_flow": [
+        "初期評価でショックを疑う",
+        "全身観察を行う",
+        "胸部、腹部、骨盤、四肢、背部の所見を確認する",
+        "所見を統合して内出血を疑う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "全身観察",
+        "人体図",
+        "出血性ショック"
+      ],
+      "text": "初期評価からショックを疑い、全身観察へ進む。人体図を使って部位ごとの所見を確認する。",
+      "visible_data": {
+        "body_map_template": "media/neutral_mannequin_body_diagram_template.png",
+        "body_map_instruction": "人体図またはサイドバーから観察部位を選択すると、部位別所見が表示される。",
+        "body_regions": [
+          {
+            "region_id": "head_face",
+            "label": "頭部・顔面",
+            "finding": "明らかな大量外出血なし。後頭部に軽度圧痛を認める。",
+            "clinical_meaning": "頭部外傷を否定せず、意識変化や嘔吐などの変化に注意する。"
+          },
+          {
+            "region_id": "neck",
+            "label": "頸部",
+            "finding": "頸部痛あり。明らかな外出血なし。",
+            "clinical_meaning": "高所墜落のため頸椎・脊椎損傷リスクを考慮する。"
+          },
+          {
+            "region_id": "chest",
+            "label": "胸部",
+            "finding": "胸部圧痛あり。呼吸は浅く速い。胸郭の明らかな開放創はない。",
+            "clinical_meaning": "胸部外傷を疑う。呼吸状態の悪化や胸郭運動の左右差に注意する。"
+          },
+          {
+            "region_id": "abdomen",
+            "label": "腹部",
+            "finding": "腹部圧痛あり。腹部はやや緊満している。",
+            "clinical_meaning": "腹腔内出血を伴う腹部外傷を疑う。"
+          },
+          {
+            "region_id": "pelvis",
+            "label": "骨盤部",
+            "finding": "骨盤部痛あり。圧迫操作は反復しない。",
+            "clinical_meaning": "骨盤骨折による大量出血を疑う。"
+          },
+          {
+            "region_id": "right_thigh",
+            "label": "右大腿部",
+            "finding": "右大腿部に腫脹と圧痛あり。活動性外出血はない。",
+            "clinical_meaning": "大腿骨骨折や筋内出血を疑う。"
+          },
+          {
+            "region_id": "back_spine",
+            "label": "背部・脊椎",
+            "finding": "背部痛あり。脊柱の圧痛が疑われる。",
+            "clinical_meaning": "脊椎損傷を考慮し、脊椎運動制限を意識する。"
+          },
+          {
+            "region_id": "upper_limbs",
+            "label": "上肢",
+            "finding": "明らかな変形や大量外出血なし。",
+            "clinical_meaning": "末梢循環や感覚・運動を確認する。"
+          },
+          {
+            "region_id": "lower_limbs",
+            "label": "下肢",
+            "finding": "右大腿部以外に明らかな大量外出血なし。右大腿部腫脹あり。",
+            "clinical_meaning": "下肢外傷と出血量を評価する。"
+          }
+        ],
+        "assessment_result": [
+          "胸部圧痛あり",
+          "腹部圧痛あり",
+          "骨盤部痛あり",
+          "右大腿部腫脹と圧痛あり",
+          "背部痛あり",
+          "活動性外出血は目立たない",
+          "脈は弱く、皮膚は冷たく湿っている"
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "single_choice",
+      "prompt": "全身観察の結果から、この傷病者で最も疑うべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "頭部外傷単独による軽症外傷",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "頭部所見だけでなく、胸腹部、骨盤、大腿部など複数部位の損傷が疑われる。軽症外傷とは判断できない。"
+        },
+        {
+          "option_id": "B",
+          "text": "局所の打撲のみで全身状態は安定している状態",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "弱い脈、冷汗湿潤皮膚、複数部位の所見があり、全身状態が安定しているとはいえない。"
+        },
+        {
+          "option_id": "C",
+          "text": "呼吸があるため胸部損傷の可能性は低い状態",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "呼吸があっても胸部損傷は否定できない。浅速呼吸や胸部圧痛を重視する。"
+        },
+        {
+          "option_id": "D",
+          "text": "胸腹部・骨盤・大腿部損傷による出血性ショック",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [
+            "whole_body_assessment_done",
+            "suspected_internal_bleeding"
+          ],
+          "rationale": "高所墜落後にショック徴候があり、全身観察で胸腹部、骨盤、大腿部の損傷が疑われる場合、外表出血が目立たなくても内出血による出血性ショックを考える。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態把握",
+      "phase": "pathophysiology",
+      "scene_goal": "高所墜落で全身観察が重要となる理由を理解する。",
+      "ideal_flow": [
+        "高所墜落を高エネルギー外傷として捉える",
+        "外表出血がなくても内出血を疑う",
+        "胸腹部、骨盤、脊椎、四肢損傷を想定する",
+        "受傷機転から多発外傷を評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "病態把握",
+        "多発外傷",
+        "内出血"
+      ],
+      "text": "全身観察で複数部位の損傷を疑う所見を認めた。高所墜落では、外表出血が乏しくても重症損傷を伴うことがある。",
+      "visible_data": {
+        "learning_context": [
+          "3階屋上からの墜落",
+          "活動性外出血は目立たない",
+          "ショック徴候あり",
+          "胸腹部・骨盤・大腿部の損傷を疑う",
+          "高エネルギー外傷として扱う"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "高所墜落傷病者で全身観察が重要となる理由として、最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "会話可能であれば、本人の訴えだけで重症度を判断できるため",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "会話可能でも、内出血や多発外傷を否定できない。受傷機転と全身所見を重視する。"
+        },
+        {
+          "option_id": "B",
+          "text": "活動性外出血がなければ、胸腹部損傷はほぼ否定できるため",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "外表出血がなくても、胸腹部損傷や骨盤骨折などによる内出血を来すことがある。"
+        },
+        {
+          "option_id": "C",
+          "text": "四肢痛があれば、全身観察より局所固定を優先すべきため",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "局所固定も必要になるが、高所墜落ではまず多発外傷を想定して全身を観察する。"
+        },
+        {
+          "option_id": "D",
+          "text": "外表出血が乏しくても、多発外傷や内出血を伴うことがあるため",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "pathophysiology_understood"
+          ],
+          "rationale": "高所墜落では、意識が保たれ外表出血が目立たなくても、胸腹部、骨盤、脊椎、四肢などに重症損傷を伴うことがある。受傷機転から多発外傷を想定し、全身観察で見逃しを防ぐ。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "20歳女性の高所墜落症例。3階建てアパート屋上から墜落し、接触時は会話可能であったが、浅速呼吸、弱い脈、冷汗湿潤皮膚を認めた。活動性外出血がなくても、初期評価からショックを疑い、全身観察で胸腹部・骨盤・大腿部などの損傷を確認することが学習の中心である。",
+    "ideal_actions": [
+      "出場途上で墜落した高さを確認する",
+      "現場到着時に屋上や外壁からの落下物など二次災害を確認する",
+      "初期評価で浅速呼吸、弱い脈、冷汗湿潤皮膚を重視する",
+      "活動性外出血がなくてもショックを疑う",
+      "人体図を使って胸部、腹部、骨盤、四肢、背部を系統的に観察する",
+      "全身観察結果から内出血を伴う出血性ショックを疑う",
+      "高所墜落では多発外傷を想定して評価する"
+    ],
+    "good_points": [
+      "会話可能でも重症外傷を否定しない判断ができれば、ショックの見逃しを防げる",
+      "活動性外出血がなくても内出血を考えられることが重要である",
+      "人体図による部位別観察により、訴えだけに頼らず全身を系統的に評価できる",
+      "高所墜落では受傷機転から多発外傷を想定することが重要である"
+    ],
+    "cautions": [
+      "外表出血が目立たないことを理由に軽症と判断しない",
+      "会話可能であっても、弱い脈や冷汗湿潤皮膚があればショックを疑う",
+      "骨盤部の確認では不要な反復圧迫を避ける",
+      "胸腹部・骨盤・大腿部損傷では内出血による循環悪化に注意する"
+    ]
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "case_id": "heatstroke_farm_worker_consciousness_disturbance_001",
+  "version": "2.0",
+  "title": "炎天下の農作業中に倒れ、意識障害から重症熱中症を疑う症例",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "algorithm_type": "環境障害プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "熱中症",
+    "農作業",
+    "意識障害",
+    "暑熱環境",
+    "重症度判断"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と現場状況",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "暑熱環境下での発症として、熱中症を疑いながら現場安全と初期対応を考える。",
+      "ideal_flow": [
+        "炎天下での農作業中に倒れた情報を把握する",
+        "日陰への移動や衣服をゆるめる対応を依頼する",
+        "意識と呼吸状態を確認してもらう",
+        "無理な飲水をさせないよう伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_call",
+        "environmental_assessment",
+        "heat_illness"
+      ],
+      "text": "40歳の男性。炎天下で農作業中、めまいと筋肉痛を訴え、あくびが目立っていた。その後、畑で倒れたため妻が救急要請した。妻は傷病者のそばで電話をしている。",
+      "visible_data": {
+        "dispatch_information": "炎天下の畑で農作業中に倒れた男性。妻がそばにいる。",
+        "scene_information": "強い日差しがあり、日陰は少ない。農作業道具、帽子、飲みかけのペットボトルが周囲にある。",
+        "patient_information": "40歳男性。倒れる前からめまい、筋肉痛、あくびを認めていた。"
+      },
+      "media": [
+        "media/heatstroke_farm_worker_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "出場途上で妻に依頼する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "意識がはっきりしない場合でも、まず水を飲ませてもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害がある場合は誤嚥の危険があるため、無理な経口摂取は避ける。"
+        },
+        {
+          "option_id": "B",
+          "text": "可能なら日陰へ移動し、衣服をゆるめて意識と呼吸を観察してもらう",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "暑熱環境から離し、冷却しやすい状態にしつつ、意識・呼吸状態を観察することが重要である。"
+        },
+        {
+          "option_id": "C",
+          "text": "汗をかいているため、体を毛布で包んで保温してもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "熱中症疑いでは保温ではなく、冷却しやすい環境を整える。"
+        },
+        {
+          "option_id": "D",
+          "text": "立たせて歩かせ、意識が戻るか確認してもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "倒れた後の傷病者を無理に立たせると転倒や状態悪化の危険がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "暑熱環境下で倒れた傷病者として、生命危機と熱中症の可能性を初期評価する。",
+      "ideal_flow": [
+        "周囲の安全と暑熱環境を確認する",
+        "反応を確認する",
+        "気道・呼吸・循環を初期評価する",
+        "大量発汗や熱感などの外観所見を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "abc_assessment",
+        "heat_illness"
+      ],
+      "text": "救急隊が接触すると、男性は畑の地面に座り込むように倒れている。呼びかけへの反応は鈍い。顔面は紅潮し、衣服は汗で濡れている。妻がそばで心配そうに付き添っている。",
+      "visible_data": {
+        "general_appearance": "地面に座り込むように倒れている。顔面紅潮あり。全身に大量の発汗を認める。",
+        "airway": "気道を閉塞する明らかな異物はない。",
+        "breathing": "自発呼吸あり。呼吸は大きく乱れてはいない。",
+        "circulation": "橈骨動脈は触知可能。皮膚は熱感があり湿っている。",
+        "neurological_status": "呼びかけへの反応は鈍い。"
+      },
+      "media": [
+        "media/heatstroke_farm_worker_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価で最も優先すべき対応はどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "日陰または涼しい場所へ移し、気道・呼吸・循環を評価する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "暑熱環境から離し、初期評価で生命危機を確認することが最優先である。"
+        },
+        {
+          "option_id": "B",
+          "text": "筋肉痛の部位を詳しく聞き取り、局所を固定する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "筋肉痛は熱中症でみられるが、初期評価では生命危機の確認が優先される。"
+        },
+        {
+          "option_id": "C",
+          "text": "大量発汗があるため、冷却は不要と判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "発汗があっても熱中症は否定できず、冷却環境の確保が必要である。"
+        },
+        {
+          "option_id": "D",
+          "text": "本人の希望が確認できるまで現場で様子を見る",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害が疑われる状況であり、現場での様子見は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "暑熱曝露、症状、バイタルサインから熱中症の重症度を判断する。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "発症までの作業時間と水分摂取状況を確認する",
+        "意識障害の有無を重視する",
+        "重症熱中症として早期搬送を考える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "history_taking",
+        "severity_assessment"
+      ],
+      "text": "妻によると、男性は午前中から農作業を続けていた。途中からめまいと筋肉痛を訴え、あくびが増えていた。その後、急に力が抜けたように倒れたという。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "JCS10",
+          "respiratory_rate": "18回/分",
+          "pulse": "120回/分、整",
+          "blood_pressure": "100/60mmHg",
+          "body_temperature": "38.9℃",
+          "spo2": "測定中"
+        },
+        "history": "炎天下で農作業を継続。めまい、筋肉痛、あくびを認めた後に倒れた。",
+        "physical_findings": "大量発汗あり。顔面紅潮あり。皮膚に熱感あり。",
+        "risk_summary": "暑熱環境曝露後の意識障害を伴う熱中症疑い。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も重視すべき所見はどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "意識障害を認めること",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "熱中症では意識障害は重症度判断の重要所見であり、重症として扱う根拠となる。"
+        },
+        {
+          "option_id": "B",
+          "text": "作業中に筋肉痛を訴えていたこと",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "筋肉痛は熱中症でみられるが、単独では重症判断の根拠としては弱い。"
+        },
+        {
+          "option_id": "C",
+          "text": "大量に発汗していること",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "大量発汗は熱中症を疑う所見だが、重症判断では意識障害などを重視する。"
+        },
+        {
+          "option_id": "D",
+          "text": "めまいを訴えていたこと",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "めまいは軽症でもみられるため、重症判断の決め手にはなりにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の決定",
+      "phase": "活動方針の再判断",
+      "scene_goal": "意識障害を伴う熱中症として、冷却と早期搬送を開始する。",
+      "ideal_flow": [
+        "日陰または車内の冷房環境へ移動する",
+        "衣服をゆるめる",
+        "体表冷却を開始する",
+        "酸素投与を考慮する",
+        "医療機関へ早期搬送する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "cooling",
+        "oxygen",
+        "rapid_transport"
+      ],
+      "text": "男性は呼びかけに対して開眼するが、会話は成り立ちにくい。皮膚は熱く湿っており、汗が多い。炎天下での活動継続は困難である。",
+      "visible_data": {
+        "condition": "意識障害があり、暑熱環境への曝露が続いている。",
+        "environment": "畑には日陰が少なく、気温が高い。",
+        "transport_consideration": "重症熱中症として医療機関搬送が必要。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "日陰または冷房環境へ移し、冷却を開始しながら早期搬送する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "意識障害を伴う熱中症では、暑熱環境から離脱し冷却を開始しながら搬送する。"
+        },
+        {
+          "option_id": "B",
+          "text": "発汗しているため体温調節は保たれていると判断し、現場で休ませる",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "発汗があっても意識障害を伴う熱中症は重症として扱う。"
+        },
+        {
+          "option_id": "C",
+          "text": "体温が40℃未満なので軽症と判断し、本人の回復を待つ",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "体温のみで軽症とは判断できず、意識障害がある点を重視する。"
+        },
+        {
+          "option_id": "D",
+          "text": "筋肉痛が主訴なので、まず四肢の外傷評価を優先する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "筋肉痛は熱中症の症状としてみられるが、意識障害と暑熱曝露への対応が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後の冷却と再評価",
+      "phase": "全身観察",
+      "scene_goal": "冷却を継続しながら、最重症化の兆候を見逃さない。",
+      "ideal_flow": [
+        "冷房を使用する",
+        "衣服をゆるめる",
+        "頸部・腋窩・鼠径部などの冷却を考慮する",
+        "意識・呼吸・循環を再評価する",
+        "qⅣ度相当の所見がないか確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "reassessment",
+        "active_cooling",
+        "severity_monitoring"
+      ],
+      "text": "車内収容後、冷房を使用し、衣服をゆるめて冷却を開始した。男性は呼びかけに対して反応するが、ぼんやりしており会話は不十分である。",
+      "visible_data": {
+        "reassessment": "呼吸は保たれている。脈拍は速い。意識障害は持続。",
+        "cooling_status": "冷房環境で体表冷却を開始。汗は持続している。",
+        "severity_check": "深昏睡ではない。表面温は高いが、JCS100以上ではない。",
+        "transport_status": "医療機関へ搬送準備中。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での評価として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "意識障害を伴うため重症熱中症として扱い、冷却と搬送を継続する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "JCS10の意識障害を認めるため、重症熱中症として冷却と早期搬送を継続する。"
+        },
+        {
+          "option_id": "B",
+          "text": "JCS100以上ではないため、熱中症ではないと判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "JCS100以上でなくても、暑熱環境曝露と意識障害があれば熱中症を強く疑う。"
+        },
+        {
+          "option_id": "C",
+          "text": "発汗があるため冷却は中止する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "発汗の有無だけで冷却の必要性を判断しない。意識障害を伴うため冷却継続が必要である。"
+        },
+        {
+          "option_id": "D",
+          "text": "めまいと筋肉痛が中心なので、軽症として自宅安静を勧める",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "意識障害があり、自宅安静で済ませる状況ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "重症判断の根拠",
+      "phase": "車内活動",
+      "scene_goal": "熱中症で重症と判断する根拠を選択できる。",
+      "ideal_flow": [
+        "熱中症の症状を整理する",
+        "軽症でもみられる症状と重症所見を区別する",
+        "意識障害を重症判断の根拠として認識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "exam_core",
+        "severity_assessment",
+        "heatstroke"
+      ],
+      "text": "男性は炎天下での農作業中に、めまい、筋肉痛、あくびを認めた後に倒れた。接触時には大量発汗があり、意識はJCS10であった。",
+      "visible_data": {
+        "key_findings": "暑熱環境曝露、めまい、筋肉痛、あくび、大量発汗、JCS10。",
+        "clinical_question": "この中で重症判断の根拠となる所見を選ぶ。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者を重症熱中症として判断する根拠として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "大量発汗",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "大量発汗は熱中症を疑う所見だが、単独で重症判断の根拠とはしにくい。"
+        },
+        {
+          "option_id": "B",
+          "text": "めまい",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "めまいは軽症でもみられる症状であり、重症判断では意識障害を重視する。"
+        },
+        {
+          "option_id": "C",
+          "text": "JCS10の意識障害",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "熱中症で意識障害を認める場合は重症として扱う重要な根拠となる。"
+        },
+        {
+          "option_id": "D",
+          "text": "筋肉痛",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "筋肉痛やこむら返りは熱中症でみられるが、重症判断の決め手にはなりにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "2024分類を踏まえた病態理解",
+      "phase": "病院連絡",
+      "scene_goal": "2024年の熱中症重症度分類を踏まえ、現場での重症度判断を理解する。",
+      "ideal_flow": [
+        "意識障害を伴う熱中症は重症として扱う",
+        "Ⅳ度・qⅣ度の目安を理解する",
+        "この症例はqⅣ度ではないが、医療機関搬送が必要な重症例と判断する",
+        "解熱薬ではなく冷却が対応の中心であることを理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "guideline_2024",
+        "handoff_reasoning"
+      ],
+      "text": "搬送先へ連絡する段階で、暑熱環境曝露後の意識障害を伴う熱中症として情報を整理する。体温は38.9℃、意識はJCS10であり、冷却を継続しながら搬送している。",
+      "visible_data": {
+        "handoff_points": "炎天下の農作業中に発症。JCS10の意識障害、体温38.9℃、頻脈、大量発汗あり。冷却を開始して搬送中。",
+        "clinical_question": "2024年の熱中症重症度分類を踏まえ、この症例の位置づけを考える。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の重症度判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "意識障害を伴うため重症熱中症として扱うが、JCS10で体温38.9℃のためqⅣ度相当とは言いにくい",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "意識障害は重症判断の根拠である。一方、qⅣ度は表面体温40℃以上または明らかな熱感に加え、GCS8以下またはJCS100以上が目安となるため、この症例は該当しにくい。"
+        },
+        {
+          "option_id": "B",
+          "text": "体温が40℃未満なので、熱中症としては軽症である",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "体温が40℃未満でも意識障害があれば重症として扱う必要がある。"
+        },
+        {
+          "option_id": "C",
+          "text": "大量発汗があるため、体温調節は正常であり搬送は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "大量発汗があっても熱中症は否定できない。意識障害があるため搬送が必要である。"
+        },
+        {
+          "option_id": "D",
+          "text": "熱中症では解熱薬投与を最優先し、冷却は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "熱中症の高体温は感染性発熱とは機序が異なり、対応の中心は暑熱環境からの離脱と冷却である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "炎天下での農作業中にめまい、筋肉痛、あくびを認めた後に倒れ、JCS10の意識障害を呈した熱中症症例。大量発汗や筋肉痛よりも、意識障害を重症判断の根拠として重視する。",
+    "ideal_actions": [
+      "暑熱環境から離脱させる",
+      "日陰または冷房環境へ移動する",
+      "気道・呼吸・循環を初期評価する",
+      "衣服をゆるめて冷却を開始する",
+      "意識障害を重症所見として判断する",
+      "搬送中も意識・呼吸・循環・体温変化を再評価する",
+      "医療機関へ早期搬送する"
+    ],
+    "good_points": [
+      "Scene6で国試の芯である重症判断根拠を確認できる",
+      "Scene7で2024年分類を踏まえた重症度判断を学べる",
+      "めまい・筋肉痛・大量発汗と意識障害の重みの違いを整理できる",
+      "熱中症では解熱薬ではなく冷却が中心であることを確認できる"
+    ],
+    "cautions": [
+      "Scene2では数値バイタルを入れず、初期評価所見で判断する",
+      "発汗があるから軽症とは判断しない",
+      "体温だけで重症度を判断しない",
+      "意識障害を認めたら、重症熱中症として早期搬送を考える",
+      "qⅣ度やⅣ度に該当しない場合でも、重症として対応が必要な症例はある"
+    ]
+  }
+}

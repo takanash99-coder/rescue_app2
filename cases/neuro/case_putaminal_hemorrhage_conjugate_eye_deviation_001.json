@@ -1,0 +1,550 @@
+{
+  "case_id": "putaminal_hemorrhage_conjugate_eye_deviation_001",
+  "version": "2.0",
+  "title": "突然の意識障害と片麻痺、共同偏視から被殻出血を疑う症例",
+  "category": "neuro",
+  "difficulty": "Normal",
+  "algorithm_type": "内因性L&G",
+  "estimated_time": 9,
+  "keywords": [
+    "意識障害",
+    "片麻痺",
+    "共同偏視",
+    "脳出血",
+    "被殻出血",
+    "脳卒中"
+  ],
+  "source_reference": {
+    "exam": "第47回救急救命士国家試験",
+    "section": "D問題16",
+    "note": "元問題の学習意図を症例化し、Scene構成と選択肢表現を再構成した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "意識障害",
+      "脳卒中疑い",
+      "内因性L&G候補"
+    ],
+    "time_pressure": "high"
+  },
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出動途上の確認",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "脳卒中疑いで出動途上に優先して確認すべき内容を整理する。",
+      "ideal_flow": [
+        "発症時刻を確認する",
+        "最後に普段通りだった時刻を確認する",
+        "反応の程度を確認する",
+        "けいれんの有無を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "45歳男性。家族から「突然、意識が悪くなった」と救急要請があった。呼びかけへの反応が鈍く、普段とは明らかに様子が違うとのことである。",
+      "visible_data": {
+        "dispatch_information": [
+          "45歳男性",
+          "突然の意識障害",
+          "家族が救急要請",
+          "呼びかけへの反応が鈍い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出動途上で家族に優先して確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "普段の食事量、睡眠時間、仕事の疲労状況を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "生活背景も参考になるが、まずは脳卒中疑いとして発症時刻や最終健常確認時刻を優先する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "発症時刻、最後に普段通りだった時刻、けいれんの有無を確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "脳卒中疑いでは発症時刻と最終健常確認時刻が特に重要であり、けいれんの有無も評価に役立つ。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "糖尿病の食事療法を守れているかを詳しく確認する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "既往歴は重要だが、まずは発症時刻と症状経過の確認を優先する。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "家庭血圧の記録を探してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "高血圧歴は参考になるが、出動途上では切迫度と発症時刻の確認が先である。"
+        },
+        {
+          "option_id": "s1_o5",
+          "text": "歩行できるか確認するため、玄関まで移動してもらう。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "神経症状を伴う可能性があり、無理な移動を促すべきではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "反応・気道・呼吸・脈拍・切迫度から重症内因性疾患として扱う。",
+      "ideal_flow": [
+        "反応を確認する",
+        "気道開通を確認する",
+        "呼吸が保たれているか確認する",
+        "脈拍を確認する",
+        "意識障害を伴う重症内因性疾患として判断する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "primary_assessment",
+      "text": "傷病者は仰臥位で、呼びかけに開眼するが反応は鈍い。気道は開通している。呼吸は保たれており、橈骨動脈は触知できる。明らかな外傷は目立たない。左上下肢の動きがやや乏しいように見える。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに開眼するが反応は鈍い",
+          "気道は開通",
+          "呼吸は保たれている",
+          "橈骨動脈は触知可能",
+          "明らかな外傷は目立たない",
+          "左上下肢の動きがやや乏しい"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "呼吸が保たれているため、緊急度は高くないと判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "呼吸が保たれていても意識障害があり、緊急度は高い。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "明らかな外傷がないため、現場で詳しい生活歴を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "現場で長時間の情報収集を優先する段階ではない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "反応低下を認めるため、意識障害を伴う重症内因性疾患として対応する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "初期評価では数値バイタルより先に、反応低下と切迫度から重症内因性疾患として扱う。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "左上下肢の動きを詳しく反復確認し、搬送方針を決める。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "麻痺所見は重要だが、初期評価段階で詳細確認を優先しすぎない。"
+        },
+        {
+          "option_id": "s2_o5",
+          "text": "呼びかけに開眼するため、家族に経過観察を依頼する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害があり経過観察は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインと活動方針の判断",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "数値バイタルと神経所見から脳卒中疑い・内因性L&Gを判断する。",
+      "ideal_flow": [
+        "数値バイタルを確認する",
+        "片麻痺を確認する",
+        "既往歴を確認する",
+        "脳卒中を疑う",
+        "内因性L&Gとして活動方針を決める"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "vital_and_strategy",
+      "text": "バイタルサインを測定した。意識JCS3、呼吸数16/分、脈拍80/分・整、血圧204/110mmHg、SpO2 96％（室内気）である。左上下肢の麻痺を認める。家族から、糖尿病と高血圧で通院していると聴取した。",
+      "visible_data": {
+        "vital_signs": [
+          "JCS3",
+          "呼吸数 16/分",
+          "脈拍 80/分・整",
+          "血圧 204/110 mmHg",
+          "SpO2 96％（室内気）"
+        ],
+        "additional_information": [
+          "左上下肢の麻痺",
+          "糖尿病で通院中",
+          "高血圧で通院中"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "SpO2が保たれているため、現場で神経所見を詳しく繰り返し確認する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "SpO2が保たれていても、意識障害と片麻痺があり現場滞在を延ばさない。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "高血圧があるため、現場で血圧低下を目標に対応する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "救急隊が現場で降圧を目標に活動する流れではない。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "糖尿病があるため、低血糖を第一に考え、搬送判断は血糖確認後に行う。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "低血糖は鑑別に残るが、搬送判断を遅らせる理由にはならない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "観察所見から脳卒中を疑い、内因性L&Gとして活動する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "意識障害、片麻痺、著明な高血圧から脳卒中を疑い、内因性L&Gと判断する。"
+        },
+        {
+          "option_id": "s3_o5",
+          "text": "呼吸数とSpO2が安定しているため、自宅での経過観察を検討する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "神経脱落症状と意識障害があり、経過観察は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "脳卒中プロトコル移行とファーストコール",
+      "phase": "活動方針の再判断",
+      "scene_goal": "内因性L&G後に、脳卒中疑いとして発症時刻整理と第1報を優先する。",
+      "ideal_flow": [
+        "脳卒中プロトコルへ移行する",
+        "発症時刻と最終健常確認時刻を整理する",
+        "医療機関へ第1報を入れる",
+        "搬送準備を進める"
+      ],
+      "ideal_score_delta": 14,
+      "action_tag": "stroke_and_first_call",
+      "text": "意識障害、片麻痺、著明な高血圧を認める。脳卒中疑いとして、搬送準備と医療機関連絡を進める場面である。",
+      "visible_data": {
+        "key_findings": [
+          "意識障害",
+          "左上下肢麻痺",
+          "著明な高血圧",
+          "脳卒中疑い"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "内因性L&Gと判断した後の活動として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "左上下肢の麻痺を詳細に反復評価し、回復傾向を確認してから搬送する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "麻痺の評価は重要だが、反復確認で搬送や連絡を遅らせない。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "脳卒中疑いとして、医療機関へ早期に第1報を入れる。",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "rationale": "脳卒中疑いでは早期の受入調整が重要である。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "血圧が高いため、現場で血圧低下を目標に活動する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "現場で降圧を目標に長く活動しない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "意識障害が軽度であるため、家族から生活歴を詳しく聴取してから搬送先を決める。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "詳細な生活歴より、発症時刻整理と搬送判断を優先する。"
+        },
+        {
+          "option_id": "s4_o5",
+          "text": "脳卒中プロトコルへ移行し、発症時刻と最終健常確認時刻を整理する。",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "rationale": "脳卒中症例では発症時刻・最終健常確認時刻が特に重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "画像観察：眼球所見",
+      "phase": "全身観察",
+      "scene_goal": "画像から眼球偏位を読み取り、共同偏視として認識する。",
+      "ideal_flow": [
+        "眼球の向きを確認する",
+        "左右どちらに偏位しているか判断する",
+        "共同偏視として整理する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "image_observation",
+      "text": "眼球観察時の写真を示す。",
+      "visible_data": {
+        "observation_focus": [
+          "両眼の向き",
+          "左右どちらへの偏位か"
+        ]
+      },
+      "media": [
+        "media/conjugate_eye_deviation_left_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "提示された眼球所見として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "両眼は正中位で固定している。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "正中位ではなく、左右同方向への偏位を認める。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "片眼のみ外側へ偏位している。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "片眼だけではなく両眼が同方向を向いている。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "眼瞼下垂を主体とする所見である。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "主な所見は眼瞼下垂ではなく眼球偏位である。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "両眼が左方向へ偏位している。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "写真では両眼が同方向、左方向へ偏位している。"
+        },
+        {
+          "option_id": "s5_o5",
+          "text": "両眼が右方向へ偏位している。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "写真は右方向ではなく左方向への偏位を示している。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：最も考えられる疾患",
+      "phase": "国試知識",
+      "scene_goal": "突然の意識障害、片麻痺、高血圧、眼球所見から被殻出血を選ぶ。",
+      "ideal_flow": [
+        "急性発症であることを確認する",
+        "高血圧既往と著明な血圧上昇を重視する",
+        "片麻痺と眼球所見を統合する",
+        "被殻出血を選ぶ"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "exam_core",
+      "text": "突然の意識障害、著明な高血圧、左上下肢麻痺を認める。眼球観察所見は写真のとおりである。",
+      "visible_data": {
+        "key_findings": [
+          "突然の意識障害",
+          "左上下肢麻痺",
+          "血圧204/110 mmHg",
+          "高血圧で通院中",
+          "眼球観察所見は写真のとおり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に最も考えられる疾患はどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "小脳梗塞",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "本症例は片麻痺と意識障害が目立ち、小脳症状主体とは言いにくい。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "被殻出血",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "高血圧を背景に、急性発症の意識障害、片麻痺、眼球偏位から被殻出血が最も考えやすい。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "視床出血",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "視床出血も鑑別に挙がるが、本症例は被殻出血をより示唆する。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "脊髄梗塞",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "脊髄梗塞では共同偏視や意識障害の説明が難しい。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "急性硬膜外血腫",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "明らかな外傷歴がなく、高血圧性脳出血をまず考える。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "病態理解",
+      "scene_goal": "被殻出血を疑う根拠を整理し、脳卒中疑いとしての搬送判断を再確認する。",
+      "ideal_flow": [
+        "高血圧を背景にした急性発症を重視する",
+        "意識障害と片麻痺を統合する",
+        "共同偏視を神経学的所見として整理する",
+        "脳卒中疑いとして早期搬送の妥当性を確認する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "debrief_reasoning",
+      "text": "この症例では、高血圧を背景に突然の意識障害と左上下肢麻痺を認め、画像で共同偏視を確認した。脳卒中疑いとして早期搬送と医療機関連絡を進める判断が重要である。",
+      "visible_data": {
+        "summary_findings": [
+          "突然発症",
+          "意識障害",
+          "左上下肢麻痺",
+          "共同偏視",
+          "高血圧既往"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で被殻出血を疑う根拠として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "高血圧を背景に突然発症し、片麻痺と共同偏視を認めるため。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "高血圧性脳出血の典型的な考え方として、急性発症、片麻痺、共同偏視を統合する。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "小脳症状が主体で、めまいと体幹失調を強く認めるため。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "本症例の中心は片麻痺と意識障害である。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "脊髄病変により、意識障害を伴わず両下肢麻痺が中心となるため。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "本症例は意識障害を伴っており、脊髄病変の説明とは合わない。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "頭部外傷後に一時的な意識清明期を経て急変しているため。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "外傷の情報はなく、急性硬膜外血腫を第一に考える状況ではない。"
+        },
+        {
+          "option_id": "s7_o5",
+          "text": "低血糖により一過性の意識障害と左右差のない脱力を認めるため。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "本症例は左右差のある神経脱落症状を示している。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "45歳男性の急性意識障害症例。初期評価では意識障害を伴う重症内因性疾患として扱い、バイタルサインと神経所見から脳卒中を疑って内因性L&Gと判断した。活動方針として脳卒中プロトコルへ移行し、発症時刻・最終健常確認時刻の整理と早期の第1報を行う。画像では左方向への共同偏視を認め、国試の芯として最も考えられる疾患は被殻出血である。",
+    "ideal_actions": [
+      "出動途上で発症時刻、最終健常確認時刻、けいれんの有無を確認する",
+      "初期評価で意識障害を伴う重症内因性疾患として判断する",
+      "数値バイタルと片麻痺、高血圧既往を確認する",
+      "観察所見から脳卒中を疑い、内因性L&Gと判断する",
+      "脳卒中プロトコルへ移行する",
+      "発症時刻と最終健常確認時刻を整理する",
+      "脳卒中疑いとして医療機関へ早期に第1報を入れる",
+      "画像から共同偏視を読み取る",
+      "被殻出血を第一に考える"
+    ],
+    "good_points": [
+      "初期評価で数値バイタルに先行して切迫度を判断できた",
+      "意識障害、片麻痺、著明な高血圧から脳卒中疑いへつなげられた",
+      "麻痺評価に時間をかけすぎず、L&Gとファーストコールを優先できた",
+      "画像所見から共同偏視を読み取り、疾患推定に結びつけられた"
+    ],
+    "cautions": [
+      "呼吸が保たれていても意識障害があれば重症度を下げない",
+      "現場で神経所見や麻痺評価を反復しすぎて搬送を遅らせない",
+      "高血圧を理由に現場で降圧を目標にしない",
+      "低血糖は鑑別に残るが、脳卒中疑いの搬送判断を遅らせない",
+      "共同偏視の向きは画像に合わせて正しく読む"
+    ]
+  }
+}

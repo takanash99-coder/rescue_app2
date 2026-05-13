@@ -1,0 +1,681 @@
+{
+  "case_id": "pulmonary_embolism_dvt_oac_boss_001",
+  "version": "2.0",
+  "title": "階段昇降後の突然の呼吸困難から肺血栓塞栓症を疑う症例",
+  "category": "cardiovascular",
+  "difficulty": "Hard",
+  "boss_candidate": true,
+  "boss_candidate_reason": "人体図観察で頸部・胸部・左下腿を評価し、肺血栓塞栓症を推論したうえで病院連絡を記述する必要があるため。",
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 12,
+  "keywords": [
+    "肺血栓塞栓症",
+    "深部静脈血栓症",
+    "突然の呼吸困難",
+    "低酸素",
+    "頸静脈怒張",
+    "経口避妊薬"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "突然の呼吸困難に対して、無理に移動させず安静保持を指示する。",
+      "ideal_flow": "階段昇降後に突然呼吸困難が出現しており、安静保持、楽な体位、意識・呼吸状態の見守りを家族へ指示する。",
+      "ideal_score_delta": 10,
+      "action_tag": "pac_respiratory_distress",
+      "text": "42歳女性。自宅2階へ階段を昇った直後に突然息苦しさを訴え、家族が救急要請した。現在は2階廊下の床に座り込んでおり、会話はできるが苦しそうにしている。",
+      "visible_data": {
+        "dispatch_information": {
+          "caller": "家族",
+          "location": "自宅2階の廊下、階段付近",
+          "chief_complaint": "突然の呼吸困難",
+          "situation": "階段を昇った直後に発症",
+          "current_condition": "意識はあり、座位で苦しそうにしている"
+        }
+      },
+      "media": [
+        "media/worried_woman_in_a_calm_hallway.png"
+      ],
+      "type": "single_choice",
+      "prompt": "現着前に家族へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "階段を下りて玄関まで移動し、救急隊を待つよう伝える。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_movement"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_worsening",
+              "fall_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難が強い傷病者を無理に移動させると、症状悪化や転倒につながる。"
+        },
+        {
+          "option_id": "b",
+          "text": "楽な姿勢で安静にし、呼吸状態と意識の変化を見守るよう伝える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "safe_positioning",
+              "respiratory_monitoring"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "respiratory_worsening"
+            ]
+          },
+          "rationale": "突然の呼吸困難では、無理に動かさず安静を保ち、意識と呼吸状態の変化を見守る。"
+        },
+        {
+          "option_id": "c",
+          "text": "息苦しさを確認するため、深呼吸を繰り返してもらうよう伝える。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "unnecessary_breathing_instruction"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難がある傷病者に深呼吸を強いる必要はなく、かえって苦痛を増やす可能性がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "胸痛がなければ緊急性は低いため、横になって様子を見るよう伝える。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_response"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸痛がなくても突然の呼吸困難は重症疾患の可能性があり、軽視してはいけない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "車内ブリーフィングから、初期評価で異常が出やすいABCD項目を予測する。",
+      "ideal_flow": "突然の呼吸困難という通報内容から、初期評価ではまず呼吸の異常を強く意識して接触する。",
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment_abcd_focus",
+      "text": "車内ブリーフィングでは「階段を昇った直後に突然の呼吸困難を訴えた」と共有された。接触時、傷病者は座位で会話は可能だが、呼吸は速く浅い印象である。",
+      "visible_data": {
+        "briefing": {
+          "chief_complaint": "突然の呼吸困難",
+          "trigger": "階段昇降後",
+          "initial_impression": "会話可能だが呼吸苦が目立つ"
+        }
+      },
+      "media": [
+        "media/worried_woman_in_a_calm_hallway.png"
+      ],
+      "type": "single_choice",
+      "prompt": "車内ブリーフィングから考えて、初期評価で異常が認められる可能性が高い項目はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "意識",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識評価は必須だが、通報内容から最も異常が予測されるのは呼吸である。"
+        },
+        {
+          "option_id": "b",
+          "text": "気道",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "気道評価は必須だが、今回の主訴は突然の呼吸困難であり、呼吸の異常を強く意識する。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "breathing_abnormality_anticipated"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "突然の呼吸困難という情報から、初期評価では呼吸状態の異常を最も意識して確認する。"
+        },
+        {
+          "option_id": "d",
+          "text": "循環",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "circulation_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "循環評価も重要だが、車内ブリーフィングの時点で最も目立つ異常は呼吸困難である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "history_and_vitals",
+      "scene_goal": "低酸素、頻脈、血圧低下傾向、下肢痛、経口避妊薬服用歴を把握し、追加観察につなげる。",
+      "ideal_flow": "この時点で病名を決めつけず、重症呼吸困難として扱いながら、胸部・頸部・下肢の追加観察へ進む。",
+      "ideal_score_delta": 10,
+      "action_tag": "vitals_and_risk_history",
+      "text": "傷病者は意識清明。呼吸苦を訴えているが、胸痛は訴えない。1週前から左下肢の痛みを感じていた。経口避妊薬を服用しているとのことである。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "清明",
+          "respiratory_rate": "24回/分",
+          "pulse": "148回/分、整",
+          "blood_pressure": "92/74mmHg",
+          "spo2": "82％"
+        },
+        "history": {
+          "onset": "階段昇降後に突然発症",
+          "chest_pain": "なし",
+          "leg_symptom": "1週前から左下肢痛あり",
+          "medication": "経口避妊薬を服用中"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "胸痛がないため、緊急性は低いと判断して詳細な問診を優先する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hypoxemia_unmanaged"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸痛がなくても、SpO₂低値、頻脈、血圧低下傾向があり緊急性は高い。"
+        },
+        {
+          "option_id": "b",
+          "text": "経口避妊薬の服用歴から病態を確定し、観察を省略して搬送先を決める。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "premature_closure"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "insufficient_assessment"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "経口避妊薬は重要な情報だが、それだけで病態を確定せず追加観察で根拠を集める。"
+        },
+        {
+          "option_id": "c",
+          "text": "低酸素と頻脈を重視し、安静保持と酸素投与を優先しながら追加観察へ進む。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_started",
+              "additional_observation_planned"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "hypoxemia_unmanaged"
+            ]
+          },
+          "rationale": "低酸素と頻脈を認めるため、安静保持と酸素投与を優先しつつ、病態把握のため追加観察を行う。"
+        },
+        {
+          "option_id": "d",
+          "text": "呼吸困難の程度を確認するため、短距離を歩かせて症状の変化を確認する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_exertion"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_worsening",
+              "collapse_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "低酸素状態の傷病者を歩かせるのは危険であり、安静を保つ。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "人体図による追加観察",
+      "phase": "focused_observation",
+      "scene_goal": "病態把握のために頸部、胸部、左下腿を重点的に観察する。",
+      "ideal_flow": "呼吸困難の原因を肺音だけで判断せず、右心負荷を示す頸部所見、DVTを示す下肢所見、胸部聴診所見を組み合わせて評価する。",
+      "ideal_score_delta": 12,
+      "action_tag": "body_map_observation_pe",
+      "text": "酸素投与と安静保持を行いながら、病態把握のために追加観察を行う。人体図から優先して観察したい部位を選択する。",
+      "visible_data": {
+        "instruction": "人体図を用いて追加観察を行う。"
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "observation_points",
+      "prompt": "病態把握のため、追加で優先して観察したい部位を3つ選べ。",
+      "observation_points": [
+        {
+          "point_id": "neck",
+          "label": "頸部",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "頸静脈怒張を認める。",
+          "rationale": "肺血管抵抗上昇や右心負荷を示唆する所見として重要である。"
+        },
+        {
+          "point_id": "chest",
+          "label": "胸部",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "呼吸音は左右とも聴取良好。明らかな左右差はなく、湿性ラ音や喘鳴などの副雑音を認めない。",
+          "audio": {
+            "audio_id": "normal_breath_sounds_bilateral",
+            "file": null,
+            "rights_status": "pending",
+            "display_text": "正常呼吸音（承認後に追加予定）"
+          },
+          "rationale": "強い呼吸困難と低酸素がある一方で、肺雑音に乏しい点は病態推論上の重要な違和感である。"
+        },
+        {
+          "point_id": "left_lower_leg",
+          "label": "左下腿",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "左下腿に浮腫を認める。健側より腫脹しており、本人は1週前から痛みを感じていたと話す。",
+          "rationale": "深部静脈血栓症を疑う所見として重要である。"
+        },
+        {
+          "point_id": "right_fingers",
+          "label": "右手指",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかなばち指は認めない。",
+          "rationale": "慢性的な低酸素を示す所見として参考にはなるが、今回の急性発症の主病態把握では優先度は低い。"
+        },
+        {
+          "point_id": "abdomen",
+          "label": "腹部",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな腹部膨満や圧痛を認めない。",
+          "rationale": "腹部疾患を疑う主訴ではなく、今回の病態把握では優先度は低い。"
+        }
+      ],
+      "selection_rule": {
+        "min_select": 3,
+        "max_select": 3,
+        "correct_point_ids": [
+          "neck",
+          "chest",
+          "left_lower_leg"
+        ]
+      }
+    },
+    {
+      "id": "scene5",
+      "title": "病態推論",
+      "phase": "diagnostic_reasoning",
+      "scene_goal": "バイタル、問診、人体図観察から肺血栓塞栓症を推論する。",
+      "ideal_flow": "突然の呼吸困難、低酸素、頻脈、血圧低下傾向、左下腿痛・浮腫、経口避妊薬、正常呼吸音、頸静脈怒張を組み合わせて肺血栓塞栓症を疑う。",
+      "ideal_score_delta": 12,
+      "action_tag": "suspect_pulmonary_embolism",
+      "text": "追加観察では、頸静脈怒張、正常呼吸音、左下腿浮腫を認めた。低酸素と頻脈は持続している。",
+      "visible_data": {
+        "key_findings": {
+          "respiratory": "突然の呼吸困難、SpO₂ 82％、正常呼吸音",
+          "circulation": "脈拍148回/分、血圧92/74mmHg、頸静脈怒張",
+          "history": "1週前から左下肢痛、経口避妊薬服用",
+          "limb": "左下腿浮腫"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ここまでの情報から、最も考えられる病態はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "気管支喘息発作",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "asthma_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "喘息では喘鳴を伴うことが多いが、今回は正常呼吸音であり、下肢浮腫や頸静脈怒張も説明しにくい。"
+        },
+        {
+          "option_id": "b",
+          "text": "急性肺水腫",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulmonary_edema_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "肺水腫では湿性ラ音や泡沫状痰を伴うことがあるが、今回は正常呼吸音で下肢DVTを疑う所見がある。"
+        },
+        {
+          "option_id": "c",
+          "text": "肺血栓塞栓症",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulmonary_embolism_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "突然の呼吸困難、低酸素、頻脈、下肢痛・浮腫、経口避妊薬服用歴、頸静脈怒張から肺血栓塞栓症を疑う。"
+        },
+        {
+          "option_id": "d",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "hyperventilation_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "undertriage"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO₂ 82％、頻脈、血圧低下傾向、頸静脈怒張を過換気症候群だけで説明するのは危険である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病院連絡",
+      "phase": "hospital_notification",
+      "scene_goal": "疑う病態と根拠を病院へ簡潔に伝える。",
+      "ideal_flow": "年齢・性別、発症状況、バイタル、低酸素、下肢所見、経口避妊薬、頸静脈怒張、正常呼吸音、肺血栓塞栓症疑いを整理して伝える。",
+      "ideal_score_delta": 15,
+      "action_tag": "hospital_notification_pe",
+      "text": "高濃度酸素投与を行いながら搬送準備を進めている。搬送先医療機関へ第1報を行う。",
+      "visible_data": {
+        "notification_material": {
+          "patient": "42歳女性",
+          "onset": "階段昇降後に突然の呼吸困難",
+          "vital_signs": "意識清明、呼吸数24回/分、脈拍148回/分整、血圧92/74mmHg、SpO₂82％",
+          "history": "胸痛なし、1週前から左下肢痛、経口避妊薬服用中",
+          "findings": "頸静脈怒張、正常呼吸音、左下腿浮腫",
+          "care": "高濃度酸素投与、安静保持、モニター管理"
+        }
+      },
+      "media": [],
+      "type": "free_text",
+      "prompt": "搬送先医療機関へ第1報を行う。疑う病態と根拠が伝わるように、病院連絡を記載せよ。",
+      "templates": [
+        {
+          "template_id": "model_answer",
+          "title": "模範病院連絡",
+          "text": "42歳女性です。自宅2階へ階段を昇った直後に突然の呼吸困難を訴えています。意識清明、呼吸数24回/分、脈拍148回/分整、血圧92/74mmHg、SpO₂82％です。胸痛はありません。1週前から左下肢痛があり、左下腿浮腫を認めます。経口避妊薬を服用中です。胸部聴診では左右差や副雑音はなく、頸静脈怒張を認めるため、深部静脈血栓症を背景とした肺血栓塞栓症を疑っています。高濃度酸素投与下で搬送します。"
+        }
+      ],
+      "scoring_keywords": [
+        {
+          "keyword": "42歳女性",
+          "score_delta": 1
+        },
+        {
+          "keyword": "突然の呼吸困難",
+          "score_delta": 2
+        },
+        {
+          "keyword": "SpO₂82％",
+          "score_delta": 2
+        },
+        {
+          "keyword": "頻脈",
+          "score_delta": 2
+        },
+        {
+          "keyword": "血圧低下傾向",
+          "score_delta": 1
+        },
+        {
+          "keyword": "左下肢痛",
+          "score_delta": 2
+        },
+        {
+          "keyword": "左下腿浮腫",
+          "score_delta": 2
+        },
+        {
+          "keyword": "経口避妊薬",
+          "score_delta": 2
+        },
+        {
+          "keyword": "正常呼吸音",
+          "score_delta": 1
+        },
+        {
+          "keyword": "頸静脈怒張",
+          "score_delta": 2
+        },
+        {
+          "keyword": "肺血栓塞栓症",
+          "score_delta": 3
+        },
+        {
+          "keyword": "深部静脈血栓症",
+          "score_delta": 2
+        },
+        {
+          "keyword": "酸素投与",
+          "score_delta": 1
+        }
+      ],
+      "minimum_pass_keywords": [
+        "突然の呼吸困難",
+        "SpO₂82％",
+        "左下腿浮腫",
+        "肺血栓塞栓症"
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "肺血栓塞栓症で頸静脈怒張が出現する機序を理解する。",
+      "ideal_flow": "肺動脈の血流障害により右心系への圧負荷が増大し、頸静脈怒張が出現することを理解する。",
+      "ideal_score_delta": 10,
+      "action_tag": "right_heart_strain_mechanism",
+      "text": "この傷病者では、突然の呼吸困難、低酸素、頻脈、左下腿浮腫、経口避妊薬服用歴から肺血栓塞栓症が疑われる。頸静脈怒張は右心負荷を示す重要な所見である。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "suspected_condition": "肺血栓塞栓症",
+          "possible_origin": "左下肢の深部静脈血栓",
+          "mechanism": "肺動脈の血流障害により右心系への負荷が増大する",
+          "finding": "頸静脈怒張"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で頸静脈怒張が出現する機序として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "末梢気道の狭窄により、呼気が障害されるため。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_obstruction_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "気道狭窄は喘息などで問題となるが、頸静脈怒張の主な機序ではない。"
+        },
+        {
+          "option_id": "b",
+          "text": "肺胞内に液体が貯留し、肺うっ血が進行するため。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulmonary_edema_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "肺胞内液体貯留は肺水腫でみられるが、今回の頸静脈怒張は右心負荷で説明する。"
+        },
+        {
+          "option_id": "c",
+          "text": "肺動脈の血流障害により、右心系への負荷が増大するため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "right_heart_strain_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "肺血栓塞栓症では肺動脈の血流障害により右心系への負荷が増大し、頸静脈怒張を来すことがある。"
+        },
+        {
+          "option_id": "d",
+          "text": "慢性的な低酸素により、末梢組織が肥厚するため。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "chronic_hypoxia_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "慢性的な低酸素ではばち指などを考えるが、今回の急性発症とは合わない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "階段昇降後に突然呼吸困難を訴えた42歳女性の症例。低酸素、頻脈、血圧低下傾向を認め、1週前からの左下肢痛、左下腿浮腫、経口避妊薬服用歴がある。胸部聴診では正常呼吸音で、頸静脈怒張も認めることから、深部静脈血栓症を背景とした肺血栓塞栓症を疑う。肺動脈の血流障害により右心負荷が増大し、頸静脈怒張が出現する。",
+    "ideal_actions": [
+      "通報段階で無理に移動させず、楽な姿勢で安静を保たせる。",
+      "初期評価ではABCDに沿って、特に呼吸状態の異常を意識して確認する。",
+      "低酸素、頻脈、血圧低下傾向を重症所見として捉える。",
+      "経口避妊薬服用歴だけで病態を決めつけず、追加観察で根拠を集める。",
+      "頸部、胸部、左下腿を重点的に観察する。",
+      "正常呼吸音でも低酸素が強い場合、肺血栓塞栓症を鑑別に入れる。",
+      "左下腿痛・浮腫から深部静脈血栓症を疑う。",
+      "肺血栓塞栓症疑いとして、高濃度酸素投与、安静保持、モニター管理、早期搬送を行う。",
+      "病院連絡では、疑う病態と根拠を簡潔に伝える。"
+    ],
+    "good_points": [
+      "呼吸困難を訴える症例で、呼吸音だけに依存せず全身観察へ進めた。",
+      "低酸素、頻脈、血圧低下傾向を重症所見として評価できた。",
+      "左下腿痛・浮腫と経口避妊薬服用歴をDVTリスクとして結びつけられた。",
+      "頸静脈怒張を右心負荷の所見として理解できた。",
+      "観察結果をもとに肺血栓塞栓症を推論し、病院連絡で言語化できた。"
+    ],
+    "cautions": [
+      "経口避妊薬服用歴だけで肺血栓塞栓症と決めつけない。",
+      "呼吸音が正常でも、肺血栓塞栓症では重度低酸素を来すことがある。",
+      "胸痛がないことを理由に緊急性を低く見積もらない。",
+      "左下腿の浮腫や疼痛をマッサージしない。",
+      "SpO₂低値と頻脈を認める傷病者を歩かせて評価しない。",
+      "病院連絡では病名だけでなく、低酸素、頻脈、下肢所見、内服歴、頸静脈怒張などの根拠を伝える。"
+    ]
+  }
+}

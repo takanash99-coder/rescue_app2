@@ -1,6 +1,6 @@
 {
   "case_id": "trauma_head_injury_anticoagulant_001",
-  "version": "2.0",
+  "version": "3.0",
   "title": "転倒後頭部打撲、高齢者頭部外傷で抗凝固薬内服確認が重要な症例",
   "category": "trauma",
   "difficulty": "Easy",
@@ -13,71 +13,9 @@
     "健忘",
     "頭蓋内出血"
   ],
-  "overview": "81歳女性。食後につまずいて転倒し頭部を打撲した。前頭部挫創と右手関節痛があり、転倒時の記憶がない。高齢者頭部外傷として頭蓋内出血を念頭に置き、医療機関には内服薬のうち抗凝固薬情報を最優先で伝達する症例。",
-  "patient_profile": {
-    "age": 81,
-    "sex": "female",
-    "chief_complaint": "転倒後の頭部打撲、前頭部挫創、右手首痛",
-    "background": [
-      "糖尿病",
-      "心臓手術の既往",
-      "内服加療中"
-    ]
-  },
-  "initial_state": {
-    "life": 100,
-    "max_life": 100,
-    "score": 0,
-    "flags": [
-      "head_trauma",
-      "amnesia",
-      "forehead_laceration",
-      "right_wrist_pain",
-      "elderly"
-    ],
-    "danger_tags": [
-      "intracranial_hemorrhage_risk",
-      "occult_deterioration"
-    ],
-    "time_pressure": 2
-  },
-  "result_rank": [
-    {
-      "rank": "Bad",
-      "score_min": 0,
-      "score_max": 49,
-      "life_min": 0,
-      "life_max": 49,
-      "summary": "高齢者頭部外傷としての危険性を軽く見ており、抗凝固薬情報の重要性を外している。"
-    },
-    {
-      "rank": "Normal",
-      "score_min": 50,
-      "score_max": 74,
-      "life_min": 50,
-      "life_max": 69,
-      "summary": "頭部外傷の評価はできているが、健忘や抗凝固薬の優先度づけがやや弱い。"
-    },
-    {
-      "rank": "Good",
-      "score_min": 75,
-      "score_max": 89,
-      "life_min": 70,
-      "life_max": 84,
-      "summary": "頭蓋内出血リスクを意識し、搬送優先と抗凝固薬確認を適切に進められている。"
-    },
-    {
-      "rank": "Excellent",
-      "score_min": 90,
-      "score_max": 100,
-      "life_min": 85,
-      "life_max": 100,
-      "summary": "高齢者頭部外傷、健忘、抗凝固薬内服の3点を的確に結びつけ、搬送前連絡と継続観察まで一貫して適切に対応できている。"
-    }
-  ],
   "scenes": [
     {
-      "id": "scene_1",
+      "id": "scene1",
       "title": "通報内容の整理",
       "phase": "通報内容＋プレアライバルコール",
       "scene_goal": "高齢者転倒頭部外傷として必要資器材と初期方針を整理する。",
@@ -103,7 +41,9 @@
           "既往：糖尿病、心臓手術"
         ]
       },
-      "media": [],
+      "media": [
+        "media/home_livingroom_elderly_female_head_injury_scene1.png"
+      ],
       "type": "multiple_choice",
       "prompt": "出場前の準備として適切なものを2つ選べ。",
       "options": [
@@ -178,7 +118,7 @@
       ]
     },
     {
-      "id": "scene_2",
+      "id": "scene2",
       "title": "初期評価",
       "phase": "初期評価",
       "scene_goal": "ABCと意識状態を確認し、頭部外傷としての重症化リスクを把握する。",
@@ -210,7 +150,7 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点で最も適切な判断はどれか。1つ選べ。",
+      "prompt": "この時点で最も適切な判断はどれか。",
       "options": [
         {
           "option_id": "q2_o1",
@@ -285,7 +225,7 @@
       ]
     },
     {
-      "id": "scene_3",
+      "id": "scene3",
       "title": "情報収集",
       "phase": "情報収集＋バイタル評価",
       "scene_goal": "受傷状況、健忘、既往、内服薬を整理する。",
@@ -385,7 +325,7 @@
       ]
     },
     {
-      "id": "scene_4",
+      "id": "scene4",
       "title": "活動方針の再判断",
       "phase": "活動方針の再判断",
       "scene_goal": "頭部外傷と内服リスクを踏まえ搬送優先方針を固める。",
@@ -412,7 +352,7 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "最も適切な活動方針はどれか。1つ選べ。",
+      "prompt": "最も適切な活動方針はどれか。",
       "options": [
         {
           "option_id": "q4_o1",
@@ -487,7 +427,7 @@
       ]
     },
     {
-      "id": "scene_5",
+      "id": "scene5",
       "title": "全身観察",
       "phase": "全身観察",
       "scene_goal": "頭部以外の外傷と神経学的悪化所見を見逃さない。",
@@ -580,7 +520,7 @@
       ]
     },
     {
-      "id": "scene_6",
+      "id": "scene6",
       "title": "病院連絡での最重要情報",
       "phase": "評価・ファーストコール・特定行為",
       "scene_goal": "医療機関へ伝えるべき最重要内服情報を選択する。",
@@ -609,7 +549,7 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "救急隊が医療機関に伝える内服薬の情報として最も大切なのはどれか。1つ選べ。",
+      "prompt": "救急隊が医療機関に伝える内服薬の情報として最も大切なのはどれか。",
       "options": [
         {
           "option_id": "q6_o1",
@@ -682,29 +622,11 @@
             "remove_danger_tags": []
           },
           "rationale": "心疾患既往の参考情報だが、頭部外傷の緊急評価としては優先度が落ちる。"
-        },
-        {
-          "option_id": "q6_o5",
-          "text": "経口糖尿病薬",
-          "is_correct": false,
-          "score_delta": -2,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "missed_key_medication"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "underreported_bleeding_risk"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "基礎情報として有用でも、頭部外傷時の最優先伝達事項ではない。"
         }
       ]
     },
     {
-      "id": "scene_7",
+      "id": "scene7",
       "title": "車内活動",
       "phase": "車内活動",
       "scene_goal": "搬送中に神経学的悪化を監視しつつ情報を整理して引き継ぐ。",

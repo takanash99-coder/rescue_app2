@@ -1,0 +1,648 @@
+{
+  "case_id": "acute_heart_failure_pulmonary_congestion_observation_001",
+  "version": "2.0",
+  "title": "呼吸困難を訴える高齢女性、頸静脈怒張と両肺ラ音から急性心不全を疑う症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "内因性L&G",
+  "estimated_time": 9,
+  "keywords": [
+    "呼吸困難",
+    "急性心不全",
+    "肺うっ血",
+    "頸静脈怒張",
+    "断続性ラ音",
+    "交感神経緊張"
+  ],
+  "source_reference": {
+    "exam": "第47回救急救命士国家試験",
+    "section": "D問題15",
+    "note": "元問題の学習意図を症例化し、表現とScene構成を再構成した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "重度呼吸困難",
+      "循環器疾患疑い",
+      "内因性L&G候補"
+    ],
+    "time_pressure": "high"
+  },
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出動途上の確認",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "呼吸困難症例で出動途上に確認すべき重症徴候を整理する。",
+      "ideal_flow": [
+        "会話の可否を確認する",
+        "呼吸状態の悪化や横になれるかを確認する",
+        "顔色不良や冷汗の有無を確認する",
+        "胸痛や突然発症の有無も確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "84歳女性。家族から「急に息が苦しいと言っている」と救急要請があった。家族は「横になると苦しそうで、座ったまま息をしている」と話している。",
+      "visible_data": {
+        "dispatch_information": [
+          "84歳女性",
+          "主訴は呼吸困難",
+          "自宅内で発症",
+          "家族が救急要請",
+          "座ったまま苦しそうにしている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出動途上で通報者に優先して確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "普段の食事量や睡眠時間を詳しく確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "生活背景は重要だが、出動途上では呼吸困難の重症度を優先して確認する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "会話が可能か、横になれるか、顔色不良や冷汗があるかを確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pac_high_risk_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "重症呼吸障害疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難では会話可否、体位、冷汗、顔色などから重症度を把握することが重要である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "内服薬の名前をすべて読み上げてもらい、到着前に記録する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "内服薬確認は有用だが、まずは呼吸状態と切迫性の確認を優先する。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "体温測定を依頼し、発熱がなければ到着まで安静を指示する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "発熱の有無だけで呼吸困難の緊急度は判断できない。"
+        },
+        {
+          "option_id": "s1_o5",
+          "text": "歩行できるかを確認し、玄関まで移動してもらう。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "重度呼吸困難の可能性があるため、無理な移動を促すのは避ける。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "呼吸・循環の切迫性を評価し、重症内因性疾患として扱うか判断する。",
+      "ideal_flow": [
+        "反応を確認する",
+        "気道開通を確認する",
+        "呼吸の速さと努力様呼吸を確認する",
+        "脈拍の触知と冷汗を確認する",
+        "CPAではないが重症呼吸障害として扱う"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "primary_assessment",
+      "text": "傷病者はベッド端に座り、前かがみで呼吸している。呼びかけに反応するが、やや混乱している。気道は開通している。呼吸は速く努力様で、橈骨動脈は触知できる。顔色は不良で冷汗を認める。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに反応するがやや混乱している",
+          "気道は開通",
+          "呼吸は速く努力様",
+          "橈骨動脈は触知可能",
+          "顔色不良",
+          "冷汗あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "CPAではないが、重度呼吸障害を伴う重症内因性疾患として対応する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "severe_respiratory_distress_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "内因性L&G候補"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "反応と脈拍はあるが、努力様呼吸、冷汗、顔色不良があり重症内因性疾患として扱う。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "意識が保たれているため、まず詳しい問診を優先する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "重度呼吸困難があり、詳細問診より初期対応と搬送判断を優先する。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "発熱がないため感染症の可能性は低く、緊急度は高くないと判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "発熱がなくても心原性呼吸困難など重症病態はあり得る。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "呼吸数が多いため過換気症候群を第一に考えて安心させる。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "冷汗、顔色不良、努力様呼吸があり、過換気症候群に固定するのは危険である。"
+        },
+        {
+          "option_id": "s2_o5",
+          "text": "橈骨動脈が触知できるため、循環の評価は後回しにする。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "橈骨動脈が触知できても、冷汗や重症感があれば循環評価を継続する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "観察場所の選択",
+      "phase": "観察選択",
+      "scene_goal": "汎用ボディマップを使い、呼吸困難の原因推定に必要な頸部・胸部所見を自分で取りに行く。",
+      "ideal_flow": [
+        "頸部を観察して頸静脈怒張の有無を確認する",
+        "胸部を視診して努力様呼吸や体位を確認する",
+        "左右の肺を聴診してラ音の有無を確認する",
+        "得られた所見を急性心不全の判断につなげる"
+      ],
+      "ideal_score_delta": 14,
+      "action_tag": "focused_observation",
+      "text": "呼吸困難の原因を評価するため、観察したい場所を選ぶ。2つ以上の観察所見を取得すると次に進める。",
+      "visible_data": {
+        "vital_signs": [
+          "意識 JCS2",
+          "呼吸数 32/分、努力様",
+          "脈拍 112/分、整",
+          "血圧 198/116 mmHg",
+          "体温 36.1℃",
+          "冷汗あり"
+        ],
+        "observation_instruction": [
+          "ボディマップ上の観察場所を選択する",
+          "頸部・胸部を中心に観察する",
+          "聴診音は現時点ではテキスト所見で提示する",
+          "音声ファイルは承認後に追加予定"
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "observation_select",
+      "prompt": "呼吸困難の原因を評価するため、観察したい場所を選んでください。2つ以上選択すると次へ進めます。",
+      "observation_bar": {
+        "display": true,
+        "title": "観察場所",
+        "style": "horizontal_buttons",
+        "position": "below_media",
+        "instruction": "観察したい部位を選択してください。",
+        "show_selected_findings": true,
+        "min_selected_to_continue": 2
+      },
+      "observation_points": [
+        {
+          "point_id": "neck_observation",
+          "label": "頸部を観察する",
+          "target_area": "neck",
+          "button_group": "観察場所",
+          "is_key_finding": true,
+          "score_delta": 4,
+          "life_delta": 0,
+          "media": [],
+          "audio": null,
+          "audio_status": "not_used",
+          "finding_text": "頸静脈怒張を認める。",
+          "rationale": "頸静脈怒張は静脈圧上昇やうっ血を示唆し、心不全を疑う重要所見である。"
+        },
+        {
+          "point_id": "chest_inspection",
+          "label": "胸部を視診する",
+          "target_area": "chest",
+          "button_group": "観察場所",
+          "is_key_finding": true,
+          "score_delta": 3,
+          "life_delta": 0,
+          "media": [],
+          "audio": null,
+          "audio_status": "not_used",
+          "finding_text": "呼吸数は多く、努力様呼吸を認める。本人は起座位を保とうとしている。",
+          "rationale": "起座呼吸や努力様呼吸は肺うっ血や呼吸仕事量増大を考える手がかりとなる。"
+        },
+        {
+          "point_id": "right_lung_auscultation",
+          "label": "右胸部を聴診する",
+          "target_area": "right_chest",
+          "button_group": "観察場所",
+          "is_key_finding": true,
+          "score_delta": 4,
+          "life_delta": 0,
+          "media": [],
+          "audio": {
+            "audio_id": "lung_crackles_right",
+            "file": null,
+            "rights_status": "pending",
+            "display_text": "音声は承認後に追加予定"
+          },
+          "audio_status": "pending_permission",
+          "finding_text": "右肺野で断続性ラ音を聴取する。",
+          "rationale": "断続性ラ音は肺胞や末梢気道周囲の液体貯留を示唆し、肺うっ血の判断材料となる。"
+        },
+        {
+          "point_id": "left_lung_auscultation",
+          "label": "左胸部を聴診する",
+          "target_area": "left_chest",
+          "button_group": "観察場所",
+          "is_key_finding": true,
+          "score_delta": 4,
+          "life_delta": 0,
+          "media": [],
+          "audio": {
+            "audio_id": "lung_crackles_left",
+            "file": null,
+            "rights_status": "pending",
+            "display_text": "音声は承認後に追加予定"
+          },
+          "audio_status": "pending_permission",
+          "finding_text": "左肺野で断続性ラ音を聴取する。",
+          "rationale": "両肺野で断続性ラ音を認める場合、心原性肺うっ血を疑う根拠が強くなる。"
+        }
+      ],
+      "progress_rule": {
+        "min_selected": 2,
+        "allow_continue_after_min": true,
+        "summary_after_selection": true,
+        "recommended_key_findings": [
+          "neck_observation",
+          "right_lung_auscultation",
+          "left_lung_auscultation"
+        ]
+      },
+      "summary_template": {
+        "title": "取得した観察所見",
+        "items_source": "selected_observation_points"
+      }
+    },
+    {
+      "id": "scene4",
+      "title": "観察所見を踏まえた病態推定",
+      "phase": "病態推定",
+      "scene_goal": "頸静脈怒張、努力様呼吸、両側ラ音、高血圧から急性心不全を疑う。",
+      "ideal_flow": [
+        "呼吸困難を呼吸器疾患だけで判断しない",
+        "高血圧と冷汗を重症循環器疾患の手がかりとして扱う",
+        "頸静脈怒張と両肺ラ音を肺うっ血に結びつける",
+        "急性心不全を第一に考える"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "clinical_reasoning",
+      "text": "観察では、努力様呼吸、冷汗、頸静脈怒張、両肺野の断続性ラ音が確認された。血圧は198/116mmHgである。",
+      "visible_data": {
+        "collected_findings": [
+          "意識 JCS2",
+          "呼吸数 32/分、努力様",
+          "血圧 198/116 mmHg",
+          "冷汗あり",
+          "頸静脈怒張あり",
+          "両肺野で断続性ラ音あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も疑う病態はどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "気管支喘息発作",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "喘鳴ではなく両側断続性ラ音であり、頸静脈怒張と高血圧も心不全を示唆する。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "急性心不全による肺うっ血",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "acute_heart_failure_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "肺うっ血疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "高血圧、冷汗、頸静脈怒張、両肺ラ音から急性心不全による肺うっ血を疑う。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "緊張性気胸では呼吸音左右差やショックを考えるが、本症例は両側ラ音が目立つ。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "冷汗、頸静脈怒張、両肺ラ音、高血圧を過換気症候群だけで説明するのは不適切である。"
+        },
+        {
+          "option_id": "s4_o5",
+          "text": "敗血症性ショック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "重症感染も鑑別に残るが、発熱はなく高血圧で、肺うっ血を示す所見が中心である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "内因性L&Gを踏まえた活動方針",
+      "phase": "活動方針",
+      "scene_goal": "ハイリスク徴候を踏まえ、現場滞在を延ばさず早期搬送と医療機関連絡を進める。",
+      "ideal_flow": [
+        "重度呼吸困難をハイリスク徴候として扱う",
+        "安楽な体位を保つ",
+        "酸素投与を考慮する",
+        "早期搬送準備を進める",
+        "医療機関へ第1報を入れる",
+        "車内でモニター装着と再評価を行う"
+      ],
+      "ideal_score_delta": 14,
+      "action_tag": "load_and_go_strategy",
+      "text": "傷病者は努力様呼吸が続き、冷汗、頸静脈怒張、両肺野の断続性ラ音を認める。重症呼吸障害を伴う循環器系疾患が疑われる。",
+      "visible_data": {
+        "high_risk_findings": [
+          "JCS2",
+          "呼吸数32/分、努力様",
+          "冷汗あり",
+          "頸静脈怒張あり",
+          "両肺野で断続性ラ音あり",
+          "血圧198/116 mmHg"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "内因性L&Gを踏まえた活動方針として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "安楽な体位を保ち、酸素投与を行いながら搬送準備を進める。",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "rationale": "重度呼吸困難では、起座位など安楽な体位を保ち、酸素投与と搬送準備を並行する。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "高血圧があるため、搬送より先に現場で血圧低下を目標に対応する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "高血圧性心不全が疑われても、救急隊は現場で降圧を目標に長時間対応しない。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "重症内因性疾患として早期に医療機関へ第1報を入れる。",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "rationale": "内因性L&Gでは、搬送準備と並行して医療機関へ早期連絡し受入調整を進める。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "呼吸音の左右差が目立たないため、現場で経過を観察する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "左右差が目立たなくても、重度呼吸困難と肺うっ血所見があり経過観察は不適切である。"
+        },
+        {
+          "option_id": "s5_o5",
+          "text": "詳細な生活歴を確認してから搬送方針を決定する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "必要最小限の情報収集は行うが、詳細確認を理由に搬送判断を遅らせない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：病態で認められる反応",
+      "phase": "国試知識",
+      "scene_goal": "急性心不全・肺うっ血で認められる生理学的反応を理解する。",
+      "ideal_flow": [
+        "急性心不全では呼吸困難と低酸素刺激が生じる",
+        "循環維持のため交感神経系が亢進する",
+        "頻脈、冷汗、血圧上昇などと関連づける",
+        "前負荷低下や末梢血管抵抗低下では説明しにくいことを理解する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "exam_core",
+      "text": "高血圧、冷汗、頸静脈怒張、両肺野の断続性ラ音を認める呼吸困難症例である。",
+      "visible_data": {
+        "key_findings": [
+          "呼吸困難",
+          "血圧198/116 mmHg",
+          "冷汗",
+          "頸静脈怒張",
+          "両肺野の断続性ラ音"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態で認められるのはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "前負荷の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "心不全によるうっ血では静脈還流や心内圧上昇が問題となり、単純な前負荷低下では説明しにくい。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "後負荷の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "本症例は著明な高血圧を認め、後負荷低下よりも後負荷増大が病態悪化に関与しやすい。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "交感神経の緊張",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "exam_core_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難や循環不全では交感神経が亢進し、頻脈、冷汗、血圧上昇などを伴いやすい。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "循環血液量の減少",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "本症例は脱水や出血よりも、心不全による肺うっ血と交感神経亢進を考える所見である。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "全末梢血管抵抗の低下",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "血圧は高く、末梢血管抵抗低下より交感神経亢進による血管収縮が考えやすい。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解と搬送方針の整理",
+      "phase": "病態理解",
+      "scene_goal": "肺うっ血による呼吸困難と、内因性L&Gの活動方針を統合して理解する。",
+      "ideal_flow": [
+        "左心機能悪化や後負荷増大により肺うっ血が生じる",
+        "肺うっ血により呼吸仕事量が増大する",
+        "交感神経緊張により頻脈や冷汗が出現する",
+        "重度呼吸困難として早期搬送と医療機関連絡を行う"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "debrief_reasoning",
+      "text": "酸素投与と安楽体位を保ちながら搬送準備を進め、医療機関へ第1報を入れる。車内ではモニター装着、SpO2、血圧、呼吸状態を再評価する。",
+      "visible_data": {
+        "transport_policy": [
+          "内因性L&Gとして早期搬送",
+          "医療機関へ第1報",
+          "酸素投与と安楽体位",
+          "車内でモニター装着と再評価"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の呼吸困難が生じている主な機序として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "左心機能の悪化や後負荷増大により肺うっ血を来し、呼吸仕事量が増大している。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "rationale": "急性心不全では肺うっ血によりガス交換が障害され、努力様呼吸や断続性ラ音を生じる。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "気道平滑筋の収縮により主気管支が狭くなり、呼気性喘鳴が主体となっている。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "喘息では喘鳴が主体となりやすいが、本症例は両側断続性ラ音と頸静脈怒張が重要である。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "血管拡張により血圧が低下し、末梢循環不全から呼吸困難が出現している。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "本症例は高血圧を認め、血管拡張性ショックとは考えにくい。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "片側胸腔内圧の上昇により静脈還流が障害され、呼吸音の左右差が主体となっている。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "緊張性気胸では片側呼吸音低下などが手がかりとなるが、本症例は両側肺ラ音が中心である。"
+        },
+        {
+          "option_id": "s7_o5",
+          "text": "不安による過呼吸で二酸化炭素が低下し、しびれと呼吸苦が中心となっている。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "過換気症候群だけでは頸静脈怒張、両肺ラ音、高血圧、冷汗を説明しにくい。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "84歳女性の重度呼吸困難症例。努力様呼吸、冷汗、高血圧、頸静脈怒張、両肺野の断続性ラ音から急性心不全による肺うっ血を疑う。呼吸困難と循環器系重症病態を示すハイリスク徴候があり、内因性L&Gとして酸素投与、安楽体位、早期搬送、医療機関連絡を並行する。国試の芯は、この病態で交感神経の緊張が認められる点である。",
+    "ideal_actions": [
+      "出動途上で会話可否、体位、冷汗、顔色、呼吸状態を確認する",
+      "初期評価でCPAではないが重度呼吸障害として認識する",
+      "ボディマップから頸部を選択し、頸静脈怒張を確認する",
+      "胸部視診で努力様呼吸と起座位傾向を確認する",
+      "左右肺野を聴診し断続性ラ音を確認する",
+      "急性心不全による肺うっ血を疑う",
+      "内因性L&Gとして酸素投与、安楽体位、搬送準備を進める",
+      "早期に医療機関へ第1報を入れる",
+      "車内でモニター装着、SpO2、血圧、呼吸状態を再評価する"
+    ],
+    "good_points": [
+      "呼吸困難を呼吸器疾患だけで判断せず、心原性呼吸困難を考えられた",
+      "頸静脈怒張と両肺野ラ音を肺うっ血の所見として整理できた",
+      "重症呼吸障害をハイリスク徴候として扱い、内因性L&Gにつなげられた",
+      "国試知識の交感神経緊張を、冷汗や頻脈、高血圧と関連づけて理解できた",
+      "観察場所を自分で選び、必要な所見を取りに行く流れを体験できた"
+    ],
+    "cautions": [
+      "発熱がないことだけで緊急度を下げない",
+      "呼吸音左右差が目立たないことを理由に現場観察を長引かせない",
+      "高血圧に意識を奪われ、救急隊が現場で降圧を目標にしない",
+      "頸静脈怒張だけで右心不全に固定せず、両肺ラ音と高血圧から急性心不全・肺うっ血を考える",
+      "音声教材は承認前にアプリへ同梱せず、当面はテキスト所見で運用する"
+    ]
+  }
+}

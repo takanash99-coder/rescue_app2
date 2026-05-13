@@ -1,0 +1,332 @@
+{
+  "case_id": "case_cpa_pea_adrenaline_001",
+  "version": "2.0",
+  "title": "胸痛後に心肺停止となり、PEAを見抜いてアドレナリン投与を優先する症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+
+  "scene1": {
+    "id": "scene1",
+    "title": "出場指令：胸部症状の直後に反応がなくなった男性",
+    "phase": "dispatch",
+    "scene_goal": "胸部症状後の意識消失として、心原性CPAを想定しながら出場準備を行う。",
+    "ideal_flow": "胸痛後の急変であることから循環器疾患を想起し、CPA対応資器材、換気資器材、モニター、静脈路確保資器材の準備を整える。",
+    "ideal_score_delta": 10,
+    "action_tag": "出場準備",
+    "text": "あなたたちは自宅からの救急要請を受けて出場した。傷病者は52歳男性。テレビを見ていたところ急に胸苦しさを訴え、その直後に反応がなくなったと家族が話している。",
+    "visible_data": [
+      "52歳男性",
+      "自宅でテレビ視聴中",
+      "急に胸苦しさを訴えた",
+      "その後すぐに反応消失"
+    ],
+    "media": [],
+    "type": "multiple_choice",
+    "prompt": "出場途上で準備・確認しておくこととして適切なものを2つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "CPA対応資器材と換気資器材を準備する",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "モニターや静脈路確保資器材の準備を行う",
+        "is_correct": true
+      },
+      {
+        "option_id": "C",
+        "text": "到着前から12誘導心電図伝送の準備だけを最優先にする",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "CPAの可能性は低いと考え、通常資器材のみで向かう",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "scene2": {
+    "id": "scene2",
+    "title": "現着：自発呼吸なし、頸動脈触知なし",
+    "phase": "initial_assessment",
+    "scene_goal": "CPAと判断し、胸骨圧迫と換気を含む初期対応を開始する。",
+    "ideal_flow": "反応、自発呼吸、頸動脈拍動を確認しCPAと判断したら、胸骨圧迫開始、BVM換気、モニター装着へ進む。",
+    "ideal_score_delta": 15,
+    "action_tag": "初期評価",
+    "text": "リビングで男性は仰臥位となっている。意識JCS300、自発呼吸はなく、頸動脈は触知しない。家族はまだ胸骨圧迫を行っていない。",
+    "visible_data": [
+      "リビングで仰臥位",
+      "意識：JCS300",
+      "自発呼吸なし",
+      "頸動脈触知なし"
+    ],
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この時点で最も優先して行うべき対応はどれか。1つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "胸骨圧迫を開始し、BVM換気とモニター装着を進める",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "12誘導心電図を先に記録する",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "血糖測定を先に行う",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "家族から詳しい既往歴を聞き終えてから処置を始める",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "scene3": {
+    "id": "scene3",
+    "title": "モニター確認：電気活動はあるが脈がない",
+    "phase": "focused_assessment",
+    "scene_goal": "モニター波形と身体所見を合わせてPEAと判断する。",
+    "ideal_flow": "胸骨圧迫・換気を継続しながらモニター波形を確認し、電気活動はあるが脈を触知しないことからPEAと判断する。",
+    "ideal_score_delta": 15,
+    "action_tag": "心電図判断",
+    "text": "胸骨圧迫を開始し、バック・バルブ・マスクで換気は良好である。モニターには整った電気活動がみられるが、頸動脈は依然として触知しない。",
+    "visible_data": [
+      "胸骨圧迫継続中",
+      "BVM換気は良好",
+      "モニター上は電気活動あり",
+      "頸動脈触知なし"
+    ],
+    "media": [
+      "media/ecg_monitor_pea_scene3.png"
+    ],
+    "type": "single_choice",
+    "prompt": "この時点で判断すべき心停止時心電図波形はどれか。1つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "無脈性電気活動（PEA）",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "心室細動（VF）",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "無脈性心室頻拍（pVT）",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "洞調律",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "scene4": {
+    "id": "scene4",
+    "title": "特定行為：静脈路確保後に優先する処置",
+    "phase": "management",
+    "scene_goal": "PEAに対する優先処置として、電気ショックではなくアドレナリン投与を選択する。",
+    "ideal_flow": "特定行為の指示要請を行い静脈路を確保した後、PEAに対してアドレナリン静脈内投与を優先し、CPRを継続する。",
+    "ideal_score_delta": 20,
+    "action_tag": "特定行為",
+    "text": "特定行為の指示要請を行い、静脈路を確保した。胸骨圧迫と換気は継続しており、モニター波形はPEAである。",
+    "visible_data": [
+      "静脈路確保済み",
+      "胸骨圧迫継続中",
+      "換気良好",
+      "PEAを確認"
+    ],
+    "media": [],
+    "type": "single_choice",
+    "prompt": "静脈路を確保できた直後、この傷病者に最も優先して実施すべき処置はどれか。1つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "12誘導心電図を記録・伝送する",
+        "is_correct": false
+      },
+      {
+        "option_id": "B",
+        "text": "アドレナリンを静脈内投与する",
+        "is_correct": true
+      },
+      {
+        "option_id": "C",
+        "text": "血糖値を測定する",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "口腔内を吸引する",
+        "is_correct": false
+      },
+      {
+        "option_id": "E",
+        "text": "電気ショックを実施する",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "scene5": {
+    "id": "scene5",
+    "title": "継続対応：薬剤投与後に続けること",
+    "phase": "reassessment",
+    "scene_goal": "アドレナリン投与後も質の高いCPRと再評価を継続する。",
+    "ideal_flow": "アドレナリン投与後も胸骨圧迫と換気の質を保ち、リズム確認、脈確認、ROSCの有無、可逆的原因を意識しながら再評価する。",
+    "ideal_score_delta": 10,
+    "action_tag": "再評価",
+    "text": "アドレナリン投与後もCPAの状態は続いている。胸骨圧迫と換気は継続できている。",
+    "visible_data": [
+      "アドレナリン投与後",
+      "胸骨圧迫継続",
+      "BVM換気継続",
+      "CPA継続"
+    ],
+    "media": [],
+    "type": "single_choice",
+    "prompt": "この後の対応として最も適切なのはどれか。1つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "質の高いCPRを継続しながら、周期的にリズムと脈拍を再評価する",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "アドレナリン投与後は胸骨圧迫をいったん中止して様子を見る",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "波形があるため脈拍確認は不要である",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "以後は電気ショックを繰り返す",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "scene6": {
+    "id": "scene6",
+    "title": "病態推定：胸痛後にCPAとなった背景",
+    "phase": "clinical_judgment",
+    "scene_goal": "胸痛後CPAの背景として心原性原因を想定する。",
+    "ideal_flow": "急な胸部症状の後にCPAとなった経過から、急性冠症候群など心原性の原因を考えながら搬送と継続対応を進める。",
+    "ideal_score_delta": 10,
+    "action_tag": "病態推定",
+    "text": "家族は『急に胸が苦しいと言ったあと、ぐったりして反応がなくなった』と話している。既往歴の詳細は不明である。",
+    "visible_data": [
+      "急な胸苦しさの訴えあり",
+      "その直後にCPA",
+      "家族が経過を目撃"
+    ],
+    "media": [],
+    "type": "single_choice",
+    "prompt": "このCPAの背景として最も疑うべき病態はどれか。1つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "急性冠症候群などの心原性疾患",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "単純な迷走神経反射",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "軽度の脱水",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "筋肉痛による呼吸停止",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "scene7": {
+    "id": "scene7",
+    "title": "病態理解：PEAとは何か",
+    "phase": "pathophysiology",
+    "scene_goal": "PEAの定義と、なぜ電気ショックよりアドレナリン投与とCPR継続が優先されるかを理解する。",
+    "ideal_flow": "PEAは電気活動が存在しても有効な機械的収縮がなく脈が触れない状態であることを理解し、ショック適応との違いを整理する。",
+    "ideal_score_delta": 20,
+    "action_tag": "病態理解",
+    "text": "この傷病者はモニター上に電気活動を認めるが、脈拍は触知できない。したがって、除細動適応のリズムとは異なる対応が必要となる。",
+    "visible_data": [
+      "モニター上は電気活動あり",
+      "脈拍触知なし",
+      "CPA継続中"
+    ],
+    "media": [],
+    "type": "single_choice",
+    "prompt": "PEAの説明として最も適切なのはどれか。1つ選べ。",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "心電図上は電気活動があるが、有効な機械的収縮がなく脈を触知しない状態",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "心室が無秩序に興奮しており、直ちに除細動が第一選択となる状態",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "心電図上も完全に平坦で、電気活動がまったくない状態",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "脈拍は保たれているが、一時的に意識だけが消失している状態",
+        "is_correct": false
+      }
+    ]
+  },
+
+  "debriefing": {
+    "summary": "本症例は、胸痛後に心肺停止となった成人男性に対し、CPA初期対応、PEAの判読、静脈路確保後の優先処置、そしてPEAの病態理解を学ぶ症例である。波形だけを見てショック適応と誤認せず、脈の有無と合わせてPEAと判断し、アドレナリン投与と質の高いCPRを継続することが重要である。",
+    "ideal_actions": [
+      "胸痛後の急変として心原性CPAを想定して出場する",
+      "CPAを確認したら胸骨圧迫とBVM換気を開始する",
+      "モニター波形と脈拍所見を合わせてPEAと判断する",
+      "特定行為の指示要請後に静脈路を確保する",
+      "PEAに対してアドレナリン静脈内投与を優先する",
+      "薬剤投与後も質の高いCPRと再評価を継続する",
+      "胸痛後CPAの背景として急性冠症候群など心原性病態を考える",
+      "PEAはショック適応リズムではないことを理解する"
+    ],
+    "good_points": [
+      "Scene3で波形だけでなく脈の有無をセットで判断する構成になっている",
+      "Scene4で元問題の学習意図を活かしつつ、設問文と選択肢順を再構成している",
+      "Scene7でPEAの定義を整理でき、処置の理由づけにつながる",
+      "救急救命士としてのCPA対応の基本が一連で学べる"
+    ],
+    "cautions": [
+      "電気活動があるからといって有効な循環があるとは限らない",
+      "PEAに対して除細動を優先しない",
+      "アドレナリン投与後もCPRを中断しない",
+      "12誘導心電図や血糖測定などを最優先にしない"
+    ]
+  }
+}

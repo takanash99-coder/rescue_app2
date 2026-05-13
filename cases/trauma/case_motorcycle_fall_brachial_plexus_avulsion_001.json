@@ -1,0 +1,514 @@
+{
+  "case_id": "trauma_motorcycle_fall_brachial_plexus_avulsion_001",
+  "version": "2.0",
+  "title": "オートバイ転倒後、右肩周囲外傷と上肢症状から腕神経叢引き抜き損傷を疑う症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "オートバイ事故",
+    "高エネルギー外傷",
+    "右肩外傷",
+    "上肢のしびれ",
+    "腕神経叢引き抜き損傷"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "通報内容から高エネルギー外傷を想定し、通報者への適切な口頭指導を選択する。",
+      "ideal_flow": [
+        "オートバイ転倒を高エネルギー外傷と捉える",
+        "通報者の安全確保を優先する",
+        "無理な移動やヘルメット除去を避ける",
+        "傷病者の反応と呼吸を確認してもらう"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "26歳の男性。オートバイ走行中に転倒し受傷した。右肩痛を訴えており、通行人が救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "オートバイの単独転倒事故である",
+          "傷病者は会話可能とみられる",
+          "右肩の痛みを訴えている"
+        ]
+      },
+      "media": [
+        "media/motorcycle_fall_right_shoulder_roadside_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "通報者への口頭指導として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "傷病者をすぐに立たせて、歩けるか確認してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "高エネルギー外傷では不用意に体位変換や歩行をさせない。"
+        },
+        {
+          "option_id": "2",
+          "text": "通報者自身の安全を確保したうえで、傷病者をあまり動かさず反応と呼吸を確認してもらう。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "安全確保を優先し、無理に動かさず反応と呼吸を確認する。"
+        },
+        {
+          "option_id": "3",
+          "text": "ヘルメットを外して頭部の傷を確認してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "現場での不用意なヘルメット除去は頚部への負担となる。"
+        },
+        {
+          "option_id": "4",
+          "text": "右肩痛が主訴なので、患部だけを冷やして待ってもらう。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "局所症状だけで判断せず、まず全身状態を把握する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価",
+      "phase": "scene_size_up",
+      "scene_goal": "現場状況から高エネルギー外傷を読み取り、重症外傷として評価する視点を持つ。",
+      "ideal_flow": [
+        "傷病者と車体の位置関係を確認する",
+        "投げ出された可能性を考える",
+        "二次事故の危険を確認する",
+        "局所所見に限定せず全身評価につなげる"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_safety",
+      "text": "現場は道路脇で、オートバイは転倒している。傷病者はバイクから約5m離れた路肩に座り込み、右肩を押さえている。ヘルメットは装着中で、右側の塗装が剥がれている。",
+      "visible_data": {
+        "scene_findings": [
+          "オートバイは転倒している",
+          "傷病者はバイクから約5m離れている",
+          "傷病者は路肩に座り込んでいる",
+          "ヘルメット右側の塗装剥離がある"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この現場状況から最も注意すべきことはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "右肩痛のみを訴えているため、肩関節周囲の外傷に限定して評価する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "局所所見だけでなく高エネルギー外傷として評価する。"
+        },
+        {
+          "option_id": "2",
+          "text": "傷病者がバイクから離れているため、投げ出された高エネルギー外傷として評価する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "車体から離れていることは強い外力を示唆し、全身評価が必要である。"
+        },
+        {
+          "option_id": "3",
+          "text": "ヘルメットを装着しているため、頭頚部外傷の可能性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "ヘルメット着用でも頭頚部外傷は否定できない。"
+        },
+        {
+          "option_id": "4",
+          "text": "会話可能であるため、重症外傷の可能性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識清明でも重症外傷はあり得る。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "初期評価で生命危機を見落とさず、全身観察へ進む判断をする。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "気道の開通を確認する",
+        "呼吸と循環の大まかな異常を確認する",
+        "高エネルギー外傷として全身観察へ進む"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment",
+      "text": "傷病者は呼びかけに応じ、会話は可能である。気道は開通しており、呼吸はやや速い。橈骨動脈は触知可能で、大量外出血は認めない。右肩痛を強く訴えている。",
+      "visible_data": {
+        "initial_assessment": [
+          "意識は清明である",
+          "気道は開通している",
+          "呼吸はやや速い",
+          "橈骨動脈は触知可能である",
+          "大量外出血はない",
+          "右肩痛を強く訴えている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価後の対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "右肩痛が主訴であるため、右肩だけを観察して搬送する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "高エネルギー外傷では局所観察のみに限定しない。"
+        },
+        {
+          "option_id": "2",
+          "text": "意識清明で大量外出血がないため、歩行可能か確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "不用意な歩行は避ける。"
+        },
+        {
+          "option_id": "3",
+          "text": "高エネルギー外傷として脊椎運動制限を意識しながら、全身観察へ進む。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "高エネルギー外傷として全身観察を優先する。"
+        },
+        {
+          "option_id": "4",
+          "text": "右肩の可動域を大きく確認して、脱臼の有無を先に判断する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "まず全身観察を行い、無理な関節運動は避ける。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "全身観察",
+      "phase": "whole_body_assessment",
+      "scene_goal": "全身観察から右肩周囲の局所外傷と上肢症状を把握し、重要な所見を拾う。",
+      "ideal_flow": [
+        "頭部から下肢まで系統的に観察する",
+        "右肩周囲の局所外傷を確認する",
+        "右上肢の動きやしびれの有無を確認する",
+        "頚部や下肢の所見も合わせて解釈する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "whole_body_observation",
+      "text": "全身観察を行う。",
+      "visible_data": {
+        "body_map_template": "media/neutral_mannequin_body_diagram_template.png",
+        "body_regions": [
+          {
+            "region_id": "head_face",
+            "label": "頭部・顔面",
+            "finding": "ヘルメット右側の塗装剥離を認める。明らかな大量外出血はない。",
+            "clinical_meaning": "頭部への外力を示唆するが、局所の大量出血はない。"
+          },
+          {
+            "region_id": "neck",
+            "label": "頚部",
+            "finding": "明らかな変形はない。強い頚部痛の訴えはない。",
+            "clinical_meaning": "脊椎損傷は外見だけでは否定できない。"
+          },
+          {
+            "region_id": "chest",
+            "label": "胸部",
+            "finding": "明らかな胸郭変形はない。",
+            "clinical_meaning": "重篤な胸部外傷を示す明らかな所見は乏しい。"
+          },
+          {
+            "region_id": "abdomen",
+            "label": "腹部",
+            "finding": "腹部の強い圧痛や膨隆は目立たない。",
+            "clinical_meaning": "腹部所見は目立たないが経過観察は必要である。"
+          },
+          {
+            "region_id": "pelvis",
+            "label": "骨盤",
+            "finding": "骨盤部の強い疼痛は訴えない。",
+            "clinical_meaning": "骨盤外傷を強く疑う所見は乏しい。"
+          },
+          {
+            "region_id": "right_shoulder_upper_ext",
+            "label": "右肩・右上肢",
+            "finding": "右肩周囲に広い擦過創と皮下出血を認める。右腕は十分に上げられず、右手から前腕にかけてしびれを訴える。",
+            "clinical_meaning": "肩周囲の強い外力に加え、上肢症状を伴っている。"
+          },
+          {
+            "region_id": "lower_extremities",
+            "label": "両下肢",
+            "finding": "明らかな変形や重度の運動障害はない。",
+            "clinical_meaning": "脊髄損傷を強く示唆する下肢所見は乏しい。"
+          }
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "single_choice",
+      "prompt": "全身観察の結果から、特に重視すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "ヘルメット右側の塗装剥離",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "重要所見だが、この症例の国試の芯に直結する所見ではない。"
+        },
+        {
+          "option_id": "2",
+          "text": "右腕が上げにくく、右手から前腕にかけてしびれを訴えていること",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "右肩周囲の外傷に神経症状を伴っており、重要な所見である。"
+        },
+        {
+          "option_id": "3",
+          "text": "腹部の強い圧痛が目立たないこと",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "重要ではあるが、この症例の中心所見ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "両下肢に明らかな変形がないこと",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "下肢所見は参考になるが、最重要所見ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後の再評価",
+      "phase": "reassessment",
+      "scene_goal": "再評価所見から、病院選定に重要な情報を見抜く。",
+      "ideal_flow": [
+        "車内収容後に数値バイタルを確認する",
+        "右肩周囲の局所外傷を再確認する",
+        "右上肢の症状の意味を考える",
+        "病院選定に必要な情報を整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_and_destination",
+      "text": "車内収容後、意識清明。呼吸数24/分、脈拍92/分、整。血圧108/76mmHg。右肩周囲に広い擦過創と皮下出血を認める。右腕は自分で十分に上げられず、右手から前腕にかけてしびれを訴える。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "意識清明",
+          "respiratory_rate": "24/分",
+          "pulse": "92/分、整",
+          "blood_pressure": "108/76mmHg"
+        },
+        "findings": [
+          "右肩周囲に広い擦過創と皮下出血を認める",
+          "右腕は十分に上げられない",
+          "右手から前腕にかけてしびれを訴える"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この内容から病院選定を考えるにあたり、特に重要な情報はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "呼吸数とSpO₂の変化",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "重要な観察項目だが、この症例の搬送先選定の中心情報ではない。"
+        },
+        {
+          "option_id": "2",
+          "text": "右手から前腕にかけてのしびれ",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "上肢のしびれは神経損傷を示唆し、専門的評価が可能な医療機関選定に重要である。"
+        },
+        {
+          "option_id": "3",
+          "text": "脈拍と血圧の変化",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "全身管理には重要だが、本症例で最も特徴的な選定情報ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "体温と悪寒の有無",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "この場面では優先度が低い。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯",
+      "phase": "core_question",
+      "scene_goal": "右肩周囲外傷と上肢症状から最も疑われる損傷を選択する。",
+      "ideal_flow": [
+        "高エネルギー外傷であることを踏まえる",
+        "右肩周囲外傷に上肢症状を伴うことを整理する",
+        "脳・脊髄・頚部症候群との違いを考える",
+        "最も疑わしい損傷を選ぶ"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "exam_core",
+      "text": "この傷病者で最も疑われる疾患はどれか。",
+      "visible_data": {
+        "core_findings": [
+          "オートバイ転倒",
+          "右肩周囲の強い外力",
+          "右腕が上げにくい",
+          "右手から前腕にかけてのしびれ"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "最も疑われる疾患を1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "胸髄損傷",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "両下肢症状や体幹以下の障害が目立たない。"
+        },
+        {
+          "option_id": "2",
+          "text": "外傷性てんかん",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "けいれん発作を示す所見はない。"
+        },
+        {
+          "option_id": "3",
+          "text": "びまん性脳損傷",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識障害が主体ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "外傷性頸部症候群",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "頚部症状のみでは説明しにくい。"
+        },
+        {
+          "option_id": "5",
+          "text": "腕神経叢引き抜き損傷",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "右肩周囲の外傷に加え、上肢のしびれと挙上困難を認めるため最も疑わしい。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "clinical_reasoning",
+      "scene_goal": "腕神経叢の役割を理解し、症状とのつながりを整理する。",
+      "ideal_flow": [
+        "腕神経叢がどのような働きに関与するかを考える",
+        "症状と構造の関係を理解する",
+        "右肩周囲外傷と上肢症状を結びつける"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "pathophysiology_understanding",
+      "text": "腕神経叢引き抜き損傷では、肩周囲への強い外力により上肢の症状が出現する。",
+      "visible_data": {
+        "clinical_focus": [
+          "右肩周囲外傷",
+          "右腕の挙上困難",
+          "右手から前腕のしびれ"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "腕神経叢の説明として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "頚部から肩を通り、腕や手の動き・感覚に関与する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "腕神経叢は上肢の運動と感覚に関与する。"
+        },
+        {
+          "option_id": "2",
+          "text": "肩関節の表面を覆い、関節の滑りをよくする。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "腕神経叢の説明ではない。"
+        },
+        {
+          "option_id": "3",
+          "text": "鎖骨と肩甲骨をつなぎ、肩関節の安定性を保つ。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "腕神経叢の説明ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "上腕の筋肉内にあり、肩を挙げる力だけを調整する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "腕神経叢の説明として不適切である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "26歳男性がオートバイ転倒で受傷した症例。現場ではバイクと傷病者が約5m離れており、高エネルギー外傷として全身評価が必要であった。右肩周囲の広い擦過創と皮下出血に加え、右腕の挙上困難と右手から前腕のしびれを認めたことから、単なる局所外傷ではなく腕神経叢引き抜き損傷を疑うことが学習の中心である。",
+    "ideal_actions": [
+      "オートバイ転倒を高エネルギー外傷として捉える",
+      "現場状況から投げ出された可能性を考える",
+      "初期評価後は脊椎運動制限を意識して全身観察へ進む",
+      "右肩周囲の局所所見だけでなく上肢症状を重視する",
+      "病院選定では右手から前腕のしびれを重要情報として扱う",
+      "最も疑わしい損傷として腕神経叢引き抜き損傷を考える"
+    ],
+    "good_points": [
+      "現場状況から高エネルギー外傷を読み取れる構成である",
+      "全身観察を通して局所所見と上肢症状を結びつけられる",
+      "国試問題を実践的な病院選定や病態理解につなげている"
+    ],
+    "cautions": [
+      "右肩痛だけで肩関節周囲の外傷に限定しない",
+      "意識清明でも重症外傷を除外しない",
+      "不用意に歩行や大きな関節可動域確認を行わない",
+      "上肢のしびれを見逃さず、神経損傷の可能性を考える"
+    ]
+  }
+}

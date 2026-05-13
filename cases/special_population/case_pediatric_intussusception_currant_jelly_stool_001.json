@@ -1,0 +1,450 @@
+{
+  "case_id": "pediatric_intussusception_currant_jelly_stool_001",
+  "version": "2.0",
+  "title": "突然の啼泣と粘血便から腸重積を疑う小児症例",
+  "category": "special_population",
+  "difficulty": "Normal",
+  "algorithm_type": "小児救急対応プロトコル",
+  "estimated_time": 7,
+  "keywords": [
+    "小児",
+    "腸重積",
+    "いちごジャム様便",
+    "嘔吐",
+    "急性腹症"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "突然の啼泣と嘔吐という情報から、小児の急性腹症を想定して出場する。",
+      "ideal_flow": [
+        "突然の啼泣と嘔吐から小児急性腹症を想定する",
+        "保護者に飲食させないよう伝える",
+        "顔色や反応、嘔吐の有無を観察するよう依頼する",
+        "便やおむつの状態も確認するよう依頼する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "pediatric_abdomen"
+      ],
+      "text": "2歳の女児。急に激しく泣き出し、その後に嘔吐したため家族が救急要請した。母親は『泣き方がいつもと違い、顔色も悪い』と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "通報者": "母親",
+          "主訴": "突然の啼泣と嘔吐",
+          "追加情報": "顔色不良あり"
+        },
+        "pac": {
+          "指示": [
+            "無理に飲食させない",
+            "楽な姿勢で抱っこしてよい",
+            "反応や顔色を観察する",
+            "おむつや便の状態を確認する"
+          ]
+        }
+      },
+      "media": [
+        "media/intussusception_child_crying_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "出場途上で最も意識すべき病態として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "小児の急性腹症",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "突然の啼泣と嘔吐は、小児急性腹症として評価すべき重要な所見である。"
+        },
+        {
+          "option_id": "b",
+          "text": "発熱性けいれん",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "けいれんや発熱の情報はなく、主症状は啼泣と嘔吐である。"
+        },
+        {
+          "option_id": "c",
+          "text": "上気道炎",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "咳や鼻汁ではなく、急な啼泣と嘔吐が中心である。"
+        },
+        {
+          "option_id": "d",
+          "text": "軽い打撲",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "外傷の情報はなく、小児の急性腹症をまず考える。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "数値バイタルを出す前に、ABCの切迫所見と全身状態を確認する。",
+      "ideal_flow": [
+        "意識と反応を確認する",
+        "気道の開通を確認する",
+        "呼吸の様子と顔色を観察する",
+        "直ちにABC破綻はないか判断する",
+        "保護者からの経過聴取へ進む"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "primary_assessment",
+        "pediatric_assessment",
+        "observation"
+      ],
+      "text": "傷病者は母親に抱かれて啼泣している。呼びかけや刺激には反応し、気道は開通している。呼吸は速いが努力呼吸は目立たず、顔色はやや不良である。",
+      "visible_data": {
+        "primary_assessment": {
+          "意識": "反応あり",
+          "気道": "開通",
+          "呼吸": "速いが著明な呼吸困難はない",
+          "循環": "顔色不良あり",
+          "全身状態": "啼泣あり"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価後の対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "保護者から経過と便の状態を聴取する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "直ちにABC破綻はなく、病態把握のため保護者からの経過聴取が重要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "高濃度酸素投与を最優先する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "低酸素を示す情報はなく、まずは病態把握を進める。"
+        },
+        {
+          "option_id": "c",
+          "text": "歩かせて様子をみる",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "小児急性腹症が疑われ、歩行を促す状況ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "直ちに経口補水を行う",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "嘔吐があり、原因不明の腹部症状に対して安易に飲水させない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "母親への対話式問診",
+      "phase": "dialogue",
+      "scene_goal": "保護者から、発症経過・啼泣のパターン・嘔吐・便の性状を聴取して病態を絞り込む。",
+      "ideal_flow": [
+        "発症時刻を確認する",
+        "泣き方に波があるか確認する",
+        "嘔吐の有無と回数を確認する",
+        "便やおむつの状態を確認する",
+        "発熱や普段の体調も確認する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": [
+        "dialogue",
+        "caregiver_history",
+        "pediatric_reasoning"
+      ],
+      "text": "母親から詳しく話を聞く。必要な質問をして、発症の経過と症状の特徴を整理しよう。",
+      "visible_data": {
+        "vitals": {
+          "意識": "清明",
+          "呼吸数": "36回/分"
+        },
+        "general_findings": {
+          "顔色": "不良",
+          "現在の様子": "泣いたり少し落ち着いたりを繰り返す"
+        }
+      },
+      "media": [
+        "media/intussusception_currant_jelly_stool_scene3.png"
+      ],
+      "type": "dialogue",
+      "prompt": "母親に質問して、病態把握に必要な情報を集めよう。",
+      "dialogue": {
+        "max_turns": 8,
+        "targets": [
+          {
+            "target_id": "mother",
+            "label": "母親",
+            "recommended_framework": "SAMPLE",
+            "persona": {
+              "attitude": "不安が強いが協力的",
+              "reliability": "観察内容はおおむね信頼できる"
+            }
+          }
+        ],
+        "answers": [
+          {
+            "id": "chief_complaint",
+            "target_id": "mother",
+            "category": "主訴",
+            "keywords": ["どうしました", "何があった", "主訴", "症状"],
+            "response": "急にすごく泣き出して、そのあと吐きました。",
+            "score_tag": "chief_complaint"
+          },
+          {
+            "id": "onset",
+            "target_id": "mother",
+            "category": "発症",
+            "keywords": ["いつから", "何時から", "発症", "始まり"],
+            "response": "30分くらい前からです。",
+            "score_tag": "onset"
+          },
+          {
+            "id": "pattern",
+            "target_id": "mother",
+            "category": "経過",
+            "keywords": ["ずっと", "波", "繰り返す", "泣き方"],
+            "response": "ずっとじゃなくて、急に激しく泣いて、少し落ち着いて、また泣く感じです。",
+            "score_tag": "pain_pattern"
+          },
+          {
+            "id": "vomiting_general",
+            "target_id": "mother",
+            "category": "嘔吐",
+            "keywords": ["吐いた", "嘔吐", "何回", "vomit"],
+            "response": "2回吐きました。",
+            "score_tag": "vomiting"
+          },
+          {
+            "id": "vomiting_content",
+            "target_id": "mother",
+            "category": "嘔吐内容",
+            "keywords": ["何を吐いた", "吐いたもの", "色", "内容"],
+            "response": "食べたものみたいでした。血は混じっていません。",
+            "score_tag": "vomiting_content"
+          },
+          {
+            "id": "stool_general",
+            "target_id": "mother",
+            "category": "便",
+            "keywords": ["便", "うんち", "おむつ", "オムツ"],
+            "response": "さっきオムツを見たら、ねばっとした赤い便みたいなのがついていました。",
+            "score_tag": "stool"
+          },
+          {
+            "id": "stool_detail",
+            "target_id": "mother",
+            "category": "便性状",
+            "keywords": ["便の色", "血便", "粘液", "ゼリー", "いちごジャム"],
+            "response": "血とゼリーみたいなのが混ざった感じでした。",
+            "score_tag": "bloody_mucus_stool"
+          },
+          {
+            "id": "fever",
+            "target_id": "mother",
+            "category": "発熱",
+            "keywords": ["熱", "発熱", "体温"],
+            "response": "熱はないと思います。",
+            "score_tag": "fever"
+          },
+          {
+            "id": "activity",
+            "target_id": "mother",
+            "category": "活気",
+            "keywords": ["元気", "ぐったり", "普段と違う"],
+            "response": "泣いていない時は少しぐったりして見えます。",
+            "score_tag": "activity"
+          },
+          {
+            "id": "appetite",
+            "target_id": "mother",
+            "category": "飲食",
+            "keywords": ["食事", "飲水", "食べた", "飲んだ"],
+            "response": "昼は少し食べましたが、その後は何も食べていません。",
+            "score_tag": "intake"
+          },
+          {
+            "id": "past_history",
+            "target_id": "mother",
+            "category": "既往",
+            "keywords": ["既往", "病気", "手術", "今まで"],
+            "response": "大きな病気や手術はありません。",
+            "score_tag": "past_history"
+          },
+          {
+            "id": "abdominal_touch",
+            "target_id": "mother",
+            "category": "腹部症状",
+            "keywords": ["お腹", "触る", "嫌がる", "腹痛"],
+            "response": "お腹を触ると嫌がる感じがあります。",
+            "score_tag": "abdominal_pain"
+          }
+        ],
+        "must_ask": [
+          "onset",
+          "pain_pattern",
+          "vomiting",
+          "stool",
+          "bloody_mucus_stool",
+          "fever",
+          "activity"
+        ],
+        "fallback": "すみません、よくわかりません……"
+      }
+    },
+    {
+      "id": "scene4",
+      "title": "国試問題の芯：最も疑う疾患",
+      "phase": "exam_core",
+      "scene_goal": "突然の啼泣、嘔吐、顔色不良、粘血便の組み合わせから腸重積を疑う。",
+      "ideal_flow": [
+        "突然の啼泣を急性腹症のサインとして捉える",
+        "嘔吐と顔色不良を確認する",
+        "粘液と血液が混じった便を重要所見として捉える",
+        "腸重積を第一に考える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "exam_core",
+        "intussusception",
+        "diagnosis"
+      ],
+      "text": "母親からの聴取では、突然の激しい啼泣、繰り返す嘔吐、ぐったりする時間、そして粘液と血液が混じった便が確認できた。",
+      "visible_data": {
+        "key_findings": {
+          "啼泣": "突然、激しい",
+          "経過": "波がある",
+          "嘔吐": "あり",
+          "顔色": "不良",
+          "便": "粘液と血液が混じる"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も疑われる疾患はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "腸重積",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "突然の啼泣、嘔吐、顔色不良、粘血便は腸重積を強く疑う所見である。"
+        },
+        {
+          "option_id": "b",
+          "text": "急性胃腸炎",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "嘔吐はあり得るが、突然の激しい啼泣や粘血便は腸重積をより強く示唆する。"
+        },
+        {
+          "option_id": "c",
+          "text": "急性虫垂炎",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "小児急性腹症の鑑別には入るが、典型的な粘血便は説明しにくい。"
+        },
+        {
+          "option_id": "d",
+          "text": "鼠径ヘルニア嵌頓",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "啼泣や嘔吐はあり得るが、鼠径部腫脹の情報がなく、粘血便の説明もしにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "病態理解：なぜ粘血便が出るのか",
+      "phase": "pathophysiology",
+      "scene_goal": "腸重積では腸管の循環障害により粘血便が出現することを理解する。",
+      "ideal_flow": [
+        "腸重積では腸が腸の中へ入り込むことを理解する",
+        "重積部で循環障害が起こることを理解する",
+        "粘膜障害により粘液と血液が混じることを理解する",
+        "迅速搬送の必要性を理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "currant_jelly_stool",
+        "pediatric_transport"
+      ],
+      "text": "腸重積では、一部の腸がその先の腸の中に入り込む。すると重なった部分で血流障害が起こり、腸粘膜が傷害され、粘液と血液が混じった便が出現する。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "病態": "腸が腸の中に入り込む",
+          "結果": "循環障害、粘膜障害",
+          "便": "粘液と血液が混じる",
+          "活動方針": "飲食を避け、小児対応可能な医療機関へ迅速搬送"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で粘液と血液が混じった便がみられる理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "腸管が重なって循環障害を起こし、粘膜から出血している",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "腸重積では重積部の循環障害により粘膜障害が起こり、粘血便が出現する。"
+        },
+        {
+          "option_id": "b",
+          "text": "ウイルス感染で腸全体が軽く炎症している",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "胃腸炎でも下痢は起こるが、このような典型的粘血便を説明しにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "胃からの出血がそのまま便に混じっている",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "胃出血なら黒色便などを考えることが多く、この病態とは合いにくい。"
+        },
+        {
+          "option_id": "d",
+          "text": "肛門周囲の軽い裂傷で少量出血している",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "突然の啼泣、嘔吐、顔色不良を伴う粘血便は、肛門裂傷では説明しにくい。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "突然の激しい啼泣と嘔吐で発症した2歳女児の症例。初期評価では直ちにABC破綻はなく、保護者からの経過聴取が鍵となる。問診で、症状に波があること、嘔吐、顔色不良、そして粘液と血液が混じった便が確認できれば、腸重積を強く疑う。腸重積では腸管の循環障害から粘血便が出現するため、飲食を避け、迅速搬送が重要である。",
+    "ideal_actions": [
+      "突然の啼泣と嘔吐から小児急性腹症を想定する",
+      "初期評価でABCの切迫所見を確認する",
+      "保護者から発症経過、嘔吐、便性状を聴取する",
+      "粘液と血液が混じる便を重要所見として捉える",
+      "腸重積を第一に疑う",
+      "飲食を避け、小児対応可能な医療機関へ迅速搬送する"
+    ],
+    "good_points": [
+      "本人から十分に情報が取れない小児で、保護者聴取を中心に病態把握できる",
+      "いちごジャム様の粘血便を腸重積の重要所見として理解できる",
+      "嘔吐や顔色不良を含めて小児急性腹症として評価できる"
+    ],
+    "cautions": [
+      "急性胃腸炎と決めつけて粘血便を軽視しない",
+      "小児に安易に飲食させない",
+      "啼泣が落ち着く時間があっても安心しすぎない",
+      "ぐったり、顔色悪化、反応低下があれば重症化を疑う"
+    ]
+  }
+}

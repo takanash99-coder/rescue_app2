@@ -1,0 +1,766 @@
+{
+  "case_id": "case_terminal_cancer_home_care_dnar_physician_contact_001",
+  "version": "2.0",
+  "title": "在宅療養中の終末期がん患者の呼吸困難と主治医連携を判断する症例",
+  "category": "special_population",
+  "difficulty": "Normal",
+  "algorithm_type": "在宅医療・終末期対応プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "在宅医療",
+    "終末期",
+    "ACP",
+    "DNAR",
+    "主治医連絡",
+    "呼吸困難"
+  ],
+  "overview": "80歳男性。呼吸困難のため妻が救急要請した。現着時はCPAではないが、意識反応はなく努力呼吸が著明である。肺癌と骨転移のため緩和治療を受け、本人は最期を自宅で過ごすことを希望していた。救急隊は苦痛軽減のための観察と酸素投与を行いながら、在宅医療の主治医へ連絡し判断を問うことが学習の中心である。",
+  "patient_profile": {
+    "age": 80,
+    "sex": "男性",
+    "chief_complaint": "呼吸困難",
+    "background": "妻と二人暮らし。肺癌と骨転移のため緩和治療後に在宅療養中。本人は最期を自宅で過ごしたいと希望していた。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "terminal_care",
+      "dyspnea",
+      "altered_consciousness",
+      "home_care"
+    ],
+    "time_pressure": "moderate"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "終末期在宅療養の背景を踏まえ、観察・苦痛軽減・家族対応・主治医連携を的確に判断できている。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "主治医連絡の判断は良好。家族支援と地域運用の整理も概ねできている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "大きな流れは理解できているが、ACPと救急対応の切り分けをもう少し整理したい。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "一部の対応は適切だが、主治医連携や家族対応に迷いがある。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "終末期在宅療養中の救急要請に対する基本対応を復習したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容",
+      "phase": "dispatch",
+      "scene_goal": "呼吸困難の高齢者として出場し、現場での重症度評価に備える。",
+      "ideal_flow": [
+        "呼吸困難の通報として出場する",
+        "意識と呼吸状態の悪化を想定する",
+        "在宅療養情報は現場で確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch",
+        "dyspnea",
+        "elderly_patient"
+      ],
+      "text": "妻から『夫がとても息苦しそうです。声をかけても反応がありません』と救急要請が入った。傷病者は80歳男性で、自宅内にいるという。",
+      "visible_data": {
+        "dispatch_information": "80歳男性。自宅で呼吸困難。妻が救急要請。",
+        "caller_information": [
+          "声をかけても反応がない",
+          "息苦しそう",
+          "妻と二人暮らし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で想定すべき状態として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "意識障害を伴う重症呼吸困難",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "severe_dyspnea_suspected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "反応がなく息苦しそうという通報から、重症呼吸困難として準備する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "軽症の過換気発作",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "反応がないという情報があり、軽症と判断する段階ではない。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "歩行可能な慢性症状",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "呼吸困難と反応低下があり、歩行可能な慢性症状とは考えにくい。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "搬送不要の相談事案",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "意識反応がない呼吸困難であり、現場評価が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "数値バイタルに入る前に、CPAではない重症呼吸困難として判断する。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "気道閉塞の有無を確認する",
+        "呼吸の有無と努力呼吸を確認する",
+        "脈拍触知を確認する",
+        "CPAではない重症呼吸困難として対応する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "primary_survey",
+        "dyspnea",
+        "not_cpa"
+      ],
+      "text": "救急隊が接触すると、傷病者はベッド上で仰臥位に近い姿勢で横たわっている。呼びかけに反応はない。呼吸は認めるが努力呼吸が著明で、顔色は不良である。明らかな気道閉塞はなく、脈拍は触知できる。",
+      "visible_data": {
+        "consciousness": "呼びかけに反応なし",
+        "airway": "明らかな気道閉塞なし",
+        "breathing": "呼吸あり、努力呼吸著明",
+        "circulation": "脈拍触知可能",
+        "first_impression": "CPAではない重症呼吸困難"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "CPAではなく、重症呼吸困難として酸素投与を開始する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "not_cpa_confirmed",
+              "oxygen_started"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸と脈拍を認めるためCPAではない。努力呼吸が著明であり酸素投与を開始する。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "反応がないため直ちに胸骨圧迫を開始する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "unnecessary_cpr"
+            ]
+          },
+          "rationale": "脈拍と呼吸を認めており、CPAとは判断しない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "在宅看取り予定のため酸素投与は行わない。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "withholding_comfort_care"
+            ]
+          },
+          "rationale": "終末期であっても、呼吸困難の苦痛軽減として酸素投与などの処置は行う。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "妻の説明を聞くまで観察と処置を保留する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_care"
+            ]
+          },
+          "rationale": "背景確認は重要だが、まず重症呼吸困難として初期対応を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインと主訴の観察",
+      "phase": "focused_assessment",
+      "scene_goal": "重症呼吸困難の程度を把握し、苦痛軽減を行う。",
+      "ideal_flow": [
+        "意識レベルを確認する",
+        "呼吸数と努力呼吸を評価する",
+        "SpO2を確認する",
+        "酸素投与を行う",
+        "循環動態を確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "vital_signs",
+        "dyspnea_assessment",
+        "oxygen_therapy"
+      ],
+      "text": "初期対応として酸素投与を開始した。続いて呼吸状態と循環状態を確認する。",
+      "visible_data": {
+        "level_of_consciousness": "JCS 300",
+        "respiratory_rate": "36/分",
+        "pulse": "100/分・整",
+        "blood_pressure": "168/92 mmHg",
+        "spo2": "90％",
+        "breathing": "努力呼吸著明",
+        "intervention": "酸素投与を実施"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "酸素投与を継続し、呼吸状態を再評価する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "dyspnea_care_continued"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "努力呼吸が著明で低酸素を認めるため、酸素投与と呼吸状態の再評価を継続する。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "呼吸数が多いため酸素投与を中止する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "oxygen_stopped"
+            ]
+          },
+          "rationale": "SpO2低下と努力呼吸があり、酸素投与を中止する理由はない。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "血圧が保たれているため呼吸状態の評価を省略する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "missed_respiratory_failure"
+            ]
+          },
+          "rationale": "循環が保たれていても、重症呼吸困難は継続評価が必要である。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "終末期なのでバイタルサイン測定は不要と判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "insufficient_assessment"
+            ]
+          },
+          "rationale": "終末期であっても、苦痛の程度や対応方針を判断するため観察は必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "在宅療養の背景情報",
+      "phase": "history_and_context",
+      "scene_goal": "妻から在宅療養、本人意思、看取り方針に関する情報を把握する。",
+      "ideal_flow": [
+        "妻の話を落ち着いて聞く",
+        "疾患と在宅医療の背景を確認する",
+        "本人の希望を確認する",
+        "主治医や訪問看護との関わりを確認する",
+        "救急要請に至った妻の不安を把握する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "home_care",
+        "acp",
+        "family_interview",
+        "terminal_care"
+      ],
+      "text": "妻は『肺癌と骨転移で入院して緩和治療を受けていました。本人が最期は家で過ごしたいと強く希望して、2か月前に退院しました。在宅医療を受けています。家で看取るつもりでしたが、あまりにも息苦しそうで救急車を呼びました』と話している。",
+      "visible_data": {
+        "family_information": [
+          "肺癌と骨転移",
+          "緩和治療後に2か月前退院",
+          "在宅医療を受けている",
+          "本人は最期を家で過ごしたいと希望",
+          "妻は家で看取るつもりだった",
+          "息苦しさが強く救急要請",
+          "本人と妻の二人暮らし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この情報から救急隊が重視すべき点として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "本人の希望と在宅医療の方針を確認する必要がある。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "acp_context_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "終末期在宅療養中であり、本人の意思と主治医の方針を踏まえて対応する必要がある。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "家で看取る予定なら救急隊は処置を行わない。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "withholding_comfort_care"
+            ]
+          },
+          "rationale": "在宅看取り予定でも、苦痛軽減や家族支援、関係者連携は必要である。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "妻が動揺しているため本人意思は考慮しない。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "acp_ignored"
+            ]
+          },
+          "rationale": "妻の不安を支えつつ、本人意思と在宅医療方針を確認する。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "癌の終末期であれば救命救急センター搬送を優先する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "premature_transport"
+            ]
+          },
+          "rationale": "搬送の要否は、本人意思、主治医の方針、現在の状態を踏まえて判断する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "妻への対応",
+      "phase": "family_support",
+      "scene_goal": "動揺する妻に寄り添いながら、主治医連絡に必要な情報を確認する。",
+      "ideal_flow": [
+        "妻の不安を受け止める",
+        "責める表現を避ける",
+        "主治医や訪問看護の連絡先を確認する",
+        "本人の希望と妻の困りごとを整理する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "family_support",
+        "communication",
+        "home_physician"
+      ],
+      "text": "妻は『本人は家にいたいと言っていました。でも、こんなに苦しそうなのを見ていられなくて……救急車を呼んでよかったのでしょうか』と動揺している。",
+      "visible_data": {
+        "wife_emotion": [
+          "不安",
+          "罪悪感",
+          "判断に迷いがある"
+        ],
+        "needed_information": [
+          "在宅主治医の連絡先",
+          "訪問看護の有無",
+          "本人の希望",
+          "現在の苦痛の程度"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "妻への対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "不安を受け止め、在宅主治医や訪問看護の連絡先を確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "family_supported",
+              "physician_contact_info_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "妻の不安に寄り添いながら、在宅医療の方針確認に必要な情報を集める。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "家で看取る予定だったなら救急要請は不要だったと伝える。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "family_distress"
+            ]
+          },
+          "rationale": "妻を責める表現は避け、苦痛や不安への支援を行う。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "妻以外の家族を探すまで対応を進めない。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "decision_delay"
+            ]
+          },
+          "rationale": "他家族の確認は必要に応じて行うが、主治医連絡や苦痛軽減を遅らせる理由にはならない。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "本人が反応しないため、妻からの情報は扱わない。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "history_ignored"
+            ]
+          },
+          "rationale": "本人から情報が得られない場合、同居家族からの情報は重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：優先すべき連絡先",
+      "phase": "national_exam_core",
+      "scene_goal": "在宅療養中の終末期患者に対し、優先して主治医に連絡する判断を行う。",
+      "ideal_flow": [
+        "CPAではないことを確認する",
+        "呼吸困難への苦痛軽減を継続する",
+        "本人意思と在宅医療方針を踏まえる",
+        "主治医に連絡し判断を問う"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "national_exam_core",
+        "home_physician",
+        "acp",
+        "dnar"
+      ],
+      "text": "傷病者はCPAではないが、意識反応はなく努力呼吸が著明である。肺癌と骨転移で在宅医療中であり、本人は最期を家で過ごしたいと希望していた。妻は在宅主治医の連絡先を提示した。",
+      "visible_data": {
+        "current_status": [
+          "CPAではない",
+          "重症呼吸困難",
+          "在宅医療中",
+          "本人は自宅で過ごすことを希望",
+          "主治医の連絡先あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊が優先して実施すべき対応はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "妻以外の家族を探す。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "decision_delay"
+            ]
+          },
+          "rationale": "他家族の確認は必要に応じて行うが、優先は在宅医療の方針確認である。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "MC医師に助言要請を行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "MC医師への相談が必要となる場合もあるが、今回の優先は在宅療養方針を把握する主治医への連絡である。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "主治医に連絡し判断を問う。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "home_physician_contacted"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "在宅医療中で本人意思も明らかなため、主治医に連絡して方針を確認することが優先される。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "ケアマネジャーに連絡する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "生活支援の調整では重要だが、急変時の医学的判断は主治医連絡が優先される。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "救命救急センターに搬送する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "acp_not_considered"
+            ]
+          },
+          "rationale": "重症だから直ちに救命救急センター搬送と決めるのではなく、本人意思と在宅主治医の方針を確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "地域MCとACP/DNARの整理",
+      "phase": "system_learning",
+      "scene_goal": "ACP/DNAR対応は地域運用に従いつつ、苦痛緩和と主治医連携を行うことを理解する。",
+      "ideal_flow": [
+        "DNARは何もしないという意味ではないと理解する",
+        "CPA前の呼吸困難では苦痛軽減を行う",
+        "在宅主治医と連携する",
+        "心肺停止時の対応は地域MCやプロトコールに従う"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "medical_control",
+        "dnar",
+        "acp",
+        "terminal_care"
+      ],
+      "text": "ACPやDNARの取り扱いは地域のMC体制や消防本部の運用によって異なる。今回の傷病者はCPAではなく、重症呼吸困難の苦痛がある。救急隊は必要な観察と苦痛軽減を行いながら、主治医と連携して方針を確認する必要がある。",
+      "visible_data": {
+        "key_points": [
+          "DNARは何もしないという意味ではない",
+          "CPA前の呼吸困難には苦痛軽減が必要",
+          "在宅医療中は主治医連携が重要",
+          "心肺停止時は地域MC・プロトコールに従う"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ACP/DNARを踏まえた救急隊対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "地域の運用を踏まえ、苦痛軽減と主治医連携を行う。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "dnar_acp_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ACP/DNARの背景を尊重しつつ、苦痛軽減と主治医連携を行うことが重要である。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "DNARが疑われる場合は酸素投与を含めた処置を行わない。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "withholding_comfort_care"
+            ]
+          },
+          "rationale": "DNARは心肺蘇生に関する意思であり、苦痛緩和を行わないという意味ではない。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "本人意思があれば地域運用に関係なく救急隊だけで全て判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "protocol_violation"
+            ]
+          },
+          "rationale": "ACP/DNAR対応は地域MCや消防本部の運用、医師確認を踏まえて行う必要がある。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "家族が救急要請した時点で本人の在宅希望は無効と考える。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "acp_ignored"
+            ]
+          },
+          "rationale": "家族の救急要請は苦痛や不安によることも多く、本人意思を直ちに無効とは考えない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "80歳男性の終末期在宅療養中の呼吸困難症例。肺癌と骨転移のため緩和治療を受け、本人は最期を自宅で過ごすことを希望していた。現着時はCPAではないが、意識反応はなく努力呼吸が著明であった。救急隊は酸素投与など苦痛軽減を行いながら、妻から在宅療養の背景と本人意思を確認し、車内収容前に在宅主治医へ連絡して判断を問うことが重要である。",
+    "ideal_actions": [
+      "呼吸困難の通報として重症度を想定して出場する。",
+      "初期評価では数値バイタルより先に、反応・気道・呼吸・脈拍を確認する。",
+      "CPAではない重症呼吸困難として酸素投与を開始する。",
+      "バイタルサインと主訴の観察により呼吸困難の重症度を把握する。",
+      "妻から肺癌、骨転移、緩和治療、在宅医療、本人意思を確認する。",
+      "妻の不安を受け止め、在宅主治医や訪問看護の連絡先を確認する。",
+      "本人意思と在宅医療方針を踏まえ、主治医に連絡し判断を問う。",
+      "ACP/DNAR対応は地域MCや消防本部の運用に従う。"
+    ],
+    "good_points": [
+      "初期評価で数値バイタルを出さず、CPAではない重症呼吸困難として整理している。",
+      "車内収容前に現場で主治医へ連絡する流れにしている。",
+      "DNARを『何もしない』と誤解せず、苦痛軽減と家族支援を含めている。",
+      "MC医師ではなく、在宅医療の方針を把握している主治医への連絡を国試の芯として扱っている。"
+    ],
+    "cautions": [
+      "在宅看取り予定でも、呼吸困難の苦痛軽減を放棄しない。",
+      "終末期という情報だけで直ちに搬送不要・処置不要と判断しない。",
+      "家族を責める表現を避け、救急要請に至った不安を受け止める。",
+      "ACP/DNAR対応は地域差があるため、地域MCや消防本部の運用、主治医確認を踏まえる。",
+      "CPA前の呼吸困難と、心肺停止時のDNAR対応を混同しない。"
+    ]
+  }
+}

@@ -3,33 +3,19 @@
   "title": "昼食後に呼吸苦を呈した小児",
   "category": "respiratory",
   "difficulty": "normal",
-  "version": "1.0",
+  "version": "2.0",
   "scene_count": 7,
-  "patient_profile": {
-    "age": 6,
-    "sex": "male"
-  },
-  "overview": {
-    "chief_complaint": "呼吸が苦しい",
-    "final_diagnosis": "アナフィラキシー",
-    "learning_points": [
-      "小児の呼吸苦で皮膚症状と粘膜症状を伴う場合はアナフィラキシーを疑う",
-      "SpO2が保たれていても上気道狭窄の進行サインを見逃さない",
-      "吸気時喘鳴音を緊急性の高い所見として評価する",
-      "喘息既往があっても喘息発作だけに決めつけない"
-    ]
-  },
   "scenes": [
     {
-      "id": "scene_1",
+      "id": "scene1",
       "title": "現場到着",
       "phase": "scene_arrival",
-      "scene_goal": "昼食後の呼吸苦と全身所見から重症アレルギー反応を疑う",
+      "scene_goal": "食後急性発症の呼吸苦をみて、喘息だけに決めつけず全身性アレルギー反応を含めて評価する",
       "ideal_flow": [
-        "安全確認を行う",
-        "患児の呼吸状態を観察する",
-        "母親から発症状況を確認する",
-        "呼吸器症状と皮膚・粘膜症状を関連づける"
+        "現場の安全を確認する",
+        "患児の呼吸状態と体位を観察する",
+        "保護者から発症状況を確認する",
+        "食後発症という情報を重視する"
       ],
       "ideal_score_delta": 10,
       "action_tag": "scene_assessment",
@@ -43,38 +29,48 @@
           "ベッド上で息苦しそうにしている"
         ]
       },
-      "media": [],
+      "author_note": "Scene1では喘息既往に引っ張られず、食後急性発症というきっかけを拾えるかをみる。",
+      "media": [
+        "media/home_bedroom_child_anaphylaxis_scene1.png"
+      ],
       "type": "single_choice",
       "prompt": "現場到着時にまず重視すべき考え方はどれか。",
       "options": [
         {
           "id": "s1_o1",
-          "text": "喘息既往があっても、食後発症の急性アレルギー反応を含めて評価する",
+          "text": "喘息既往があっても、食後発症の全身性アレルギー反応を含めて評価する",
           "is_correct": true,
           "score_delta": 10,
-          "feedback": "喘息だけに決めつけず、食後急性発症という状況からアナフィラキシーを意識する。"
+          "feedback": "喘息だけに決めつけず、食後急性発症という状況から全身性アレルギー反応を意識する。"
         },
         {
           "id": "s1_o2",
-          "text": "小児なので精神的な過換気をまず考える",
+          "text": "小児なのでまず精神的な過換気を考える",
           "is_correct": false,
           "score_delta": -8,
-          "feedback": "食後急性発症で皮膚・粘膜症状があるため不適切。"
+          "feedback": "食後急性発症で呼吸苦を呈しており、優先して考えるべきではない。"
         },
         {
           "id": "s1_o3",
-          "text": "SpO2をみるまでは緊急性判断は不要である",
+          "text": "SpO2を測るまでは緊急性判断を保留する",
           "is_correct": false,
           "score_delta": -8,
-          "feedback": "見た目の呼吸状態や上気道所見はすぐ評価すべき。"
+          "feedback": "見た目の呼吸状態や異常呼吸音は先に評価すべき。"
+        },
+        {
+          "id": "s1_o4",
+          "text": "まず安静を保たせ、詳細な既往歴聴取を最優先する",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "既往歴も重要だが、まずは現在の呼吸状態と急性発症の背景を優先する。"
         }
       ]
     },
     {
-      "id": "scene_2",
+      "id": "scene2",
       "title": "初期評価",
       "phase": "initial_assessment",
-      "scene_goal": "ABCと意識レベルから呼吸障害の重症度を把握する",
+      "scene_goal": "ABCと意識レベルから、上気道狭窄を伴う呼吸障害の可能性を把握する",
       "ideal_flow": [
         "意識レベルを確認する",
         "気道の状態をみる",
@@ -93,6 +89,7 @@
           "明らかな循環虚脱はない"
         ]
       },
+      "author_note": "Scene2ではSpO2未測定でも緊急性判断を進められるかをみる。",
       "media": [],
       "type": "single_choice",
       "prompt": "この時点の重症度評価として最も適切なのはどれか。",
@@ -102,14 +99,14 @@
           "text": "現時点で意識は保たれているが、上気道狭窄を伴う可能性があり緊急性は高い",
           "is_correct": true,
           "score_delta": 15,
-          "feedback": "意識清明でも吸気時喘鳴は上気道狭窄を示唆し、緊急性が高い。"
+          "feedback": "意識清明でも吸気時異常音は上気道狭窄を示唆し、緊急性が高い。"
         },
         {
           "id": "s2_o2",
           "text": "SpO2がまだ不明なので重症度は判断できない",
           "is_correct": false,
           "score_delta": -8,
-          "feedback": "呼吸状態や異常音からすでに重症度判断は必要。"
+          "feedback": "呼吸状態や異常音から、すでに重症度判断は必要。"
         },
         {
           "id": "s2_o3",
@@ -117,22 +114,30 @@
           "is_correct": false,
           "score_delta": -10,
           "feedback": "喘息既往だけで決めつけるのは危険。"
+        },
+        {
+          "id": "s2_o4",
+          "text": "会話可能なので緊急搬送の必要性は低い",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "会話可能でも上気道狭窄が進行することがある。"
         }
       ]
     },
     {
-      "id": "scene_3",
-      "title": "情報収集",
+      "id": "scene3",
+      "title": "情報収集と要約",
       "phase": "history_taking",
-      "scene_goal": "発症契機とアレルギー反応を示す経過を整理する",
+      "scene_goal": "発症契機と全身所見を統合し、優先して警戒すべき点を言語化する",
       "ideal_flow": [
-        "いつから症状が始まったか確認する",
+        "発症時刻と経過を確認する",
         "昼食内容を確認する",
-        "喘息既往と普段の発作との違いを確認する",
-        "皮膚症状や顔面の腫脹の出現時期を確認する"
+        "普段の喘息発作との違いを整理する",
+        "皮膚・顔面の変化を確認する",
+        "ここまでの所見を短く要約する"
       ],
-      "ideal_score_delta": 15,
-      "action_tag": "focused_history",
+      "ideal_score_delta": 20,
+      "action_tag": "focused_history_summary",
       "text": "母親によると、男児は気管支喘息で内服加療中だが、今回は昼食後まもなく息苦しさが出てきたという。普段の喘息発作とは少し様子が違い、顔が赤く腫れてきたとのことだった。",
       "visible_data": {
         "history": [
@@ -142,42 +147,22 @@
           "顔の赤みと腫れが出現"
         ]
       },
+      "author_note": "追加ルール反映。Scene3で記述式を配置し、病院連絡偏重を避ける。",
       "media": [],
-      "type": "multiple_choice",
-      "prompt": "この段階で特に重要な情報として優先して確認したいものを2つ選べ。",
-      "options": [
-        {
-          "id": "s3_o1",
-          "text": "昼食内容とアレルゲン暴露の可能性",
-          "is_correct": true,
-          "score_delta": 8,
-          "feedback": "食後急性発症ではアレルゲン摂取の確認が重要。"
-        },
-        {
-          "id": "s3_o2",
-          "text": "皮膚症状や顔面腫脹の経過",
-          "is_correct": true,
-          "score_delta": 8,
-          "feedback": "アナフィラキシーを支持する重要な情報。"
-        },
-        {
-          "id": "s3_o3",
-          "text": "昨日の睡眠時間",
-          "is_correct": false,
-          "score_delta": -4,
-          "feedback": "今回の病態把握には直結しない。"
-        },
-        {
-          "id": "s3_o4",
-          "text": "好きな給食メニュー",
-          "is_correct": false,
-          "score_delta": -4,
-          "feedback": "緊急評価の優先情報ではない。"
-        }
+      "type": "free_text",
+      "prompt": "ここまでの情報を踏まえ、この傷病者の状態をどう要約し、何を優先して警戒すべきかを簡潔に記せ。",
+      "scoring_keywords": [
+        "食後急性発症",
+        "喘息発作と異なる",
+        "顔面腫脹または皮膚症状",
+        "呼吸苦",
+        "上気道狭窄",
+        "全身性アレルギー反応",
+        "アナフィラキシー"
       ]
     },
     {
-      "id": "scene_4",
+      "id": "scene4",
       "title": "バイタルサイン測定",
       "phase": "vital_assessment",
       "scene_goal": "呼吸循環の客観的データから全身状態を把握する",
@@ -199,6 +184,7 @@
           "SpO2 95％（室内気）"
         ]
       },
+      "author_note": "SpO2が保たれていても安心できない点を学ばせる場面。",
       "media": [],
       "type": "single_choice",
       "prompt": "このバイタル所見の解釈として最も適切なのはどれか。",
@@ -215,22 +201,29 @@
           "text": "SpO2が95％なので緊急性は低い",
           "is_correct": false,
           "score_delta": -10,
-          "feedback": "数字だけで安心するのは危険。"
+          "feedback": "数値だけで安心するのは危険。"
         },
         {
           "id": "s4_o3",
-          "text": "血圧が90/72mmHgなのでショック確定である",
+          "text": "血圧90/72mmHgだけでショック確定と判断する",
           "is_correct": false,
           "score_delta": -6,
-          "feedback": "小児の血圧評価は慎重に行う必要があるが、この問題の最重要所見は別にある。"
+          "feedback": "循環評価は大切だが、この場面の最重要評価は別にある。"
+        },
+        {
+          "id": "s4_o4",
+          "text": "脈拍124/分は小児では必ず正常範囲である",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "年齢だけで単純判断せず、全体像でみる必要がある。"
         }
       ]
     },
     {
-      "id": "scene_5",
+      "id": "scene5",
       "title": "身体観察",
       "phase": "focused_exam",
-      "scene_goal": "アナフィラキシーを示す皮膚・粘膜・呼吸所見を統合する",
+      "scene_goal": "皮膚・粘膜・呼吸所見を統合して緊急性の高い徴候を拾う",
       "ideal_flow": [
         "眼瞼腫脹を確認する",
         "皮膚紅潮と膨疹を確認する",
@@ -248,20 +241,21 @@
           "吸気時喘鳴音あり"
         ]
       },
+      "author_note": "最重要所見は皮疹そのものではなく、気道狭窄を示唆する呼吸所見。",
       "media": [],
       "type": "single_choice",
-      "prompt": "この傷病者で緊急性が高いと判断する所見はどれか。",
+      "prompt": "この傷病者で緊急性が最も高いと判断する所見はどれか。",
       "options": [
         {
           "id": "s5_o1",
           "text": "血圧90/72mmHg",
           "is_correct": false,
           "score_delta": -4,
-          "feedback": "重要所見ではあるが、この場面で最も緊急性が高いのは上気道狭窄を示す所見。"
+          "feedback": "重要所見ではあるが、この場面で最優先ではない。"
         },
         {
           "id": "s5_o2",
-          "text": "SpO2値95％",
+          "text": "SpO2 95％",
           "is_correct": false,
           "score_delta": -8,
           "feedback": "この値だけでは重症度を過小評価しやすい。"
@@ -271,17 +265,10 @@
           "text": "眼瞼腫脹",
           "is_correct": false,
           "score_delta": -4,
-          "feedback": "アレルギー反応を示すが、最も緊急性が高い所見は呼吸路狭窄のサイン。"
+          "feedback": "アレルギー反応を示すが、最も緊急性が高い所見ではない。"
         },
         {
           "id": "s5_o4",
-          "text": "膨疹",
-          "is_correct": false,
-          "score_delta": -6,
-          "feedback": "アナフィラキシーを支持するが、気道狭窄所見の方が優先度は高い。"
-        },
-        {
-          "id": "s5_o5",
           "text": "吸気時喘鳴音",
           "is_correct": true,
           "score_delta": 20,
@@ -290,21 +277,21 @@
       ]
     },
     {
-      "id": "scene_6",
-      "title": "病態判断",
+      "id": "scene6",
+      "title": "病態判断と活動方針",
       "phase": "clinical_reasoning",
-      "scene_goal": "喘息既往に惑わされずアナフィラキシーとして統合する",
+      "scene_goal": "喘息既往に惑わされず全体像から病態を統合し、活動方針を決める",
       "ideal_flow": [
         "食後急性発症を整理する",
         "皮膚・粘膜症状を整理する",
         "吸気時喘鳴を整理する",
-        "全体をアナフィラキシーとして判断する"
+        "全体を全身性アレルギー反応として判断する"
       ],
       "ideal_score_delta": 20,
       "action_tag": "diagnostic_estimation",
       "text": "6歳男児。昼食後に呼吸苦が出現し、眼瞼腫脹、皮膚紅潮、膨疹、吸気時喘鳴音を認める。喘息既往はあるが、普段の発作と様子が異なる。",
       "visible_data": {
-        "reasoning_points": [
+        "integrated_findings": [
           "食後急性発症",
           "呼吸苦あり",
           "眼瞼腫脹あり",
@@ -314,6 +301,7 @@
           "喘息既往あり"
         ]
       },
+      "author_note": "ここでは診断名当てではなく、全体像をどう統合するかをみる。",
       "media": [],
       "type": "single_choice",
       "prompt": "この時点で最も考えるべき病態はどれか。",
@@ -323,7 +311,7 @@
           "text": "アナフィラキシー",
           "is_correct": true,
           "score_delta": 20,
-          "feedback": "食後発症、皮膚・粘膜症状、呼吸症状の組み合わせからアナフィラキシーが最も妥当。"
+          "feedback": "食後発症、皮膚・粘膜症状、呼吸症状の組み合わせから最も妥当。"
         },
         {
           "id": "s6_o2",
@@ -338,58 +326,71 @@
           "is_correct": false,
           "score_delta": -10,
           "feedback": "身体所見と一致しない。"
+        },
+        {
+          "id": "s6_o4",
+          "text": "気道異物による部分閉塞",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "食後ではあるが、皮膚症状と顔面腫脹を説明しにくい。"
         }
       ]
     },
     {
-      "id": "scene_7",
-      "title": "搬送判断と病院連絡",
-      "phase": "handover",
-      "scene_goal": "アナフィラキシーを疑う重要所見を整理して申し送る",
+      "id": "scene7",
+      "title": "搬送先選定",
+      "phase": "transport_decision",
+      "scene_goal": "病態に応じた受入先を選定する",
       "ideal_flow": [
-        "年齢・性別を伝える",
-        "昼食後発症を伝える",
-        "バイタルを伝える",
-        "皮膚・粘膜症状と吸気時喘鳴を伝える",
-        "アナフィラキシーを疑うことを伝える"
+        "年齢を踏まえる",
+        "急性の呼吸障害であることを踏まえる",
+        "全身性アレルギー反応が疑われることを踏まえる",
+        "小児対応可能な救急受入先を選ぶ"
       ],
       "ideal_score_delta": 10,
-      "action_tag": "hospital_handover",
-      "text": "受入要請のため医療機関へ連絡する。",
+      "action_tag": "hospital_selection",
+      "text": "搬送先を選定する。",
       "visible_data": {
-        "handover_elements": [
+        "transport_points": [
           "6歳男児",
-          "昼食後に呼吸苦が出現",
-          "JCS1、RR28、PR124整、BP90/72、SpO2 95％（室内気）",
+          "昼食後の急性発症",
+          "呼吸苦あり",
           "眼瞼腫脹、皮膚紅潮、膨疹あり",
-          "吸気時喘鳴音あり",
-          "アナフィラキシーを疑う"
+          "吸気時喘鳴音あり"
         ]
       },
+      "author_note": "追加ルール反映。Scene7は病院連絡ではなく搬送先選定に変更。",
       "media": [],
-      "type": "template_select",
-      "prompt": "最も適切な申し送りを選べ。",
-      "templates": [
+      "type": "single_choice",
+      "prompt": "搬送先として最も適切なのはどれか。",
+      "options": [
         {
-          "id": "s7_t1",
-          "text": "6歳男児、昼食後に呼吸苦が出現しました。意識JCS1、呼吸数28、脈拍124整、血圧90/72、SpO2 95％です。眼瞼腫脹、皮膚紅潮、前胸部と大腿部の膨疹があり、吸気時喘鳴音を聴取します。アナフィラキシーを疑っています。",
+          "id": "s7_o1",
+          "text": "小児の救急受入が可能で、重症アレルギー反応に対応できる医療機関",
           "is_correct": true,
           "score_delta": 10,
-          "feedback": "発症状況、バイタル、皮膚・粘膜症状、上気道所見が整理されている。"
+          "feedback": "年齢と病態の両方に対応できる受入先が適切。"
         },
         {
-          "id": "s7_t2",
-          "text": "喘息の子どもで少し息苦しそうです。SpO2は95％なのでそれほど重症ではありません。",
-          "is_correct": false,
-          "score_delta": -10,
-          "feedback": "吸気時喘鳴とアレルギー所見を軽視している。"
-        },
-        {
-          "id": "s7_t3",
-          "text": "発疹があるので皮膚科的な問題が主体と思われます。",
+          "id": "s7_o2",
+          "text": "皮膚症状があるため皮膚科単科の医療機関",
           "is_correct": false,
           "score_delta": -8,
-          "feedback": "呼吸器症状と全身アレルギー反応を見落としている。"
+          "feedback": "主病態は皮膚ではなく全身性アレルギー反応。"
+        },
+        {
+          "id": "s7_o3",
+          "text": "普段の喘息通院先であれば診療時間外でも最優先する",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "病態の緊急性と受入体制を優先する。"
+        },
+        {
+          "id": "s7_o4",
+          "text": "年齢に関係なく最寄りの慢性期病院",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "小児急性期対応が困難な可能性が高い。"
         }
       ]
     }
@@ -399,9 +400,9 @@
     "ideal_actions": [
       "喘息既往だけで決めつけず食後急性発症に注目する",
       "ABCと意識レベルから呼吸状態を迅速に評価する",
-      "皮膚・粘膜症状を確認して全身アレルギー反応を考える",
+      "皮膚・粘膜症状を確認して全身性アレルギー反応を考える",
       "吸気時喘鳴を上気道狭窄の危険所見として重視する",
-      "アナフィラキシーを疑って速やかに搬送と申し送りを行う"
+      "病態に応じて小児救急対応可能な搬送先を選定する"
     ],
     "good_points": [
       "食後発症という重要なきっかけを拾えた",

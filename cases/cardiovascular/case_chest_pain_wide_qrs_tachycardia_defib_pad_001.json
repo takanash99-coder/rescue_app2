@@ -1,0 +1,491 @@
+{
+  "case_id": "chest_pain_wide_qrs_tachycardia_defib_pad_001",
+  "version": "2.0",
+  "title": "胸痛とショック所見を伴うwide QRS頻拍で除細動パッド装着を優先する症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 8,
+  "keywords": [
+    "胸痛",
+    "ACS",
+    "wide QRS頻拍",
+    "心室頻拍",
+    "除細動パッド"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "胸痛発症の通報から、ACSや致死的不整脈、心原性ショックを想定する。",
+      "ideal_flow": [
+        "胸痛発症時刻を意識する",
+        "ACSや致死的不整脈を想定する",
+        "本人を安静にさせるよう家族へ伝える",
+        "意識変化や冷汗、呼吸苦の悪化を確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "chest_pain"
+      ],
+      "text": "65歳男性。30分前から強い胸痛が出現し、家族が救急要請した。本人は苦しそうで、冷汗をかいているという。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "通報者": "家族",
+          "主訴": "胸痛",
+          "発症時刻": "約30分前",
+          "追加情報": "冷汗あり、苦しそうにしている"
+        },
+        "pac": {
+          "指示": [
+            "安静にさせる",
+            "無理に歩かせない",
+            "胸痛の持続と意識状態を観察する",
+            "玄関を解錠し、内服薬やお薬手帳を準備する"
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で最も強く想定しておくべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "ACSや致死的不整脈",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "胸痛、冷汗、発症時刻からACSを疑い、致死的不整脈への移行も想定する。"
+        },
+        {
+          "option_id": "b",
+          "text": "軽度の筋肉痛",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "冷汗を伴う急性胸痛であり、軽症の筋肉痛と決めつけるのは危険である。"
+        },
+        {
+          "option_id": "c",
+          "text": "過換気に伴うしびれ",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "主訴は胸痛であり、冷汗もあるため循環器救急を優先して考える。"
+        },
+        {
+          "option_id": "d",
+          "text": "腹部疾患による嘔吐",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "腹部症状ではなく、胸痛と冷汗が中心である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価とL&G判断",
+      "phase": "primary_assessment",
+      "scene_goal": "数値バイタルに入る前に、第一印象と切迫所見から内因性L&Gを判断する。",
+      "ideal_flow": [
+        "第一印象で重症感を確認する",
+        "意識、気道、呼吸、循環を短時間で評価する",
+        "胸痛、冷汗、呼吸苦を切迫所見として捉える",
+        "現場滞在を延ばさず早期搬送体制へ移る"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "primary_assessment",
+        "load_and_go",
+        "cardiovascular_emergency"
+      ],
+      "text": "傷病者は居間で起坐位となり、胸を押さえて苦悶表情を呈している。呼びかけには反応するが、呼吸は速く、全身に冷汗を認める。皮膚は湿潤し、歩行は困難である。",
+      "visible_data": {
+        "primary_assessment": {
+          "意識": "呼びかけに反応あり",
+          "気道": "発語あり、開通している",
+          "呼吸": "速い呼吸、起坐位",
+          "循環": "全身冷汗、皮膚湿潤",
+          "主訴": "胸痛持続",
+          "活動方針": "早期搬送体制を考慮"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価後の活動方針として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "内因性L&Gとして早期搬送体制へ移る",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "胸痛、冷汗、呼吸苦があり、循環器系の切迫所見として早期搬送体制へ移る。"
+        },
+        {
+          "option_id": "b",
+          "text": "意識があるため現場で詳細問診を優先する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "意識が保たれていても、胸痛と冷汗があり重症循環器疾患を疑うため現場滞在を延ばさない。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸が速いため呼吸器疾患としてのみ対応する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "呼吸苦はあるが、胸痛と冷汗から循環器救急を優先して考える。"
+        },
+        {
+          "option_id": "d",
+          "text": "不安による胸部症状として経過観察する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "冷汗と起坐呼吸を伴う胸痛であり、不安だけで説明してはいけない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "L&G後の早期連絡で重症度を示す情報",
+      "phase": "first_call_preparation",
+      "scene_goal": "早期連絡で、傷病者の重症度を最も強く示す情報を選べるようにする。",
+      "ideal_flow": [
+        "L&G後に早期連絡の内容を整理する",
+        "発症時刻、既往、酸素反応などを整理する",
+        "現在の切迫度を示す所見を優先する",
+        "冷汗と低血圧をショック所見として捉える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "first_call",
+        "severity_assessment",
+        "shock_signs"
+      ],
+      "text": "内因性L&Gと判断し、隊は早期搬送体制へ移った。車内収容と並行して、搬送先医療機関への早期連絡で何を優先して伝えるべきか整理する。",
+      "visible_data": {
+        "first_call_context": {
+          "主訴": "胸痛",
+          "発症": "30分前",
+          "全身状態": "冷汗あり",
+          "循環": "低血圧が疑われる",
+          "目的": "重症度を的確に伝える"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "早期連絡で、傷病者の重症度を最も強く示す情報はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "胸痛の発症時刻",
+          "is_correct": false,
+          "score_delta": 2,
+          "rationale": "ACS評価では重要だが、単独では現在の切迫度を最も強く示す情報とはいえない。"
+        },
+        {
+          "option_id": "b",
+          "text": "全身冷汗と低血圧",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "冷汗と低血圧はショックを疑う切迫所見であり、重症度を強く示す。"
+        },
+        {
+          "option_id": "c",
+          "text": "酸素投与でSpO2が改善したこと",
+          "is_correct": false,
+          "score_delta": 1,
+          "rationale": "必要な情報だが、今回の重症度の中心は酸素化より循環不全の所見である。"
+        },
+        {
+          "option_id": "d",
+          "text": "心筋梗塞の既往",
+          "is_correct": false,
+          "score_delta": 2,
+          "rationale": "リスク情報として重要だが、現在の切迫度を示すのは冷汗や低血圧などの現症である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "バイタル測定と血行動態評価",
+      "phase": "assessment",
+      "scene_goal": "胸痛、頻脈、低血圧、冷汗から血行動態不安定な循環器救急と判断する。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "低血圧と頻脈を循環不全の所見として捉える",
+        "SpO2と酸素投与への反応を確認する",
+        "ACSと致死的不整脈のリスクを意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "hemodynamic_instability",
+        "acs"
+      ],
+      "text": "車内収容後、酸素投与を行いながらバイタルサインを測定した。胸痛は持続しており、全身冷汗も続いている。",
+      "visible_data": {
+        "vitals": {
+          "意識": "JCS1",
+          "呼吸数": "32回/分",
+          "脈拍": "140回/分",
+          "血圧": "90/48mmHg",
+          "体温": "36.0℃",
+          "SpO2": "90％、高濃度酸素投与下で96％"
+        },
+        "physical_findings": {
+          "体位": "起坐呼吸",
+          "皮膚": "全身冷汗",
+          "主訴": "胸痛持続"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この状態の重症度判断として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "血行動態不安定な循環器救急として扱う",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "胸痛、頻脈、低血圧、冷汗があり、ACSや致死的不整脈を伴う不安定な循環器救急と考える。"
+        },
+        {
+          "option_id": "b",
+          "text": "SpO2が改善したため緊急性は低い",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "酸素化が改善しても、低血圧、頻脈、冷汗があり重症度は高い。"
+        },
+        {
+          "option_id": "c",
+          "text": "体温が正常なので重症ではない",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "体温正常でも、循環不全を示す所見があり重症と判断する。"
+        },
+        {
+          "option_id": "d",
+          "text": "胸痛のみで循環不全はない",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "血圧90/48mmHg、脈拍140回/分、冷汗があり、循環不全を疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "心電図モニター波形の確認",
+      "phase": "rhythm_assessment",
+      "scene_goal": "wide QRS頻拍を疑う波形とショック所見から、致死的不整脈への移行リスクを認識する。",
+      "ideal_flow": [
+        "心電図モニターを装着する",
+        "幅広いQRSを伴う頻拍を確認する",
+        "胸痛、低血圧、冷汗と合わせて血行動態不安定と判断する",
+        "CPA移行リスクを意識する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "ecg_monitor",
+        "wide_qrs_tachycardia",
+        "life_threatening_arrhythmia"
+      ],
+      "text": "心電図モニターを装着した。画面には幅広いQRSを伴う頻拍性波形が表示されている。傷病者は胸痛を訴え、冷汗と低血圧を認める。",
+      "visible_data": {
+        "monitor": {
+          "波形": "wide QRS頻拍を疑う",
+          "脈拍": "140回/分",
+          "血圧": "90/48mmHg",
+          "全身状態": "胸痛、冷汗、起坐呼吸あり"
+        }
+      },
+      "media": [
+        "media/chest_pain_vt_monitor_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この波形と全身状態から最も警戒すべきことはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "致死的不整脈やCPAへの移行",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "wide QRS頻拍に胸痛、低血圧、冷汗を伴っており、致死的不整脈やCPA移行を警戒する。"
+        },
+        {
+          "option_id": "b",
+          "text": "安定した洞性頻脈",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "wide QRS頻拍とショック所見があり、安定した洞性頻脈とは考えにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "低血糖による意識障害のみ",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "意識は保たれており、胸痛と不整脈、循環不全所見が中心である。"
+        },
+        {
+          "option_id": "d",
+          "text": "軽度の呼吸器感染症",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "胸痛、wide QRS頻拍、低血圧、冷汗があり、呼吸器感染症として扱う状況ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試問題の芯：まず行うべき処置",
+      "phase": "exam_core",
+      "scene_goal": "血行動態不安定なwide QRS頻拍疑いで、急変に備え除細動パッド装着を優先する。",
+      "ideal_flow": [
+        "胸痛とショック所見を確認する",
+        "wide QRS頻拍を疑う",
+        "急変時に即座に電気的治療へ移れる準備をする",
+        "除細動パッドを装着する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "defib_pad",
+        "exam_core",
+        "arrhythmia_management"
+      ],
+      "text": "傷病者は胸痛を訴え、低血圧と冷汗を認める。心電図モニターではwide QRS頻拍を疑う波形が表示されている。急変時に直ちに対応できる準備が必要である。",
+      "visible_data": {
+        "key_findings": {
+          "胸痛": "あり",
+          "血圧": "90/48mmHg",
+          "脈拍": "140回/分",
+          "冷汗": "あり",
+          "心電図": "wide QRS頻拍疑い",
+          "判断": "急変リスクが高い"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "まず行うべき処置はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "除細動パッドを装着する",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "wide QRS頻拍疑いでショック所見があり、急変時に直ちに除細動などへ移れるようパッド装着を優先する。"
+        },
+        {
+          "option_id": "b",
+          "text": "気道を確保する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "発語があり気道閉塞は明らかでない。最優先は致死的不整脈への備えである。"
+        },
+        {
+          "option_id": "c",
+          "text": "補助換気を行う",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "酸素投与でSpO2は改善しており、まずは不整脈急変への準備が優先される。"
+        },
+        {
+          "option_id": "d",
+          "text": "ショック体位にする",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "起坐呼吸があり、ショック体位で呼吸困難が悪化する可能性がある。"
+        },
+        {
+          "option_id": "e",
+          "text": "静脈路確保と輸液の指示要請を最優先する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "静脈路確保も重要だが、致死的不整脈への急変に備えるパッド装着を遅らせない。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解：ACSとwide QRS頻拍",
+      "phase": "pathophysiology",
+      "scene_goal": "ACSに伴う心筋虚血が心室性不整脈やCPA移行につながることを理解する。",
+      "ideal_flow": [
+        "胸痛からACSを疑う",
+        "心筋虚血が心室性不整脈を起こし得ることを理解する",
+        "wide QRS頻拍とショック所見を危険サインとして捉える",
+        "除細動パッド装着は急変前の準備であると理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "acs",
+        "ventricular_tachycardia"
+      ],
+      "text": "ACSでは心筋虚血により心室性不整脈を来すことがある。胸痛に加えてwide QRS頻拍、低血圧、冷汗を認める場合は、CPAへ移行する危険が高い。除細動パッド装着は、今すぐ除細動するためだけでなく、急変時に遅れず対応するための準備である。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "主病態": "ACS疑い",
+          "危険な所見": "wide QRS頻拍、低血圧、冷汗",
+          "想定するリスク": "心室性不整脈、CPA移行",
+          "重要な対応": "早期搬送、早期連絡、除細動パッド装着"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で除細動パッド装着を優先する理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "急変時に電気的治療へ速やかに移るため",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "wide QRS頻拍とショック所見があり、CPAや致死的不整脈へ移行した際に遅れず対応するためである。"
+        },
+        {
+          "option_id": "b",
+          "text": "胸痛患者には全例で直ちに除細動するため",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "パッド装着は除細動の準備であり、胸痛患者全例に直ちに除細動するわけではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "SpO2が改善したため搬送を延期するため",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "SpO2改善だけで重症度は下がらず、早期搬送と急変対応が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "低血圧を治すために下肢を挙上する準備であるため",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "除細動パッドは下肢挙上のためではなく、電気的治療に備えるために装着する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "30分前から胸痛を訴えた65歳男性の症例。初期評価で胸痛、冷汗、起坐呼吸を認め、内因性L&Gとして早期搬送体制へ移る。早期連絡では発症時刻や既往も重要だが、現在の重症度を最も強く示すのは全身冷汗と低血圧である。心電図モニターでwide QRS頻拍を疑う波形を認め、胸痛、低血圧、冷汗を伴うため、致死的不整脈やCPA移行に備えて除細動パッドを装着する。",
+    "ideal_actions": [
+      "胸痛と冷汗からACSや致死的不整脈を想定する",
+      "初期評価で内因性L&Gと判断し、早期搬送体制へ移る",
+      "早期連絡では重症度を示す所見を優先して整理する",
+      "低血圧、頻脈、冷汗から血行動態不安定と判断する",
+      "wide QRS頻拍を疑う波形を確認し、CPA移行リスクを考える",
+      "急変時に備えて除細動パッドを装着する"
+    ],
+    "good_points": [
+      "初期評価の時点で現場滞在を延ばさない判断ができる",
+      "ファーストコールで重症度を示す情報を意識できる",
+      "除細動パッド装着と除細動実施を区別して理解できる",
+      "ACSと心室性不整脈、CPA移行リスクをつなげて考えられる"
+    ],
+    "cautions": [
+      "SpO2が酸素で改善しても、低血圧や冷汗があれば重症度は高い",
+      "胸痛患者でwide QRS頻拍を疑う場合、急変対応の準備を遅らせない",
+      "パッド装着は今すぐ除細動するという意味ではなく、急変時に備える処置である",
+      "起坐呼吸がある傷病者に安易なショック体位を取らせない"
+    ]
+  }
+}

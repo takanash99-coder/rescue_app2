@@ -1,0 +1,740 @@
+{
+  "case_id": "case_vf_cpa_rosc_hypoventilation_bvm_pad_001",
+  "version": "2.0",
+  "title": "ショッピングモールでのVF-CPA、除細動後ROSCと低換気への対応",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 8,
+  "keywords": [
+    "CPA",
+    "心室細動",
+    "除細動",
+    "ROSC",
+    "補助換気"
+  ],
+  "overview": "60歳男性。ショッピングモール内で突然倒れ、目撃者によりCPRとAED使用が行われていた。救急隊接触時はCPAで心室細動を認め、除細動後に脈拍を触知した。しかし呼吸は浅く、低換気が残っている。ROSC後の処置として、除細動パッド貼付継続とBVMによる補助換気を選択できるかが学習の中心である。",
+  "patient_profile": {
+    "age": 60,
+    "sex": "男性",
+    "chief_complaint": "突然の卒倒",
+    "background": "ショッピングモール内で目撃者の前で突然倒れた。既往歴は現時点では不明。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "cardiac_arrest",
+      "vf"
+    ],
+    "time_pressure": "high"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "CPA対応からROSC後管理まで、優先順位を的確に整理できている。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "ROSC後の処置判断は良好。特定行為の場面整理もできている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "大きな流れは理解できているが、ROSC後の優先処置をもう少し整理したい。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "CPA中とROSC後の対応が混ざっている。場面ごとの判断を復習したい。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "VF-CPA対応とROSC後管理を基礎から確認したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と口頭指導",
+      "phase": "dispatch",
+      "scene_goal": "突然倒れた傷病者に対し、通報段階で必要な対応を整理する。",
+      "ideal_flow": [
+        "反応と呼吸の有無を確認する",
+        "胸骨圧迫を指示する",
+        "近くのAEDを依頼する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "prearrival",
+        "cpa",
+        "aed"
+      ],
+      "text": "ショッピングモールの来客から『男性が突然倒れ、呼びかけても反応がありません』と通報があった。周囲には複数の目撃者がいる。",
+      "visible_data": {
+        "dispatch_information": "60歳男性。ショッピングモール内で突然倒れた。",
+        "caller_information": "反応なし。普段どおりの呼吸かどうかは不明。周囲に協力者あり。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "通信指令員がまず行う口頭指導として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "反応と呼吸を確認し、胸骨圧迫とAED手配を指示する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bystander_cpr_started",
+              "aed_requested"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "反応なし・正常呼吸なしであればCPAとして扱い、胸骨圧迫とAED使用につなげる。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "意識が戻るまでその場で様子を見てもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delay_cpr"
+            ]
+          },
+          "rationale": "反応がない傷病者で様子を見る対応は不適切である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "水分を摂らせて、座位を保ってもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "aspiration_risk"
+            ]
+          },
+          "rationale": "反応がない傷病者に飲水を促すのは危険である。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "救急隊到着まで触れずに待ってもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "no_bystander_action"
+            ]
+          },
+          "rationale": "CPAが疑われる場合、到着前から胸骨圧迫とAED使用を進める必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "現着時の状況評価",
+      "phase": "scene_safety",
+      "scene_goal": "多数の人がいる場所で、活動環境とCPR実施状況を確認する。",
+      "ideal_flow": [
+        "周囲の安全を確認する",
+        "活動スペースを確保する",
+        "バイスタンダーCPRとAED使用状況を把握する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "scene_safety",
+        "bystander_cpr",
+        "aed_status"
+      ],
+      "text": "救急隊が到着すると、ショッピングモール内の通路でバイスタンダーCPRが行われている。AEDは装着され、電気ショックは3回実施済みと周囲の人が話している。",
+      "visible_data": {
+        "scene": "ショッピングモール内の通路",
+        "bystander_action": [
+          "胸骨圧迫実施中",
+          "AED装着済み",
+          "電気ショック3回実施済み"
+        ],
+        "environment": [
+          "人だかりあり",
+          "活動スペースはやや狭い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊接触直後の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "周囲の安全と活動スペースを確認し、CPRを継続する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "scene_secured",
+              "cpr_continued"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "現場安全と活動環境を整えつつ、質の高いCPRを途切れさせないことが重要である。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "AEDを外してから傷病者の状態を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "aed_removed_early"
+            ]
+          },
+          "rationale": "AEDやパッドを不用意に外すと、再解析や除細動の機会を逃す可能性がある。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "家族到着までCPRを中断する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpr_interruption"
+            ]
+          },
+          "rationale": "CPA対応で家族到着を待つためにCPRを中断してはならない。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "歩行可能か確認するため上体を起こす。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "inappropriate_movement"
+            ]
+          },
+          "rationale": "CPAが疑われる状況で上体を起こす対応は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "救急隊接触時の評価",
+      "phase": "cpa_assessment",
+      "scene_goal": "CPAを確認し、心室細動に対する除細動へつなげる。",
+      "ideal_flow": [
+        "反応・呼吸・脈拍を確認する",
+        "CPAと判断する",
+        "心電図波形を確認し除細動を実施する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "cpa",
+        "vf",
+        "defibrillation"
+      ],
+      "text": "救急隊接触時、傷病者に反応はなく、正常な呼吸を認めない。頸動脈拍動は触知できない。心電図波形は心室細動であった。",
+      "visible_data": {
+        "consciousness": "反応なし",
+        "breathing": "正常な呼吸なし",
+        "pulse": "頸動脈拍動触知せず",
+        "monitor": "心室細動"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で行う対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "胸骨圧迫を継続し、除細動を実施する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "defibrillation_done"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "心室細動は除細動適応波形であり、CPRを継続しつつ除細動を行う。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "回復体位にして呼吸の改善を待つ。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "vf_untreated"
+            ]
+          },
+          "rationale": "CPAでVFを認めており、回復体位ではなくCPRと除細動が必要である。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "波形確認を続け、除細動は見送る。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "defibrillation_delay"
+            ]
+          },
+          "rationale": "VFは除細動の適応であり、除細動を遅らせるべきではない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "脈拍触知がないため搬送を優先する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "premature_transport"
+            ]
+          },
+          "rationale": "VF-CPAでは現場でCPRと除細動を行うことが優先である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "除細動後の再評価",
+      "phase": "post_defibrillation_assessment",
+      "scene_goal": "除細動後にROSCの有無を評価する。",
+      "ideal_flow": [
+        "波形変化を確認する",
+        "頸動脈拍動を確認する",
+        "呼吸状態を再評価する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "reassessment",
+        "rosc_check",
+        "pulse_check"
+      ],
+      "text": "除細動後、心電図波形が変化した。胸骨圧迫を再開した後、次のリズムチェックのタイミングとなった。",
+      "visible_data": {
+        "after_defibrillation": [
+          "波形変化あり",
+          "リズムチェックのタイミング"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で確認すべき内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "頸動脈拍動と呼吸の有無を確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "rosc_assessed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "波形変化後はROSCの有無を判断するため、脈拍と呼吸を確認する。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "AEDパッドを外して皮膚状態を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "pad_removed"
+            ]
+          },
+          "rationale": "再度の不整脈に備える必要があり、この時点でパッドを外す判断は不適切である。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "歩行できるかを確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "inappropriate_assessment"
+            ]
+          },
+          "rationale": "ROSC直後の可能性がある場面で歩行確認は適切ではない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "家族への病歴聴取を優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "病歴聴取は重要だが、まずはROSCの有無を判断する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "ROSC後の処置選択",
+      "phase": "national_exam_core",
+      "scene_goal": "ROSC後の低換気に対する処置と再不整脈への備えを選択する。",
+      "ideal_flow": [
+        "脈拍触知をROSCとして捉える",
+        "浅い呼吸を低換気として評価する",
+        "補助換気とパッド貼付継続を選ぶ"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "rosc",
+        "hypoventilation",
+        "bvm",
+        "defibrillator_pad"
+      ],
+      "text": "再評価で頸動脈拍動を触知した。呼吸数は6/分で浅い。搬送準備に移る場面である。",
+      "visible_data": {
+        "post_rosc_findings": [
+          "頸動脈拍動を触知",
+          "呼吸数6/分",
+          "呼吸は浅い"
+        ],
+        "context": "VF-CPAに対する除細動後"
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この傷病者に対する処置で正しいものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "回復体位で搬送する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "inadequate_airway_ventilation"
+            ]
+          },
+          "rationale": "ROSC後でも呼吸が浅く、回復体位のみで搬送する状況ではない。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "気管挿管の指示要請を行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "脈拍は戻っており、まずBVMで補助換気を行う場面である。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "除細動器のパッドを貼付したまま搬送する。",
+          "is_correct": true,
+          "score_delta": 3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pads_kept"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "VF再発や再CPAに備え、除細動パッドは貼付したまま搬送する。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "バッグ・バルブ・マスクで補助換気を行う。",
+          "is_correct": true,
+          "score_delta": 3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bvm_assist_started"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸数6/分で浅く、低換気に対してBVMによる補助換気が必要である。"
+        },
+        {
+          "option_id": "s5_o5",
+          "text": "アドレナリン投与のための静脈路確保の指示要請を行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ROSC後で脈拍を触知しており、CPA中の薬剤投与場面とは異なる。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "特定行為の判断整理",
+      "phase": "advanced_care_judgment",
+      "scene_goal": "CPA中の特定行為とROSC後の処置を区別する。",
+      "ideal_flow": [
+        "脈拍が戻っていることを確認する",
+        "低換気への補助換気を優先する",
+        "CPA中の薬剤投与目的の判断と区別する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "advanced_care",
+        "rosc",
+        "priority"
+      ],
+      "text": "傷病者は脈拍を触知できる状態となった。呼吸は浅いが、BVMで換気補助が可能である。搬送中も再CPAの可能性があるため継続監視が必要である。",
+      "visible_data": {
+        "current_status": [
+          "脈拍触知あり",
+          "呼吸浅い",
+          "BVM換気補助が可能",
+          "VF再発リスクあり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "ROSC後として換気補助と継続監視を優先する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "rosc_management_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "脈拍が戻っているため、ROSC後管理として換気補助と再CPAへの備えを行う。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "CPA中と同じ扱いで薬剤投与を優先する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "scene_mismatch"
+            ]
+          },
+          "rationale": "脈拍触知があり、CPA中の薬剤投与場面とは異なる。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "呼吸が浅いため換気補助をせず搬送のみ行う。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoventilation_untreated"
+            ]
+          },
+          "rationale": "低換気を放置すると低酸素が進行するおそれがある。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "再心停止の可能性は低いためモニターを外す。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "monitor_removed"
+            ]
+          },
+          "rationale": "VF後ROSCでは再不整脈・再CPAに備えた監視が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "ROSC後管理と搬送判断",
+      "phase": "transport_decision",
+      "scene_goal": "VF-CPA後ROSCの搬送中リスクを理解する。",
+      "ideal_flow": [
+        "再VF・再CPAに備える",
+        "除細動パッドを貼付したまま監視する",
+        "換気補助を継続しながら搬送する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "post_rosc_care",
+        "transport",
+        "re_arrest_prevention"
+      ],
+      "text": "VF-CPAからROSCしたが、呼吸は浅く、再び致死性不整脈へ移行する可能性がある。搬送中も継続的な観察と処置が必要である。",
+      "visible_data": {
+        "transport_risks": [
+          "再VF",
+          "再CPA",
+          "低換気",
+          "低酸素"
+        ],
+        "ongoing_care": [
+          "モニター監視",
+          "パッド貼付継続",
+          "BVM補助換気"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送中に特に注意すべき点として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "再不整脈と低換気に備えて監視と換気補助を継続する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "transport_monitoring_done"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "VF後ROSCでは再CPAリスクがあり、呼吸が浅いため換気補助も継続する。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "脈拍が戻ったため除細動器を収納する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "defib_not_ready"
+            ]
+          },
+          "rationale": "再VFに備え、除細動器は使用可能な状態で管理する。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "呼吸数が少ないため酸素投与だけで経過をみる。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "ventilation_insufficient"
+            ]
+          },
+          "rationale": "低換気では酸素投与のみでは不十分で、換気補助が必要である。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "ROSC後は再CPAの可能性が低いため観察間隔をあける。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "monitoring_insufficient"
+            ]
+          },
+          "rationale": "ROSC後も再CPAの危険があるため、継続的な観察が必要である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "60歳男性がショッピングモール内で突然倒れ、バイスタンダーCPRとAED使用が行われていた。救急隊接触時はVF-CPAで除細動を実施し、脈拍を触知するようになった。ROSC後も呼吸数6/分で浅いため、BVMによる補助換気が必要である。また、VF再発や再CPAに備えて除細動器のパッドは貼付したまま搬送する。",
+    "ideal_actions": [
+      "通報段階で反応と呼吸を確認し、胸骨圧迫とAED使用を指示する。",
+      "現着時は周囲の安全と活動スペースを確認し、CPRを継続する。",
+      "CPAを確認し、VFであれば除細動を行う。",
+      "除細動後はROSCの有無を判断するため、頸動脈拍動と呼吸を確認する。",
+      "ROSC後に呼吸が浅ければBVMで補助換気を行う。",
+      "再VFや再CPAに備え、除細動パッドを貼付したまま搬送する。",
+      "CPA中の薬剤投与場面とROSC後管理を区別する。"
+    ],
+    "good_points": [
+      "Scene4では処置を先出しせず、ROSC確認に絞っている。",
+      "Scene5で国試の芯である2つの処置をまとめて問う構成になっている。",
+      "特定行為に反射的に飛びつかず、場面ごとの優先順位を整理できる。"
+    ],
+    "cautions": [
+      "ROSC後でも呼吸が浅い場合は、回復体位のみで搬送しない。",
+      "脈拍が戻っている場面では、CPA中のアドレナリン投与目的の指示要請とは区別する。",
+      "VF後ROSCでは再不整脈に備え、除細動パッドを外さない。"
+    ]
+  }
+}

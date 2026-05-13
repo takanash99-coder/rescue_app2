@@ -3,15 +3,18 @@
   "category": "cardiovascular",
   "title": "長時間移動後に突然の呼吸困難を呈した高齢男性",
   "difficulty": "hard",
-  "version": "1.0",
-  "summary": "旅行中の長時間座位の後に突然の呼吸困難を発症し、頻呼吸、頻脈、低血圧、低酸素血症を呈する高齢男性。深部静脈血栓症を背景とした肺血栓塞栓症を想定し、ショックを伴う重症例として初期対応、酸素化、搬送判断、適切な医療機関選定を学ぶ症例。",
-  "learning_objectives": [
-    "長時間座位後の突然の呼吸困難から肺血栓塞栓症を疑う",
-    "頻呼吸、頻脈、低血圧、低酸素血症から重症度を判断する",
-    "呼吸循環を優先した現場初期対応を実践する",
-    "ショックを伴う肺血栓塞栓症疑いとして迅速な搬送判断を行う"
-  ],
+  "version": "2.0",
   "scene_count": 7,
+  "overview": {
+    "chief_complaint": "突然の呼吸困難",
+    "learning_points": [
+      "長時間座位後の突然の呼吸困難から肺血栓塞栓症を疑う",
+      "頻呼吸、頻脈、低血圧、低酸素血症から重症度を判断する",
+      "呼吸循環を優先した現場初期対応を行う",
+      "ショックを伴う肺血栓塞栓症疑いとして迅速搬送を判断する",
+      "重症度に応じた搬送先選定につなげる"
+    ]
+  },
   "scenes": [
     {
       "id": "scene1",
@@ -35,42 +38,39 @@
         "background_hint": "旅行で長時間座位"
       },
       "media": [
-        {
-          "file": "media/bus_elderly_male_pulmonary_embolism_dyspnea_scene1.png",
-          "description": "長距離バスの座席で前かがみとなり、強い呼吸困難を示す高齢男性",
-          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
-        }
+        "media/bus_elderly_male_pulmonary_embolism_dyspnea_scene1.png"
       ],
+      "author_note": "Scene1画像ファイル名は元JSON内で確認済み。",
       "type": "single_choice",
       "prompt": "この時点で、まず最も強く意識すべき病態はどれか。",
       "options": [
         {
           "id": "s1o1",
-          "label": "一過性の過換気",
+          "text": "一過性の過換気",
           "is_correct": false,
           "score_delta": -2,
-          "feedback": "突然発症で低血圧を伴っており、単純な過換気だけでは説明しにくい。"
+          "feedback": "突然発症で循環不全も疑われ、単純な過換気だけでは説明しにくい。"
         },
         {
           "id": "s1o2",
-          "label": "重症の呼吸循環障害",
+          "text": "重症の呼吸循環障害",
           "is_correct": true,
           "score_delta": 15,
           "feedback": "突然の呼吸困難に加え、循環虚脱も疑う状況であり、重症病態として対応を開始する。"
         },
         {
           "id": "s1o3",
-          "label": "軽症の感冒",
+          "text": "軽症の感冒",
           "is_correct": false,
           "score_delta": -3,
           "feedback": "発症様式と重症感が合わない。"
         },
         {
           "id": "s1o4",
-          "label": "上気道異物",
+          "text": "上気道異物",
           "is_correct": false,
           "score_delta": -1,
-          "feedback": "食事場面ではなく、長時間座位後の突然発症であり優先度は低い。"
+          "feedback": "長時間座位後の突然発症であり優先度は低い。"
         }
       ]
     },
@@ -90,11 +90,13 @@
       "action_tag": "primary_assessment",
       "text": "傷病者は呼びかけに応じ、意識はJCS1。呼吸数36/分、脈拍126/分・整、血圧80/54mmHg、SpO2 88％。会話は可能だが息切れが強く、顔面は苦悶様である。",
       "visible_data": {
-        "consciousness": "JCS1",
-        "respiratory_rate": "36/分",
-        "pulse": "126/分・整",
-        "blood_pressure": "80/54mmHg",
-        "spo2": "88%"
+        "vital_signs": [
+          "JCS1",
+          "呼吸数36/分",
+          "脈拍126/分・整",
+          "血圧80/54mmHg",
+          "SpO2 88％"
+        ]
       },
       "media": [],
       "type": "multiple_choice",
@@ -102,38 +104,31 @@
       "options": [
         {
           "id": "s2o1",
-          "label": "高濃度酸素投与を開始する",
+          "text": "高濃度酸素投与を開始する",
           "is_correct": true,
           "score_delta": 10,
           "feedback": "低酸素血症があり、まず酸素化の改善を図る。"
         },
         {
           "id": "s2o2",
-          "label": "呼吸循環の継続的監視を行う",
+          "text": "呼吸循環の継続的監視を行う",
           "is_correct": true,
           "score_delta": 10,
           "feedback": "頻呼吸、頻脈、低血圧を認め、ショック進行に注意が必要である。"
         },
         {
           "id": "s2o3",
-          "label": "その場で歩かせて症状の変化をみる",
+          "text": "その場で歩かせて症状の変化をみる",
           "is_correct": false,
           "score_delta": -5,
           "feedback": "重症例であり不適切。安静保持が必要。"
         },
         {
           "id": "s2o4",
-          "label": "経過観察のためしばらく車内待機する",
+          "text": "経過観察のためしばらく車内待機する",
           "is_correct": false,
           "score_delta": -5,
           "feedback": "低血圧を伴っており待機は危険。"
-        },
-        {
-          "id": "s2o5",
-          "label": "咳嗽の有無だけを確認して判断を保留する",
-          "is_correct": false,
-          "score_delta": -3,
-          "feedback": "咳の有無よりもABCと重症度評価が優先。"
         }
       ]
     },
@@ -164,28 +159,28 @@
       "options": [
         {
           "id": "s3o1",
-          "label": "長時間座位と下肢症状の組み合わせ",
+          "text": "長時間座位と下肢症状の組み合わせ",
           "is_correct": true,
           "score_delta": 15,
           "feedback": "深部静脈血栓形成から肺血栓塞栓症につながる重要な手がかりである。"
         },
         {
           "id": "s3o2",
-          "label": "咽頭痛がないこと",
+          "text": "咽頭痛がないこと",
           "is_correct": false,
           "score_delta": -2,
           "feedback": "今回の主病態を支持する根拠としては弱い。"
         },
         {
           "id": "s3o3",
-          "label": "胸痛が軽いこと",
+          "text": "胸痛が軽いこと",
           "is_correct": false,
           "score_delta": -1,
           "feedback": "胸痛の強さだけでは判断できない。"
         },
         {
           "id": "s3o4",
-          "label": "年齢が高いことだけ",
+          "text": "年齢が高いことだけ",
           "is_correct": false,
           "score_delta": -1,
           "feedback": "年齢のみでは病態は絞れない。"
@@ -219,38 +214,31 @@
       "options": [
         {
           "id": "s4o1",
-          "label": "肺うっ血が主病態とは限らない",
+          "text": "肺うっ血が主病態とは限らない",
           "is_correct": true,
           "score_delta": 7,
-          "feedback": "湿性ラ音が目立たず、典型的肺水腫像とは言い切れない。"
+          "feedback": "湿性ラ音が目立たず、典型的な肺水腫像とは言い切れない。"
         },
         {
           "id": "s4o2",
-          "label": "下肢静脈血栓を示唆する可能性がある",
+          "text": "下肢静脈血栓を示唆する可能性がある",
           "is_correct": true,
           "score_delta": 8,
           "feedback": "片側下腿腫脹は深部静脈血栓症を疑う手がかりとなる。"
         },
         {
           "id": "s4o3",
-          "label": "上気道閉塞が最も疑わしい",
+          "text": "上気道閉塞が最も疑わしい",
           "is_correct": false,
           "score_delta": -4,
           "feedback": "所見が合わない。"
         },
         {
           "id": "s4o4",
-          "label": "気管支喘息発作としてほぼ確定できる",
-          "is_correct": false,
-          "score_delta": -4,
-          "feedback": "喘鳴が目立たず、背景も典型的ではない。"
-        },
-        {
-          "id": "s4o5",
-          "label": "軽症なので安心させて経過をみる",
+          "text": "軽症なので安心させて経過をみる",
           "is_correct": false,
           "score_delta": -5,
-          "feedback": "低血圧を伴うため重症。"
+          "feedback": "低血圧を伴うため重症である。"
         }
       ]
     },
@@ -281,28 +269,28 @@
       "options": [
         {
           "id": "s5o1",
-          "label": "現場で長時間観察し、症状の自然軽快を待つ",
+          "text": "現場で長時間観察し、症状の自然軽快を待つ",
           "is_correct": false,
           "score_delta": -5,
           "feedback": "ショックが疑われ、待機は危険。"
         },
         {
           "id": "s5o2",
-          "label": "ショックを伴う重症例として迅速搬送する",
+          "text": "ショックを伴う重症例として迅速搬送する",
           "is_correct": true,
           "score_delta": 15,
           "feedback": "重症肺血栓塞栓症を疑い、現場滞在を短くして早期搬送する。"
         },
         {
           "id": "s5o3",
-          "label": "歩行可能か確認するため立位をとらせる",
+          "text": "歩行可能か確認するため立位をとらせる",
           "is_correct": false,
           "score_delta": -4,
           "feedback": "状態悪化の危険がある。"
         },
         {
           "id": "s5o4",
-          "label": "バス降車後に水分摂取だけ行う",
+          "text": "水分摂取だけ行って様子をみる",
           "is_correct": false,
           "score_delta": -3,
           "feedback": "本質的対応にならない。"
@@ -311,113 +299,103 @@
     },
     {
       "id": "scene6",
-      "title": "医療機関連絡",
-      "phase": "hospital_contact",
-      "scene_goal": "病態、重症度、発症状況を簡潔に伝え、適切な受け入れ先を選定する。",
+      "title": "病院連絡",
+      "phase": "handover",
+      "scene_goal": "病態、重症度、発症状況を簡潔に伝え、受け入れ準備につなげる。",
       "ideal_flow": [
-        "年齢・性別",
-        "主訴",
-        "発症状況",
-        "バイタルサイン",
-        "疑う病態",
-        "搬送要請"
+        "年齢・性別を伝える",
+        "主訴と発症状況を伝える",
+        "バイタルサインを伝える",
+        "下肢所見と疑う病態を伝える",
+        "重症度を共有する"
       ],
       "ideal_score_delta": 10,
-      "action_tag": "first_call",
+      "action_tag": "hospital_handover",
       "text": "搬送を開始するにあたり、医療機関へ第1報を行う。長時間移動後の突然の呼吸困難、低酸素血症、頻脈、低血圧がある。",
       "visible_data": {
-        "age_sex": "78歳男性",
-        "suspected_condition": "肺血栓塞栓症疑い",
-        "severity": "ショック合併疑い"
+        "handover_elements": [
+          "78歳男性",
+          "長時間座位後、立位直後に突然の呼吸困難",
+          "JCS1、呼吸数36/分、脈拍126/分、血圧80/54mmHg、SpO2 88％",
+          "左下腿腫脹あり",
+          "ショックを伴う重症例"
+        ]
       },
       "media": [],
-      "type": "template_select",
-      "prompt": "この症例の申し送りとして最も適切な内容を選べ。",
+      "type": "free_text",
+      "prompt": "受入要請として適切な病院連絡内容を記せ。",
+      "scoring_keywords": [
+        "78歳男性",
+        "長時間座位後",
+        "立位直後に突然発症",
+        "呼吸困難",
+        "JCS1",
+        "呼吸数36",
+        "脈拍126",
+        "血圧80/54",
+        "SpO2 88%",
+        "左下腿腫脹",
+        "肺血栓塞栓症疑い",
+        "ショック"
+      ],
       "templates": [
-        {
-          "id": "s6t1",
-          "label": "78歳男性。長時間座位後、立位を契機に突然の呼吸困難が出現。現在JCS1、呼吸数36、脈拍126、血圧80/54、SpO2 88％。肺血栓塞栓症を疑う重症例として搬送中です。",
-          "is_correct": true,
-          "score_delta": 10,
-          "feedback": "病態、重症度、発症機転が簡潔にまとまっている。"
-        },
-        {
-          "id": "s6t2",
-          "label": "78歳男性。旅行中に少し息苦しくなりました。高齢のため念のため搬送します。",
-          "is_correct": false,
-          "score_delta": -4,
-          "feedback": "重症度と発症機転が伝わらない。"
-        },
-        {
-          "id": "s6t3",
-          "label": "78歳男性。咳と痰は不明ですが呼吸が速いです。詳細は到着後に伝えます。",
-          "is_correct": false,
-          "score_delta": -3,
-          "feedback": "必要情報が不足している。"
-        }
+        "78歳男性。長時間座位後、立位を契機に突然の呼吸困難が出現しています。現在JCS1、呼吸数36、脈拍126、血圧80/54、SpO2 88％です。左下腿腫脹があり、肺血栓塞栓症を疑うショック合併の重症例として搬送中です。受入れをお願いします。"
       ]
     },
     {
       "id": "scene7",
-      "title": "病態理解",
-      "phase": "pathophysiology",
-      "scene_goal": "本症例の原因病態を整理する。",
+      "title": "搬送先選定",
+      "phase": "transport_reassessment",
+      "scene_goal": "重症度と想定病態を踏まえ、適切な搬送先を判断する。",
       "ideal_flow": [
-        "背景因子の整理",
-        "原因血栓の想起",
-        "肺循環障害の理解",
-        "低酸素血症とショックの関連づけ"
+        "重症度を再確認する",
+        "ショック合併を重視する",
+        "対応可能な医療機関を選定する",
+        "搬送中も継続監視する"
       ],
       "ideal_score_delta": 10,
-      "action_tag": "final_reasoning",
-      "text": "本症例は、長時間座位、片側下腿症状、突然の呼吸困難、頻呼吸、頻脈、低酸素血症、低血圧を示している。",
+      "action_tag": "hospital_selection",
+      "text": "本症例は、長時間座位後の突然の呼吸困難、低酸素血症、頻脈、低血圧、片側下腿腫脹を伴う重症例である。搬送中も状態変化に注意しながら、適切な医療機関を選定する必要がある。",
       "visible_data": {
         "key_clues": [
           "長時間座位",
-          "立位直後の突然発症",
-          "左下腿腫脹",
+          "突然の呼吸困難",
           "低酸素血症",
-          "低血圧"
+          "低血圧",
+          "左下腿腫脹"
         ]
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この病態の原因として最も適切なのはどれか。",
+      "prompt": "この症例の搬送先として最も適切なのはどれか。",
       "options": [
         {
           "id": "s7o1",
-          "label": "ブラの破裂",
-          "is_correct": false,
-          "score_delta": 0,
-          "feedback": "今回の病態とは一致しない。"
+          "text": "ショック合併肺血栓塞栓症に対応可能な救急医療機関",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "重症呼吸循環障害を伴っており、救急対応能力のある施設選定が必要である。"
         },
         {
           "id": "s7o2",
-          "label": "肺胞の溢水",
+          "text": "近隣の一般診療所",
           "is_correct": false,
-          "score_delta": 0,
-          "feedback": "肺水腫の説明であり、今回の背景とは合いにくい。"
+          "score_delta": -4,
+          "feedback": "重症例の初期対応先としては不十分である。"
         },
         {
           "id": "s7o3",
-          "label": "気管支の炎症",
+          "text": "不搬送として経過観察する",
           "is_correct": false,
-          "score_delta": 0,
-          "feedback": "急激な循環不全の説明にならない。"
+          "score_delta": -6,
+          "feedback": "ショックを伴う重症例であり不適切。"
         },
         {
           "id": "s7o4",
-          "label": "上気道の閉塞",
+          "text": "本人希望があれば最も近い施設を優先する",
           "is_correct": false,
-          "score_delta": 0,
-          "feedback": "所見が合わない。"
-        },
-        {
-          "id": "s7o5",
-          "label": "肺動脈の閉塞",
-          "is_correct": true,
-          "score_delta": 10,
-          "feedback": "深部静脈血栓が肺動脈を閉塞した肺血栓塞栓症が最も考えられる。"
+          "score_delta": -3,
+          "feedback": "まずは重症度と対応可能性を優先して判断する。"
         }
       ]
     }
@@ -429,7 +407,8 @@
       "酸素投与と継続モニタリングを早期に開始する",
       "長時間座位と下肢症状から肺血栓塞栓症を疑う",
       "現場滞在を短くし、重症例として迅速搬送する",
-      "医療機関へ発症機転と重症度を簡潔に申し送る"
+      "病院連絡で発症機転と重症度を簡潔に申し送る",
+      "重症度に応じた搬送先を選定する"
     ],
     "good_points": [
       "長時間座位後という背景に注目できた",
@@ -437,7 +416,7 @@
       "呼吸器疾患だけでなく循環障害としても捉えられた"
     ],
     "cautions": [
-      "喘鳴がないから安心、と判断しない",
+      "喘鳴がないから安心と判断しない",
       "歩行や立位を試して状態を悪化させない",
       "現場で長く観察せず、ショック徴候があれば搬送優先とする"
     ]

@@ -1,0 +1,757 @@
+{
+  "case_id": "airway_foreign_body_cpa_cpr_protocol_001",
+  "version": "2.0",
+  "title": "ステーキ店での気道異物による窒息CPAでCPRプロトコールの初手を確認する症例",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "algorithm_type": "CPR_protocol",
+  "estimated_time": 8,
+  "keywords": [
+    "気道異物",
+    "窒息",
+    "CPA",
+    "バイスタンダーCPR",
+    "AED",
+    "気管挿管"
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容とPAC",
+      "phase": "dispatch",
+      "scene_goal": "食事中の窒息疑いに対して、通報者へ反応・呼吸確認、胸骨圧迫、AED依頼を適切に指示する。",
+      "ideal_flow": [
+        "通報者に安全確認を促す",
+        "傷病者の反応を確認させる",
+        "普段どおりの呼吸があるか確認させる",
+        "反応・正常呼吸がなければ胸骨圧迫を開始させる",
+        "周囲にAEDを依頼し、装着後は音声指示に従わせる"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "bystander_cpr",
+        "airway_foreign_body"
+      ],
+      "text": "51歳女性。ステーキ店で食事中、突然喉を押さえて苦しみだし、その後倒れたため目撃者が119番通報した。通報者はかなり動揺しており、「息をしているかわからない」「口の中に肉があるかもしれない」と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "ステーキ店",
+          "傷病者": "51歳女性",
+          "主訴": "食事中に突然苦しみ卒倒",
+          "通報者": "店員",
+          "補足": "喉を押さえる動作があった"
+        }
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "通報者への口頭指導として、優先して伝える内容を選べ。",
+      "templates": [
+        {
+          "template_id": "scene1_t1",
+          "text": "反応と普段どおりの呼吸を確認し、なければ胸骨圧迫を開始するよう指示する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bystander_cpr_started"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "窒息疑いでも、反応がなく正常呼吸がなければCPAとして胸骨圧迫を開始する。AED依頼も並行して行う。"
+        },
+        {
+          "template_id": "scene1_t2",
+          "text": "口の奥に手を入れて肉を取り出すよう指示する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_blind_finger_sweep"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "airway_obstruction_worsening"
+            ]
+          },
+          "rationale": "盲目的に口腔内へ指を入れると異物を押し込む危険がある。視認できない異物を無理に探らせない。"
+        },
+        {
+          "template_id": "scene1_t3",
+          "text": "救急隊が到着するまで、傷病者をそのまま安静にさせる。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "cpr_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxic_cpa"
+            ]
+          },
+          "rationale": "反応や正常呼吸がない場合は、到着を待たず胸骨圧迫を開始する必要がある。"
+        },
+        {
+          "template_id": "scene1_t4",
+          "text": "まず水を飲ませ、異物が流れるか確認するよう指示する。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_oral_intake"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "aspiration_risk"
+            ]
+          },
+          "rationale": "意識障害や窒息が疑われる傷病者に水分を飲ませるのは危険である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "救急隊到着時のCPRプロトコール",
+      "phase": "initial_assessment",
+      "scene_goal": "バイスタンダーCPR中でも、救急隊接触直後はCPRプロトコールに基づいて呼吸・脈拍を確認する。",
+      "ideal_flow": [
+        "周囲の安全を確認する",
+        "バイスタンダーCPRの状況を確認する",
+        "胸骨圧迫の中断を最小限にして反応を確認する",
+        "呼吸と頸動脈拍動を確認する",
+        "CPAと判断したら直ちに胸骨圧迫を再開する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "cpr_protocol",
+        "initial_assessment",
+        "cpa_confirmation"
+      ],
+      "text": "救急隊が現場に到着した。目撃者が胸骨圧迫を実施しており、AEDが装着されている。傷病者の反応はなく、口腔内から肉片が出ているのを認める。",
+      "visible_data": {
+        "scene_observation": {
+          "体位": "床上仰臥位",
+          "反応": "呼びかけへの反応なし",
+          "処置状況": "目撃者が胸骨圧迫中、AED装着済み",
+          "口腔内": "肉片を認める"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊が次に行う対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene2_o1",
+          "text": "呼吸・脈拍を確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cpa_confirmed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "バイスタンダーCPR中でも、救急隊は接触直後にCPRプロトコールに基づき呼吸・脈拍を確認してCPAを判断する。"
+        },
+        {
+          "option_id": "scene2_o2",
+          "text": "通報者への状況聴取を行う。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "assessment_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpr_interruption"
+            ]
+          },
+          "rationale": "状況聴取は重要だが、反応なしでCPR中の傷病者ではCPA判断とCPR継続が優先される。"
+        },
+        {
+          "option_id": "scene2_o3",
+          "text": "気管内チューブを準備する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "advanced_airway_prioritized_too_early"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "窒息CPAでは気道管理が重要だが、接触直後はまずCPA判断とCPRプロトコールの開始・継続が優先される。"
+        },
+        {
+          "option_id": "scene2_o4",
+          "text": "喉頭鏡・マギール鉗子で異物除去を行う。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "foreign_body_removal_too_early"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpr_delay"
+            ]
+          },
+          "rationale": "視認できる異物への対応は必要だが、救急隊接触直後はまずCPA判断を行い、CPRとAED対応を組み立てる。"
+        },
+        {
+          "option_id": "scene2_o5",
+          "text": "装着されているAEDを救急隊AEDへ交換する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "aed_exchange_prioritized"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "defibrillation_delay"
+            ]
+          },
+          "rationale": "装着済みAEDは原則として継続活用できる。交換を優先すると解析やショックが遅れる可能性がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "AED解析とVF対応",
+      "phase": "cpr_and_defibrillation",
+      "scene_goal": "CPA確認後、AED解析でVFが示された場合の対応を選択する。",
+      "ideal_flow": [
+        "CPAと判断する",
+        "胸骨圧迫を再開する",
+        "AED解析時は安全確認を行う",
+        "VFならショックを実施する",
+        "ショック後ただちに胸骨圧迫を再開する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "AED",
+        "VF",
+        "defibrillation",
+        "cpr"
+      ],
+      "text": "救急隊が呼吸・頸動脈拍動を確認したところ、正常な呼吸はなく、頸動脈拍動も触知しない。CPAと判断し胸骨圧迫を再開した。装着済みAEDが解析を開始し、ショック適応を指示した。",
+      "visible_data": {
+        "assessment": {
+          "反応": "なし",
+          "呼吸": "正常呼吸なし",
+          "頸動脈拍動": "触知せず",
+          "AED音声": "ショックが必要です"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で優先する対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene3_o1",
+          "text": "安全確認後にショックを行い、直ちに胸骨圧迫を再開する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shock_delivered",
+              "cpr_resumed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "VFでは除細動が必要である。ショック後は脈拍確認に時間をかけず、ただちに胸骨圧迫を再開する。"
+        },
+        {
+          "option_id": "scene3_o2",
+          "text": "ショック前に目撃者から既往歴を確認する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "shock_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "vf_persistent"
+            ]
+          },
+          "rationale": "既往歴の確認は必要だが、ショック適応があるVFでは除細動を遅らせない。"
+        },
+        {
+          "option_id": "scene3_o3",
+          "text": "ショック後に頸動脈拍動を長く確認する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "cpr_pause_prolonged"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "low_perfusion"
+            ]
+          },
+          "rationale": "ショック後はただちに胸骨圧迫を再開し、胸骨圧迫中断を最小限にする。"
+        },
+        {
+          "option_id": "scene3_o4",
+          "text": "AEDを外して救急隊モニターに切り替える。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "aed_removed_inappropriately"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "defibrillation_delay"
+            ]
+          },
+          "rationale": "すでにAEDがショック適応を示している状況では、切り替えよりも除細動を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "換気不良と気道異物対応",
+      "phase": "airway_management",
+      "scene_goal": "CPA対応中の換気不良と視認できる異物に対して、適切な異物除去を選択する。",
+      "ideal_flow": [
+        "胸骨圧迫を継続する",
+        "BVM換気を試みる",
+        "胸郭挙上と換気抵抗を確認する",
+        "口腔内を観察する",
+        "視認できる異物を喉頭鏡・マギール鉗子で除去する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "foreign_body_removal",
+        "bag_valve_mask",
+        "magill_forceps"
+      ],
+      "text": "ショック後、胸骨圧迫を再開した。BVM換気を試みるが胸郭挙上が乏しく、換気抵抗が強い。口腔内を確認すると、肉片の一部が視認できる。",
+      "visible_data": {
+        "airway_findings": {
+          "BVM換気": "胸郭挙上が乏しい",
+          "換気抵抗": "強い",
+          "口腔内": "肉片の一部を視認できる",
+          "循環": "CPA継続"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene4_o1",
+          "text": "喉頭鏡で観察し、視認できる異物をマギール鉗子で除去する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "foreign_body_removed"
+            ],
+            "remove_flags": [
+              "airway_obstructed"
+            ],
+            "danger_tags": []
+          },
+          "rationale": "換気不良があり異物を視認できる場合は、喉頭鏡で確認しマギール鉗子で除去する。"
+        },
+        {
+          "option_id": "scene4_o2",
+          "text": "異物はそのままにして胸骨圧迫のみを続ける。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "airway_obstruction_persistent"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "ventilation_failure"
+            ]
+          },
+          "rationale": "胸骨圧迫は重要だが、気道閉塞が解除されなければ換気と酸素化が改善しない。"
+        },
+        {
+          "option_id": "scene4_o3",
+          "text": "口腔内を指で探り、異物を引っかけて取り出す。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "blind_finger_sweep"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "foreign_body_pushed_deeper"
+            ]
+          },
+          "rationale": "盲目的な指による探索は異物を奥へ押し込む危険がある。視認下で除去する。"
+        },
+        {
+          "option_id": "scene4_o4",
+          "text": "換気抵抗があってもBVMを強く押し続ける。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "forceful_ventilation"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "gastric_insufflation"
+            ]
+          },
+          "rationale": "閉塞がある状態で強く換気すると胃膨満や逆流の危険がある。気道閉塞の解除を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "気道管理の特定行為",
+      "phase": "advanced_airway",
+      "scene_goal": "窒息CPAで異物除去後もCPAが継続する状況に対して、気管挿管の適応と指示要請を判断する。",
+      "ideal_flow": [
+        "異物除去後の換気状態を確認する",
+        "CPA継続を確認する",
+        "BVM換気を継続し酸素化を図る",
+        "気管挿管の適応を検討する",
+        "医師へ具体的指示を要請する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "specific_medical_control",
+        "endotracheal_intubation",
+        "advanced_airway"
+      ],
+      "text": "喉頭鏡下で肉片を除去した。BVM換気で胸郭挙上は得られるようになったが、傷病者は反応なく、自発呼吸も頸動脈拍動も戻らない。窒息による低酸素性CPAが疑われ、確実な気道確保が必要と判断した。",
+      "visible_data": {
+        "post_removal_status": {
+          "異物": "除去済み",
+          "BVM換気": "胸郭挙上あり",
+          "反応": "なし",
+          "自発呼吸": "なし",
+          "頸動脈拍動": "触知せず",
+          "判断": "CPA継続"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この状況で救急救命士が検討する特定行為として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene5_o1",
+          "text": "医師の具体的指示を受けて気管挿管を実施する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "intubation_indication_recognized",
+              "medical_control_requested"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "気道異物による窒息CPAでは、異物除去後も確実な換気と酸素化が重要である。適応を確認し、医師の具体的指示のもと気管挿管を検討する。"
+        },
+        {
+          "option_id": "scene5_o2",
+          "text": "換気を中止して胸骨圧迫のみを継続する。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -6,
+          "status_effect": {
+            "add_flags": [
+              "ventilation_stopped"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxia_persistent"
+            ]
+          },
+          "rationale": "窒息CPAでは酸素化と換気の確保が重要であり、換気を中止する対応は不適切である。"
+        },
+        {
+          "option_id": "scene5_o3",
+          "text": "自発呼吸が戻るまで現場で経過をみる。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "transport_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpa_ongoing"
+            ]
+          },
+          "rationale": "CPAが継続している状況では、CPRを継続しながら気道管理、医療機関連絡、搬送体制を進める。"
+        },
+        {
+          "option_id": "scene5_o4",
+          "text": "AEDを外してから気道管理を行う。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "aed_disconnected_inappropriately"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "rhythm_check_delay"
+            ]
+          },
+          "rationale": "AEDやモニター管理は継続し、CPRサイクルと気道管理を並行して行う。AEDを外す必要はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "活動の優先順位",
+      "phase": "team_management",
+      "scene_goal": "CPR、AED、気道異物対応、特定行為を並行して行う際の優先順位を整理する。",
+      "ideal_flow": [
+        "胸骨圧迫の中断を最小限にする",
+        "AED解析とショック指示に従う",
+        "換気不良があれば気道異物を評価する",
+        "異物除去後に換気を確認する",
+        "必要に応じて医師へ特定行為の指示要請を行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "team_leadership",
+        "priority_management",
+        "cpr_quality"
+      ],
+      "text": "救急隊は胸骨圧迫、AED対応、異物除去、BVM換気を並行して進めている。傷病者はCPAが継続しており、現場での活動時間が長くなりすぎないよう搬送準備も必要である。",
+      "visible_data": {
+        "team_activity": {
+          "胸骨圧迫": "継続中",
+          "AED": "装着継続",
+          "気道": "異物除去済み",
+          "換気": "BVM換気可能",
+          "搬送": "準備が必要"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "隊長の活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene6_o1",
+          "text": "CPRの質を保ちつつ、AED・換気・搬送準備を並行して進める。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "high_quality_cpr",
+              "transport_prepared"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "CPA対応では胸骨圧迫の中断を最小限にし、AED、気道管理、換気、搬送準備を役割分担して並行する。"
+        },
+        {
+          "option_id": "scene6_o2",
+          "text": "気道管理が終わるまで搬送準備を止める。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "transport_preparation_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "scene_time_prolonged"
+            ]
+          },
+          "rationale": "気道管理は重要だが、搬送準備や医療機関連絡も並行して進める必要がある。"
+        },
+        {
+          "option_id": "scene6_o3",
+          "text": "AED解析よりも目撃者への聞き取りを優先する。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "defibrillation_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "vf_persistent"
+            ]
+          },
+          "rationale": "情報収集は隊員に分担できる。ショック適応リズムではAED対応を遅らせない。"
+        },
+        {
+          "option_id": "scene6_o4",
+          "text": "異物が除去できたらCPRを終了する。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -8,
+          "status_effect": {
+            "add_flags": [
+              "cpr_stopped_inappropriately"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "cardiac_arrest_untreated"
+            ]
+          },
+          "rationale": "異物除去後も反応・正常呼吸・脈拍がなければCPA対応を継続する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "病態理解",
+      "phase": "debriefing",
+      "scene_goal": "気道異物による窒息から低酸素性CPA、VF、気道管理へつながる流れを理解する。",
+      "ideal_flow": [
+        "上気道閉塞を病態の出発点として整理する",
+        "換気不能により低酸素が進行することを理解する",
+        "低酸素から意識消失、CPAへ進行する流れを説明する",
+        "AED適応リズムがあれば除細動を優先する",
+        "異物除去と確実な気道確保の必要性を説明する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "hypoxic_cardiac_arrest",
+        "airway_obstruction"
+      ],
+      "text": "この症例では、食事中の気道異物により上気道閉塞が起こり、換気不能から低酸素が進行したと考えられる。目撃者CPR、AED装着、口腔内異物という情報がある中でも、救急隊はCPRプロトコールに沿ってCPAを確認し、その後にAED対応、胸骨圧迫、異物除去、気道管理を組み立てる必要がある。",
+      "visible_data": {
+        "learning_summary": {
+          "病態": "気道異物による窒息CPA",
+          "重要判断": "救急隊接触直後のCPA確認",
+          "重要処置": "CPR、AED、異物除去、気管挿管の検討",
+          "注意点": "見えている異物に引っ張られてCPRプロトコールを飛ばさない"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例で救急隊到着直後に呼吸・脈拍確認を優先する理由として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene7_o1",
+          "text": "CPA判断により、CPR・AED・気道処置の優先順位を決めるため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "protocol_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "救急隊は接触直後にCPAを確認し、CPRプロトコールに基づいて胸骨圧迫、AED、気道処置を組み立てる。"
+        },
+        {
+          "option_id": "scene7_o2",
+          "text": "呼吸・脈拍を確認すれば異物除去が不要になるため。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "pathophysiology_misunderstood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "CPA確認と異物除去は別の判断である。換気不良や視認できる異物があれば異物除去が必要になる。"
+        },
+        {
+          "option_id": "scene7_o3",
+          "text": "AEDが装着されていれば胸骨圧迫は不要になるため。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "cpr_role_misunderstood"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpr_omission"
+            ]
+          },
+          "rationale": "AED装着中でもCPAであれば胸骨圧迫は必要である。AED解析・ショックとCPRを組み合わせる。"
+        },
+        {
+          "option_id": "scene7_o4",
+          "text": "目撃者CPR中は救急隊によるCPA確認を省略できるため。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "cpa_confirmation_skipped"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "protocol_error"
+            ]
+          },
+          "rationale": "バイスタンダーCPR中でも、救急隊は接触直後に短時間でCPAを確認してからCPRプロトコールを継続する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "ステーキ店で食事中に気道異物による窒息を起こし、CPAに至った疑いのある症例。目撃者CPRとAED装着、口腔内の肉片という情報があっても、救急隊は接触直後にCPRプロトコールに沿って呼吸・脈拍を確認しCPAを判断する。その後、AED解析でVFを確認してショックを行い、換気不良に対して視認下で異物を除去し、必要に応じて医師の具体的指示のもと気管挿管を検討する。",
+    "ideal_actions": [
+      "PACで反応・呼吸確認、胸骨圧迫、AED依頼を指示する",
+      "救急隊接触直後に呼吸・脈拍を確認してCPAを判断する",
+      "VFなら安全確認後にショックを行い、直ちに胸骨圧迫を再開する",
+      "換気不良と視認できる異物があれば喉頭鏡・マギール鉗子で除去する",
+      "異物除去後もCPAが継続すれば、気管挿管の適応を検討し医師へ具体的指示を要請する",
+      "CPR、AED、換気、搬送準備を役割分担して並行する"
+    ],
+    "good_points": [
+      "目撃者CPRがあってもCPA確認を省略しない点を学べる",
+      "口腔内異物に引っ張られずCPRプロトコールに戻る判断を学べる",
+      "AED、異物除去、気管挿管を一連の活動として整理できる"
+    ],
+    "cautions": [
+      "盲目的な口腔内探索は異物を押し込む危険がある",
+      "AED装着済みだからといって救急隊AEDへの交換を優先しない",
+      "ショック後は脈拍確認に時間をかけず胸骨圧迫を再開する",
+      "異物除去後もCPAが続く場合はCPRと換気を継続する"
+    ]
+  }
+}

@@ -1,0 +1,954 @@
+{
+  "case_id": "aortic_dissection_cardiac_tamponade_transport_001",
+  "version": "2.0",
+  "title": "胸背部痛で大動脈解離を疑い、搬送中の急変から心タンポナーデを見抜く症例",
+  "category": "cardiovascular",
+  "difficulty": "Hard",
+  "boss_candidate": false,
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 11,
+  "keywords": [
+    "大動脈解離",
+    "胸背部痛",
+    "左右差",
+    "Load and Go",
+    "心タンポナーデ",
+    "心膜腔液体貯留"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "突然の胸背部痛に対して、安静保持と急変観察を指示する。",
+      "ideal_flow": "突然の強い胸背部痛を重症循環器疾患の可能性として捉え、無理に歩かせず安静保持、意識・呼吸状態の変化を見守るよう指示する。",
+      "ideal_score_delta": 10,
+      "action_tag": "pac_chest_back_pain",
+      "text": "72歳男性。自宅玄関で突然、胸部から背部へ移動するような強い痛みを訴え、動けなくなったため家族が救急要請した。本人は玄関内で座位となり、背中をかばうようにしている。",
+      "visible_data": {
+        "dispatch_information": {
+          "caller": "家族",
+          "location": "自宅玄関内",
+          "chief_complaint": "突然の胸部から背部への強い痛み",
+          "current_condition": "意識はあり、座位で苦悶様。冷汗があるように見える。",
+          "risk": "無理に移動させると疼痛増悪や循環状態悪化の可能性がある。"
+        }
+      },
+      "media": [
+        "media/distressed_man_at_home_threshold.png"
+      ],
+      "type": "single_choice",
+      "prompt": "現着前に家族へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "玄関先まで歩かせ、救急隊が接触しやすい場所で待機してもらう。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_movement"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "circulatory_worsening",
+              "fall_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "突然の強い胸背部痛では重症循環器疾患を疑い、無理に歩かせない。"
+        },
+        {
+          "option_id": "b",
+          "text": "楽な姿勢で安静を保ち、意識や呼吸状態の変化を見守るよう伝える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "safe_positioning",
+              "family_monitoring"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "circulatory_worsening"
+            ]
+          },
+          "rationale": "胸背部痛では急変の可能性があり、安静保持と状態変化の観察を指示する。"
+        },
+        {
+          "option_id": "c",
+          "text": "痛みの部位を確認するため、上半身を大きく動かしてもらう。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "unnecessary_movement"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "pain_worsening"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "重症胸背部痛では体動で状態が悪化する可能性があり、安静を優先する。"
+        },
+        {
+          "option_id": "d",
+          "text": "呼吸苦がなければ緊急性は低いため、横になって様子を見るよう伝える。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_response"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸苦がなくても、突然の胸背部痛と冷汗は重症循環器疾患を疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "初期評価で循環異常を示唆する所見を拾う。",
+      "ideal_flow": "意識、気道、呼吸を確認したうえで、橈骨動脈の触知と左右差を確認し、重症循環器疾患を疑う。",
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment_pulse_difference",
+      "text": "接触時、傷病者は座位で苦悶様表情。意識は清明で会話可能。気道は開通し、呼吸は保たれている。全身に冷汗を認める。橈骨動脈を触知すると、右より左の拍動が強く触れる。",
+      "visible_data": {
+        "primary_assessment": {
+          "consciousness": "清明。質問に答えられる。",
+          "airway": "開通",
+          "breathing": "呼吸は保たれている",
+          "circulation": "橈骨動脈は触知可能。右より左の拍動が強い。",
+          "skin": "冷汗あり",
+          "critical_impression": "重症循環器疾患を疑う所見がある。"
+        }
+      },
+      "media": [
+        "media/distressed_man_at_home_threshold.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価で得られた所見として、重症循環器疾患を疑ううえで特に重要なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "会話が可能であること",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_reassuring_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "会話可能でも重症循環器疾患は否定できない。冷汗や脈拍左右差を重視する。"
+        },
+        {
+          "option_id": "b",
+          "text": "呼吸が保たれていること",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "breathing_reassuring_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸が保たれていても、循環器疾患による急変リスクは残る。"
+        },
+        {
+          "option_id": "c",
+          "text": "橈骨動脈の左右差を認めること",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulse_difference_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "突然の胸背部痛に橈骨動脈左右差を伴う場合、大動脈解離などの重症循環器疾患を疑う。"
+        },
+        {
+          "option_id": "d",
+          "text": "明らかな外傷を認めないこと",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "trauma_absence_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "外傷がなくても、突然の胸背部痛と脈拍左右差は重症内因性疾患を示唆する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "history_and_vitals",
+      "scene_goal": "胸背部痛、冷汗、血圧左右差から赤1相当の重症循環器疾患としてLoad & Goを判断する。",
+      "ideal_flow": "痛みの性状、冷汗、左右上肢血圧差から大動脈解離を疑い、現場滞在を短くして早期搬送とファーストコールへ進む。",
+      "ideal_score_delta": 12,
+      "action_tag": "load_and_go_aortic_dissection",
+      "text": "傷病者は「胸から背中へ裂けるような痛みが移動した」と訴えている。全身に冷汗を認める。心音と呼吸音に明らかな異常はない。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "清明",
+          "respiratory_rate": "20回/分",
+          "pulse": "104回/分、整",
+          "blood_pressure_right_arm": "156/84mmHg",
+          "blood_pressure_left_arm": "208/112mmHg",
+          "spo2": "99％"
+        },
+        "history": {
+          "pain": "突然発症。胸部から背部へ移動する引き裂かれるような痛み",
+          "sweating": "全身に冷汗あり",
+          "heart_sound": "明らかな異常なし",
+          "breath_sound": "明らかな異常なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での緊急度判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "SpO₂が保たれているため、現場で詳細観察を優先する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "delayed_transport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "aortic_dissection_delayed"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO₂が正常でも、胸背部痛、冷汗、血圧左右差は重症循環器疾患を示唆する。"
+        },
+        {
+          "option_id": "b",
+          "text": "胸痛はあるが意識清明のため、本人の歩行能力を確認する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_walking_test"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "circulatory_collapse_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "大動脈解離が疑われる状況で歩行確認は不要であり、安静保持を優先する。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸音に異常がないため、呼吸器疾患の可能性は低く経過観察する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "reassured_by_breath_sound"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸音が正常でも、胸背部痛と血圧左右差から重症循環器疾患を疑う。"
+        },
+        {
+          "option_id": "d",
+          "text": "重症循環器疾患を疑い、早期搬送とファーストコールを行う。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "load_and_go_decision",
+              "first_call_planned"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "aortic_dissection_delayed"
+            ]
+          },
+          "rationale": "突然の移動性胸背部痛、冷汗、血圧左右差から大動脈解離を疑い、赤1相当として早期搬送とファーストコールを行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "対話式ファーストコール",
+      "phase": "first_call",
+      "scene_goal": "大動脈解離疑いとして、搬送先医療機関へ必要情報を簡潔に伝える。",
+      "ideal_flow": "年齢・性別、突然の移動性胸背部痛、冷汗、血圧左右差、橈骨動脈左右差、重症度、搬送中の急変リスクを整理して伝える。",
+      "ideal_score_delta": 16,
+      "action_tag": "dialogue_first_call_aortic_dissection",
+      "text": "車内収容後、搬送先医療機関へファーストコールを行う。病院側から確認が入った。",
+      "visible_data": {
+        "call_material": {
+          "patient": "72歳男性",
+          "chief_complaint": "突然の胸部から背部へ移動する引き裂かれる痛み",
+          "findings": "冷汗、橈骨動脈左右差、左右上肢血圧差",
+          "vital_signs": "呼吸数20回/分、脈拍104回/分整、右上肢156/84mmHg、左上肢208/112mmHg、SpO₂99％",
+          "suspected_condition": "大動脈解離疑い",
+          "triage": "赤1相当、Load & Go"
+        }
+      },
+      "media": [],
+      "type": "dialogue",
+      "prompt": "搬送先医療機関へファーストコールを行う。病院側の質問に適切に回答せよ。",
+      "dialogue": [
+        {
+          "turn_id": "q1",
+          "speaker": "hospital",
+          "text": "患者さんの年齢、性別、主訴を教えてください。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "72歳男性、突然の胸部から背部へ移動する引き裂かれる痛みです。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "chief_complaint_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "年齢、性別、突然発症の移動性胸背部痛を簡潔に伝えている。"
+            },
+            {
+              "option_id": "b",
+              "text": "72歳男性、背部痛のみで呼吸状態は安定しています。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "incomplete_complaint_report"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "胸部から背部へ移動する痛みという重要情報が抜けている。"
+            },
+            {
+              "option_id": "c",
+              "text": "72歳男性、胸痛がありますがSpO₂は正常です。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "spo2_overemphasis"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "SpO₂正常を強調するだけでは、移動性胸背部痛の重症度が伝わりにくい。"
+            },
+            {
+              "option_id": "d",
+              "text": "72歳男性、意識清明で外傷はありません。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "low_priority_report"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "主訴と発症様式が伝わらず、重症循環器疾患の可能性を共有できない。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q2",
+          "speaker": "hospital",
+          "text": "大動脈解離を疑う根拠はありますか。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "胸痛がありますが、心音と呼吸音に異常はありません。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "insufficient_aortic_dissection_basis"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "心音・呼吸音正常だけでは大動脈解離疑いの根拠が伝わらない。"
+            },
+            {
+              "option_id": "b",
+              "text": "突然発症の移動する胸背部痛、冷汗、橈骨動脈左右差、左右上肢血圧差があります。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "dissection_basis_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "大動脈解離を疑う重要所見を過不足なく伝えている。"
+            },
+            {
+              "option_id": "c",
+              "text": "SpO₂が正常なので、呼吸器疾患の可能性は低いです。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "irrelevant_basis"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "SpO₂正常は大動脈解離を疑う直接の根拠ではない。"
+            },
+            {
+              "option_id": "d",
+              "text": "意識清明なので、現時点では緊急性は高くありません。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "undertriage_in_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "hospital_underprepared"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "意識清明でも大動脈解離疑いでは緊急性が高い。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q3",
+          "speaker": "hospital",
+          "text": "現在のバイタルと緊急度はどうですか。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "血圧は高めですが、SpO₂は正常なので詳細観察を継続します。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "delayed_transport_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "hospital_underprepared"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "血圧左右差と胸背部痛があり、詳細観察継続より早期搬送を優先する。"
+            },
+            {
+              "option_id": "b",
+              "text": "呼吸数20回/分で意識清明のため、緊急度は中等度です。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "severity_underestimated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "undertriage"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "意識清明でも、大動脈解離疑いと冷汗を伴う胸背部痛は重症として扱う。"
+            },
+            {
+              "option_id": "c",
+              "text": "血圧差はありますが、痛みが主訴なので経過観察します。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "blood_pressure_difference_ignored"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_definitive_care"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "血圧左右差は重要所見であり、経過観察ではなく早期搬送が必要である。"
+            },
+            {
+              "option_id": "d",
+              "text": "右上肢156/84、左上肢208/112、脈拍104回/分、冷汗あり。赤1相当として搬送します。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "severity_reported",
+                  "red1_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "undertriage"
+                ]
+              },
+              "rationale": "左右上肢血圧差、脈拍、冷汗、赤1相当の判断を明確に伝えている。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q4",
+          "speaker": "hospital",
+          "text": "搬送中に注意しておくべき変化はありますか。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "疼痛の増悪、意識低下、血圧低下、ショックへの移行に注意します。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "transport_risk_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "大動脈解離では破裂や心タンポナーデなどによる急変を警戒する。"
+            },
+            {
+              "option_id": "b",
+              "text": "SpO₂が正常なので、呼吸状態の再評価は不要です。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "no_reassessment_plan"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_deterioration"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "SpO₂が正常でも搬送中の急変に備え、呼吸・循環の再評価は必要である。"
+            },
+            {
+              "option_id": "c",
+              "text": "血圧が高いので、歩行可能か確認しながら搬送します。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -2,
+              "status_effect": {
+                "add_flags": [
+                  "unsafe_mobility_plan"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "collapse_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "大動脈解離疑いでは安静保持が基本であり、歩行確認は不要である。"
+            },
+            {
+              "option_id": "d",
+              "text": "心音と呼吸音が正常なら、急変リスクは低いと考えます。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "risk_underestimated"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_deterioration"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "初期に心音・呼吸音が正常でも、大動脈解離では急変リスクがある。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "搬送中の急変",
+      "phase": "transport_deterioration",
+      "scene_goal": "搬送中の急変所見から心タンポナーデを疑う。",
+      "ideal_flow": "意識低下、頻呼吸、頻脈、血圧低下、頸静脈怒張、心音減弱、呼吸音正常を組み合わせ、心タンポナーデを疑う。",
+      "ideal_score_delta": 12,
+      "action_tag": "suspect_cardiac_tamponade",
+      "text": "搬送中、傷病者は呼びかけに応答しなくなった。再評価を行うと、意識JCS100、呼吸数32回/分、脈拍132回/分、整、血圧78/50mmHg（左上肢）であった。頸静脈怒張を認め、心音は減弱している。呼吸音に異常はない。",
+      "visible_data": {
+        "deterioration": {
+          "consciousness": "JCS100",
+          "respiratory_rate": "32回/分",
+          "pulse": "132回/分、整",
+          "blood_pressure_left_arm": "78/50mmHg",
+          "neck": "頸静脈怒張あり",
+          "heart_sound": "心音減弱",
+          "breath_sound": "異常なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送中の急変から最も疑うべき状態はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "心タンポナーデ",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cardiac_tamponade_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "ショック、頸静脈怒張、心音減弱を認め、呼吸音に異常がないため心タンポナーデを疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tension_pneumothorax_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "緊張性気胸でもショックや頸静脈怒張を来すが、呼吸音異常がない点から今回は心タンポナーデを優先する。"
+        },
+        {
+          "option_id": "c",
+          "text": "急性肺水腫",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulmonary_edema_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "急性肺水腫では湿性ラ音や泡沫状痰などを伴うことがあるが、今回は心音減弱と頸静脈怒張が重要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "徐脈性不整脈",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bradyarrhythmia_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "脈拍は132回/分であり、徐脈性不整脈より閉塞性ショックを疑う所見である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態変化の成因",
+      "phase": "core_pathophysiology",
+      "scene_goal": "大動脈解離から心タンポナーデへ至る成因を理解する。",
+      "ideal_flow": "大動脈解離が心膜腔へ進展または破裂し、心膜腔内に血液が貯留して心臓の拡張が障害されることを理解する。",
+      "ideal_score_delta": 12,
+      "action_tag": "pericardial_fluid_tamponade",
+      "text": "搬送中の急変では、血圧低下、頸静脈怒張、心音減弱を認めた。大動脈解離に伴う心タンポナーデが疑われる。",
+      "visible_data": {
+        "key_findings": {
+          "initial_condition": "大動脈解離疑い",
+          "deterioration": "ショック、頸静脈怒張、心音減弱",
+          "suspected_change": "心タンポナーデ"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態変化を引き起こした成因として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "右冠動脈の閉塞",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "right_coronary_occlusion_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "冠動脈閉塞では心筋梗塞を考えるが、頸静脈怒張と心音減弱を伴う急変の主因としては心タンポナーデを考える。"
+        },
+        {
+          "option_id": "b",
+          "text": "腕頭動脈の閉塞",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "brachiocephalic_occlusion_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "腕頭動脈閉塞では脳虚血や上肢血流障害を考えるが、心音減弱と頸静脈怒張の説明としては不十分である。"
+        },
+        {
+          "option_id": "c",
+          "text": "胸膜腔の液体貯留",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pleural_effusion_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸膜腔の液体貯留では呼吸音低下などを考えるが、今回は呼吸音に異常を認めない。"
+        },
+        {
+          "option_id": "d",
+          "text": "心膜腔の液体貯留",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pericardial_fluid_identified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "大動脈解離が心膜腔へ進展すると血液が心膜腔内に貯留し、心タンポナーデを来す。"
+        },
+        {
+          "option_id": "e",
+          "text": "大動脈弁の機能不全",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "aortic_valve_regurgitation_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "大動脈弁逆流も大動脈解離で起こりうるが、今回の頸静脈怒張と心音減弱を伴う急変は心タンポナーデが中心である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "急変後の対応",
+      "phase": "post_deterioration_management",
+      "scene_goal": "心タンポナーデ疑いの急変後に、再評価と追加連絡を行い搬送を継続する。",
+      "ideal_flow": "ショック状態としてABCを再評価し、酸素投与、モニター監視、急変内容の追加連絡、搬送先の受け入れ確認を行う。",
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_and_update_call",
+      "text": "搬送中の急変後、傷病者はショック状態となっている。現場で根本治療は困難であり、搬送先へ急変内容を共有する必要がある。",
+      "visible_data": {
+        "management_context": {
+          "suspected_condition": "大動脈解離に伴う心タンポナーデ疑い",
+          "current_status": "ショック状態",
+          "field_limitation": "根本治療は医療機関での対応が必要",
+          "priority": "再評価、酸素投与、モニター管理、追加連絡、迅速搬送"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この急変後の救急隊対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸音に異常がないため、酸素投与を中止して経過観察する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_discontinued_in_shock"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "shock_worsening"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "ショック状態では呼吸音が正常でも酸素投与と継続的再評価が必要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "ショック状態として再評価し、急変内容を搬送先へ追加連絡する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "reassessment_completed",
+              "update_call_completed"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "shock_worsening"
+            ]
+          },
+          "rationale": "搬送中急変ではABC再評価、酸素・モニター継続、搬送先への追加連絡を行う。"
+        },
+        {
+          "option_id": "c",
+          "text": "血圧低下は一過性と考え、搬送先変更の検討は行わない。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "deterioration_minimized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hospital_underprepared"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "血圧低下、意識低下、頸静脈怒張、心音減弱は重篤な急変であり、追加連絡が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "胸背部痛が軽快していれば、循環不全の可能性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "pain_relief_misinterpreted"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_shock"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "痛みの変化だけで判断せず、意識低下と血圧低下をショックとして扱う。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "突然の胸部から背部へ移動する引き裂かれる痛みを訴えた72歳男性の症例。初期評価では橈骨動脈の左右差を認め、バイタルでは左右上肢血圧差と冷汗を伴うため大動脈解離を疑い、赤1相当としてLoad & Goを判断した。搬送中に意識低下、頻脈、血圧低下、頸静脈怒張、心音減弱を認め、呼吸音に異常がないことから、大動脈解離に伴う心タンポナーデを疑う。病態変化の成因は心膜腔への液体、すなわち血液の貯留である。",
+    "ideal_actions": [
+      "通報段階で無理に移動させず、安静保持を指示する。",
+      "初期評価で意識、気道、呼吸、循環を確認し、橈骨動脈左右差を見逃さない。",
+      "突然の移動性胸背部痛、冷汗、左右上肢血圧差から大動脈解離を疑う。",
+      "赤1相当として現場滞在を短くし、早期搬送とファーストコールを行う。",
+      "ファーストコールでは年齢・性別、主訴、左右差、冷汗、バイタル、重症度を簡潔に伝える。",
+      "搬送中は疼痛、意識、血圧、脈拍、呼吸状態を継続的に再評価する。",
+      "急変時は心タンポナーデを含む閉塞性ショックを疑い、搬送先へ追加連絡する。"
+    ],
+    "good_points": [
+      "胸背部痛を単なる胸痛として扱わず、大動脈解離を疑う流れを作れた。",
+      "橈骨動脈左右差と左右上肢血圧差を重症所見として評価できた。",
+      "Load & Goとファーストコールの必要性を判断できた。",
+      "搬送中急変から心タンポナーデを疑うことができた。",
+      "心膜腔への液体貯留がショックを引き起こす機序を理解できた。"
+    ],
+    "cautions": [
+      "SpO₂が正常でも重症循環器疾患を否定しない。",
+      "意識清明であっても、移動性胸背部痛と冷汗、左右差があれば赤1相当として扱う。",
+      "大動脈解離疑いでは無理に歩かせない。",
+      "初期の心音・呼吸音が正常でも、搬送中に急変する可能性がある。",
+      "頸静脈怒張、心音減弱、血圧低下を見たら心タンポナーデを疑う。",
+      "搬送中急変時は、再評価と追加連絡を遅らせない。"
+    ]
+  }
+}

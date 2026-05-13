@@ -1,6 +1,6 @@
 {
   "case_id": "toxicology_amphetamine_001",
-  "version": "2.0",
+  "version": "3.0",
   "title": "薬物乱用者の事情聴取中に反応低下を呈したアンフェタミン暴露疑い",
   "category": "toxicology",
   "difficulty": "Normal",
@@ -13,67 +13,9 @@
     "交感神経刺激",
     "高血圧頻脈"
   ],
-  "overview": "43歳女性。薬物乱用者として警察が事情聴取中、反応が鈍くなったため救急要請となった。到着時、意識障害、頻呼吸、頻脈、高血圧、発汗、散瞳を認める。交感神経刺激症候群を示唆する所見から、アンフェタミン系薬物暴露を疑い、興奮・循環器合併症・体温上昇・外傷リスクに注意しながら評価と搬送を進める症例。",
-  "patient_profile": {
-    "age": 43,
-    "sex": "female",
-    "occupation": "不明",
-    "background": [
-      "薬物乱用歴が疑われている",
-      "警察による事情聴取中に反応が鈍くなった",
-      "警察官から救急要請"
-    ]
-  },
-  "initial_state": {
-    "life": 95,
-    "max_life": 100,
-    "score": 0,
-    "flags": [],
-    "danger_tags": [
-      "possible_stimulant_intoxication",
-      "agitation_risk",
-      "cardiovascular_complication_risk",
-      "hyperthermia_risk"
-    ],
-    "time_pressure": "high"
-  },
-  "result_rank": [
-    {
-      "rank": "Bad",
-      "score_min": 0,
-      "score_max": 54,
-      "life_min": 0,
-      "life_max": 54,
-      "summary": "薬物中毒の所見整理が不十分で、医学的評価より周辺情報に引きずられている。"
-    },
-    {
-      "rank": "Normal",
-      "score_min": 55,
-      "score_max": 74,
-      "life_min": 55,
-      "life_max": 69,
-      "summary": "中毒は疑えているが、原因薬物の推定や搬送中の重症合併症監視がやや甘い。"
-    },
-    {
-      "rank": "Good",
-      "score_min": 75,
-      "score_max": 89,
-      "life_min": 70,
-      "life_max": 84,
-      "summary": "交感神経刺激症候群からアンフェタミン系を疑い、重症合併症にも注意できている。"
-    },
-    {
-      "rank": "Excellent",
-      "score_min": 90,
-      "score_max": 100,
-      "life_min": 85,
-      "life_max": 100,
-      "summary": "現場安全、ABC評価、中毒症候群の整理、原因推定、病院連絡、搬送中再評価まで一貫して優れている。"
-    }
-  ],
   "scenes": [
     {
-      "id": "scene_1",
+      "id": "scene1",
       "title": "通報内容の整理",
       "phase": "通報内容＋プレアライバルコール",
       "scene_goal": "薬物中毒と現場危険性を想定し、出場前に安全と初動方針を整理する。",
@@ -98,12 +40,14 @@
           "中毒・興奮・外傷リスクあり"
         ]
       },
-      "media": [],
+      "media": [
+        "media/police_interview_female_stimulant_scene1.png"
+      ],
       "type": "multiple_choice",
       "prompt": "出場前に優先して共有すべき内容を2つ選べ。",
       "options": [
         {
-          "option_id": "q1_1_o1",
+          "option_id": "q1_o1",
           "text": "現場安全と暴力・逃走リスクを警察と連携して確認する",
           "is_correct": true,
           "score_delta": 6,
@@ -119,7 +63,7 @@
           "rationale": "薬物中毒疑いでは現場安全の確保が重要である。"
         },
         {
-          "option_id": "q1_1_o2",
+          "option_id": "q1_o2",
           "text": "薬物事案なので身体評価より身元確認を優先する",
           "is_correct": false,
           "score_delta": -4,
@@ -137,7 +81,7 @@
           "rationale": "まず優先すべきは医学的評価と安全確保である。"
         },
         {
-          "option_id": "q1_1_o3",
+          "option_id": "q1_o3",
           "text": "中毒症候群の把握を念頭にABCとバイタル評価を準備する",
           "is_correct": true,
           "score_delta": 6,
@@ -153,7 +97,7 @@
           "rationale": "薬物中毒では症候群の整理が現場判断に役立つ。"
         },
         {
-          "option_id": "q1_1_o4",
+          "option_id": "q1_o4",
           "text": "警察がいるので救急隊の安全確認は不要と判断する",
           "is_correct": false,
           "score_delta": -5,
@@ -168,12 +112,12 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "警察立会いでも救急隊自身の安全確認は必要。"
+          "rationale": "警察立会いでも救急隊自身の安全確認は必要である。"
         }
       ]
     },
     {
-      "id": "scene_2",
+      "id": "scene2",
       "title": "初期評価",
       "phase": "初期評価",
       "scene_goal": "ABCと意識状態を確認し、直ちに介入が必要な異常を見つける。",
@@ -199,10 +143,10 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点で最も適切な判断はどれか。1つ選べ。",
+      "prompt": "この時点で最も適切な判断はどれか。",
       "options": [
         {
-          "option_id": "q2_1_o1",
+          "option_id": "q2_o1",
           "text": "呼吸と循環の異常を伴う中毒疑いとして緊急性高く評価を進める",
           "is_correct": true,
           "score_delta": 8,
@@ -218,7 +162,7 @@
           "rationale": "頻呼吸、頻脈、高血圧、意識障害があり緊急性は高い。"
         },
         {
-          "option_id": "q2_1_o2",
+          "option_id": "q2_o2",
           "text": "会話できるため軽症と考え、警察聴取を優先させる",
           "is_correct": false,
           "score_delta": -8,
@@ -236,7 +180,7 @@
           "rationale": "中毒では会話可能でも急変しうる。"
         },
         {
-          "option_id": "q2_1_o3",
+          "option_id": "q2_o3",
           "text": "散瞳があるためオピオイド中毒を最優先に考える",
           "is_correct": false,
           "score_delta": -5,
@@ -254,7 +198,7 @@
           "rationale": "オピオイドなら通常は縮瞳、呼吸抑制が主体である。"
         },
         {
-          "option_id": "q2_1_o4",
+          "option_id": "q2_o4",
           "text": "まず拘束を強めて観察は後回しにする",
           "is_correct": false,
           "score_delta": -4,
@@ -274,7 +218,7 @@
       ]
     },
     {
-      "id": "scene_3",
+      "id": "scene3",
       "title": "情報収集と中毒評価",
       "phase": "情報収集＋バイタル評価",
       "scene_goal": "中毒症候群を整理し、合併症を見逃さないための情報収集を行う。",
@@ -313,7 +257,7 @@
       "prompt": "この場面で中毒評価として重要な確認項目を2つ選べ。",
       "options": [
         {
-          "option_id": "q3_1_o1",
+          "option_id": "q3_o1",
           "text": "体温上昇や筋強剛、けいれんの有無",
           "is_correct": true,
           "score_delta": 6,
@@ -329,7 +273,7 @@
           "rationale": "アンフェタミン系では高体温やけいれんが重症化のサインとなる。"
         },
         {
-          "option_id": "q3_1_o2",
+          "option_id": "q3_o2",
           "text": "胸痛、不整脈、動悸など循環器症状の有無",
           "is_correct": true,
           "score_delta": 6,
@@ -345,7 +289,7 @@
           "rationale": "交感神経刺激により循環器合併症の危険が高い。"
         },
         {
-          "option_id": "q3_1_o3",
+          "option_id": "q3_o3",
           "text": "縮瞳と徐呼吸があるかだけを確認する",
           "is_correct": false,
           "score_delta": -4,
@@ -363,7 +307,7 @@
           "rationale": "本症例は交感神経刺激症候群の所見が目立つ。"
         },
         {
-          "option_id": "q3_1_o4",
+          "option_id": "q3_o4",
           "text": "血糖は中毒と無関係なので測定不要である",
           "is_correct": false,
           "score_delta": -3,
@@ -378,28 +322,12 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "意識障害では低血糖などの除外が必要。"
-        },
-        {
-          "option_id": "q3_1_o5",
-          "text": "使用薬物の種類、最終使用時刻、摂取経路",
-          "is_correct": false,
-          "score_delta": 4,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "substance_history_checked"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [],
-            "remove_danger_tags": []
-          },
-          "rationale": "薬物の推定と病態進行予測に有用だが、この設問では2つ選択の主軸として重症合併症確認を優先する。"
+          "rationale": "意識障害では低血糖などの除外が必要である。"
         }
       ]
     },
     {
-      "id": "scene_4",
+      "id": "scene4",
       "title": "原因薬物の推定",
       "phase": "活動方針の再判断",
       "scene_goal": "中毒症候群から原因薬物を推定し、搬送優先の方針を固める。",
@@ -429,10 +357,10 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この傷病者が暴露した可能性が最も高いのはどれか。1つ選べ。",
+      "prompt": "この傷病者が暴露した可能性が最も高いのはどれか。",
       "options": [
         {
-          "option_id": "q4_1_o1",
+          "option_id": "q4_o1",
           "text": "トルエン",
           "is_correct": false,
           "score_delta": -4,
@@ -448,7 +376,7 @@
           "rationale": "トルエンでは中枢抑制や不整脈などが問題となるが、本例の所見とは合いにくい。"
         },
         {
-          "option_id": "q4_1_o2",
+          "option_id": "q4_o2",
           "text": "ヘロイン",
           "is_correct": false,
           "score_delta": -6,
@@ -466,7 +394,7 @@
           "rationale": "ヘロインなら縮瞳、呼吸抑制、意識低下がより典型的である。"
         },
         {
-          "option_id": "q4_1_o3",
+          "option_id": "q4_o3",
           "text": "モルヒネ",
           "is_correct": false,
           "score_delta": -6,
@@ -484,7 +412,7 @@
           "rationale": "モルヒネ中毒も縮瞳・徐呼吸が主体で、本例と逆方向である。"
         },
         {
-          "option_id": "q4_1_o4",
+          "option_id": "q4_o4",
           "text": "エタノール",
           "is_correct": false,
           "score_delta": -4,
@@ -500,7 +428,7 @@
           "rationale": "エタノールでは高血圧・散瞳・著明発汗は典型的ではない。"
         },
         {
-          "option_id": "q4_1_o5",
+          "option_id": "q4_o5",
           "text": "アンフェタミン",
           "is_correct": true,
           "score_delta": 10,
@@ -520,7 +448,7 @@
       ]
     },
     {
-      "id": "scene_5",
+      "id": "scene5",
       "title": "全身観察",
       "phase": "全身観察",
       "scene_goal": "中毒による全身への影響と外傷・合併症の有無を確認する。",
@@ -551,7 +479,7 @@
       "prompt": "この場面で重要な観察を2つ選べ。",
       "options": [
         {
-          "option_id": "q5_1_o1",
+          "option_id": "q5_o1",
           "text": "体温上昇の有無を確認する",
           "is_correct": true,
           "score_delta": 6,
@@ -567,7 +495,7 @@
           "rationale": "交感神経刺激薬では高体温が重症化のサインとなる。"
         },
         {
-          "option_id": "q5_1_o2",
+          "option_id": "q5_o2",
           "text": "胸痛や不整脈を示唆する訴え・所見を確認する",
           "is_correct": true,
           "score_delta": 6,
@@ -583,7 +511,7 @@
           "rationale": "アンフェタミン系では循環器イベントの危険がある。"
         },
         {
-          "option_id": "q5_1_o3",
+          "option_id": "q5_o3",
           "text": "散瞳があるので身体観察は不要である",
           "is_correct": false,
           "score_delta": -5,
@@ -601,7 +529,7 @@
           "rationale": "原因推定後も全身状態の再評価は不可欠である。"
         },
         {
-          "option_id": "q5_1_o4",
+          "option_id": "q5_o4",
           "text": "アルコール臭がないので搬送は不要と判断する",
           "is_correct": false,
           "score_delta": -8,
@@ -621,7 +549,7 @@
       ]
     },
     {
-      "id": "scene_6",
+      "id": "scene6",
       "title": "病院連絡",
       "phase": "評価・ファーストコール・特定行為",
       "scene_goal": "中毒症候群を整理して医療機関へ適切に第一報し、搬送を具体化する。",
@@ -655,7 +583,7 @@
       "prompt": "医療機関へのファーストコールとして最も適切な内容を選べ。",
       "templates": [
         {
-          "template_id": "q6_1_o1",
+          "template_id": "q6_o1",
           "text": "43歳女性、薬物乱用疑い。事情聴取中に反応低下。JCS20、RR36、HR124、BP200/110、SpO2 95%。発汗著明、散瞳あり。アンフェタミン系中毒を疑い、循環器合併症と高体温に注意して搬送したい。",
           "is_correct": true,
           "score_delta": 10,
@@ -671,7 +599,7 @@
           "rationale": "所見、重症度、推定原因、懸念点が簡潔に整理されている。"
         },
         {
-          "template_id": "q6_1_o2",
+          "template_id": "q6_o2",
           "text": "薬物中毒っぽい患者です。詳細は不明ですが受け入れをお願いします。",
           "is_correct": false,
           "score_delta": -5,
@@ -689,7 +617,7 @@
           "rationale": "要点が乏しく受入判断に不十分である。"
         },
         {
-          "template_id": "q6_1_o3",
+          "template_id": "q6_o3",
           "text": "散瞳なのでオピオイド中毒は否定できず、ナロキソン前提で搬送したい。",
           "is_correct": false,
           "score_delta": -5,
@@ -707,7 +635,7 @@
           "rationale": "所見はオピオイドよりアンフェタミン系に合致する。"
         },
         {
-          "template_id": "q6_1_o4",
+          "template_id": "q6_o4",
           "text": "警察案件のため身体情報は省略し、事情聴取内容だけを伝える。",
           "is_correct": false,
           "score_delta": -6,
@@ -722,12 +650,12 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "医療情報が第一報の中心であるべき。"
+          "rationale": "医療情報が第一報の中心であるべきである。"
         }
       ]
     },
     {
-      "id": "scene_7",
+      "id": "scene7",
       "title": "車内活動",
       "phase": "車内活動",
       "scene_goal": "搬送中の興奮・高体温・循環器急変に注意して再評価を継続する。",
@@ -758,7 +686,7 @@
       "prompt": "搬送中の対応として適切なものを2つ選べ。",
       "options": [
         {
-          "option_id": "q7_1_o1",
+          "option_id": "q7_o1",
           "text": "バイタル、意識、体温変化を繰り返し観察する",
           "is_correct": true,
           "score_delta": 6,
@@ -774,7 +702,7 @@
           "rationale": "中毒では搬送中の急変監視が重要である。"
         },
         {
-          "option_id": "q7_1_o2",
+          "option_id": "q7_o2",
           "text": "胸痛、不整脈、けいれん、高体温の出現に注意する",
           "is_correct": true,
           "score_delta": 6,
@@ -790,7 +718,7 @@
           "rationale": "アンフェタミン中毒で致命的となりうる合併症である。"
         },
         {
-          "option_id": "q7_1_o3",
+          "option_id": "q7_o3",
           "text": "中毒原因は推定できたので以後の観察は不要とする",
           "is_correct": false,
           "score_delta": -6,
@@ -805,10 +733,10 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "推定診断後こそ病態変化の監視が重要。"
+          "rationale": "推定診断後こそ病態変化の監視が重要である。"
         },
         {
-          "option_id": "q7_1_o4",
+          "option_id": "q7_o4",
           "text": "水分を強く勧めて様子を見るのみとする",
           "is_correct": false,
           "score_delta": -4,

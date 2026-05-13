@@ -1,0 +1,747 @@
+{
+  "case_id": "hemoptysis_tuberculosis_vehicle_disinfection_001",
+  "version": "2.0",
+  "title": "喀血を伴う結核疑い傷病者の搬送後に車内消毒を判断する症例",
+  "category": "respiratory",
+  "difficulty": "Normal",
+  "algorithm_type": "respiratory_infection_control",
+  "estimated_time": 8,
+  "keywords": [
+    "喀血",
+    "血痰",
+    "結核",
+    "感染対策",
+    "次亜塩素酸ナトリウム",
+    "車内消毒"
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容とPAC",
+      "phase": "dispatch",
+      "scene_goal": "喀血が疑われる通報内容から、傷病者の状態確認と感染・汚染拡大防止を意識した初期指示を行う。",
+      "ideal_flow": [
+        "通報者に安全確認を促す",
+        "傷病者の反応と呼吸状態を確認する",
+        "血液を口元で受けるタオルや袋を用意させる",
+        "無理に歩かせず楽な姿勢を保たせる",
+        "血液に直接触れないよう注意を促す"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "hemoptysis",
+        "infection_control"
+      ],
+      "text": "70歳男性。自宅で咳き込んだあと、口元のタオルに鮮紅色の血が付着したため、妻が119番通報した。妻は「夫が咳とともに血を吐いている」と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "傷病者": "70歳男性",
+          "通報者": "妻",
+          "主訴": "咳とともに血を吐いている",
+          "補足": "口元のタオルに少量の鮮紅色の血液付着"
+        }
+      },
+      "media": [
+        "media/hemoptysis_elderly_man_towel_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "通報者への初期指示として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene1_o1",
+          "text": "楽な姿勢を保たせ、血液に直接触れないよう指示する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "infection_control_started"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "喀血が疑われる場合は、呼吸状態に注意しながら楽な姿勢を保たせ、血液や痰への直接接触を避けるよう指示する。"
+        },
+        {
+          "option_id": "scene1_o2",
+          "text": "血を飲み込ませて、吐き出さないよう指示する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_instruction"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "aspiration_risk"
+            ]
+          },
+          "rationale": "血液を飲み込ませると嘔吐や誤嚥の危険がある。口元で受け、呼吸状態を悪化させない対応が必要である。"
+        },
+        {
+          "option_id": "scene1_o3",
+          "text": "すぐに仰向けに寝かせて様子をみるよう指示する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "poor_positioning"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "airway_contamination"
+            ]
+          },
+          "rationale": "喀血時に仰臥位を強いると、血液による気道汚染や誤嚥の危険がある。呼吸しやすい姿勢を保つ。"
+        },
+        {
+          "option_id": "scene1_o4",
+          "text": "救急隊到着まで水を多く飲ませるよう指示する。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "oral_intake_inappropriate"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "aspiration_risk"
+            ]
+          },
+          "rationale": "呼吸器症状や喀血がある傷病者に飲水を促すのは適切ではない。誤嚥や状態悪化につながる可能性がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "喀血を伴う傷病者の意識、呼吸、循環を評価し、感染防御を意識しながら対応する。",
+      "ideal_flow": [
+        "標準予防策を徹底する",
+        "反応を確認する",
+        "気道・呼吸状態を確認する",
+        "脈拍と皮膚所見を確認する",
+        "必要に応じて酸素投与を準備する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "respiratory_assessment",
+        "standard_precautions"
+      ],
+      "text": "救急隊到着時、傷病者は座位で前かがみになり、咳込みながらタオルを口元に当てている。呼びかけに開眼するが反応は鈍い。タオルには少量の鮮紅色の血液が付着している。",
+      "visible_data": {
+        "initial_findings": {
+          "意識": "JCS10",
+          "呼吸数": "24回/分",
+          "脈拍": "76回/分、整",
+          "血圧": "128/74 mmHg",
+          "SpO2": "92%",
+          "口元": "タオルに鮮紅色血液付着",
+          "呼吸状態": "咳込みあり"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊の初期対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene2_o1",
+          "text": "標準予防策をとり、呼吸状態を評価する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "respiratory_status_assessed",
+              "standard_precautions_used"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "喀血では血液・体液への曝露と呼吸状態悪化の両方に注意する。標準予防策をとり、意識・呼吸・循環を評価する。"
+        },
+        {
+          "option_id": "scene2_o2",
+          "text": "血圧が安定しているため経過観察を優先する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "respiratory_assessment_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxemia"
+            ]
+          },
+          "rationale": "血圧が保たれていても、SpO2低下や喀血があれば呼吸状態の評価と感染防御が必要である。"
+        },
+        {
+          "option_id": "scene2_o3",
+          "text": "血液を確認するため素手でタオルを広げる。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "blood_exposure_risk"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "occupational_exposure"
+            ]
+          },
+          "rationale": "血液や痰を扱う場合は手袋などを使用し、直接接触を避ける。"
+        },
+        {
+          "option_id": "scene2_o4",
+          "text": "感染症が疑われるため観察を行わず搬送する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "assessment_omitted"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "respiratory_failure_missed"
+            ]
+          },
+          "rationale": "感染防御をとったうえで必要な観察を行う。感染症疑いを理由に初期評価を省略しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "微熱、倦怠感、体重減少、血痰から結核などの感染症リスクを拾い上げる。",
+      "ideal_flow": [
+        "発症時期を確認する",
+        "発熱や寝汗の有無を確認する",
+        "体重減少を確認する",
+        "咳や血痰の持続を確認する",
+        "感染症を念頭に搬送中の汚染防止を行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "history_taking",
+        "tuberculosis_suspected",
+        "infection_risk"
+      ],
+      "text": "妻から情報を得たところ、最近は全身倦怠感が続き、微熱がある日もあった。数か月で体重が減ったように見え、咳も長引いていたという。",
+      "visible_data": {
+        "history": {
+          "最近の症状": [
+            "全身倦怠感",
+            "微熱",
+            "体重減少",
+            "長引く咳"
+          ],
+          "今回の症状": "咳込みと鮮紅色の血痰",
+          "情報提供者": "妻"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この情報から特に疑うべき病態・疾患として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene3_o1",
+          "text": "肺結核などの呼吸器感染症",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tuberculosis_considered"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "長引く咳、微熱、倦怠感、体重減少、血痰は肺結核を含む呼吸器感染症を疑う所見である。"
+        },
+        {
+          "option_id": "scene3_o2",
+          "text": "急性胃腸炎",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_differential"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "急性胃腸炎では嘔吐や下痢が中心となる。今回の長引く咳、血痰、体重減少とは合いにくい。"
+        },
+        {
+          "option_id": "scene3_o3",
+          "text": "単純な鼻出血",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hemoptysis_underestimated"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "咳とともに鮮紅色の血痰を喀出しており、鼻出血だけで説明するのは不十分である。"
+        },
+        {
+          "option_id": "scene3_o4",
+          "text": "低血糖発作",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_priority"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "意識障害の鑑別として低血糖はあり得るが、今回の主症状は長引く呼吸器症状と喀血である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "結核の特徴",
+      "phase": "disease_features",
+      "scene_goal": "結核を疑う症状と感染様式を整理する。",
+      "ideal_flow": [
+        "長引く咳を確認する",
+        "微熱や倦怠感を確認する",
+        "体重減少を確認する",
+        "血痰や喀血を確認する",
+        "空気感染対策を意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "tuberculosis",
+        "airborne_infection",
+        "clinical_features"
+      ],
+      "text": "傷病者は数週間以上続く咳、微熱、全身倦怠感、体重減少を認め、今回、血痰を喀出している。救急隊は結核を含む呼吸器感染症を考慮した。",
+      "visible_data": {
+        "suspected_features": {
+          "咳": "長引いている",
+          "発熱": "微熱",
+          "全身状態": "倦怠感、体重減少",
+          "喀出物": "血痰",
+          "感染経路": "空気感染を考慮"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "肺結核を疑う特徴として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene4_o1",
+          "text": "長引く咳、微熱、体重減少、血痰",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tb_features_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "肺結核では長引く咳、微熱、倦怠感、体重減少、血痰などがみられることがある。"
+        },
+        {
+          "option_id": "scene4_o2",
+          "text": "急激な水様性下痢と嘔吐",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "gastroenteritis_confusion"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "水様性下痢や嘔吐は消化器感染症で目立つ症状であり、肺結核の典型とは異なる。"
+        },
+        {
+          "option_id": "scene4_o3",
+          "text": "片側顔面麻痺と構音障害",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "neurologic_symptom_confusion"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "片側顔面麻痺や構音障害は脳卒中などで重視される所見で、肺結核の特徴ではない。"
+        },
+        {
+          "option_id": "scene4_o4",
+          "text": "創部からの膿性排液と発赤",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wound_infection_confusion"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "創部の発赤や膿性排液は局所感染を考える所見であり、今回の呼吸器症状とは一致しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "結核の病態と搬送中の注意",
+      "phase": "pathophysiology",
+      "scene_goal": "結核の主病変と感染リスク、喀血時の搬送中対応を理解する。",
+      "ideal_flow": [
+        "肺を主な病変部位として考える",
+        "咳嗽や血痰の背景を理解する",
+        "空気感染対策を意識する",
+        "喀血による車内汚染を防ぐ",
+        "換気と標準予防策を継続する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "tuberculosis_pathophysiology",
+        "hemoptysis",
+        "transport_care"
+      ],
+      "text": "病院への搬送中、傷病者は咳込みながら鮮紅色の血痰を喀出した。隊員はマスク着用、換気、血液・体液への接触防止を意識しながら搬送を継続した。",
+      "visible_data": {
+        "transport_findings": {
+          "搬送中": "咳込みあり",
+          "喀出物": "鮮紅色の血痰",
+          "感染対策": "マスク、換気、手袋",
+          "汚染": "車内リネンと床面の一部に血痰付着"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "結核が疑われる傷病者の病態と搬送中の注意として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene5_o1",
+          "text": "肺病変と空気感染を意識し、血痰による汚染にも対応する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tb_pathophysiology_understood",
+              "contamination_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "肺結核では咳嗽や血痰がみられ、空気感染対策を意識する。さらに喀血・血痰で汚染された環境は適切に処理する。"
+        },
+        {
+          "option_id": "scene5_o2",
+          "text": "結核は接触感染のみなので換気は不要である。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "airborne_precaution_missed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "infection_spread_risk"
+            ]
+          },
+          "rationale": "肺結核では空気感染対策が重要であり、換気やマスクなどを意識する。"
+        },
+        {
+          "option_id": "scene5_o3",
+          "text": "血痰が少量なら車内汚染として扱わない。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "contamination_ignored"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "environmental_contamination"
+            ]
+          },
+          "rationale": "少量でも血液・体液が付着した環境は汚染として扱い、適切に処理する必要がある。"
+        },
+        {
+          "option_id": "scene5_o4",
+          "text": "血圧が安定していれば感染防御は不要である。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "ppe_omitted"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "occupational_exposure"
+            ]
+          },
+          "rationale": "血圧の安定と感染リスクは別である。血液・体液や呼吸器感染が疑われる場合は感染防御を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "搬送後の車内消毒",
+      "phase": "post_transport_disinfection",
+      "scene_goal": "喀血により救急車内が血液・体液で汚染された場合の適切な消毒薬を選択する。",
+      "ideal_flow": [
+        "血液・体液汚染部位を確認する",
+        "手袋などのPPEを着用する",
+        "汚染物を除去する",
+        "次亜塩素酸ナトリウム溶液で清拭消毒する",
+        "使用後資器材を適切に廃棄・処理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "disinfection",
+        "sodium_hypochlorite",
+        "blood_contamination"
+      ],
+      "text": "病院到着後、傷病者を引き継いだ。搬送中に喀出した血痰により、救急車内の床面とリネンの一部が血液・体液で汚染されていた。",
+      "visible_data": {
+        "post_transport": {
+          "汚染部位": [
+            "床面の一部",
+            "リネンの一部"
+          ],
+          "汚染物": "鮮紅色の血痰",
+          "対応場面": "搬送後の車内消毒"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送後の対応として正しいのはどれか。",
+      "options": [
+        {
+          "option_id": "scene6_o1",
+          "text": "リネン類は浸水後に業者に出す。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "linen_handling_confusion"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "リネン処理も必要だが、血液・体液で汚染された車内環境表面への消毒対応としては不十分である。"
+        },
+        {
+          "option_id": "scene6_o2",
+          "text": "使用後のガーゼ等は焼却処分する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "waste_handling_confusion"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "感染性廃棄物として適切に処理する必要はあるが、救急車内の血液・体液汚染部位の消毒としては答えにならない。"
+        },
+        {
+          "option_id": "scene6_o3",
+          "text": "車内に消毒用エタノールを噴霧する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "spray_disinfection_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "inhalation_irritation",
+              "uneven_disinfection"
+            ]
+          },
+          "rationale": "消毒薬の噴霧は吸入リスクや消毒ムラがあり不適切である。血液・体液汚染部位は清拭消毒を基本とする。"
+        },
+        {
+          "option_id": "scene6_o4",
+          "text": "車内を次亜塩素酸ナトリウム溶液で消毒する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vehicle_disinfected_correctly"
+            ],
+            "remove_flags": [
+              "environmental_contamination"
+            ],
+            "danger_tags": []
+          },
+          "rationale": "血液・体液で汚染された環境表面は、汚染物を除去したうえで次亜塩素酸ナトリウム溶液などにより清拭消毒する。"
+        },
+        {
+          "option_id": "scene6_o5",
+          "text": "車内をグルコン酸クロルヘキシジンで消毒する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "chlorhexidine_misuse"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "グルコン酸クロルヘキシジンは主に皮膚消毒で用いられる。血液・体液で汚染された車内環境表面の第一選択ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "消毒薬の特徴と使い分け",
+      "phase": "knowledge_review",
+      "scene_goal": "エタノール、次亜塩素酸ナトリウム、グルコン酸クロルヘキシジンの特徴と使用場面を整理する。",
+      "ideal_flow": [
+        "エタノールの特徴を確認する",
+        "次亜塩素酸ナトリウムの特徴を確認する",
+        "グルコン酸クロルヘキシジンの特徴を確認する",
+        "血液・体液汚染時の消毒薬を選択する",
+        "噴霧ではなく清拭消毒を基本とする"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "disinfectant_selection",
+        "ethanol",
+        "sodium_hypochlorite",
+        "chlorhexidine"
+      ],
+      "text": "救急車内の消毒では、汚染物の種類、消毒対象、消毒薬の特徴を考えて選択する必要がある。今回のように血痰で環境表面が汚染された場合は、血液・体液汚染として扱う。",
+      "visible_data": {
+        "disinfectant_review": {
+          "消毒用エタノール": "速効性があるが、噴霧ではなく清拭が基本。芽胞には効果が不十分。",
+          "次亜塩素酸ナトリウム": "血液・体液汚染やウイルスに有効。金属腐食性や皮膚刺激性に注意。",
+          "グルコン酸クロルヘキシジン": "主に皮膚消毒で使用。環境表面の血液汚染の第一選択ではない。"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "消毒薬の特徴として正しい組み合わせはどれか。",
+      "options": [
+        {
+          "option_id": "scene7_o1",
+          "text": "エタノールは芽胞に有効で、血液汚染部位への噴霧に適する。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "ethanol_misunderstood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "エタノールは速効性があるが芽胞への効果は不十分で、噴霧ではなく清拭が基本である。"
+        },
+        {
+          "option_id": "scene7_o2",
+          "text": "次亜塩素酸ナトリウムは血液・体液汚染部位の清拭消毒に用いられる。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "disinfectant_features_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "次亜塩素酸ナトリウムは血液・体液汚染やウイルス対策に用いられる。環境表面は汚染物を除去して清拭消毒する。"
+        },
+        {
+          "option_id": "scene7_o3",
+          "text": "グルコン酸クロルヘキシジンは車内血液汚染の第一選択である。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "chlorhexidine_role_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "グルコン酸クロルヘキシジンは皮膚消毒で用いられることが多く、血液・体液で汚染された環境表面の第一選択ではない。"
+        },
+        {
+          "option_id": "scene7_o4",
+          "text": "次亜塩素酸ナトリウムは皮膚粘膜に安全で手指消毒に適する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "sodium_hypochlorite_misuse"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "skin_irritation"
+            ]
+          },
+          "rationale": "次亜塩素酸ナトリウムには皮膚刺激性があり、手指消毒には適さない。使用部位と濃度に注意する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "70歳男性が咳とともに鮮紅色の血痰を喀出した症例。微熱、全身倦怠感、体重減少、長引く咳から肺結核などの呼吸器感染症を疑い、搬送中は標準予防策、換気、汚染拡大防止を意識する。搬送中の喀血で救急車内が血液・体液により汚染された場合は、汚染物を除去したうえで次亜塩素酸ナトリウム溶液による清拭消毒を行う。",
+    "ideal_actions": [
+      "通報者に楽な姿勢保持と血液への直接接触回避を指示する",
+      "救急隊接触時に標準予防策をとり、意識・呼吸・循環を評価する",
+      "微熱、倦怠感、体重減少、長引く咳から結核を含む呼吸器感染症を疑う",
+      "搬送中は喀血への対応、換気、マスク、汚染拡大防止を意識する",
+      "搬送後は血液・体液汚染部位を確認し、適切に清拭消毒する",
+      "血液・体液汚染には次亜塩素酸ナトリウム溶液を選択する"
+    ],
+    "good_points": [
+      "血痰と全身症状から結核疑いを考えられる",
+      "感染症疑いと血液・体液汚染を分けて整理できる",
+      "エタノール、次亜塩素酸ナトリウム、クロルヘキシジンの使い分けを学べる"
+    ],
+    "cautions": [
+      "消毒薬は噴霧ではなく清拭を基本とする",
+      "血液・体液汚染を少量だからと軽視しない",
+      "グルコン酸クロルヘキシジンを車内環境消毒の第一選択にしない",
+      "次亜塩素酸ナトリウムは金属腐食性や皮膚刺激性に注意する"
+    ]
+  }
+}

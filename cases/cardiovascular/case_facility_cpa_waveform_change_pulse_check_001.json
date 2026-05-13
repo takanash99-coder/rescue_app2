@@ -1,0 +1,501 @@
+{
+  "case_id": "facility_cpa_waveform_change_pulse_check_001",
+  "version": "2.0",
+  "title": "介護施設で突然卒倒した高齢者CPAで、波形変化後にROSCを見抜く症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "CPA対応プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "CPA",
+    "PEA",
+    "ROSC",
+    "アドレナリン",
+    "病院連絡"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "介護施設内のCPA事案として、バイスタンダーCPRを継続させながら現場準備を整える。",
+      "ideal_flow": [
+        "突然卒倒した高齢者のCPA疑いと把握する",
+        "胸骨圧迫を継続するよう依頼する",
+        "可能ならAEDを準備するよう依頼する",
+        "圧迫交代要員の確保を依頼する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "prearrival_call",
+        "bystander_cpr",
+        "cpa"
+      ],
+      "text": "82歳の女性。介護施設入所中。施設内で突然卒倒し、職員が救急要請した。通報者には口頭指導が行われ、職員による胸骨圧迫が開始されている。",
+      "visible_data": {
+        "dispatch_information": "介護施設内で高齢女性が突然卒倒。反応なし。",
+        "scene_information": "施設職員が付き添っており、口頭指導により胸骨圧迫を継続している。",
+        "patient_information": "82歳女性、介護施設入所中。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で施設職員へ追加で依頼する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "胸骨圧迫を継続し、可能ならAEDと交代要員を準備してもらう",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "CPAが疑われるため、バイスタンダーCPR継続とAED準備、圧迫交代要員の確保が重要である。"
+        },
+        {
+          "option_id": "B",
+          "text": "圧迫は中止し、救急隊到着まで安静に見守ってもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "CPAが疑われる場合、胸骨圧迫を中止してはならない。"
+        },
+        {
+          "option_id": "C",
+          "text": "本人の反応を見るため、立たせて歩かせてもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "意識がない傷病者を立たせるのは危険であり不適切である。"
+        },
+        {
+          "option_id": "D",
+          "text": "水分を飲ませ、顔色の変化を確認してもらう",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "意識のない傷病者に飲水させるのは不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "現着時のCPAを迅速に評価し、質の高いCPRとモニター装着につなげる。",
+      "ideal_flow": [
+        "周囲の安全を確認する",
+        "バイスタンダーCPRを引き継ぐ",
+        "反応・呼吸・脈拍を確認する",
+        "モニター/AEDを装着する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "cpr_takeover",
+        "monitor_attach"
+      ],
+      "text": "救急隊現着時、施設職員による胸骨圧迫が行われている。傷病者はベッド脇の床に仰臥位で、呼びかけに反応せず、明らかな呼吸もみられない。",
+      "visible_data": {
+        "general_appearance": "仰臥位。職員が胸骨圧迫中。反応なし。",
+        "airway": "明らかな異物は見えない。",
+        "breathing": "自発呼吸を認めない。",
+        "circulation": "胸骨圧迫中であり、自発的な体動はない。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "接触直後の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "バイスタンダーCPRを引き継ぎ、胸骨圧迫を継続しながらモニターを装着する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "CPA対応では質の高い胸骨圧迫を継続しつつ、心電図評価へつなげる。"
+        },
+        {
+          "option_id": "B",
+          "text": "先に詳細な既往歴を確認してから胸骨圧迫を再開する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -4,
+          "rationale": "CPAでは既往歴よりも、まずCPR継続と初期評価が優先である。"
+        },
+        {
+          "option_id": "C",
+          "text": "頸動脈を長時間観察してからモニター装着する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "rationale": "脈拍確認は短時間で行い、胸骨圧迫中断を最小限にすべきである。"
+        },
+        {
+          "option_id": "D",
+          "text": "胸骨圧迫を中止し、呼吸の回復を数分待つ",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "自発呼吸がなくCPAが疑われるため、胸骨圧迫の中止は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期波形の評価",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "CPAで初期波形Aを評価し、PEAとして次の処置につなげる。",
+      "ideal_flow": [
+        "意識・呼吸・頸動脈拍動なしを確認する",
+        "初期波形Aを評価する",
+        "ショック適応の有無を判断する",
+        "PEAとしてCPR継続と薬剤準備へ進む"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "rhythm_assessment",
+        "pea_recognition",
+        "cpa"
+      ],
+      "text": "胸骨圧迫を引き継ぎ、評価したところ、意識JCS300、呼吸なし、頸動脈拍動は触知しない。初期心電図モニター波形Aでは、緩徐で散発的な電気活動を認める。",
+      "visible_data": {
+        "consciousness": "JCS300",
+        "breathing": "呼吸なし",
+        "pulse": "頸動脈拍動触知せず",
+        "monitor_waveform": "波形A：緩徐で散発的な電気活動を認める"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での初期波形Aの評価として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "無脈性電気活動（PEA）",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "電気活動はあるが頸動脈拍動を触知しないため、PEAとして扱う。"
+        },
+        {
+          "option_id": "B",
+          "text": "心室細動",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "無秩序な細動波ではなく、規則的な電気活動を認めている。"
+        },
+        {
+          "option_id": "C",
+          "text": "心静止",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "完全な平坦波ではなく、電気活動を認めている。"
+        },
+        {
+          "option_id": "D",
+          "text": "自己心拍再開（ROSC）",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "頸動脈拍動を触知しないため、ROSCとは判断できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の決定",
+      "phase": "活動方針の再判断",
+      "scene_goal": "PEAとして、胸骨圧迫継続・静脈路確保・アドレナリン準備を並行して進める。",
+      "ideal_flow": [
+        "PEAとして胸骨圧迫を継続する",
+        "アドレナリン投与の指示要請を行う",
+        "静脈路確保を進める",
+        "胸骨圧迫中断を最小限にする"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "treatment_plan",
+        "iv_access",
+        "adrenaline_request"
+      ],
+      "text": "PEAと判断し、心肺蘇生を継続しながら、アドレナリン投与の指示要請を行った。MC指示医師より実施の指示を得たため、静脈路確保と薬剤準備を進める。",
+      "visible_data": {
+        "current_status": "CPA継続中。PEAとして対応中。",
+        "medical_control": "アドレナリン投与の実施指示を取得した。",
+        "ongoing_actions": "胸骨圧迫継続、静脈路確保、薬剤準備。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "胸骨圧迫を継続しながら静脈路確保とアドレナリン準備を並行して進める",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "PEAではCPRを継続しつつ、薬剤投与準備を進める。"
+        },
+        {
+          "option_id": "B",
+          "text": "静脈路確保が終わるまで胸骨圧迫を中止する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "rationale": "胸骨圧迫の中断は最小限にしなければならない。"
+        },
+        {
+          "option_id": "C",
+          "text": "PEAでも除細動を優先する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -4,
+          "rationale": "PEAは除細動適応ではない。"
+        },
+        {
+          "option_id": "D",
+          "text": "薬剤準備より先に施設職員へ詳しい生活歴を聞き続ける",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "情報収集は重要だが、CPA中はCPR継続と必要処置が優先である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "波形変化の再評価",
+      "phase": "全身観察",
+      "scene_goal": "薬剤準備中の波形変化から、ROSCの可能性を考える。",
+      "ideal_flow": [
+        "波形Bへの変化を確認する",
+        "ショック適応波形かどうかを見極める",
+        "ROSCの可能性を考える",
+        "次の確認項目を判断する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "waveform_change",
+        "reassessment",
+        "rosc_suspicion"
+      ],
+      "text": "静脈路確保と薬剤準備を行った後、モニター波形を再確認すると、波形Aから波形Bへ変化していた。波形Bは、先ほどより規則的な電気活動に見える。",
+      "visible_data": {
+        "procedure_status": "静脈路確保済み。アドレナリン投与準備済み。",
+        "monitor_waveform": "波形B：より規則的な電気活動を認める",
+        "patient_state": "胸骨圧迫継続中。"
+      },
+      "media": [
+        "media/ecg_monitor_cpa_waveform_change_scene6.png"
+      ],
+      "type": "single_choice",
+      "prompt": "波形Bを確認した時点で考えるべき状況として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "自己心拍再開（ROSC）の可能性がある",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "規則的な電気活動へ変化しており、ROSCを疑って脈拍確認を考える。"
+        },
+        {
+          "option_id": "B",
+          "text": "除細動適応の心室細動に変化した",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "無秩序な細動波ではなく、規則的な波形へ変化している。"
+        },
+        {
+          "option_id": "C",
+          "text": "心静止へ移行した",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "平坦波ではなく電気活動を認めている。"
+        },
+        {
+          "option_id": "D",
+          "text": "波形変化は評価不要で、ただちに薬剤投与のみ行う",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "波形変化を見逃さず、処置の優先順位を再判断する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "波形変化後の次の対応",
+      "phase": "車内活動",
+      "scene_goal": "波形変化があればROSCの可能性を考え、次の一手を正しく選択する。",
+      "ideal_flow": [
+        "波形Bを確認する",
+        "ROSCの可能性を考える",
+        "頸動脈拍動を短時間で確認する",
+        "脈拍の有無で次の方針を決める"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "exam_core",
+        "pulse_check",
+        "rosc_assessment"
+      ],
+      "text": "心肺蘇生を継続しながら、アドレナリン投与の指示を得て、静脈路確保と薬剤準備を行った。その後、モニター波形がAからBへ変化した。",
+      "visible_data": {
+        "consciousness": "JCS300",
+        "breathing": "呼吸なし",
+        "pulse": "直前までは頸動脈拍動触知せず",
+        "monitor_waveform": "波形Aから波形Bへ変化"
+      },
+      "media": [
+        "media/ecg_monitor_cpa_waveform_change_scene6.png"
+      ],
+      "type": "single_choice",
+      "prompt": "次に行う対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "胸骨圧迫を続けたままアドレナリン1mgを投与する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "アドレナリン投与指示は得ているが、波形変化があるため先にROSCの有無を確認する。"
+        },
+        {
+          "option_id": "B",
+          "text": "電気ショックを行う",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "波形Bは除細動適応波形とは考えにくい。"
+        },
+        {
+          "option_id": "C",
+          "text": "頸動脈拍動を確認する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "規則的な電気活動へ変化しており、自己心拍再開の可能性があるため頸動脈拍動を確認する。"
+        },
+        {
+          "option_id": "D",
+          "text": "MC指示医師へ波形のみを報告し、判断を待つ",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "まず現場でROSCの有無を確認することが優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "ROSC後の病院連絡",
+      "phase": "病院連絡",
+      "scene_goal": "CPAからROSCした症例について、経過と現在状態を整理して受入医療機関へ連絡する。",
+      "ideal_flow": [
+        "患者属性を伝える",
+        "発症状況と現着時CPAを伝える",
+        "実施した処置とROSCまでの経過を伝える",
+        "現在の状態と受入要請を伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "hospital_handoff",
+        "template_select",
+        "rosc"
+      ],
+      "text": "波形B確認後に頸動脈拍動を確認したところ、拍動を触知した。自己心拍再開（ROSC）と判断し、胸骨圧迫を終了した。受入医療機関へ第1報を行う。",
+      "visible_data": {
+        "patient_information": "82歳女性、介護施設入所中",
+        "event": "施設内で突然卒倒。職員通報。口頭指導によりバイスタンダーCPR開始",
+        "arrival_status": "現着時CPA（意識JCS300、呼吸なし、頸動脈拍動なし）",
+        "interventions": "胸骨圧迫継続、モニター装着、初期波形A確認、静脈路確保、アドレナリン実施指示取得、薬剤準備",
+        "course": "波形Bへ変化後、頸動脈拍動を確認しROSC。アドレナリンは未投与",
+        "current_status": "ROSC後も意識回復なし。自発呼吸不十分のため換気補助中。脈拍48回/分、血圧86/52mmHg"
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "受入医療機関への第1報として、伝えるべき内容を簡潔に記述せよ。",
+      "templates": [
+        {
+          "template_id": "T1",
+          "label": "病院連絡テンプレート",
+          "fields": [
+            "患者属性",
+            "発症状況",
+            "現着時状態",
+            "実施した処置",
+            "ROSC確認までの経過",
+            "現在の状態",
+            "受入要請内容"
+          ]
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "介護施設で突然卒倒した82歳女性のCPA症例。初期波形AをPEAと評価して胸骨圧迫を継続し、静脈路確保とアドレナリン準備を進めた。薬剤投与前に波形Bへ変化したため、ROSCの可能性を考えて頸動脈拍動を確認することが学習の中心である。",
+    "model_answer": {
+      "scene7": "82歳女性、介護施設入所中です。施設内で突然卒倒し、職員から通報がありました。口頭指導によりバイスタンダーCPRが開始されていました。現着時はJCS300、呼吸なし、頸動脈拍動触知せず、CPAと判断しました。胸骨圧迫を継続し、モニターでPEAを確認しました。静脈路を確保し、アドレナリン投与の指示を取得しましたが、投与前に波形変化を認め、頸動脈拍動を確認してROSCしました。現在も意識回復はなく、自発呼吸不十分のため換気補助中です。脈拍48回/分、血圧86/52mmHgです。ROSC後管理が必要と判断し、受け入れをお願いします。"
+    },
+    "structured_answer": {
+      "scene7": {
+        "must_include": [
+          "82歳女性",
+          "介護施設入所中",
+          "突然卒倒",
+          "バイスタンダーCPR",
+          "現着時CPA",
+          "PEA",
+          "静脈路確保",
+          "アドレナリン指示取得",
+          "投与前に波形変化",
+          "頸動脈拍動確認",
+          "ROSC",
+          "アドレナリン未投与",
+          "現在の意識状態",
+          "現在の呼吸状態",
+          "現在の循環状態",
+          "受入要請"
+        ],
+        "good_expression_examples": [
+          "CPAとして活動開始したが、薬剤投与前にROSCを確認したことが伝えられている",
+          "アドレナリン指示取得後、未投与であることが明確にされている",
+          "現着時の状態と現在の状態が区別して説明されている",
+          "ROSC後管理が必要であることが受入要請に含まれている"
+        ],
+        "common_mistakes": [
+          "ROSC後なのにCPA継続中として連絡してしまう",
+          "波形変化だけを伝え、頸動脈拍動確認が抜ける",
+          "アドレナリンを投与したのか未投与なのかが曖昧になる",
+          "現在の意識・呼吸・循環状態を伝えない",
+          "受入要請ではなく経過説明だけで終わる"
+        ]
+      }
+    },
+    "ideal_actions": [
+      "バイスタンダーCPRを継続させる",
+      "現着後に質の高い胸骨圧迫を引き継ぐ",
+      "初期波形AをPEAと評価する",
+      "アドレナリン指示要請を行い、静脈路確保と薬剤準備を進める",
+      "薬剤投与前の波形変化を見逃さない",
+      "波形B確認後に頸動脈拍動を確認する",
+      "ROSC後は意識・呼吸・循環を再評価する",
+      "ROSCまでの経過と現在状態を整理して病院連絡を行う"
+    ],
+    "good_points": [
+      "PEAと除細動適応波形を区別できる",
+      "処置の順番は固定ではなく、波形変化で優先順位が変わることを学べる",
+      "アドレナリン指示取得後でも、ROSC疑いがあれば脈拍確認を優先する判断が学べる",
+      "Scene7でROSC後の病院連絡を実践的に整理できる",
+      "『CPAだった状態』と『現在のROSC後状態』を分けて伝える訓練になる"
+    ],
+    "cautions": [
+      "心電図で整った波形が出ても、有効な拍出があるとは限らない",
+      "脈拍確認は短時間で行い、胸骨圧迫中断を最小限にする",
+      "PEAは除細動適応ではない",
+      "アドレナリン指示取得後でも、ROSCしたなら漫然と投与しない",
+      "病院連絡では『現着時CPA』『ROSC確認』『アドレナリン未投与』『現在の状態』を明確に伝える"
+    ]
+  }
+}

@@ -1,0 +1,829 @@
+{
+  "case_id": "elvo_screen_af_stroke_thrombectomy_001",
+  "version": "2.0",
+  "title": "発症早期の片麻痺と半側空間無視から大血管閉塞を疑い、血栓回収療法対応施設へ搬送する症例",
+  "category": "neuro",
+  "difficulty": "Normal",
+  "algorithm_type": "脳卒中プロトコル",
+  "estimated_time": 10,
+  "keywords": [
+    "脳卒中",
+    "片麻痺",
+    "半側空間無視",
+    "大血管閉塞",
+    "心房細動",
+    "血栓回収療法"
+  ],
+  "source_reference": {
+    "exam": "第47回救急救命士国家試験",
+    "section": "D問題19",
+    "note": "元問題の学習意図を症例化し、身体図による神経所見評価、心電図画像観察、対話型病院連絡を加えて再構成した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "脳卒中疑い",
+      "大血管閉塞疑い",
+      "搬送先選定重要"
+    ],
+    "time_pressure": "high"
+  },
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出動途上の確認",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "脳卒中疑いで、通報段階から症状の経過と普段との違いを確認する。",
+      "ideal_flow": [
+        "症状の経過を確認する",
+        "普段との違いを確認する",
+        "反応や会話の状態を確認する",
+        "無理な移動を指示しない"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "70歳男性。1時間前から左手足に力が入らないと訴え、家族が救急要請した。会話はできるが、左側の手足をうまく動かせない様子とのことである。",
+      "visible_data": {
+        "dispatch_information": [
+          "70歳男性",
+          "左手足に力が入らない",
+          "発症は約1時間前",
+          "家族が救急要請",
+          "会話は可能"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出動途上で家族に優先して確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "普段の歩行速度や運動習慣を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "普段のADLは参考になるが、まずは今回の症状の経過を確認する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "食事内容と水分摂取量を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "脱水なども鑑別にはなるが、神経症状が疑われるため症状経過の確認が優先される。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "症状の経過と普段との違いを確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "stroke_timeline_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "脳卒中疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "脳卒中疑いでは、症状がいつからどのように変化したか、普段との違いを確認することが重要である。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "家庭血圧の記録を探してもらう。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "血圧情報は参考になるが、出動途上では症状経過と切迫性の確認を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "数値バイタルに先行し、神経症状を伴う内因性疾患として評価を進める。",
+      "ideal_flow": [
+        "反応を確認する",
+        "気道開通を確認する",
+        "呼吸が保たれているか確認する",
+        "脈拍を確認する",
+        "外傷の有無を確認する",
+        "神経症状を伴う内因性疾患として評価を進める"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "primary_assessment",
+      "text": "接触時、傷病者は座位。呼びかけに応じる。気道は開通している。呼吸は保たれている。橈骨動脈は触知できる。明らかな外傷は目立たない。左上下肢の動きが乏しいように見える。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに応じる",
+          "気道は開通",
+          "呼吸は保たれている",
+          "橈骨動脈は触知可能",
+          "明らかな外傷は目立たない",
+          "左上下肢の動きが乏しいように見える"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "観察所見から、緊急度は高くないと判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "反応や呼吸循環は保たれているが、神経症状が疑われ緊急度は高い。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "観察所見から、外傷による麻痺を第一に考える。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "明らかな外傷所見は乏しく、まず内因性の神経症状として評価を進める。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "観察所見から、歩行可能か確認してから搬送方針を決める。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "神経症状が疑われるため、歩行確認を優先するのは不適切である。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "観察所見から、神経症状を伴う内因性疾患として評価を進める。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "neurologic_assessment_needed"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "脳卒中疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "反応、呼吸、循環は保たれているが、片側の運動低下が疑われるため神経症状として評価を進める。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインとSAMPLE",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "バイタルサインとSAMPLEから、次に神経所見を重点的に評価する判断につなげる。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "SAMPLEを家族から確認する",
+        "発症経過を整理する",
+        "次に神経所見を重点評価する方針を立てる"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "vital_and_sample",
+      "text": "バイタルサインを測定し、家族から情報収集した。意識JCS1、呼吸数20/分、脈拍148/分・不整、血圧138/76mmHg、SpO2 96％、体温36.4℃である。S：左手足に力が入らない。A：特記事項なし。M：高血圧の内服あり。P：不整脈を指摘されたことがある。L：朝食は少量摂取。E：約1時間前から症状を自覚した。",
+      "visible_data": {
+        "vital_signs": [
+          "JCS1",
+          "呼吸数 20/分",
+          "脈拍 148/分・不整",
+          "血圧 138/76 mmHg",
+          "SpO2 96％",
+          "体温 36.4℃"
+        ],
+        "sample": [
+          "S：左手足に力が入らない",
+          "A：特記事項なし",
+          "M：高血圧の内服あり",
+          "P：不整脈を指摘されたことがある",
+          "L：朝食は少量摂取",
+          "E：約1時間前から症状を自覚"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この内容から、次に優先する活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "観察所見から、麻痺側の筋力回復を待って再評価する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "神経症状が疑われる状況で回復を待つのは不適切である。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "観察所見から、呼吸器疾患を主病態として評価する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "呼吸状態は保たれており、主訴と経過から神経症状の評価を優先する。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "観察所見から、神経脱落症状を重点的に評価する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "focused_neuro_assessment_planned"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "重症脳卒中評価必要"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "症状の経過とSAMPLEから脳卒中が疑われ、次に神経脱落症状を重点的に評価する。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "観察所見から、現場で不整脈治療を優先する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "不整脈は重要な情報だが、この段階では神経症状の評価と搬送先判断が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "身体図による神経所見評価",
+      "phase": "観察選択",
+      "scene_goal": "汎用ボディマップを使い、片麻痺と半側空間無視を自分で観察して重症脳卒中を疑う。",
+      "ideal_flow": [
+        "左上肢の運動を評価する",
+        "左下肢の運動を評価する",
+        "顔面所見を確認する",
+        "注意・空間認識を評価する",
+        "重症脳卒中を疑い脳卒中プロトコルへ変更する"
+      ],
+      "ideal_score_delta": 16,
+      "action_tag": "bodymap_neuro_observation",
+      "text": "神経所見を確認するため、身体図を用いて評価したい部位・項目を選択する。重要な所見を複数確認したうえで活動方針を判断する。",
+      "visible_data": {
+        "observation_instruction": [
+          "身体図を用いて神経所見を評価する",
+          "左上肢・左下肢・顔面・注意/空間認識を確認できる",
+          "取得した所見をもとに活動方針を判断する"
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "observation_select",
+      "prompt": "神経所見を評価するため、観察したい部位・項目を選んでください。2つ以上選択すると次へ進めます。",
+      "observation_bar": {
+        "display": true,
+        "title": "神経所見を評価",
+        "style": "horizontal_buttons",
+        "position": "below_media",
+        "instruction": "評価したい部位・項目を選択してください。",
+        "show_selected_findings": true,
+        "min_selected_to_continue": 2
+      },
+      "observation_points": [
+        {
+          "point_id": "left_arm_motor",
+          "label": "左上肢を評価する",
+          "target_area": "left_arm",
+          "button_group": "神経所見を評価",
+          "is_key_finding": true,
+          "score_delta": 4,
+          "life_delta": 0,
+          "media": [],
+          "audio": null,
+          "audio_status": "not_used",
+          "finding_text": "左上肢を挙上させようとするが保持できない。",
+          "rationale": "上肢の明らかな運動麻痺は脳卒中を疑う重要所見である。"
+        },
+        {
+          "point_id": "left_leg_motor",
+          "label": "左下肢を評価する",
+          "target_area": "left_leg",
+          "button_group": "神経所見を評価",
+          "is_key_finding": true,
+          "score_delta": 4,
+          "life_delta": 0,
+          "media": [],
+          "audio": null,
+          "audio_status": "not_used",
+          "finding_text": "左下肢の挙上が困難で、膝立てを保てない。",
+          "rationale": "下肢の明らかな運動麻痺も重症脳卒中を疑う根拠となる。"
+        },
+        {
+          "point_id": "face_observation",
+          "label": "顔面を観察する",
+          "target_area": "face",
+          "button_group": "神経所見を評価",
+          "is_key_finding": false,
+          "score_delta": 2,
+          "life_delta": 0,
+          "media": [],
+          "audio": null,
+          "audio_status": "not_used",
+          "finding_text": "明らかな顔面外傷はない。軽度の左右差はあるが、主所見は四肢の運動低下である。",
+          "rationale": "顔面所見も参考になるが、本症例では上肢・下肢の麻痺と注意障害がより重要である。"
+        },
+        {
+          "point_id": "spatial_neglect",
+          "label": "注意・空間認識を評価する",
+          "target_area": "awareness",
+          "button_group": "神経所見を評価",
+          "is_key_finding": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "media": [],
+          "audio": null,
+          "audio_status": "not_used",
+          "finding_text": "左側への注意が向きにくく、左側の刺激を見落とす様子がある。",
+          "rationale": "半側空間無視は大血管閉塞を疑う重症神経所見の一つとして重要である。"
+        }
+      ],
+      "progress_rule": {
+        "min_selected": 2,
+        "allow_continue_after_min": true,
+        "summary_after_selection": true,
+        "recommended_key_findings": [
+          "left_arm_motor",
+          "left_leg_motor",
+          "spatial_neglect"
+        ]
+      },
+      "summary_template": {
+        "title": "取得した神経所見",
+        "items_source": "selected_observation_points"
+      },
+      "followup_question": {
+        "type": "single_choice",
+        "prompt": "身体図による評価結果を踏まえた活動方針として最も適切なのはどれか。",
+        "options": [
+          {
+            "option_id": "s4_o1",
+            "text": "麻痺の改善傾向を確認するため、現場で反復評価を続ける。",
+            "is_correct": false,
+            "score_delta": -4,
+            "life_delta": -3,
+            "rationale": "神経所見が明らかであり、現場で反復評価を続けて搬送を遅らせない。"
+          },
+          {
+            "option_id": "s4_o2",
+            "text": "顔面所見が軽いため、軽症として近隣医療機関を選定する。",
+            "is_correct": false,
+            "score_delta": -4,
+            "life_delta": -3,
+            "rationale": "顔面所見が軽くても、四肢麻痺と半側空間無視があり軽症とは判断できない。"
+          },
+          {
+            "option_id": "s4_o3",
+            "text": "重症脳卒中を疑い、脳卒中プロトコルへ変更して搬送先選定を進める。",
+            "is_correct": true,
+            "score_delta": 16,
+            "life_delta": 0,
+            "status_effect": {
+              "add_flags": [
+                "stroke_protocol_selected",
+                "large_vessel_occlusion_suspected"
+              ],
+              "remove_flags": [],
+              "add_danger_tags": [
+                "大血管閉塞疑い"
+              ],
+              "remove_danger_tags": []
+            },
+            "rationale": "片麻痺と半側空間無視から重症脳卒中を疑い、脳卒中プロトコルへ変更して搬送先選定を進める。"
+          },
+          {
+            "option_id": "s4_o4",
+            "text": "不整脈があるため、除細動の準備を優先する。",
+            "is_correct": false,
+            "score_delta": -3,
+            "life_delta": -2,
+            "rationale": "不整脈は重要だが、除細動適応の波形ではなく、神経所見から脳卒中対応を優先する。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scene5",
+      "title": "心電図モニター画像の観察",
+      "phase": "車内活動",
+      "scene_goal": "心電図モニター波形から心房細動を疑い、塞栓源の情報として整理する。",
+      "ideal_flow": [
+        "モニター波形を確認する",
+        "RR間隔の不整を確認する",
+        "心房細動を疑う",
+        "塞栓性脳梗塞の背景情報として扱う"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "ecg_image_observation",
+      "text": "車内収容後、心電図モニターを装着した。波形を確認する。",
+      "visible_data": {
+        "observation_focus": [
+          "RR間隔",
+          "規則性",
+          "頻拍の有無"
+        ]
+      },
+      "media": [
+        "media/ecg_monitor_atrial_fibrillation_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "提示された心電図モニター波形として最も考えやすいものはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "心房細動",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "af_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "塞栓性脳梗塞疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "RR間隔が不規則で、心房細動を疑う波形である。脳梗塞の塞栓源として重要な情報となる。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "心室頻拍",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "心室頻拍では幅広いQRS頻拍が規則的に出現することが多く、提示波形とは異なる。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "完全房室ブロック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "完全房室ブロックは徐脈性不整脈として認められることが多く、提示波形とは異なる。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "心室細動",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "心室細動は無秩序な波形であり、提示波形のようなQRS様波形は認めにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：搬送先判断",
+      "phase": "国試知識",
+      "scene_goal": "重症脳卒中疑いで血栓回収療法対応施設への搬送を選択する。",
+      "ideal_flow": [
+        "発症早期であることを確認する",
+        "片麻痺と半側空間無視を重視する",
+        "心房細動を塞栓源として考慮する",
+        "血栓回収療法対応施設への搬送を選択する"
+      ],
+      "ideal_score_delta": 14,
+      "action_tag": "exam_core",
+      "text": "発症1時間の左上下肢麻痺を認める。左上肢挙上困難、左下肢挙上困難、半側空間無視を認める。車内収容時の心電図モニター波形は写真のとおりである。",
+      "visible_data": {
+        "key_findings": [
+          "発症約1時間",
+          "左上下肢麻痺",
+          "半側空間無視",
+          "心電図モニター波形は写真のとおり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "適切な対応はどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "頭部を挙上する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "体位管理は状況により行うが、この症例で最も重要なのは搬送先選定である。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "血糖を測定する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "血糖測定は重要だが、重症脳卒中疑いで血栓回収対応施設を考慮する判断が優先される。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "心電図を伝送する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "心電図情報は有用だが、主問題は重症脳卒中疑いであり搬送先選定が重要である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "除細動パッドを貼る。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "除細動適応の波形ではなく、脳卒中対応を優先する。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "血栓回収療法のできる病院へ搬送する。",
+          "is_correct": true,
+          "score_delta": 14,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "thrombectomy_center_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "搬送先選定重要"
+            ]
+          },
+          "rationale": "発症早期で重度片麻痺と半側空間無視があり、大血管閉塞を疑って血栓回収療法対応施設へ搬送する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "対話型病院連絡",
+      "phase": "病院連絡",
+      "scene_goal": "血栓回収療法対応施設へ、年齢性別・発症時刻・神経所見・大血管閉塞スクリーニング該当項目・心電図所見を整理して伝える。",
+      "ideal_flow": [
+        "年齢性別を伝える",
+        "発症時刻と最終健常確認時刻を伝える",
+        "神経所見を伝える",
+        "大血管閉塞スクリーニングの該当項目を伝える",
+        "心房細動疑いを伝える",
+        "血栓回収療法対応を念頭に搬送する理由を伝える"
+      ],
+      "ideal_score_delta": 18,
+      "action_tag": "hospital_contact_dialogue",
+      "text": "血栓回収療法対応施設へ第1報を入れる。医師から必要情報を確認される。",
+      "visible_data": {
+        "handoff_context": [
+          "70歳男性",
+          "発症約1時間",
+          "左上下肢麻痺",
+          "半側空間無視",
+          "大血管閉塞スクリーニングで2項目以上に該当",
+          "心電図モニターで心房細動疑い"
+        ]
+      },
+      "media": [],
+      "type": "dialogue",
+      "prompt": "医師からの質問に対して、病院連絡として適切な内容を選んでください。",
+      "dialogue": [
+        {
+          "dialogue_id": "s7_q1",
+          "speaker": "医師",
+          "message": "どのような患者さんですか？発症時刻は分かりますか？",
+          "options": [
+            {
+              "option_id": "s7_q1_o1",
+              "text": "70歳男性です。発症は約1時間前で、左手足に力が入らないとのことで救急要請されています。",
+              "is_correct": true,
+              "score_delta": 5,
+              "life_delta": 0,
+              "rationale": "年齢性別、発症時刻、主症状が伝えられており適切である。"
+            },
+            {
+              "option_id": "s7_q1_o2",
+              "text": "左手足の麻痺があります。詳しい年齢や発症時刻は後で確認します。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "rationale": "神経症状は伝えられているが、年齢性別と発症時刻が不足している。"
+            },
+            {
+              "option_id": "s7_q1_o3",
+              "text": "心電図で不整脈があります。まず循環器疾患として相談します。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "rationale": "心電図所見は重要だが、主訴と発症時刻を先に整理する必要がある。"
+            },
+            {
+              "option_id": "s7_q1_o4",
+              "text": "意識は保たれているため、発症時刻は重要ではありません。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": 0,
+              "rationale": "脳卒中疑いでは発症時刻と最終健常確認時刻が重要である。"
+            }
+          ]
+        },
+        {
+          "dialogue_id": "s7_q2",
+          "speaker": "医師",
+          "message": "神経所見を教えてください。",
+          "options": [
+            {
+              "option_id": "s7_q2_o1",
+              "text": "左上下肢の麻痺を認めますが、半側空間無視は確認していません。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "rationale": "左上下肢麻痺は伝えられているが、確認済みの半側空間無視が抜けている。"
+            },
+            {
+              "option_id": "s7_q2_o2",
+              "text": "70歳男性で、左上肢・左下肢の挙上困難があり、左側への注意が向きにくい所見があります。",
+              "is_correct": true,
+              "score_delta": 5,
+              "life_delta": 0,
+              "rationale": "年齢性別に加え、片麻痺と半側空間無視が具体的に伝えられている。"
+            },
+            {
+              "option_id": "s7_q2_o3",
+              "text": "JCS1のみで、明らかな神経脱落症状はありません。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": 0,
+              "rationale": "左上下肢麻痺と半側空間無視があり、神経脱落症状なしとは言えない。"
+            },
+            {
+              "option_id": "s7_q2_o4",
+              "text": "不整脈があるため、神経所見の評価は後で行います。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": 0,
+              "rationale": "搬送先判断のため、神経所見は優先して伝える必要がある。"
+            }
+          ]
+        },
+        {
+          "dialogue_id": "s7_q3",
+          "speaker": "医師",
+          "message": "大血管閉塞を疑う根拠はありますか？",
+          "options": [
+            {
+              "option_id": "s7_q3_o1",
+              "text": "年齢が70歳であることのみから、大血管閉塞を疑っています。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "rationale": "年齢だけでは大血管閉塞を疑う根拠として不十分である。"
+            },
+            {
+              "option_id": "s7_q3_o2",
+              "text": "大血管閉塞スクリーニングで、片麻痺と半側空間無視の2項目に該当します。",
+              "is_correct": true,
+              "score_delta": 5,
+              "life_delta": 0,
+              "rationale": "片麻痺と半側空間無視を明確に伝え、複数項目該当を説明できている。"
+            },
+            {
+              "option_id": "s7_q3_o3",
+              "text": "心電図に不整脈があるため、神経所見にかかわらず大血管閉塞と判断します。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "rationale": "心房細動は背景情報として重要だが、大血管閉塞判断には神経所見が必要である。"
+            },
+            {
+              "option_id": "s7_q3_o4",
+              "text": "血圧が正常範囲に近いため、大血管閉塞の可能性は低いです。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "rationale": "血圧のみで大血管閉塞の可能性を下げる判断は不適切である。"
+            }
+          ]
+        },
+        {
+          "dialogue_id": "s7_q4",
+          "speaker": "医師",
+          "message": "心電図モニターでは何か所見がありますか？",
+          "options": [
+            {
+              "option_id": "s7_q4_o1",
+              "text": "規則的な頻拍で、心室頻拍を疑います。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "rationale": "提示波形は心室頻拍ではなく、不規則な頻脈が主体である。"
+            },
+            {
+              "option_id": "s7_q4_o2",
+              "text": "不規則な頻脈で、心房細動が疑われます。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "rationale": "心房細動は塞栓性脳梗塞の背景として重要な情報である。"
+            },
+            {
+              "option_id": "s7_q4_o3",
+              "text": "徐脈性不整脈で、完全房室ブロックを疑います。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "rationale": "脈拍は148/分で不整であり、完全房室ブロックとは考えにくい。"
+            },
+            {
+              "option_id": "s7_q4_o4",
+              "text": "波形は無秩序で、心室細動を疑います。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "rationale": "心室細動ではなく、QRS様波形を伴う不規則な頻脈である。"
+            }
+          ]
+        },
+        {
+          "dialogue_id": "s7_q5",
+          "speaker": "医師",
+          "message": "搬送先として当院を選定した理由は何ですか？",
+          "options": [
+            {
+              "option_id": "s7_q5_o1",
+              "text": "高齢で不整脈があるため、循環器内科のみの対応を優先しました。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "rationale": "不整脈は重要だが、主病態は重症脳卒中疑いである。"
+            },
+            {
+              "option_id": "s7_q5_o2",
+              "text": "麻痺はありますが意識が保たれているため、近隣病院でよいと判断しました。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": 0,
+              "rationale": "意識が保たれていても、片麻痺と半側空間無視があり重症脳卒中を疑う。"
+            },
+            {
+              "option_id": "s7_q5_o3",
+              "text": "70歳男性で発症早期、片麻痺と半側空間無視があり、血栓回収療法対応を考慮したためです。",
+              "is_correct": true,
+              "score_delta": 5,
+              "life_delta": 0,
+              "rationale": "年齢性別、発症早期、重症神経所見、血栓回収療法対応の必要性が適切に伝えられている。"
+            },
+            {
+              "option_id": "s7_q5_o4",
+              "text": "血糖測定がまだなので、脳卒中対応は後回しにしました。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "rationale": "血糖測定は重要だが、重症脳卒中疑いの搬送判断を後回しにしない。"
+            }
+          ]
+        }
+      ],
+      "summary_template": {
+        "model_answer": "70歳男性です。発症約1時間の左上下肢麻痺で、左上肢・左下肢の挙上困難と半側空間無視を認めます。大血管閉塞スクリーニングで片麻痺と半側空間無視の2項目に該当します。JCS1、呼吸循環は保たれています。心電図モニターでは心房細動が疑われます。血栓回収療法対応を念頭に搬送します。"
+      }
+    }
+  ],
+  "debriefing": {
+    "summary": "70歳男性の発症早期脳卒中疑い症例。Scene3ではバイタルサインとSAMPLEから神経所見の重点評価へ進み、Scene4で身体図を用いて左上肢・左下肢麻痺と半側空間無視を確認する。これらの所見から重症脳卒中、大血管閉塞を疑い、脳卒中プロトコルへ変更して搬送先選定を行う。心電図モニターでは心房細動が疑われ、塞栓性脳梗塞の背景として重要である。国試の芯は血栓回収療法のできる病院へ搬送することであり、病院連絡では年齢性別、発症時刻、神経所見、大血管閉塞スクリーニング該当項目、心房細動疑いを伝える。",
+    "ideal_actions": [
+      "出動途上で症状の経過と普段との違いを確認する",
+      "初期評価で神経症状を伴う内因性疾患として評価を進める",
+      "バイタルサインとSAMPLEを整理する",
+      "身体図で左上肢・左下肢の運動を評価する",
+      "半側空間無視を確認する",
+      "重症脳卒中を疑い、脳卒中プロトコルへ変更する",
+      "大血管閉塞スクリーニングで複数項目該当を整理する",
+      "心電図モニターで心房細動を疑う",
+      "血栓回収療法対応施設への搬送を選択する",
+      "病院連絡で年齢性別、発症時刻、神経所見、心電図所見、搬送先選定理由を伝える"
+    ],
+    "good_points": [
+      "Scene3で身体所見を先出しせず、Scene4でプレイヤーが神経所見を取りに行く構成にできた",
+      "バイタルだけでL&Gとせず、神経所見評価から脳卒中プロトコル変更へつなげられた",
+      "半側空間無視を重症脳卒中の所見として扱えた",
+      "心房細動を塞栓性脳梗塞の背景情報として整理できた",
+      "血栓回収療法対応施設への搬送判断を学習できた",
+      "対話型病院連絡で、実際の第1報に近い情報整理ができた"
+    ],
+    "cautions": [
+      "発症時刻や最終健常確認時刻を病院連絡で曖昧にしない",
+      "麻痺があっても現場で反復評価を続けて搬送を遅らせない",
+      "心房細動に引っ張られすぎて循環器疾患対応を主目的にしない",
+      "軽度の意識障害でも、片麻痺と半側空間無視があれば重症脳卒中を疑う",
+      "血糖測定は重要だが、血栓回収療法対応施設への搬送判断を遅らせない",
+      "病院連絡では年齢性別、発症時刻、神経所見、大血管閉塞スクリーニング該当項目を明確に伝える"
+    ]
+  }
+}

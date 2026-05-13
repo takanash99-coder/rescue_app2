@@ -1,0 +1,758 @@
+{
+  "case_id": "trauma_crush_injury_steel_beam_rescue_001",
+  "version": "2.0",
+  "title": "鋼材の下敷きによる救助事案で圧挫症候群を疑い、救出前処置を判断する症例",
+  "category": "trauma",
+  "difficulty": "Hard",
+  "algorithm_type": "外傷・救助事案",
+  "estimated_time": 10,
+  "keywords": [
+    "救助事案",
+    "圧挫症候群",
+    "クラッシュ症候群",
+    "高カリウム血症",
+    "救出前処置"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容",
+      "phase": "dispatch",
+      "scene_goal": "鋼材の下敷き事案を救助事案として認識する。",
+      "ideal_flow": [
+        "通報内容を確認する",
+        "救助事案として捉える",
+        "多隊出場を想定する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_judgment",
+      "text": "土木作業現場で男性が鋼材の下敷きになっていると通報があった。同僚が発見し、救急救助要請している。",
+      "visible_data": {
+        "dispatch_information": [
+          "38歳男性",
+          "土木作業中",
+          "鋼材の下敷き",
+          "同僚が通報",
+          "意識はあるとの情報"
+        ],
+        "response_units": [
+          "指揮隊",
+          "救助隊",
+          "消防隊",
+          "救急隊"
+        ]
+      },
+      "media": [
+        "media/injury_at_the_construction_site_scene.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この事案を最も適切に表しているのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "単純な四肢外傷事案",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "underestimates_rescue_incident"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "四肢外傷はあるが、鋼材の下敷きであり救助活動を伴う事案として捉える必要がある。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "救助事案",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "recognized_rescue_incident"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "鋼材の下敷きで救出が必要なため、指揮隊・救助隊・消防隊・救急隊による多隊連携を前提に活動する。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "内因性救急事案",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_incident_type"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "通報内容からは外力による受傷であり、内因性救急として扱う場面ではない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "CPA事案",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "premature_cpa_assumption"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識があるとの情報があり、この時点でCPA事案と判断する根拠はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価",
+      "phase": "scene_safety",
+      "scene_goal": "救助隊との連携を意識し、圧迫解除のタイミングを調整する。",
+      "ideal_flow": [
+        "現場安全を確認する",
+        "指揮隊・救助隊と情報共有する",
+        "解除のタイミングを調整する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "multi_team_coordination",
+      "text": "現場では救助隊が救出作業を開始している。消防隊が周囲の安全確保を行い、指揮隊が活動を統括している。救出には時間を要する見込みである。",
+      "visible_data": {
+        "scene_information": [
+          "救助隊が救出作業中",
+          "消防隊が周囲の安全確保中",
+          "指揮隊が活動を統括",
+          "救出まで時間を要する見込み"
+        ],
+        "vital_signs": []
+      },
+      "media": [
+        "media/injury_at_the_construction_site_scene.png"
+      ],
+      "type": "single_choice",
+      "prompt": "救急隊が救助隊と優先して調整する内容はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "解除のタイミング",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "coordinated_release_timing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "長時間圧迫では解除後に急変する可能性があるため、救助隊と解除のタイミングを調整する。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "傷病者の勤務先",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_information"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "身元情報として必要になることはあるが、救出前の優先事項ではない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "使用工具の名称",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_scene_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "救助方法の詳細は救助隊が判断する。救急隊は解除前後の医学的リスクに備える。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "搬送先の駐車位置",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "搬送動線の確認は重要だが、この場面では圧迫解除のタイミング調整が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "身体部位の観察",
+      "phase": "body_map_observation",
+      "scene_goal": "人体図の身体部位を選択し、詳細所見から圧迫部位と外傷所見を把握する。",
+      "ideal_flow": [
+        "人体図を確認する",
+        "観察したい身体部位を選択する",
+        "両大腿部の圧迫を確認する",
+        "右下腿の外傷を確認する",
+        "救出前準備の必要性を考える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "body_part_sidebar_observation",
+      "text": "救助隊の活動中、接触可能な範囲で傷病者を観察する。人体図を見ながら、サイドバーから観察したい身体部位を選択して詳細所見を確認する。",
+      "visible_data": {
+        "instruction": [
+          "サイドバーから観察したい身体部位を選択する",
+          "選択した部位の詳細所見を確認する"
+        ],
+        "initial_contact": [
+          "呼びかけに反応あり",
+          "発語あり",
+          "努力呼吸は目立たない"
+        ],
+        "vital_signs": []
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "body_map_select",
+      "prompt": "観察したい身体部位を選択し、救出前の活動方針を判断せよ。",
+      "body_parts": [
+        {
+          "part_id": "head_neck",
+          "label": "頭頸部",
+          "detail_media": [],
+          "findings": [
+            "明らかな外表損傷は確認できない。",
+            "発語は可能で、気道閉塞を疑う所見は目立たない。"
+          ],
+          "is_key_observation": false,
+          "score_delta": 0
+        },
+        {
+          "part_id": "chest",
+          "label": "胸部",
+          "detail_media": [],
+          "findings": [
+            "明らかな胸部外傷は確認できない。",
+            "呼吸運動の左右差は目立たない。"
+          ],
+          "is_key_observation": false,
+          "score_delta": 0
+        },
+        {
+          "part_id": "abdomen",
+          "label": "腹部",
+          "detail_media": [],
+          "findings": [
+            "明らかな腹部外傷は確認できない。",
+            "腹部膨隆は目立たない。"
+          ],
+          "is_key_observation": false,
+          "score_delta": 0
+        },
+        {
+          "part_id": "pelvis",
+          "label": "骨盤部",
+          "detail_media": [],
+          "findings": [
+            "骨盤部の明らかな変形は確認できない。",
+            "不要な動揺確認は行わない。"
+          ],
+          "is_key_observation": false,
+          "score_delta": 0
+        },
+        {
+          "part_id": "both_thighs",
+          "label": "両大腿部",
+          "detail_media": [],
+          "findings": [
+            "両大腿部が鋼材により圧迫されている。",
+            "圧迫は長時間に及ぶ可能性がある。",
+            "救助隊が解除準備中である。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 8
+        },
+        {
+          "part_id": "right_lower_leg",
+          "label": "右下腿",
+          "detail_media": [],
+          "findings": [
+            "右下腿に変形を認める。",
+            "右下腿に挫創を認める。",
+            "創部から出血を認める。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 5
+        },
+        {
+          "part_id": "left_lower_leg",
+          "label": "左下腿",
+          "detail_media": [],
+          "findings": [
+            "明らかな変形は確認できない。",
+            "明らかな出血は確認できない。"
+          ],
+          "is_key_observation": false,
+          "score_delta": 0
+        },
+        {
+          "part_id": "upper_limbs",
+          "label": "上肢",
+          "detail_media": [],
+          "findings": [
+            "明らかな変形は確認できない。",
+            "自発運動は可能である。"
+          ],
+          "is_key_observation": false,
+          "score_delta": 0
+        }
+      ],
+      "completion_condition": {
+        "required_part_ids": [
+          "both_thighs",
+          "right_lower_leg"
+        ],
+        "message": "主要所見を確認した。救出前の対応を判断する。"
+      },
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "解除に備える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "prepared_for_release"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "両大腿部の長時間圧迫が疑われるため、解除後の急変を想定して準備を進める。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "下腿を整復する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "attempted_reduction_before_rescue"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "worsening_injury"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "救出前に無理な整復を行うと損傷を悪化させる可能性がある。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "歩行を確認する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_mobilization"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_movement"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "救出前であり、歩行確認を行う段階ではない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "座位にする。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "inappropriate_positioning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_movement"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "圧迫状態で体位を変えることは危険であり、救助隊との連携が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "救出前処置",
+      "phase": "pre_release_care",
+      "scene_goal": "圧迫解除前に優先すべき処置を選択する。",
+      "ideal_flow": [
+        "モニターを装着する",
+        "除細動パッドを貼付する",
+        "静脈路確保と輸液の指示要請を行う",
+        "輸液準備後に解除タイミングを調整する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "pre_release_treatment",
+      "text": "救助隊による圧迫物の解除が近づいている。救急隊は接触可能な範囲で観察と処置を進め、解除前に必要な準備を行う。",
+      "visible_data": {
+        "rescue_status": [
+          "救助隊が解除準備中",
+          "救急隊は傷病者に接触可能",
+          "解除後の急変に備える必要がある"
+        ],
+        "vital_signs": [
+          {
+            "consciousness": "JCS2",
+            "respiratory_rate": "28回/分",
+            "pulse": "116回/分・整",
+            "blood_pressure": "110/65mmHg",
+            "spo2": "96%"
+          }
+        ]
+      },
+      "media": [
+        "media/injury_at_the_construction_site_scene.png"
+      ],
+      "type": "multiple_choice",
+      "prompt": "圧迫物の解除前に優先する処置はどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "下肢固定",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_lower_limb_splinting"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "下肢固定は必要になるが、圧迫解除前の優先処置としては除細動準備と輸液準備が重要である。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "創部被覆",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_wound_dressing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "創部被覆は外傷処置として重要だが、長時間圧迫の解除前処置としては優先度が下がる。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "用手的気道確保",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_airway_maneuver"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "発語があり、現時点で用手的気道確保を最優先する状況ではない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "除細動パッド貼付",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "defib_pads_applied"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "unprepared_for_arrhythmia"
+            ]
+          },
+          "rationale": "圧迫解除後に高カリウム血症などから致死性不整脈を来す可能性があるため、除細動に備える。"
+        },
+        {
+          "option_id": "s4_o5",
+          "text": "静脈路確保・輸液の指示要請",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "iv_fluid_requested"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "unprepared_for_shock"
+            ]
+          },
+          "rationale": "長時間圧迫が疑われる場合、解除前に静脈路確保と輸液準備を行い、循環動態悪化に備える。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "圧迫解除後の急変",
+      "phase": "post_release_reassessment",
+      "scene_goal": "圧迫解除後の急変から電解質異常による不整脈リスクを推論する。",
+      "ideal_flow": [
+        "圧迫解除後に再評価する",
+        "意識低下を確認する",
+        "モニター波形を確認する",
+        "不整脈への対応を準備する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "post_release_deterioration",
+      "text": "圧迫物解除後、傷病者の反応が鈍くなった。モニターでは幅広いQRS波を認める。",
+      "visible_data": {
+        "post_release_findings": [
+          "反応が鈍い",
+          "脈拍不整",
+          "幅広いQRS波",
+          "顔色不良"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "最も優先して疑うべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "圧迫解除に伴う電解質異常",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "suspected_electrolyte_abnormality"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_crush_syndrome"
+            ]
+          },
+          "rationale": "長時間圧迫後の解除では、高カリウム血症などにより幅広いQRS波や致死性不整脈を来すことがある。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "疼痛による過換気",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "misread_as_hyperventilation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_arrhythmia_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "疼痛はあり得るが、意識低下と幅広いQRS波を説明する優先病態ではない。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "創部感染の進行",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "misread_as_infection"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_arrhythmia_response"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "感染は急性に幅広いQRS波を来す主因ではなく、解除直後の急変としては優先度が低い。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "神経麻痺",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "focused_only_on_limb_injury"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_systemic_deterioration"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "局所の神経障害だけでは、解除後の意識低下や幅広いQRS波を説明しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態理解",
+      "phase": "debriefing_question",
+      "scene_goal": "圧挫症候群で救出前処置が必要となる理由を理解する。",
+      "ideal_flow": [
+        "圧挫症候群を理解する",
+        "解除後の高カリウム血症を理解する",
+        "除細動パッドと輸液準備の意味を整理する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "pathophysiology_understanding",
+      "text": "この症例では、長時間の圧迫後に圧迫物を解除したことで全身状態が悪化した。救出前処置の意味を振り返る。",
+      "visible_data": {
+        "learning_focus": [
+          "圧挫症候群",
+          "横紋筋融解",
+          "高カリウム血症",
+          "致死性不整脈",
+          "輸液準備"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で圧迫解除前に輸液準備が重要となる理由はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "循環悪化に備えるため",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "understood_pre_release_fluid"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "圧迫解除後は筋細胞由来の成分が循環に流入し、ショックや不整脈を来すことがある。解除前から輸液準備を行う。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "疼痛を消失させるため",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "misunderstood_fluid_purpose"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "輸液は疼痛そのものを消失させる処置ではない。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "骨折を整復するため",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "misunderstood_trauma_care"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "輸液は骨折整復のための処置ではない。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "創部を洗浄するため",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "misunderstood_wound_care"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "輸液路確保と輸液は、創部洗浄ではなく循環管理のために行う。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "土木作業中に鋼材の下敷きとなった38歳男性の救助事案。下肢が長時間圧迫されており、救出前から圧挫症候群を想定する必要がある。救急隊は救助隊と解除タイミングを調整し、解除前に除細動パッド貼付、静脈路確保、輸液の指示要請を行う。解除後は高カリウム血症などによる致死性不整脈や循環悪化に注意する。",
+    "ideal_actions": [
+      "救助事案として指揮隊・救助隊・消防隊・救急隊の多隊連携を意識する",
+      "現場安全を確認し、指揮隊・救助隊と情報共有する",
+      "救助隊と圧迫解除のタイミングを調整する",
+      "人体図から観察したい身体部位を選択し、詳細所見を確認する",
+      "両大腿部の圧迫と右下腿外傷を把握する",
+      "解除前にモニター装着と除細動パッド貼付を行う",
+      "静脈路確保と輸液の指示要請を行う",
+      "1000〜1500mL程度の輸液を投与できる準備が整ってから圧迫解除に進む",
+      "解除後は意識・脈拍・モニター波形を継続評価する"
+    ],
+    "good_points": [
+      "見える下肢外傷だけでなく、長時間圧迫による全身性リスクを考えられる",
+      "救助隊との解除タイミング調整を前提に活動を組み立てられる",
+      "人体図観察で必要な身体部位を選び、所見を取りにいける",
+      "除細動パッド貼付の理由を圧迫解除後の不整脈リスクと結びつけられる",
+      "輸液準備の理由を循環悪化への備えとして理解できる"
+    ],
+    "cautions": [
+      "下肢固定や創部被覆は重要だが、圧迫解除前の最優先処置ではない",
+      "解除前に何も準備しないまま救出すると、解除後急変への対応が遅れる",
+      "外傷症例でも、クラッシュが疑われる場合は救出前の循環管理が重要になる",
+      "Scene2ではバイタルサインを先出しせず、状況評価と多隊連携を重視する",
+      "人体図観察Sceneでは、画像に所見を描き込みすぎず、部位選択で詳細所見を表示する"
+    ]
+  }
+}

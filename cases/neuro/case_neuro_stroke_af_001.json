@@ -1,104 +1,28 @@
 {
   "case_id": "case_neuro_stroke_af_001",
-  "version": "2.0.0",
   "title": "構音障害とめまいを伴う心房細動合併脳卒中疑い",
   "category": "neuro",
-  "difficulty": "Easy",
-  "algorithm_type": "PEMEC",
-  "estimated_time": "約12分",
-  "keywords": [
-    "stroke",
-    "atrial_fibrillation",
-    "dysarthria",
-    "last_known_well",
-    "stroke_center"
-  ],
-  "header": {
-    "overview": {
-      "学習目標": [
-        "神経症状の突然発症から脳卒中を疑える",
-        "ABCと意識状態を評価しつつ脳卒中重症度を把握できる",
-        "発症時刻または最終健常確認時刻を聴取できる",
-        "低血糖を鑑別しながら病態の中心を脳卒中疑いと捉えられる",
-        "心房細動を背景とした塞栓性脳梗塞の可能性を考えられる",
-        "脳卒中対応医療機関を優先選定できる",
-        "ファーストコールで神経症状、発症時刻、不整脈、既往を整理して伝えられる"
-      ],
-      "対象": "EMT student",
-      "想定時間": "12分"
-    }
-  },
-  "patient_profile": {
-    "age": 73,
-    "sex": "female",
-    "setting": "自宅近くの畑",
+  "difficulty": "normal",
+  "version": "3.0",
+  "scene_count": 7,
+  "overview": {
     "chief_complaint": "めまい、呂律障害",
-    "background": {
-      "past_history": [
-        "糖尿病",
-        "不整脈"
-      ],
-      "medications": [
-        "糖尿病治療薬",
-        "不整脈治療薬"
-      ],
-      "allergies": [],
-      "adl": "発症前は自立",
-      "social_background": {
-        "witness": "家族あり",
-        "activity_before_event": "畑仕事中に突然めまいが出現し、呂律が回らなくなった"
-      },
-      "notes": [
-        "数年前から糖尿病と不整脈で内服治療中",
-        "作業中に発症"
-      ]
-    }
+    "final_diagnosis": "心房細動を背景とした脳卒中疑い",
+    "learning_points": [
+      "神経症状の突然発症から脳卒中を疑える",
+      "ABCと意識状態を評価しつつ脳卒中重症度を把握できる",
+      "発症時刻または最終健常確認時刻を聴取できる",
+      "低血糖を鑑別しながら病態の中心を脳卒中疑いと捉えられる",
+      "心房細動を背景とした塞栓性脳梗塞の可能性を考えられる",
+      "脳卒中対応医療機関を優先選定できる",
+      "ファーストコールで神経症状、発症時刻、不整脈、既往を整理して伝えられる"
+    ]
   },
-  "state_flags": [
-    "suspected_stroke",
-    "dysarthria",
-    "dizziness",
-    "atrial_fibrillation_possible",
-    "diabetes_history"
-  ],
-  "ideal_flow": [
-    "神経症状の突然発症から脳卒中を疑う",
-    "初期評価でABCと意識、重症度を把握する",
-    "発症時刻または最終健常確認時刻を聴取する",
-    "構音障害や片麻痺など神経所見を評価する",
-    "低血糖を鑑別に入れるが、病態の中心を脳卒中疑いと捉える",
-    "心房細動波形を確認して塞栓性脳梗塞の可能性を考える",
-    "脳卒中対応医療機関を優先選定する",
-    "ファーストコールで神経症状、発症時刻、不整脈、既往を伝える",
-    "搬送中も神経所見とバイタルの変化を継続評価する"
-  ],
-  "result_rank": [
-    {
-      "rank": "Bad",
-      "min_score": 0,
-      "max_score": 49
-    },
-    {
-      "rank": "Normal",
-      "min_score": 50,
-      "max_score": 74
-    },
-    {
-      "rank": "Good",
-      "min_score": 75,
-      "max_score": 89
-    },
-    {
-      "rank": "Excellent",
-      "min_score": 90,
-      "max_score": 100
-    }
-  ],
   "scenes": [
     {
       "id": "scene1",
-      "title": "場面 1",
-      "phase": "通報内容＋プレアライバルコール",
+      "title": "通報内容と出場準備",
+      "phase": "scene_arrival",
       "scene_goal": "突然の神経症状から脳卒中疑いを想起し、時間依存性疾患として準備する。",
       "ideal_flow": [
         "脳卒中疑いとして考える",
@@ -116,56 +40,45 @@
           "呂律障害あり"
         ]
       },
+      "author_note": "脳卒中疑いとしての準備を優先できるかを見る。",
       "media": [],
       "type": "multiple_choice",
       "prompt": "出場前に優先して準備するものとして適切なものを2つ選べ。",
       "options": [
         {
-          "id": "A",
-          "label": "心電図モニター",
-          "ideal": true,
+          "id": "s1_o1",
+          "text": "心電図モニター",
+          "is_correct": true,
           "score_delta": 5,
-          "action_tag": "prepare_ecg_monitor",
           "feedback": "不整脈既往があり、脳卒中原因評価にも有用である。"
         },
         {
-          "id": "B",
-          "label": "血糖測定器",
-          "ideal": true,
+          "id": "s1_o2",
+          "text": "血糖測定器",
+          "is_correct": true,
           "score_delta": 5,
-          "action_tag": "prepare_glucose_meter",
           "feedback": "糖尿病既往があり、低血糖は重要な鑑別である。"
         },
         {
-          "id": "C",
-          "label": "除細動パッドを最優先で準備する",
-          "ideal": false,
+          "id": "s1_o3",
+          "text": "除細動パッドを最優先で準備する",
+          "is_correct": false,
           "score_delta": -3,
-          "action_tag": "premature_defib_focus",
           "feedback": "現時点で致死性不整脈の情報はなく、優先度は高くない。"
         },
         {
-          "id": "D",
-          "label": "分娩介助セット",
-          "ideal": false,
+          "id": "s1_o4",
+          "text": "分娩介助セット",
+          "is_correct": false,
           "score_delta": -3,
-          "action_tag": "irrelevant_equipment",
           "feedback": "症例と無関係である。"
-        },
-        {
-          "id": "E",
-          "label": "過換気対応用の紙袋",
-          "ideal": false,
-          "score_delta": -4,
-          "action_tag": "psychogenic_bias",
-          "feedback": "神経症状の急性発症からは不適切である。"
         }
       ]
     },
     {
       "id": "scene2",
-      "title": "場面 2",
-      "phase": "初期評価",
+      "title": "初期評価",
+      "phase": "initial_assessment",
       "scene_goal": "ABCを評価しつつ、時間依存性の脳卒中疑いとして重症度を把握する。",
       "ideal_flow": [
         "脳卒中を最優先で考える",
@@ -175,62 +88,53 @@
       "action_tag": "recognize_stroke",
       "text": "現場到着。73歳女性は畑の脇に座り込んでいる。呼びかけには応じるが、返答はやや不明瞭で呂律が回っていない。呼吸は安定しているが、脈拍は速く不整である。",
       "visible_data": {
-        "mental_status": "JCS1",
-        "respiratory_rate": "16/分",
-        "pulse": "132/分、不整",
-        "blood_pressure": "128/60mmHg",
-        "spo2": "97%"
+        "general_impression": [
+          "JCS1",
+          "呼吸数16/分",
+          "脈拍132/分、不整",
+          "血圧128/60mmHg",
+          "SpO2 97%"
+        ]
       },
+      "author_note": "不整脈に引っ張られず、主病態を脳卒中疑いと捉える。",
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点で最も優先して考えるべき病態はどれか。1つ選べ。",
+      "prompt": "この時点で最も優先して考えるべき病態はどれか。",
       "options": [
         {
-          "id": "A",
-          "label": "脳卒中",
-          "ideal": true,
+          "id": "s2_o1",
+          "text": "脳卒中",
+          "is_correct": true,
           "score_delta": 10,
-          "action_tag": "recognize_stroke",
           "feedback": "突然の構音障害とめまいは脳卒中を強く疑う。"
         },
         {
-          "id": "B",
-          "label": "単純な不整脈発作",
-          "ideal": false,
+          "id": "s2_o2",
+          "text": "単純な不整脈発作",
+          "is_correct": false,
           "score_delta": -4,
-          "action_tag": "focus_only_arrhythmia",
           "feedback": "不整脈は背景要因になりうるが、主症状は神経症状である。"
         },
         {
-          "id": "C",
-          "label": "過換気症候群",
-          "ideal": false,
+          "id": "s2_o3",
+          "text": "過換気症候群",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "misjudge_hyperventilation",
           "feedback": "年齢、症状、経過から不適切である。"
         },
         {
-          "id": "D",
-          "label": "消化器症状による脱水",
-          "ideal": false,
+          "id": "s2_o4",
+          "text": "良性発作性頭位めまい症",
+          "is_correct": false,
           "score_delta": -4,
-          "action_tag": "misjudge_dehydration",
-          "feedback": "急な構音障害の説明として弱い。"
-        },
-        {
-          "id": "E",
-          "label": "良性発作性頭位めまい症",
-          "ideal": false,
-          "score_delta": -4,
-          "action_tag": "misjudge_bppv",
           "feedback": "構音障害を伴うため中枢性病変を優先する。"
         }
       ]
     },
     {
       "id": "scene3",
-      "title": "場面 3",
-      "phase": "情報収集＋バイタル評価",
+      "title": "情報収集とバイタル評価",
+      "phase": "history_taking",
       "scene_goal": "発症時刻、神経症状、低血糖鑑別、不整脈情報を集めて脳卒中対応につなげる。",
       "ideal_flow": [
         "最終健常確認時刻を把握する",
@@ -248,73 +152,55 @@
           "右上肢軽度脱力あり",
           "糖尿病・不整脈で内服中"
         ],
-        "repeat_vitals": {
-          "JCS": "1",
-          "RR": "16/分",
-          "HR": "132/分、不整",
-          "BP": "128/60mmHg",
-          "SpO2": "97%"
-        }
+        "repeat_vitals": [
+          "JCS1",
+          "RR16/分",
+          "HR132/分、不整",
+          "BP128/60mmHg",
+          "SpO2 97%"
+        ]
       },
+      "author_note": "発症時刻が比較的明確で、脳卒中対応施設選定につなげやすい場面。",
       "media": [
-        {
-          "media_id": "ecg_af_stroke_001",
-          "type": "image",
-          "label": "心電図モニター波形",
-          "path": "media/ecg_af_stroke_001.png",
-          "description": "不整なRR間隔を示す頻脈性不整脈の再構成モニター画像。心房細動を示唆する所見が分かる程度に簡略化している。",
-          "source_note": "既存図版を直接使用せず、所見の要点のみを反映して構図や背景を調整したオリジナル再構成画像。"
-        }
+        "media/ecg_af_stroke_001.png"
       ],
       "type": "single_choice",
-      "prompt": "心電図モニター波形と症状を踏まえ、この傷病者への適切な対応はどれか。1つ選べ。",
+      "prompt": "心電図モニター波形と症状を踏まえ、この傷病者への適切な対応はどれか。",
       "options": [
         {
-          "id": "A",
-          "label": "酸素投与",
-          "ideal": false,
+          "id": "s3_o1",
+          "text": "酸素投与",
+          "is_correct": false,
           "score_delta": -2,
-          "action_tag": "routine_oxygen_without_indication",
           "feedback": "SpO2 97%であり、最優先対応ではない。"
         },
         {
-          "id": "B",
-          "label": "血糖値測定",
-          "ideal": false,
+          "id": "s3_o2",
+          "text": "血糖値測定",
+          "is_correct": false,
           "score_delta": -1,
-          "action_tag": "glucose_check_only",
           "feedback": "重要な鑑別ではあるが、この設問での最適解は脳卒中対応医療機関選定である。"
         },
         {
-          "id": "C",
-          "label": "除細動パッド装着",
-          "ideal": false,
+          "id": "s3_o3",
+          "text": "除細動パッド装着",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "prepare_defib_for_af",
           "feedback": "頻脈性心房細動を疑うが、現状は循環動態が保たれており最優先ではない。"
         },
         {
-          "id": "D",
-          "label": "脳卒中対応医療機関の選定",
-          "ideal": true,
+          "id": "s3_o4",
+          "text": "脳卒中対応医療機関の選定",
+          "is_correct": true,
           "score_delta": 12,
-          "action_tag": "select_stroke_center",
           "feedback": "急性神経症状と発症時刻が比較的明確で、脳卒中対応医療機関選定が重要である。"
-        },
-        {
-          "id": "E",
-          "label": "静脈路確保及び輸液の指示要請",
-          "ideal": false,
-          "score_delta": -3,
-          "action_tag": "iv_and_fluids_priority",
-          "feedback": "ショックはなく、まずは脳卒中対応医療機関への搬送が優先である。"
         }
       ]
     },
     {
       "id": "scene4",
-      "title": "場面 4",
-      "phase": "活動方針の再判断",
+      "title": "活動方針の再判断",
+      "phase": "clinical_reasoning",
       "scene_goal": "心房細動を背景とした塞栓性脳梗塞を意識し、脳卒中搬送を優先する。",
       "ideal_flow": [
         "主病態は脳卒中疑いと捉える",
@@ -323,7 +209,7 @@
       ],
       "ideal_score_delta": 10,
       "action_tag": "prioritize_stroke_transport",
-      "text": "心電図モニターでは不整な頻脈を認め、心房細動が示唆される。神経症状は持続し、右上肢の脱力と構音障害がみられる。脳卒中、とくに塞栓性脳梗塞を疑う状況である。",
+      "text": "心電図モニターでは不整な頻脈を認め、心房細動が示唆される。神経症状は持続し、右上肢の脱力と構音障害がみられる。脳卒中を疑う状況である。",
       "visible_data": {
         "current_status": [
           "発症時刻が比較的明確",
@@ -332,56 +218,45 @@
           "頻脈性不整脈あり"
         ]
       },
+      "author_note": "塞栓源の可能性は意識するが、visible_dataでは診断誘導しすぎない。",
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点で最も適切な活動方針はどれか。1つ選べ。",
+      "prompt": "この時点で最も適切な活動方針はどれか。",
       "options": [
         {
-          "id": "A",
-          "label": "不整脈対応を最優先にし、神経症状は後回しにする",
-          "ideal": false,
+          "id": "s4_o1",
+          "text": "不整脈対応を最優先にし、神経症状は後回しにする",
+          "is_correct": false,
           "score_delta": -6,
-          "action_tag": "arrhythmia_before_stroke",
           "feedback": "循環動態が保たれており、主病態は脳卒中疑いである。"
         },
         {
-          "id": "B",
-          "label": "脳卒中疑いとして搬送優先で活動し、病院選定を進める",
-          "ideal": true,
+          "id": "s4_o2",
+          "text": "脳卒中疑いとして搬送優先で活動し、病院選定を進める",
+          "is_correct": true,
           "score_delta": 10,
-          "action_tag": "prioritize_stroke_transport",
           "feedback": "時間依存性が高く、脳卒中対応医療機関への搬送が重要である。"
         },
         {
-          "id": "C",
-          "label": "低血糖の可能性だけを考えて現場待機する",
-          "ideal": false,
+          "id": "s4_o3",
+          "text": "低血糖の可能性だけを考えて現場待機する",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "wait_for_glucose_only",
           "feedback": "低血糖鑑別は必要だが、搬送判断を遅らせる理由にならない。"
         },
         {
-          "id": "D",
-          "label": "症状が軽いので一般内科受診でよい",
-          "ideal": false,
+          "id": "s4_o4",
+          "text": "症状が軽いので一般内科受診でよい",
+          "is_correct": false,
           "score_delta": -7,
-          "action_tag": "undertriage_neuro",
           "feedback": "神経症状の急性発症であり不適切である。"
-        },
-        {
-          "id": "E",
-          "label": "除細動器を準備してその場で様子を見る",
-          "ideal": false,
-          "score_delta": -5,
-          "action_tag": "observe_with_defib_ready",
-          "feedback": "この場面では脳卒中対応が先である。"
         }
       ]
     },
     {
       "id": "scene5",
-      "title": "場面 5",
-      "phase": "全身観察",
+      "title": "全身観察",
+      "phase": "focused_exam",
       "scene_goal": "神経学的異常所見を整理し、脳卒中重症度を判断する。",
       "ideal_flow": [
         "構音障害を確認する",
@@ -400,56 +275,45 @@
         ],
         "glucose": "112mg/dL"
       },
+      "author_note": "低血糖除外は大事だが、脳卒中の根拠は神経所見にある。",
       "media": [],
       "type": "multiple_choice",
       "prompt": "脳卒中を支持する情報として重要なものを2つ選べ。",
       "options": [
         {
-          "id": "A",
-          "label": "突然の構音障害",
-          "ideal": true,
+          "id": "s5_o1",
+          "text": "突然の構音障害",
+          "is_correct": true,
           "score_delta": 5,
-          "action_tag": "recognize_dysarthria",
           "feedback": "代表的な神経症状であり脳卒中を支持する。"
         },
         {
-          "id": "B",
-          "label": "右上肢軽度脱力",
-          "ideal": true,
+          "id": "s5_o2",
+          "text": "右上肢軽度脱力",
+          "is_correct": true,
           "score_delta": 5,
-          "action_tag": "recognize_focal_deficit",
           "feedback": "局在性神経脱落症状として重要である。"
         },
         {
-          "id": "C",
-          "label": "SpO2 97%",
-          "ideal": false,
+          "id": "s5_o3",
+          "text": "SpO2 97%",
+          "is_correct": false,
           "score_delta": -1,
-          "action_tag": "overfocus_normal_spo2",
           "feedback": "脳卒中の判断根拠としては弱い。"
         },
         {
-          "id": "D",
-          "label": "血糖値112mg/dL",
-          "ideal": false,
+          "id": "s5_o4",
+          "text": "血糖値112mg/dL",
+          "is_correct": false,
           "score_delta": -1,
-          "action_tag": "glucose_normal_finding",
           "feedback": "低血糖除外には有用だが、脳卒中を直接支持する情報ではない。"
-        },
-        {
-          "id": "E",
-          "label": "不整脈の既往",
-          "ideal": false,
-          "score_delta": -1,
-          "action_tag": "background_risk_only",
-          "feedback": "危険因子ではあるが、直接の神経徴候ではない。"
         }
       ]
     },
     {
       "id": "scene6",
-      "title": "場面 6",
-      "phase": "評価・ファーストコール・特定行為",
+      "title": "評価とファーストコール",
+      "phase": "transport_decision",
       "scene_goal": "脳卒中疑いとして発症時刻、神経症状、不整脈情報を整理してファーストコールする。",
       "ideal_flow": [
         "発症時刻を含めて報告する",
@@ -468,59 +332,31 @@
           "右上肢軽度脱力あり",
           "JCS1、RR16、HR132不整、BP128/60、SpO2 97%",
           "血糖112mg/dL",
-          "心房細動疑い"
+          "不整脈あり"
         ]
       },
+      "author_note": "この症例で最も学習価値が高い言語化場面。第一報を簡潔にまとめられるかを見る。",
+      "scoring_keywords": [
+        "73歳女性",
+        "畑仕事中",
+        "急なめまい",
+        "呂律障害",
+        "最終健常確認30分前",
+        "右上肢脱力",
+        "JCS1",
+        "HR132不整",
+        "血糖112",
+        "脳卒中疑い"
+      ],
       "media": [],
-      "type": "template_select",
-      "prompt": "ファーストコールとして最も適切な内容を選べ。",
-      "templates": [
-        {
-          "id": "A",
-          "label": "73歳女性。畑仕事中に急なめまいと構音障害が出現。最終健常確認は約30分前。右上肢軽度脱力あり。JCS1、呼吸16、脈拍132で不整、血圧128/60、SpO2 97%。血糖112。モニターで心房細動が疑われ、脳卒中疑いとして搬送中。",
-          "ideal": true,
-          "score_delta": 10,
-          "action_tag": "appropriate_first_call_stroke_af",
-          "feedback": "発症時刻、神経症状、血糖、不整脈、バイタルが適切に整理されている。"
-        },
-        {
-          "id": "B",
-          "label": "73歳女性。不整脈があるので循環器対応をお願いします。",
-          "ideal": false,
-          "score_delta": -5,
-          "action_tag": "focus_only_arrhythmia_first_call",
-          "feedback": "本質である脳卒中疑いが伝わらない。"
-        },
-        {
-          "id": "C",
-          "label": "高齢女性のめまいです。経過観察で搬送します。",
-          "ideal": false,
-          "score_delta": -6,
-          "action_tag": "undertriage_dizziness",
-          "feedback": "神経症状を軽視している。"
-        },
-        {
-          "id": "D",
-          "label": "血糖は正常なので異常ありません。",
-          "ideal": false,
-          "score_delta": -6,
-          "action_tag": "normal_glucose_false_reassurance",
-          "feedback": "低血糖除外のみで安心できない。"
-        },
-        {
-          "id": "E",
-          "label": "除細動が必要かもしれないので準備をお願いします。",
-          "ideal": false,
-          "score_delta": -5,
-          "action_tag": "wrong_defib_concern_first_call",
-          "feedback": "現状の最優先事項ではない。"
-        }
-      ]
+      "type": "free_text",
+      "prompt": "脳卒中対応医療機関へのファーストコールとして、必要事項を簡潔に記せ。",
+      "sample_answer": "73歳女性。畑仕事中に急なめまいと構音障害が出現しました。最終健常確認は約30分前です。右上肢軽度脱力があり、JCS1、呼吸16、脈拍132で不整、血圧128/60、SpO2 97%、血糖112mg/dLです。不整脈を認め、脳卒中疑いとして搬送中です。"
     },
     {
       "id": "scene7",
-      "title": "場面 7",
-      "phase": "車内活動",
+      "title": "車内活動",
+      "phase": "handover",
       "scene_goal": "搬送中も神経所見とバイタルの変化を継続評価し、脳卒中対応を維持する。",
       "ideal_flow": [
         "神経所見を再評価する",
@@ -532,73 +368,52 @@
       "action_tag": "ongoing_stroke_monitoring",
       "text": "搬送中も構音障害と右上肢脱力は持続している。意識は保たれているが、症状の増悪や新たな片麻痺出現に注意が必要である。心拍は不整で速く、脳卒中対応を維持しながら継続評価する。",
       "visible_data": {
-        "transport_status": {
-          "JCS": "1",
-          "RR": "16/分",
-          "HR": "128/分、不整",
-          "BP": "126/62mmHg",
-          "SpO2": "97%"
-        },
+        "transport_status": [
+          "JCS1",
+          "RR16/分",
+          "HR128/分、不整",
+          "BP126/62mmHg",
+          "SpO2 97%"
+        ],
         "clinical_course": [
           "構音障害持続",
           "右上肢軽度脱力持続",
           "めまい持続",
-          "心房細動疑い継続"
+          "不整脈持続"
         ]
       },
-      "dynamic_events": [
-        {
-          "trigger": "scene_start",
-          "description": "観察が不十分な場合、搬送中に右上下肢の脱力がやや増悪し、言語反応もさらに不明瞭となる。",
-          "visible_data_update": {
-            "neurological_change": "右上下肢脱力増悪傾向",
-            "speech": "構音障害増悪"
-          }
-        }
-      ],
+      "author_note": "搬送中の再評価を重視する。",
       "media": [],
       "type": "multiple_choice",
       "prompt": "この場面で優先して継続すべき対応として適切なものを2つ選べ。",
       "options": [
         {
-          "id": "A",
-          "label": "神経所見の再評価",
-          "ideal": true,
+          "id": "s7_o1",
+          "text": "神経所見の再評価",
+          "is_correct": true,
           "score_delta": 6,
-          "action_tag": "repeat_neuro_assessment",
           "feedback": "脳卒中症例では神経所見の変化把握が重要である。"
         },
         {
-          "id": "B",
-          "label": "脈拍・血圧・意識レベルの継続監視",
-          "ideal": true,
+          "id": "s7_o2",
+          "text": "脈拍・血圧・意識レベルの継続監視",
+          "is_correct": true,
           "score_delta": 6,
-          "action_tag": "repeat_vital_monitoring",
           "feedback": "搬送中も全身状態の変化を追い、重症化を見逃さないことが重要である。"
         },
         {
-          "id": "C",
-          "label": "不整脈だけに注目して神経所見観察を中止する",
-          "ideal": false,
+          "id": "s7_o3",
+          "text": "不整脈だけに注目して神経所見観察を中止する",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "arrhythmia_overfocus_transport",
           "feedback": "不整脈は背景情報だが、主病態は脳卒中疑いである。"
         },
         {
-          "id": "D",
-          "label": "血糖が正常なので脳卒中疑いを外す",
-          "ideal": false,
+          "id": "s7_o4",
+          "text": "血糖が正常なので脳卒中疑いを外す",
+          "is_correct": false,
           "score_delta": -6,
-          "action_tag": "dismiss_stroke_after_glucose",
           "feedback": "低血糖が否定的でも脳卒中は十分考えられる。"
-        },
-        {
-          "id": "E",
-          "label": "搬送先の再検討はせず、症状増悪時も連絡不要とする",
-          "ideal": false,
-          "score_delta": -4,
-          "action_tag": "no_update_call",
-          "feedback": "状態変化時は追加連絡を検討すべきである。"
         }
       ]
     }

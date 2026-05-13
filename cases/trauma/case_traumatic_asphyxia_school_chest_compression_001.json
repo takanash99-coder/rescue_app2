@@ -1,0 +1,476 @@
+{
+  "case_id": "traumatic_asphyxia_school_chest_compression_001",
+  "version": "2.0",
+  "title": "学校での胸部圧迫後に意識障害を呈し、外傷性窒息の観察所見と機序を学ぶ症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "algorithm_type": "外傷プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "外傷性窒息",
+    "胸部圧迫",
+    "意識障害",
+    "顔面うっ血",
+    "小児外傷"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場途上の確認",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "学校内で発生した小児外傷として、受傷機転と安全確認を意識する。",
+      "ideal_flow": [
+        "学校内で複数児童が関与した事故であることを把握する",
+        "胸腹部圧迫の可能性を考える",
+        "教員に安全確保と周囲児童の隔離を依頼する",
+        "意識・呼吸状態の変化を継続確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "scene_safety",
+        "prearrival_call",
+        "mechanism_assessment"
+      ],
+      "text": "11歳の男児。学校で友人らと遊んでいた際、複数人に上から乗られた後に反応が乏しくなったため、教員が救急要請した。現在は教室内で仰臥位にされ、教員が付き添っている。",
+      "visible_data": {
+        "dispatch_information": "学校内で発生。複数の児童が関与。胸腹部を圧迫された可能性がある。",
+        "scene_information": "教員が児童を離しているが、周囲には動揺した児童がいる。危険物や交通危険はない。",
+        "patient_information": "11歳男児。受傷直後から反応が低下しているとの情報。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で教員に依頼する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "男児を立たせて歩けるか確認してもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害がある小児外傷では、無理に立位や歩行をさせるべきではない。"
+        },
+        {
+          "option_id": "B",
+          "text": "周囲の児童を離し、意識と呼吸の状態を観察してもらう",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "安全確保と意識・呼吸状態の継続観察が重要である。"
+        },
+        {
+          "option_id": "C",
+          "text": "顔色が戻るまで水分を飲ませてもらう",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害がある場合、誤嚥の危険があるため経口摂取は避ける。"
+        },
+        {
+          "option_id": "D",
+          "text": "胸を強く押して呼吸を促してもらう",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -5,
+          "rationale": "胸部圧迫後の傷病者に追加の圧迫を加えることは不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "小児外傷の意識障害として、まず生命危機の有無を評価する。",
+      "ideal_flow": [
+        "周囲の安全を確認する",
+        "反応を確認する",
+        "気道・呼吸・循環を初期評価する",
+        "胸腹部圧迫後の重症外傷として扱う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "airway_breathing_circulation",
+        "trauma_priority"
+      ],
+      "text": "救急隊が接触すると、男児は仰臥位で開眼せず、呼びかけに反応しない。顔面は全体に赤紫色調で、むくんだように見える。呼吸は保たれているが浅めである。",
+      "visible_data": {
+        "general_appearance": "仰臥位。顔面は全体に赤紫色調で、うっ血しているように見える。",
+        "airway": "明らかな異物や吐物は見えない。",
+        "breathing": "自発呼吸あり。胸郭の動きはやや浅い。",
+        "circulation": "橈骨動脈は触知可能。明らかな外出血はない。",
+        "neurological_status": "呼びかけに反応しない。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価で最も優先すべき対応はどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "顔面の色調変化を写真記録する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "所見の記録は重要だが、初期評価では生命危機の確認が優先される。"
+        },
+        {
+          "option_id": "B",
+          "text": "気道・呼吸・循環を評価し、酸素投与を準備する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "意識障害を伴う小児外傷では、まずABCDEに沿った初期評価と酸素化の準備が必要である。"
+        },
+        {
+          "option_id": "C",
+          "text": "意識が戻るまで刺激を続ける",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "過度な刺激ではなく、生命危機評価と必要な処置を優先する。"
+        },
+        {
+          "option_id": "D",
+          "text": "胸部圧迫が原因なので、その場で安静観察のみとする",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害を伴っており、安静観察のみでは不十分である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "受傷機転とバイタルサインから、胸部圧迫による外傷性窒息を疑う。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "胸腹部を圧迫された時間と人数を確認する",
+        "顔面から頸部のうっ血様変化を確認する",
+        "頸部圧迫や頭部外傷の所見も除外的に観察する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "history_taking",
+        "trauma_assessment"
+      ],
+      "text": "教員によると、男児は休み時間に床へ倒され、複数の友人に上から乗られたという。圧迫は短時間だったが、その後すぐに反応が乏しくなった。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "JCS300",
+          "respiratory_rate": "24回/分",
+          "pulse": "100回/分、整",
+          "blood_pressure": "95/61mmHg",
+          "spo2": "98％"
+        },
+        "history": "複数人が胸腹部の上に乗った可能性がある。頸部を強く絞められたという情報はない。",
+        "physical_findings": "顔面から頸部にかけて赤紫色調が目立つ。明らかな外出血はない。頸部に一周するような線状の圧痕は確認できない。",
+        "risk_summary": "胸腹部圧迫後の意識障害であり、外傷性窒息を疑う状況。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も疑うべき病態はどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "外傷性窒息",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸腹部圧迫後に顔面・頸部のうっ血様変化と意識障害を認めており、外傷性窒息を疑う。"
+        },
+        {
+          "option_id": "B",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "胸部外傷では鑑別に挙がるが、呼吸音左右差やショック所見が中心ではない。"
+        },
+        {
+          "option_id": "C",
+          "text": "頭蓋底骨折",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "意識障害の鑑別にはなるが、鼻耳漏や眼周囲皮下出血などを示す情報は乏しい。"
+        },
+        {
+          "option_id": "D",
+          "text": "頸部絞扼による窒息",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "頸部圧迫の情報や索状の圧痕がなく、胸腹部圧迫による病態がより考えやすい。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の再判断",
+      "phase": "活動方針の再判断",
+      "scene_goal": "小児の意識障害を伴う胸部圧迫外傷として、早期搬送を軸に活動方針を決める。",
+      "ideal_flow": [
+        "高リスク受傷機転として扱う",
+        "酸素投与を開始する",
+        "脊椎運動制限を考慮する",
+        "小児外傷に対応できる医療機関を選定する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "oxygen",
+        "spinal_motion_restriction",
+        "rapid_transport"
+      ],
+      "text": "男児は呼びかけに反応せず、顔面のうっ血様変化が続いている。呼吸は自発しているが、受傷機転から胸部圧迫による重症化の可能性がある。",
+      "visible_data": {
+        "condition": "意識障害が持続している。自発呼吸はある。",
+        "trauma_context": "胸腹部を複数人に圧迫された可能性がある。",
+        "transport_consideration": "小児外傷として評価・搬送先選定が必要。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "意識が戻るまで学校内で経過観察する",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -5,
+          "rationale": "意識障害が持続しており、現場での経過観察は不適切である。"
+        },
+        {
+          "option_id": "B",
+          "text": "酸素投与と必要な固定を行い、早期に搬送へ移る",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸部圧迫後の意識障害では、酸素化と早期搬送を優先する。"
+        },
+        {
+          "option_id": "C",
+          "text": "SpO2が保たれているため酸素投与は不要とする",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "SpO2が一見保たれていても、意識障害と胸部圧迫の機序から酸素投与を考慮する。"
+        },
+        {
+          "option_id": "D",
+          "text": "顔面所見のみで軽症と判断し、通常搬送とする",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "rationale": "意識障害を伴っており、軽症と判断するのは危険である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後の再評価",
+      "phase": "全身観察",
+      "scene_goal": "意識障害の継続と胸腹部圧迫後の合併損傷を確認する。",
+      "ideal_flow": [
+        "気道・呼吸・循環を再評価する",
+        "胸部・腹部の観察を行う",
+        "頭頸部外傷や頸部圧迫所見を確認する",
+        "搬送中の意識・呼吸変化を監視する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "reassessment",
+        "secondary_survey",
+        "monitoring"
+      ],
+      "text": "車内収容後、酸素投与を開始した。男児は依然として呼びかけに反応しない。胸腹部に明らかな変形や開放創はないが、圧迫された部位の痛みを確認できない状態である。",
+      "visible_data": {
+        "reassessment": "自発呼吸あり。橈骨動脈触知可能。意識障害は持続。",
+        "chest_findings": "明らかな胸郭変形や開放創はない。呼吸音に明らかな左右差はない。",
+        "abdominal_findings": "腹部の著明な膨隆はない。",
+        "neck_findings": "頸部に明らかな索状の圧痕はない。",
+        "neurological_status": "痛み刺激への反応は乏しい。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送中に特に継続して観察すべき項目として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "意識レベルと呼吸状態の変化",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "外傷性窒息では低酸素や胸部外傷の影響により、意識・呼吸状態が変化しうる。"
+        },
+        {
+          "option_id": "B",
+          "text": "食事摂取量の詳細",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "情報として無意味ではないが、搬送中の優先観察項目ではない。"
+        },
+        {
+          "option_id": "C",
+          "text": "学校内での人間関係のみ",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "背景確認は必要になりうるが、救急活動中は生命危機の観察が優先される。"
+        },
+        {
+          "option_id": "D",
+          "text": "顔面の色調が完全に消えるかどうかだけ",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "顔面所見だけでなく、意識・呼吸・循環を総合的に観察する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "特徴的な観察所見の判断",
+      "phase": "車内活動",
+      "scene_goal": "外傷性窒息で特徴的にみられる所見を選択できる。",
+      "ideal_flow": [
+        "胸腹部圧迫後の顔面・頸部うっ血を手がかりにする",
+        "外傷性窒息の特徴的所見を想起する",
+        "頸部圧迫や頭蓋底骨折などの所見と区別する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "clinical_reasoning",
+        "trauma_findings",
+        "exam_core"
+      ],
+      "text": "胸腹部を圧迫された後に意識障害をきたし、顔面から頸部にかけてうっ血様の色調変化を認めている。頸部に明らかな索状の圧痕はなく、鼻出血や耳漏も確認されていない。",
+      "visible_data": {
+        "key_context": "胸腹部圧迫後の意識障害。顔面から頸部にかけて赤紫色調が目立つ。",
+        "negative_findings": "頸部の索状圧痕なし。腹部の著明な膨隆なし。鼻耳漏なし。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態で特徴的にみられやすい観察所見として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "眼周囲や結膜にみられる細かな出血斑",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "外傷性窒息では胸腔内圧上昇により上半身の静脈圧が上がり、顔面うっ血や結膜の点状出血を認めることがある。"
+        },
+        {
+          "option_id": "B",
+          "text": "吸気時に胸壁が大きく陥没する所見",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "陥没呼吸は上気道閉塞や呼吸努力増大でみられる所見であり、この病態の特徴所見としては優先されない。"
+        },
+        {
+          "option_id": "C",
+          "text": "腹部全体の著明な膨隆",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "腹部膨隆は腹腔内病変などで問題となるが、外傷性窒息の特徴所見ではない。"
+        },
+        {
+          "option_id": "D",
+          "text": "頸部を一周するような線状の圧痕",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "索状痕は縊頸・絞頸などで重要な所見であり、胸腹部圧迫が主体の本症例とは異なる。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態の理解",
+      "phase": "病院連絡",
+      "scene_goal": "胸部圧迫で意識障害が生じる機序を理解する。",
+      "ideal_flow": [
+        "胸部圧迫により換気が妨げられることを理解する",
+        "胸腔内圧上昇により静脈還流が障害されることを理解する",
+        "低酸素と脳循環への影響が意識障害につながることを説明できる"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "handoff_reasoning",
+        "traumatic_asphyxia"
+      ],
+      "text": "搬送先へ連絡する段階で、胸腹部圧迫後の意識障害と顔面うっ血様所見から、外傷性窒息を疑っている。病態を理解したうえで、観察内容を伝える必要がある。",
+      "visible_data": {
+        "handoff_points": "胸腹部圧迫後に意識障害。顔面から頸部のうっ血様変化あり。自発呼吸はあるが意識障害が持続。",
+        "clinical_question": "なぜ胸部圧迫で意識障害が生じうるのかを考える。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で意識障害が生じた機序として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "胸腹部圧迫により換気が妨げられ、低酸素と静脈還流障害が生じたため",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "胸部圧迫では換気障害に加え、胸腔内圧上昇による静脈還流障害が生じ、脳循環や酸素化に影響して意識障害につながる。"
+        },
+        {
+          "option_id": "B",
+          "text": "頸部を直接圧迫され、頸動脈洞反射による徐脈が持続したため",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "本症例では頸部圧迫が主体ではなく、徐脈も認めていない。"
+        },
+        {
+          "option_id": "C",
+          "text": "頭蓋底骨折により髄液漏が生じ、急速に脳圧が上昇したため",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "鼻耳漏や頭蓋底骨折を強く示す所見は乏しい。"
+        },
+        {
+          "option_id": "D",
+          "text": "腹部膨満により横隔膜が下降し、過換気が生じたため",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "rationale": "胸腹部圧迫では過換気ではなく、胸郭運動制限による換気障害が問題となる。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "学校での胸腹部圧迫後に意識障害と顔面・頸部のうっ血様変化を呈した小児外傷症例。外傷性窒息を疑い、酸素投与、継続観察、早期搬送を行う。",
+    "ideal_actions": [
+      "出場途上で安全確保と意識・呼吸状態の確認を依頼する",
+      "接触時に気道・呼吸・循環を優先して初期評価する",
+      "胸腹部圧迫の受傷機転を重視する",
+      "顔面・頸部のうっ血様変化から外傷性窒息を疑う",
+      "酸素投与と早期搬送を行う",
+      "意識・呼吸状態の変化を継続監視する",
+      "外傷性窒息の特徴所見と発生機序を理解する"
+    ],
+    "good_points": [
+      "Scene6で特徴的観察所見を確認できる",
+      "Scene7で胸部圧迫による意識障害の機序を学べる",
+      "頸部絞扼や頭蓋底骨折などの鑑別所見と区別できる",
+      "小児外傷として安全管理と早期搬送を意識できる"
+    ],
+    "cautions": [
+      "Scene2では数値バイタルではなく初期評価所見を中心に判断する",
+      "SpO2が保たれていても、胸部圧迫後の意識障害は軽視しない",
+      "顔面うっ血だけで判断せず、受傷機転と全身状態を合わせて評価する",
+      "学校内事案では周囲児童の安全確保と教員からの情報収集も重要である"
+    ]
+  }
+}

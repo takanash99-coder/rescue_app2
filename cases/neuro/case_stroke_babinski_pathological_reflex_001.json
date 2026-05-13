@@ -1,0 +1,499 @@
+{
+  "case_id": "stroke_babinski_pathological_reflex_001",
+  "version": "2.0",
+  "title": "突然発症の意識障害と片麻痺でBabinski徴候を確認する症例",
+  "category": "neuro",
+  "difficulty": "Normal",
+  "algorithm_type": "脳卒中プロトコル",
+  "estimated_time": 8,
+  "keywords": [
+    "脳卒中",
+    "意識障害",
+    "片麻痺",
+    "Babinski徴候",
+    "病的反射"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "突然倒れたという通報から、脳卒中や頭蓋内病変を想定する。",
+      "ideal_flow": [
+        "突然発症の意識障害として出場する",
+        "脳卒中や頭蓋内出血を想定する",
+        "家族に反応と呼吸を確認してもらう",
+        "無理に起こしたり歩かせたりしないよう伝える",
+        "発症時刻や最終健常時刻を確認する準備をする"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "stroke_suspicion"
+      ],
+      "text": "65歳男性。突然倒れたため家族が救急要請した。家族は「急に反応が悪くなり、右側の手足を動かしていないように見える」と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "通報者": "家族",
+          "主訴": "突然倒れた、反応低下",
+          "追加情報": "右上下肢を動かしていないように見える"
+        },
+        "pac": {
+          "指示": [
+            "無理に起こさない",
+            "歩かせない",
+            "反応と呼吸を観察する",
+            "嘔吐があれば顔を横に向ける",
+            "発症時刻や最後に普段通りだった時刻を確認する"
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で最も強く想定すべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "脳卒中などの中枢神経障害",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "突然の反応低下と片側上下肢の運動低下は、脳卒中などの中枢神経障害を疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "軽度の筋肉痛",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "突然倒れ、反応低下と片側運動低下があるため、軽症の筋肉痛とは考えにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "単純な過換気",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "頻呼吸やしびれよりも、意識障害と片麻痺を示す情報が中心である。"
+        },
+        {
+          "option_id": "d",
+          "text": "四肢外傷のみ",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "外傷の情報はなく、突然発症の神経症状を優先して考える。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価と早期搬送判断",
+      "phase": "primary_assessment",
+      "scene_goal": "初期評価で切迫する意識障害を認識し、早期搬送を優先する。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "気道、呼吸、脈拍を確認する",
+        "ショックやCPAではないことを短時間で確認する",
+        "右上下肢の動きが乏しいことを確認する",
+        "現場滞在を延ばさず早期搬送を優先する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "primary_assessment",
+        "load_and_go",
+        "stroke_suspicion"
+      ],
+      "text": "傷病者は床上で仰臥位。呼びかけへの反応は乏しいが、気道は開通し、呼吸はある。脈拍は触知できる。明らかな外傷はなく、右上下肢の動きが乏しい。",
+      "visible_data": {
+        "primary_assessment": {
+          "反応": "呼びかけへの反応が乏しい",
+          "気道": "開通",
+          "呼吸": "あり",
+          "脈拍": "触知あり",
+          "外傷": "明らかな外傷なし",
+          "神経所見": "右上下肢の動きが乏しい"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価後の活動方針として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "早期搬送を優先する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "反応低下と片側上下肢の運動低下があり、脳卒中などを疑って早期搬送を優先する。"
+        },
+        {
+          "option_id": "b",
+          "text": "現場で詳細問診を続ける",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "切迫する意識障害と片麻痺が疑われるため、現場滞在を延ばすべきではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "歩行可能か確認する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "意識障害と片麻痺が疑われる傷病者を歩かせるのは不適切である。"
+        },
+        {
+          "option_id": "d",
+          "text": "経過観察を行う",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "突然発症の神経症状があり、経過観察ではなく早期搬送が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "ファーストコールで伝える緊急度",
+      "phase": "first_call_preparation",
+      "scene_goal": "早期搬送判断後、ファーストコールで緊急度を示す情報を整理する。",
+      "ideal_flow": [
+        "早期搬送体制へ移る",
+        "反応低下を緊急度の高い所見として整理する",
+        "片側上下肢の運動低下を脳卒中疑いとして整理する",
+        "搬送先へ早期連絡する情報を選ぶ",
+        "発症時刻や最終健常時刻も確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "first_call",
+        "severity_assessment",
+        "neurologic_emergency"
+      ],
+      "text": "初期評価で早期搬送を優先する方針となった。隊長は搬送先医療機関への早期連絡内容を整理する。",
+      "visible_data": {
+        "first_call_context": {
+          "反応": "呼びかけへの反応が乏しい",
+          "気道": "開通",
+          "呼吸": "あり",
+          "脈拍": "触知あり",
+          "神経所見": "右上下肢の動きが乏しい",
+          "目的": "緊急度を的確に伝える"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "早期連絡で、緊急度を最も強く示す情報はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸があること",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "呼吸があることは重要だが、緊急度を強く示す情報としては反応低下の方が重要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "脈拍が触れること",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "脈拍触知はCPAでないことを示すが、脳卒中疑いの緊急度を最も強く示す情報ではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "反応が乏しいこと",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "反応低下は切迫する意識障害を示し、早期搬送・早期連絡で重要な緊急度情報となる。"
+        },
+        {
+          "option_id": "d",
+          "text": "外傷がないこと",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "外傷がないことは参考情報だが、緊急度を示す中心は反応低下と神経症状である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "バイタル測定と詳細神経観察",
+      "phase": "assessment",
+      "scene_goal": "意識障害、片麻痺、高血圧、徐脈傾向から頭蓋内病変を疑う。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "意識レベルを確認する",
+        "片側上下肢の運動低下を確認する",
+        "高血圧と徐脈傾向を確認する",
+        "頭蓋内病変を疑う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "neurologic_assessment",
+        "stroke_suspicion"
+      ],
+      "text": "車内収容後、酸素投与とモニター装着を行いながら、バイタルサインと詳細な神経所見を確認した。",
+      "visible_data": {
+        "vitals": {
+          "意識": "JCS100",
+          "呼吸数": "32回/分",
+          "脈拍": "44回/分、整",
+          "血圧": "192/106mmHg",
+          "SpO2": "記載なし"
+        },
+        "neurologic_findings": {
+          "右上下肢": "動かさない",
+          "左上下肢": "刺激に対して動きあり",
+          "発語": "困難",
+          "明らかな外傷": "なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この所見から最も疑うべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "脳卒中などの頭蓋内病変",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "意識障害、右片麻痺、高血圧、徐脈傾向から、脳卒中などの頭蓋内病変を疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "軽度の脱水",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "片麻痺と意識障害を軽度脱水だけで説明するのは不適切である。"
+        },
+        {
+          "option_id": "c",
+          "text": "単純な過換気",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "過換気よりも、片側運動障害と意識障害が中心である。"
+        },
+        {
+          "option_id": "d",
+          "text": "四肢外傷",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "明らかな外傷はなく、右上下肢を動かさない所見は中枢神経障害を疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "足底刺激による神経所見",
+      "phase": "focused_neurologic_assessment",
+      "scene_goal": "足底刺激で母趾背屈と2〜5趾開扇を確認し、錐体路障害を疑う。",
+      "ideal_flow": [
+        "右足底の外側をかかとから足趾基部付近へ刺激する",
+        "母趾の背屈を確認する",
+        "2〜5趾の開扇を確認する",
+        "Babinski徴候を疑う",
+        "錐体路障害を示唆する所見として捉える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "babinski_sign",
+        "neurologic_assessment",
+        "pyramidal_tract"
+      ],
+      "text": "右足底の小趾側を、かかとから足趾基部付近へ刺激した。母趾は背屈し、2〜5趾は開くように反応した。",
+      "visible_data": {
+        "focused_findings": {
+          "刺激部位": "右足底の外側、かかとから足趾基部付近",
+          "母趾": "背屈",
+          "2〜5趾": "開扇",
+          "所見": "Babinski徴候を疑う"
+        }
+      },
+      "media": [
+        "media/babinski_reflex_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この所見から疑うべき障害はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "末梢循環障害",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "母趾背屈と開扇は末梢循環ではなく、中枢神経系の錐体路障害を示唆する。"
+        },
+        {
+          "option_id": "b",
+          "text": "錐体路障害",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "Babinski徴候は錐体路障害を示唆する病的所見である。"
+        },
+        {
+          "option_id": "c",
+          "text": "低血糖",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "低血糖でも意識障害は起こり得るが、この足底反射所見の説明にはならない。"
+        },
+        {
+          "option_id": "d",
+          "text": "末梢神経絞扼",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "末梢神経絞扼ではなく、中枢神経系の障害を疑う所見である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試問題の芯：反射の分類",
+      "phase": "exam_core",
+      "scene_goal": "Babinski徴候が病的反射に分類されることを理解する。",
+      "ideal_flow": [
+        "足底刺激後の母趾背屈を確認する",
+        "2〜5趾開扇を確認する",
+        "Babinski徴候として整理する",
+        "病的反射に分類されることを理解する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "exam_core",
+        "pathological_reflex",
+        "babinski_sign"
+      ],
+      "text": "右足底の小趾側を刺激したところ、母趾の背屈と2〜5趾の開扇現象が出現した。この所見はBabinski徴候として知られる。",
+      "visible_data": {
+        "key_findings": {
+          "刺激": "右足底外側",
+          "母趾": "背屈",
+          "2〜5趾": "開扇",
+          "所見": "Babinski徴候"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この神経所見はどの反射に分類されるか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "腱反射",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "腱反射は腱を叩打して筋収縮をみる反射であり、Babinski徴候とは異なる。"
+        },
+        {
+          "option_id": "b",
+          "text": "病的反射",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "Babinski徴候は錐体路障害を示唆する病的反射である。"
+        },
+        {
+          "option_id": "c",
+          "text": "表在反射",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "足底刺激を用いるが、母趾背屈と開扇は正常な表在反射ではなく病的反射として扱う。"
+        },
+        {
+          "option_id": "d",
+          "text": "筋伸展反射",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "筋伸展反射は腱反射に関連する反射であり、Babinski徴候の分類とは異なる。"
+        },
+        {
+          "option_id": "e",
+          "text": "迷走神経反射",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "迷走神経反射は徐脈や血圧低下などに関与する反射であり、この所見とは異なる。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解：Babinski徴候と脳卒中",
+      "phase": "pathophysiology",
+      "scene_goal": "Babinski徴候を病的反射として理解し、片麻痺や意識障害と合わせて脳卒中を疑う。",
+      "ideal_flow": [
+        "Babinski徴候は病的反射であると理解する",
+        "錐体路障害を示唆する所見であると理解する",
+        "突然発症の片麻痺と意識障害を脳卒中疑いとして捉える",
+        "初期評価では早期搬送と早期連絡を優先する",
+        "詳細な神経所見は搬送準備と並行して確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "stroke",
+        "pyramidal_tract"
+      ],
+      "text": "Babinski徴候は、錐体路障害を示唆する病的反射である。突然発症の意識障害、片麻痺、高血圧を伴う場合は、脳卒中などの中枢神経障害を強く疑う。現場では初期評価で早期搬送を判断し、搬送準備と並行して神経所見を確認することが重要である。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "所見": "Babinski徴候",
+          "分類": "病的反射",
+          "示唆する障害": "錐体路障害",
+          "関連病態": "脳卒中などの中枢神経障害",
+          "活動方針": "早期搬送、早期連絡、神経所見の継続評価"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例でBabinski徴候を確認する意義として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "中枢神経障害を疑う根拠になる",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "Babinski徴候は錐体路障害を示唆し、脳卒中などの中枢神経障害を疑う根拠となる。"
+        },
+        {
+          "option_id": "b",
+          "text": "末梢循環が改善した証拠になる",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "Babinski徴候は末梢循環の評価ではなく、中枢神経系の評価に関係する。"
+        },
+        {
+          "option_id": "c",
+          "text": "低血糖を確定する所見になる",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "低血糖の評価には血糖測定などが必要であり、Babinski徴候だけで確定しない。"
+        },
+        {
+          "option_id": "d",
+          "text": "歩行可能かを確認するための所見である",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "Babinski徴候は歩行可否ではなく、錐体路障害を示唆する神経所見である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "突然倒れ、反応低下と右上下肢の運動低下を認めた65歳男性の症例。初期評価では呼びかけへの反応、気道、呼吸、脈拍を確認し、切迫する意識障害と片麻痺から早期搬送を優先する。バイタル測定ではJCS100、高血圧、徐脈傾向を認め、頭蓋内病変を疑う。右足底刺激で母趾背屈と2〜5趾開扇を認め、Babinski徴候として病的反射に分類される。これは錐体路障害を示唆し、脳卒中などの中枢神経障害を疑う重要所見である。",
+    "ideal_actions": [
+      "突然発症の意識障害として脳卒中を想定する",
+      "初期評価では呼びかけ、気道、呼吸、脈拍、ショックやCPAの有無を確認する",
+      "反応低下と片側上下肢の運動低下から早期搬送を優先する",
+      "ファーストコールでは緊急度を示す反応低下を明確に伝える",
+      "車内収容後にバイタルと詳細神経所見を確認する",
+      "足底刺激による母趾背屈と開扇をBabinski徴候として捉える",
+      "Babinski徴候を病的反射として理解し、錐体路障害を疑う"
+    ],
+    "good_points": [
+      "初期評価で痛み刺激に偏らず、気道・呼吸・脈拍・切迫状態を先に確認できる",
+      "早期搬送とファーストコールを現場活動として意識できる",
+      "Babinski徴候を画像で理解できる",
+      "病的反射と錐体路障害、脳卒中をつなげて理解できる"
+    ],
+    "cautions": [
+      "初期評価で詳細な意識評価に入り込みすぎない",
+      "呼吸や脈拍があるだけで緊急性が低いと判断しない",
+      "片麻痺と反応低下を見逃さない",
+      "Babinski徴候を正常反射と混同しない",
+      "病的反射の確認に時間をかけすぎて搬送を遅らせない"
+    ]
+  }
+}

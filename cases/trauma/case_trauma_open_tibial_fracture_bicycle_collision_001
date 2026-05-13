@@ -1,0 +1,451 @@
+{
+  "case_id": "case_trauma_open_tibial_fracture_bicycle_collision_001",
+  "version": "2.0",
+  "title": "自転車との衝突後、開放性下腿骨折に対してそのままの位置で固定する症例",
+  "category": "trauma",
+  "difficulty": "Easy",
+  "estimated_time": 9,
+  "keywords": [
+    "開放骨折",
+    "下腿骨折",
+    "副木固定",
+    "末梢循環評価",
+    "交通外傷"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "状況評価",
+      "phase": "scene_size_up",
+      "scene_goal": "現場の安全を確認し、受傷機転と傷病者数を把握する。",
+      "ideal_flow": [
+        "周囲の交通状況を確認する",
+        "二次災害の危険を評価する",
+        "傷病者数を確認する",
+        "目撃者から受傷機転を聴取する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_safety",
+      "text": "歩道脇で高齢女性が座り込むように倒れている。近くに自転車が倒れており、目撃者が付き添っている。周囲の交通量は多くないが、自転車や歩行者の通行がある。",
+      "visible_data": [
+        "歩道脇",
+        "高齢女性が転倒している",
+        "近くに自転車が倒れている",
+        "目撃者が付き添っている",
+        "歩行者や自転車の通行あり"
+      ],
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "状況評価として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "周囲の交通や通行者を確認し、二次災害を防ぐ",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "交通外傷ではまず現場安全の確保が重要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "目撃者から衝突状況や転倒の様子を聴取する",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "受傷機転の把握は重症度判断につながる。"
+        },
+        {
+          "option_id": "c",
+          "text": "創部の観察を優先し、現場安全の確認は後回しにする",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "安全確認より先に接触するのは不適切である。"
+        },
+        {
+          "option_id": "d",
+          "text": "歩行中の受傷なので外傷は軽症と判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "歩行中の転倒でも骨折や開放創を生じうる。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "意識、気道、呼吸、循環から生理学的異常の有無を評価する。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "気道の開通を確認する",
+        "呼吸状態を確認する",
+        "橈骨動脈と皮膚所見を確認する",
+        "大量出血の有無を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_assessment",
+      "text": "呼びかけにははっきり応答する。気道は開通している。呼吸はやや速いが努力呼吸はない。橈骨動脈は整で触知良好。顔面蒼白や冷汗はなく、活動性の大出血も認めない。",
+      "visible_data": [
+        "意識清明",
+        "気道開通",
+        "呼吸はやや速い",
+        "努力呼吸なし",
+        "橈骨動脈触知良好",
+        "顔面蒼白なし",
+        "冷汗なし",
+        "活動性の大出血なし"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "生理学的異常が強く、ただちにロード＆ゴーである",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "初期評価上、著明な生理学的異常は乏しい。"
+        },
+        {
+          "option_id": "b",
+          "text": "ABCはおおむね保たれており、局所外傷を含めた全身観察へ進む",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "初期評価で致命的な異常がなければ全身観察へ進む。"
+        },
+        {
+          "option_id": "c",
+          "text": "意識が清明なので観察は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "意識清明でも外傷の観察は必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "下腿の疼痛軽減を優先して、先に下肢を整復する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "観察前に不用意な整復を行うべきではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "全身観察",
+      "phase": "rapid_trauma_survey",
+      "scene_goal": "全身観察で局所外傷を確認し、開放性下腿骨折を疑う。",
+      "ideal_flow": [
+        "頭部から下肢まで順に観察する",
+        "右下腿の変形、動揺、創部を確認する",
+        "開放骨折を疑う",
+        "末梢神経障害の有無を確認する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "rapid_trauma_assessment",
+      "text": "頭部、頸部、胸部、腹部に目立った異常はない。右下腿に変形と動揺があり、外側に約5cmの創を認める。暗赤色の少量出血がみられる。両足部に明らかな感覚障害はない。",
+      "visible_data": [
+        "頭頸部に目立った異常なし",
+        "胸腹部に目立った異常なし",
+        "右下腿に変形あり",
+        "右下腿に動揺あり",
+        "右下腿外側に約5cmの創あり",
+        "暗赤色の少量出血あり",
+        "両足部に感覚障害なし"
+      ],
+      "media": [
+        "media/elderly_patient_with_open_leg_wound.png"
+      ],
+      "type": "single_choice",
+      "prompt": "全身観察から最も考えるべき外傷はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "単なる皮膚裂創",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "変形と動揺を伴っており、単純な裂創ではない。"
+        },
+        {
+          "option_id": "b",
+          "text": "開放性下腿骨折",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "創部、変形、動揺から開放骨折を疑う。"
+        },
+        {
+          "option_id": "c",
+          "text": "膝関節脱臼のみ",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "病変の主座は下腿であり、創部も認める。"
+        },
+        {
+          "option_id": "d",
+          "text": "下腿の打撲のみ",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "動揺と創部から骨折を考えるべきである。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "現場処置",
+      "phase": "treatment",
+      "scene_goal": "開放性下腿骨折に対する適切な現場処置を選択する。",
+      "ideal_flow": [
+        "創部と出血量を評価する",
+        "大量出血ではないことを確認する",
+        "無理な整復を避ける",
+        "そのままの位置で固定する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "fracture_stabilization",
+      "text": "右下腿の創部からは少量の暗赤色出血がみられる。傷病者は強い疼痛を訴えるが、意識は清明で、全身状態は安定している。開放性骨折が疑われる。",
+      "visible_data": [
+        "少量の暗赤色出血",
+        "意識清明",
+        "全身状態は安定",
+        "開放性骨折疑い",
+        "強い局所痛"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に行う処置として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "冷却する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "開放骨折の主処置として適切ではない。"
+        },
+        {
+          "option_id": "b",
+          "text": "AEDを装着する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "CPAではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "静脈路を確保して急速輸液する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "ショック所見は乏しく、優先処置ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "ターニケットで緊縛する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "大量活動性出血ではなく、適応に乏しい。"
+        },
+        {
+          "option_id": "e",
+          "text": "そのままの位置で副木固定する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "開放性下腿骨折では無理に整復せず、そのままの位置で固定する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後のファーストコール",
+      "phase": "first_call",
+      "scene_goal": "収容後に傷病者情報を整理し、医療機関へ簡潔に連絡する。",
+      "ideal_flow": [
+        "年齢と性別を整理する",
+        "受傷機転を伝える",
+        "損傷部位と全身状態を伝える",
+        "行った処置を伝える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "first_call",
+      "text": "車内に収容した。右下腿はそのままの位置で固定し、創部は保護されている。傷病者は会話可能で、全身状態は安定している。受け入れ先への収容依頼を行う。",
+      "visible_data": [
+        "77歳女性",
+        "歩行中に自転車と衝突し転倒",
+        "右下腿の開放骨折疑い",
+        "創部保護済み",
+        "副木固定済み",
+        "会話可能",
+        "全身状態は安定"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ファーストコールで最も適切に伝える内容はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "77歳女性。歩行中に自転車と衝突して転倒。右下腿の開放骨折疑いで、創部保護と副木固定を実施。意識清明で全身状態は安定しています",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "受傷機転、損傷、状態、処置が簡潔にまとまっている。"
+        },
+        {
+          "option_id": "b",
+          "text": "77歳女性。とりあえず脚が痛いので診てください",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "受傷機転や損傷の情報が不足している。"
+        },
+        {
+          "option_id": "c",
+          "text": "詳細観察が終わるまで病院連絡は不要である",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "車内収容後に受け入れ依頼を進める。"
+        },
+        {
+          "option_id": "d",
+          "text": "感覚障害がないため連絡しなくてよい",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "開放骨折疑いであり、適切な連絡が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "詳細観察",
+      "phase": "detailed_assessment",
+      "scene_goal": "車内で詳細観察を行い、バイタル、末梢循環、神経所見、既往を確認する。",
+      "ideal_flow": [
+        "詳細なバイタルを測定する",
+        "末梢循環を確認する",
+        "感覚障害の有無を再確認する",
+        "既往歴や内服を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "detailed_assessment",
+      "text": "詳細観察を行った。呼吸数20/分、脈拍90/分、整。血圧140/80mmHg。SpO2 98％。右足趾の色調は保たれ、冷感はない。足部のしびれはなく、触れられる感覚も保たれている。既往歴に骨粗鬆症がある。",
+      "visible_data": [
+        "呼吸数 20/分",
+        "脈拍 90/分 整",
+        "血圧 140/80mmHg",
+        "SpO2 98％",
+        "右足趾の色調は保たれている",
+        "右足部に冷感なし",
+        "右足部のしびれなし",
+        "感覚保たれている",
+        "既往歴に骨粗鬆症あり"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "詳細観察の解釈として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "全身状態は安定しており、局所外傷の観察と末梢評価を継続する",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "現時点で全身の生理学的異常は乏しく、局所の継続評価が重要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "下腿骨折ではないため固定を解除する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "開放骨折疑いであり固定継続が必要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "感覚障害がないので創部観察は不要である",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "創部、出血、固定状態の確認は継続すべきである。"
+        },
+        {
+          "option_id": "d",
+          "text": "バイタルが安定しているため搬送不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "開放骨折疑いであり医療機関受診は必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "継続観察と最終判断",
+      "phase": "reassessment",
+      "scene_goal": "搬送中に出血、疼痛、固定状態、末梢循環の変化を継続的に確認する。",
+      "ideal_flow": [
+        "疼痛の変化を確認する",
+        "出血増加の有無を確認する",
+        "固定のずれを確認する",
+        "末梢循環と感覚の変化を確認する",
+        "処置効果を評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment",
+      "text": "搬送中、右下腿の疼痛は持続しているが増悪はない。創部からの出血量は大きく変わらず、固定のずれもない。右足趾の色調は保たれ、冷感やしびれの新たな出現もない。",
+      "visible_data": [
+        "疼痛は持続するが増悪なし",
+        "出血量は大きく変わらない",
+        "固定のずれなし",
+        "右足趾の色調は保たれている",
+        "冷感なし",
+        "新たなしびれなし"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の最終判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "開放性下腿骨折として、そのままの位置で固定したまま搬送を継続する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "この症例の主病態と適切な処置を正しく捉えている。"
+        },
+        {
+          "option_id": "b",
+          "text": "出血が少ないため固定は解除してよい",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "骨折固定は継続すべきである。"
+        },
+        {
+          "option_id": "c",
+          "text": "活動性出血がないので処置は不要である",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "開放骨折に対する保護と固定は必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "末梢循環が保たれているため現場帰結でよい",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "開放骨折疑いであり搬送継続が必要である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "歩行中に自転車と衝突して転倒した高齢女性の右下腿開放骨折疑い症例である。初期評価で生理学的異常が乏しいことを確認し、全身観察で局所所見を把握したうえで、そのままの位置で創部を保護し副木固定することが重要となる。",
+    "ideal_actions": [
+      "現場安全を確認する",
+      "受傷機転と傷病者数を把握する",
+      "初期評価でABCと大量出血の有無を確認する",
+      "全身観察で開放性下腿骨折を疑う",
+      "創部と出血量を確認する",
+      "無理な整復を避け、そのままの位置で固定する",
+      "車内収容後に適切にファーストコールする",
+      "詳細観察でバイタルと末梢循環・感覚を確認する",
+      "継続観察で出血、固定状態、末梢変化を追う"
+    ],
+    "good_points": [
+      "初期評価で重症生理学的異常が乏しいと判断できた",
+      "裂創ではなく開放骨折を疑えた",
+      "無理な整復を避け、そのままの位置で固定できた",
+      "末梢循環と感覚の評価を継続できた"
+    ],
+    "cautions": [
+      "開放骨折で不用意な整復を行わない",
+      "大量活動性出血でないのに安易にターニケットを使わない",
+      "全身状態が安定していても局所の悪化を見逃さない",
+      "固定前後で末梢循環・感覚の変化に注意する"
+    ]
+  }
+}

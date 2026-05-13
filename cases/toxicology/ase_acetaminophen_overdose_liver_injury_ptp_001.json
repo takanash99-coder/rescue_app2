@@ -1,0 +1,820 @@
+{
+  "case_id": "case_acetaminophen_overdose_liver_injury_ptp_001",
+  "version": "2.0",
+  "title": "腹痛・悪心で救急要請した一人暮らし女性、現場情報からアセトアミノフェン過量服用を疑う症例",
+  "category": "toxicology",
+  "difficulty": "Normal",
+  "algorithm_type": "中毒・自殺企図対応プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "アセトアミノフェン",
+    "過量服用",
+    "肝障害",
+    "PTPシート",
+    "自殺企図",
+    "腹痛"
+  ],
+  "overview": "30歳女性。一人暮らし。3日前から腹痛と悪心があり、症状が増悪したため本人が救急要請した。初期には腹部症状として対応するが、現場のゴミ箱を確認すると多数のPTPシート空包が残っており、情報収集からアセトアミノフェン含有解熱鎮痛薬の大量服用が判明する。アセトアミノフェン過量服用で障害されやすい臓器が肝臓であること、救急隊が空包・残薬・薬袋を確認して病院へ情報提供することが学習の中心である。",
+  "patient_profile": {
+    "age": 30,
+    "sex": "女性",
+    "chief_complaint": "腹痛と悪心",
+    "background": "一人暮らし。数日前から体調不良が続いていた。精神的に落ち込んでいた様子がある。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "overdose",
+      "acetaminophen",
+      "suicide_attempt_risk",
+      "delayed_toxicity"
+    ],
+    "time_pressure": "moderate"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "腹部症状から中毒を疑い、PTP確認、精神背景、肝障害リスク、搬送判断まで的確に整理できている。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "アセトアミノフェン過量と肝障害リスクを理解し、病院連絡に必要な情報も概ね把握できている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "国試の芯は理解できているが、現場での薬剤情報収集や自殺企図評価をもう少し整理したい。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "腹部症状だけに寄っており、中毒や精神背景への視点が弱い。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "アセトアミノフェン中毒の基本と、現場での薬剤情報収集を復習したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容",
+      "phase": "dispatch",
+      "scene_goal": "腹痛・悪心の通報として出場しつつ、重症化や中毒の可能性も念頭に置く。",
+      "ideal_flow": [
+        "腹痛と悪心の通報として出場する",
+        "発症時期と症状の増悪を意識する",
+        "一人暮らしであることを把握する",
+        "現場で追加情報を確認する準備をする"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch",
+        "abdominal_pain",
+        "toxicology_suspicion"
+      ],
+      "text": "30歳女性から『3日前からお腹が痛くて気持ち悪いです。だんだんつらくなってきました』と救急要請が入った。傷病者は一人暮らしで、自宅内にいるという。",
+      "visible_data": {
+        "dispatch_information": "30歳女性。一人暮らし。腹痛と悪心が増悪し救急要請。",
+        "caller_information": [
+          "本人からの通報",
+          "3日前から腹痛と悪心",
+          "症状が増悪",
+          "一人暮らし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で想定すべきこととして最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "腹部症状として評価しつつ、薬剤服用や中毒の可能性も確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "toxicology_kept_in_mind"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "腹痛・悪心だけでなく、症状経過や一人暮らしの背景から薬剤服用なども確認対象となる。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "若年者の腹痛なので緊急性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "若年者でも中毒や急性腹症などの可能性があり、緊急性を低く固定しない。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "腹膜刺激症状の有無だけを確認すれば十分と考える。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "腹部所見は重要だが、服薬歴や現場情報も病態把握に必要である。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "本人が通報できているため観察は簡略化する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "insufficient_assessment"
+            ]
+          },
+          "rationale": "意識清明でも、中毒では時間経過とともに重篤化することがある。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "数値バイタルに入る前に、生命危険性と腹部症状の重症度を大まかに把握する。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "気道・呼吸・循環を確認する",
+        "腹痛と悪心の訴えを確認する",
+        "ショック徴候やCPAでないことを確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "primary_survey",
+        "abdominal_pain",
+        "not_cpa"
+      ],
+      "text": "救急隊が接触すると、傷病者はベッド脇に座っている。会話は可能で、腹痛と悪心を訴えている。呼吸は保たれており、明らかなショック徴候はない。",
+      "visible_data": {
+        "consciousness": "会話可能",
+        "airway": "明らかな気道閉塞なし",
+        "breathing": "呼吸あり",
+        "circulation": "明らかなショック徴候なし",
+        "complaint": [
+          "腹痛",
+          "悪心"
+        ],
+        "first_impression": "CPAではない。腹部症状を訴えるが、中毒の可能性も否定できない。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "生命危険性を確認し、腹部症状と服薬歴の評価へ進む。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "initial_assessment_done"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "初期評価で気道・呼吸・循環を確認し、次に主訴と服薬歴を評価する。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "意識清明なので中毒の可能性は除外する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "toxicology_missed"
+            ]
+          },
+          "rationale": "アセトアミノフェン過量では初期に意識清明なこともあり、中毒を除外できない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "腹痛があるため、直ちに腹部を強く圧迫して確認する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "腹部観察は必要だが、まず全身状態を確認し、丁寧に観察する。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "ショック徴候がないため搬送は不要と判断する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "バイタルが安定していても、過量服用後の遅発性臓器障害は評価が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインと主訴の観察",
+      "phase": "focused_assessment",
+      "scene_goal": "腹痛・悪心の程度と全身状態を確認する。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "腹痛と悪心の経過を確認する",
+        "腹膜刺激症状の有無を確認する",
+        "中毒や薬剤服用の可能性を残す"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "vital_signs",
+        "abdominal_assessment",
+        "symptom_course"
+      ],
+      "text": "傷病者は腹痛と悪心を訴えている。腹部は全体的に違和感があると話すが、腹膜刺激症状は認めない。",
+      "visible_data": {
+        "level_of_consciousness": "意識清明",
+        "respiratory_rate": "24/分",
+        "pulse": "100/分・整",
+        "blood_pressure": "110/68 mmHg",
+        "temperature": "36.3℃",
+        "spo2": "99％",
+        "abdominal_findings": [
+          "腹痛あり",
+          "悪心あり",
+          "腹膜刺激症状なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で重視すべき観察・確認として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "腹部所見に加え、服薬歴や現場の薬剤情報を確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "medication_history_needed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "腹膜刺激症状がなくても、腹痛・悪心の背景に薬物過量服用がある可能性を確認する。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "SpO2が正常なので薬物中毒は否定する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "toxicology_missed"
+            ]
+          },
+          "rationale": "SpO2が正常でもアセトアミノフェン中毒や肝障害は否定できない。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "腹膜刺激症状がないため医療機関評価は不要とする。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "中毒や肝障害の評価が必要な場合があり、腹膜刺激症状だけで判断しない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "体温が正常なので経過観察を勧める。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_care"
+            ]
+          },
+          "rationale": "体温が正常でも過量服用後の遅発性肝障害は起こり得る。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "現場観察：室内の手がかり",
+      "phase": "interactive_observation",
+      "scene_goal": "部屋の画像から薬剤過量服用の手がかりを探す。",
+      "ideal_flow": [
+        "室内全体を観察する",
+        "気になる場所を選択する",
+        "ゴミ箱内のPTPシート空包に気づく",
+        "服薬量推定の手がかりとして扱う"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "scene_observation",
+        "image_interaction",
+        "ptp_sheets",
+        "overdose_clue"
+      ],
+      "text": "一人暮らしの室内を確認する。部屋は大きく荒れてはいないが、本人は数日間体調不良が続いていたと話す。気になる場所を確認して、腹痛・悪心の原因につながる手がかりを探す。",
+      "visible_data": {
+        "instruction": "気になる場所をタップ、または観察ポイントから選択する。",
+        "observation_points": [
+          "ゴミ箱",
+          "机",
+          "本棚"
+        ],
+        "trash_bin_finding": "ゴミ箱を覗き込むと、アセトアミノフェン含有解熱鎮痛薬と考えられるPTPシート空包が15〜16シート程度残っている。3日前の服用だが、一人暮らしで体調不良が続き片付けられていなかった可能性がある。",
+        "desk_finding": "机上には日用品と飲み物がある。明らかな薬袋は見当たらない。",
+        "bookshelf_finding": "本棚周囲に目立つ異常はない。"
+      },
+      "media": [
+        "media/acetaminophen_od_room_overview_scene4.png"
+      ],
+      "observation_points": [
+        {
+          "point_id": "trash_bin",
+          "label": "ゴミ箱を見る",
+          "media": [
+            "media/acetaminophen_od_trash_bin_ptp_scene4.png"
+          ],
+          "finding": "ゴミ箱内にPTPシート空包が15〜16シート程度残っている。服薬量推定の重要な手がかりとなる。",
+          "score_delta": 3,
+          "status_effect": {
+            "add_flags": [
+              "ptp_sheets_found"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          }
+        },
+        {
+          "point_id": "desk",
+          "label": "机を見る",
+          "media": [],
+          "finding": "机上には日用品と飲み物がある。薬袋や残薬は見当たらない。",
+          "score_delta": 1,
+          "status_effect": {
+            "add_flags": [
+              "desk_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          }
+        },
+        {
+          "point_id": "bookshelf",
+          "label": "本棚を見る",
+          "media": [],
+          "finding": "本棚周囲に目立つ異常はない。",
+          "score_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bookshelf_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          }
+        }
+      ],
+      "type": "single_choice",
+      "prompt": "ゴミ箱内のPTPシート空包を確認した後、救急隊の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "空包数、残薬、薬袋を確認し、可能であれば病院へ持参する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "ptp_sheets_collected",
+              "overdose_suspected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "PTPシート数は服薬量推定の参考になる。残薬や薬袋も確認し、病院へ情報提供する。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "3日前の服用なので空包は情報として扱わない。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "dose_estimation_missed"
+            ]
+          },
+          "rationale": "時間が経過していても、空包は推定服薬量の重要な手がかりである。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "ゴミ箱内の空包を廃棄してから搬送する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "evidence_lost"
+            ]
+          },
+          "rationale": "空包は医療機関での評価に役立つため、廃棄しない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "空包があるため腹部観察は不要とする。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "assessment_incomplete"
+            ]
+          },
+          "rationale": "薬剤情報と身体観察の両方が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "服薬歴と精神背景の確認",
+      "phase": "history_and_risk_assessment",
+      "scene_goal": "アセトアミノフェン過量服用、自殺企図、併用薬の有無を確認する。",
+      "ideal_flow": [
+        "薬剤名と服薬時刻を確認する",
+        "推定服薬量を確認する",
+        "PTPシート数と残薬を照合する",
+        "自殺企図の有無を確認する",
+        "精神科既往や併用薬、飲酒の有無を確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "medication_history",
+        "suicide_attempt",
+        "acetaminophen",
+        "ptp_count"
+      ],
+      "text": "ゴミ箱の空包について尋ねると、本人はしばらく黙った後、『3日前に解熱鎮痛薬をたくさん飲みました。気分が落ち込んでいて、もうどうでもいいと思いました』と話した。以前から抑うつ気分があり、精神科通院歴があるという。",
+      "visible_data": {
+        "medication_information": [
+          "3日前にアセトアミノフェン含有解熱鎮痛薬を大量服用",
+          "PTPシート空包が15〜16シート程度",
+          "残薬・薬袋は確認中",
+          "併用薬・飲酒の有無は未確認"
+        ],
+        "psychiatric_context": [
+          "抑うつ気分あり",
+          "精神科通院歴あり",
+          "自殺企図の可能性あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で追加確認すべき内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "服薬時刻、薬剤名、推定量、併用薬、飲酒、自殺企図の有無を確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "overdose_history_confirmed",
+              "suicide_risk_assessed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "中毒対応では服薬内容と時間、量、併用薬、自殺企図の有無が病院評価に重要である。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "本人が話したくなさそうなので服薬量の確認は避ける。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "dose_estimation_missed"
+            ]
+          },
+          "rationale": "配慮ある聞き方は必要だが、服薬量や時刻の確認は治療方針に関わる。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "腹痛が主訴なので精神科既往は確認しない。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "suicide_risk_missed"
+            ]
+          },
+          "rationale": "過量服用では自殺企図や精神科背景の確認が再企図リスク評価にも重要である。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "PTPシート数だけで正確な服薬量を断定する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "PTP数は参考になるが、残薬や本人申告、薬袋などと合わせて推定する。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：障害されやすい臓器",
+      "phase": "national_exam_core",
+      "scene_goal": "アセトアミノフェン過量服用で障害されやすい臓器を理解する。",
+      "ideal_flow": [
+        "アセトアミノフェン過量服用を認識する",
+        "3日後の腹痛・悪心を重視する",
+        "肝障害リスクを考える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "national_exam_core",
+        "acetaminophen",
+        "liver_injury"
+      ],
+      "text": "3日前にアセトアミノフェン含有解熱鎮痛薬を大量服用し、その後に腹痛と悪心が増悪している。現時点で腹膜刺激症状はない。",
+      "visible_data": {
+        "key_findings": [
+          "アセトアミノフェン含有薬の大量服用",
+          "服用から3日経過",
+          "腹痛・悪心が増悪",
+          "腹膜刺激症状なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病で障害される可能性の高い臓器はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "脳",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "意識障害を来す中毒もあるが、アセトアミノフェン過量の主な標的は肝臓である。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "肺",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸状態は保たれており、この薬剤でまず疑う臓器障害ではない。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "心臓",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "アセトアミノフェンは典型的にQT延長を主所見とする薬剤ではなく、国試の芯は肝障害である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "肝臓",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "liver_injury_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "アセトアミノフェン過量では代謝産物により肝細胞障害を来し、急性肝不全に進行することがある。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "腎臓",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "腎障害も重症例で問題となり得るが、最も典型的に障害される臓器は肝臓である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "搬送判断と病院連絡",
+      "phase": "transport_and_handoff",
+      "scene_goal": "バイタルが安定していても、中毒対応可能な医療機関へ必要情報を伝える。",
+      "ideal_flow": [
+        "3日前の過量服用を重視する",
+        "肝障害評価が必要と判断する",
+        "地域MCや搬送基準に従い中毒対応可能施設を選定する",
+        "PTPシート・残薬・薬袋を持参する",
+        "自殺企図の可能性を伝える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "transport_decision",
+        "hospital_handoff",
+        "toxicology_center",
+        "suicide_risk"
+      ],
+      "text": "傷病者のバイタルサインは比較的安定しているが、アセトアミノフェン含有薬の大量服用から3日経過し、腹痛と悪心が増悪している。自殺企図の可能性もある。",
+      "visible_data": {
+        "handoff_points": [
+          "30歳女性、一人暮らし",
+          "3日前にアセトアミノフェン含有解熱鎮痛薬を大量服用",
+          "腹痛・悪心が増悪",
+          "PTPシート空包15〜16シート程度",
+          "残薬・薬袋を確認、可能なら持参",
+          "抑うつ気分・精神科通院歴あり",
+          "自殺企図の可能性あり",
+          "現在のバイタルサインと腹部所見"
+        ],
+        "transport_note": "地域MCや地域の搬送基準によるが、過量服用では中毒対応や精神科連携が可能な高次医療機関が選定されることが多い。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送先選定と病院連絡として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "中毒対応可能な医療機関を選定し、薬剤名・時刻・推定量・空包数・自殺企図の可能性を伝える。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "appropriate_transport_selected",
+              "handoff_complete"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "アセトアミノフェン過量では肝障害評価が必要で、服薬情報と精神背景の申し送りが重要である。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "バイタルが安定しているため本人の希望があれば自宅で経過観察とする。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_treatment"
+            ]
+          },
+          "rationale": "3日前の大量服用と症状増悪があり、肝障害評価が必要である。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "腹膜刺激症状がないため一般外来受診を案内する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "腹膜刺激症状がなくても中毒としての評価が必要である。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "薬剤名が分かれば空包や残薬は持参しなくてよい。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "medication_info_incomplete"
+            ]
+          },
+          "rationale": "空包・残薬・薬袋は推定服薬量や薬剤確認に役立つため、可能であれば持参する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "30歳女性の腹痛・悪心症例。一人暮らしで、当初は腹部症状として救急要請したが、室内のゴミ箱を確認するとPTPシート空包が15〜16シート程度残っていた。3日前にアセトアミノフェン含有解熱鎮痛薬を大量服用しており、抑うつ気分と自殺企図の可能性もあった。アセトアミノフェン過量では代謝産物による肝細胞障害が問題となり、服用後数日して腹痛・悪心が増悪することがある。救急隊は空包数、残薬、薬袋、服薬時刻、推定量、併用薬、飲酒、自殺企図の有無を確認し、中毒対応可能な医療機関へ搬送する。",
+    "ideal_actions": [
+      "腹痛・悪心の通報でも、服薬歴や現場情報を確認する視点を持つ。",
+      "初期評価では意識、気道、呼吸、循環を確認し、生命危険性を判断する。",
+      "バイタルサインと腹部所見を確認する。",
+      "室内のゴミ箱など、薬剤情報につながる現場手がかりを確認する。",
+      "PTPシート空包数、残薬、薬袋を確認し、可能であれば病院へ持参する。",
+      "服薬時刻、薬剤名、推定量、併用薬、飲酒の有無を確認する。",
+      "自殺企図や精神科既往、再企図リスクを確認する。",
+      "アセトアミノフェン過量では肝障害リスクを考える。",
+      "地域MCや搬送基準に従い、中毒対応可能な医療機関を選定する。"
+    ],
+    "good_points": [
+      "腹痛から始まり、画像探索でオーバードーズを見抜く構成になっている。",
+      "ゴミ箱タップでPTPシート空包を発見するアプリ的な観察体験を組み込んでいる。",
+      "国試の芯である肝障害をScene6で明確に扱っている。",
+      "服薬量推定、空包持参、自殺企図評価、病院連絡まで救急隊活動に落とし込んでいる。"
+    ],
+    "cautions": [
+      "アセトアミノフェンは典型的にQT延長を主所見とする薬剤ではなく、国試的には肝障害が重要である。",
+      "バイタルサインが安定していても、過量服用後の遅発性肝障害を軽視しない。",
+      "3日前の服用でも、現場に残るPTPシート空包は推定服薬量の重要な手がかりになる。",
+      "空包数だけで服薬量を断定せず、残薬、薬袋、本人申告、併用薬と合わせて評価する。",
+      "自殺企図の可能性がある場合は、身体管理だけでなく精神科的リスクも申し送る。"
+    ]
+  }
+}

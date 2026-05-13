@@ -1,0 +1,745 @@
+{
+  "case_id": "malignant_syndrome_psychiatric_medication_fever_rigidity_001",
+  "version": "2.0",
+  "title": "高熱・振戦・筋強剛から悪性症候群を疑い服薬内容確認を優先する症例",
+  "category": "toxicology",
+  "difficulty": "Hard",
+  "estimated_time": 12,
+  "keywords": [
+    "悪性症候群",
+    "精神科薬",
+    "高熱",
+    "筋強剛",
+    "服薬内容確認"
+  ],
+  "metadata": {
+    "case_no": 92,
+    "source_hint": "第47回国家試験D問題31を参考に再構成",
+    "boss_candidate": false,
+    "ai_grading_candidate": true,
+    "ai_grading_scene": "scene3",
+    "ai_grading_reason": "家族から服薬内容、薬剤変更、薬袋・お薬手帳の有無を自由入力で聞き取る対話型Sceneのため",
+    "free_text": false,
+    "interactive": true,
+    "interactive_type": "dialogue_input",
+    "media_required": true
+  },
+  "patient_profile": {
+    "age": 24,
+    "sex": "male",
+    "chief_complaint": "高熱、発汗、手足のこわばり",
+    "background": "精神科に通院中で、内服薬を処方されている。家族が高熱を心配して救急要請した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": {
+      "airway_problem": false,
+      "oxygenation_problem": false,
+      "fever": true,
+      "rigidity": true,
+      "tremor": true,
+      "psychiatric_medication_known": false,
+      "medication_change_found": false,
+      "medication_bag_found": false,
+      "suspected_malignant_syndrome": false
+    },
+    "danger_tags": [
+      "高熱",
+      "筋強剛",
+      "薬剤性重症反応",
+      "悪性症候群疑い",
+      "横紋筋融解リスク"
+    ]
+  },
+  "result_rank": [
+    {
+      "rank": "Excellent",
+      "score_min": 85,
+      "life_min": 85,
+      "summary": "高熱、発汗、振戦、筋強剛様のこわばりから重症病態を疑い、家族から服薬内容や薬剤変更を聞き取り、悪性症候群を想定して搬送判断まで行えた。"
+    },
+    {
+      "rank": "Good",
+      "score_min": 65,
+      "life_min": 70,
+      "summary": "服薬内容確認の重要性には気づけているが、接触直後の異常把握や悪性症候群の病態理解に一部弱さがある。"
+    },
+    {
+      "rank": "Normal",
+      "score_min": 45,
+      "life_min": 50,
+      "summary": "高熱やこわばりを異常として認識できているが、精神科薬との関連や薬剤性重症反応への結びつきが不十分である。"
+    },
+    {
+      "rank": "Bad",
+      "score_min": 0,
+      "life_min": 0,
+      "summary": "SpO2や血圧が保たれていることに安心し、服薬内容確認や悪性症候群を疑う判断が遅れている。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch_pac",
+      "scene_goal": "高熱通報で意識状態を確認し、重症度を見積もる。",
+      "ideal_flow": [
+        "高熱の通報内容を把握する",
+        "呼びかけへの反応を確認する",
+        "呼吸状態やけいれん様症状の有無を想定する",
+        "重症化リスクを意識して出場する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "高熱",
+        "意識確認"
+      ],
+      "text": "24歳男性の家族から「高い熱があり、様子がおかしい」と救急要請があった。出場途上で家族へ追加確認を行う。",
+      "visible_data": {
+        "dispatch_information": [
+          "24歳男性",
+          "高熱を訴えている",
+          "家族が救急要請した",
+          "詳しい状態は未確認"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "高熱を訴える傷病者について、出場途上で家族へ最初に確認する内容として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "呼びかけに反応するか。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "consciousness_checked_by_call"
+          ],
+          "rationale": "高熱の通報では、まず呼びかけへの反応を確認し、意識障害や重症化の可能性を見積もる。"
+        },
+        {
+          "option_id": "B",
+          "text": "最後に食事をした時刻。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "食事時刻は情報として有用な場合もあるが、高熱通報で最初に確認する内容としては意識状態が優先される。"
+        },
+        {
+          "option_id": "C",
+          "text": "普段の飲酒量。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "飲酒歴は後で確認してよいが、まずは意識状態や呼吸状態を把握する。"
+        },
+        {
+          "option_id": "D",
+          "text": "最近の旅行歴。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "感染症を考えるうえで参考になる場合はあるが、出場途上の最初の確認としては優先度が下がる。"
+        },
+        {
+          "option_id": "E",
+          "text": "体温計の種類。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "測定条件の確認より、まず呼びかけへの反応など生命危機に関わる情報を確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価と接触直後の異常把握",
+      "phase": "initial_assessment",
+      "scene_goal": "数値バイタルの前に、接触直後の見た目から異常所見を拾う。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "呼吸の速さを観察する",
+        "発汗や皮膚の熱感を確認する",
+        "手足のこわばりや振戦を異常として捉える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "初期評価",
+        "ファーストインプレッション",
+        "筋強剛"
+      ],
+      "text": "救急隊が接触すると、傷病者は布団上に臥位で、全身に発汗がみられる。呼びかけると開眼し、短い返答はできる。呼吸は速く、手足にこわばりがあり、小刻みに震えている。皮膚には熱感がある。",
+      "visible_data": {
+        "first_impression": [
+          "布団上に臥位",
+          "全身に発汗あり",
+          "呼びかけで開眼",
+          "短い返答は可能",
+          "呼吸は速い",
+          "手足にこわばりあり",
+          "小刻みな震えあり",
+          "皮膚に熱感あり"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "接触直後の所見から、異常として重視すべきものはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "呼びかけで開眼すること。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "呼びかけで開眼することは意識評価の情報だが、この場面で異常として重視すべき所見は手足のこわばりである。"
+        },
+        {
+          "option_id": "B",
+          "text": "短い返答ができること。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "短い返答ができても、重症病態を否定できない。こわばりや振戦、発汗、熱感を重視する。"
+        },
+        {
+          "option_id": "C",
+          "text": "手足にこわばりがあること。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "rigidity_recognized"
+          ],
+          "rationale": "初期評価ではABCDに加え、姿勢、表情、発汗、皮膚色、呼吸様式、異常肢位やこわばりも確認する。手足のこわばりは重症化を疑う重要な所見である。"
+        },
+        {
+          "option_id": "D",
+          "text": "布団上に臥位でいること。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "臥位でいること自体は異常とは限らない。症状や身体所見と合わせて判断する。"
+        },
+        {
+          "option_id": "E",
+          "text": "家族がそばにいること。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "家族がいることは情報収集に役立つが、身体所見として重視する異常ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "家族への対話型情報収集",
+      "phase": "history_taking",
+      "scene_goal": "家族から精神科通院、服薬内容、薬剤変更、薬袋・お薬手帳の有無を聞き取る。",
+      "ideal_flow": [
+        "精神科通院の有無を確認する",
+        "内服薬の有無を確認する",
+        "最近の薬剤変更や追加を確認する",
+        "薬袋やお薬手帳の有無を確認する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": [
+        "対話型情報収集",
+        "服薬歴",
+        "薬剤変更"
+      ],
+      "text": "家族は傷病者のそばにおり、状況を説明できそうである。数値バイタルを測定しながら、家族から必要な情報を聞き取る。",
+      "visible_data": {
+        "vitals": {
+          "consciousness": "JCS1",
+          "respiratory_rate": "28/分",
+          "pulse": "120/分",
+          "blood_pressure": "150/88mmHg",
+          "spo2": "98%",
+          "temperature": "38.8℃"
+        },
+        "observations": [
+          "振戦あり",
+          "手足のこわばりあり",
+          "発汗あり",
+          "飲酒は機会飲酒と家族が話している"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "dialogue_input",
+      "ui_style": "line_dialogue",
+      "prompt": "家族から必要な情報を聞き取ってください。",
+      "target": "家族",
+      "dialogue_rules": [
+        {
+          "intent_id": "psychiatric_medication",
+          "keywords": [
+            "精神科",
+            "薬",
+            "内服",
+            "処方",
+            "通院"
+          ],
+          "acceptable_questions": [
+            "精神科の薬を飲んでいますか",
+            "処方薬はありますか",
+            "内服している薬はありますか",
+            "精神科には通っていますか",
+            "通院していますか"
+          ],
+          "reply": "精神科には通っています。薬も処方されています。",
+          "score_delta": 8,
+          "status_effect": [
+            "psychiatric_medication_known"
+          ]
+        },
+        {
+          "intent_id": "medication_change",
+          "keywords": [
+            "変更",
+            "増量",
+            "追加",
+            "変わった",
+            "新しい薬"
+          ],
+          "acceptable_questions": [
+            "最近薬は変わりましたか",
+            "薬が増えましたか",
+            "新しい薬は追加されましたか",
+            "処方内容に変更はありましたか",
+            "薬の量は変わりましたか"
+          ],
+          "reply": "数日前に薬が追加されたと聞いています。薬袋はあります。",
+          "score_delta": 10,
+          "status_effect": [
+            "medication_change_found"
+          ]
+        },
+        {
+          "intent_id": "medication_bag",
+          "keywords": [
+            "薬袋",
+            "お薬手帳",
+            "薬の名前",
+            "薬剤名",
+            "処方内容"
+          ],
+          "acceptable_questions": [
+            "薬袋を見せてもらえますか",
+            "お薬手帳はありますか",
+            "薬の名前はわかりますか",
+            "処方内容を確認できますか",
+            "薬を確認できますか"
+          ],
+          "reply": "薬の名前までは分かりませんが、薬袋とお薬手帳があります。",
+          "score_delta": 10,
+          "status_effect": [
+            "medication_bag_found"
+          ]
+        },
+        {
+          "intent_id": "symptom_onset",
+          "keywords": [
+            "いつから",
+            "発症",
+            "始まった",
+            "こわばり",
+            "震え",
+            "熱"
+          ],
+          "acceptable_questions": [
+            "いつから熱が出ましたか",
+            "こわばりはいつからですか",
+            "震えはいつからありますか",
+            "症状はいつ始まりましたか",
+            "いつから様子がおかしいですか"
+          ],
+          "reply": "今日の夕方から熱が高くなり、手足がこわばって震えるようになりました。",
+          "score_delta": 6,
+          "status_effect": [
+            "onset_known"
+          ]
+        },
+        {
+          "intent_id": "alcohol_history",
+          "keywords": [
+            "酒",
+            "アルコール",
+            "飲酒"
+          ],
+          "acceptable_questions": [
+            "今日はお酒を飲みましたか",
+            "普段お酒は飲みますか",
+            "アルコールは飲んでいますか"
+          ],
+          "reply": "お酒は付き合いで飲む程度です。今日は飲んでいないと思います。",
+          "score_delta": 2,
+          "status_effect": [
+            "alcohol_less_likely"
+          ]
+        }
+      ],
+      "fallback_reply": "すみません、そこまではわかりません。"
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の再判断",
+      "phase": "reassessment",
+      "scene_goal": "バイタルサインと家族情報から、活動方針を考えるうえで重視すべき情報を判断する。",
+      "ideal_flow": [
+        "高熱と頻脈を確認する",
+        "振戦とこわばりを確認する",
+        "精神科薬の追加情報を重視する",
+        "薬剤性重症反応を疑って搬送準備を進める"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "再判断",
+        "服薬情報",
+        "悪性症候群疑い"
+      ],
+      "text": "バイタルサインはJCS1、呼吸数28/分、脈拍120/分、血圧150/88mmHg、SpO2 98％、体温38.8℃である。振戦、手足のこわばり、発汗を認める。家族から、精神科通院中で数日前に薬が追加されたらしいとの情報を得た。",
+      "visible_data": {
+        "vitals": {
+          "consciousness": "JCS1",
+          "respiratory_rate": "28/分",
+          "pulse": "120/分",
+          "blood_pressure": "150/88mmHg",
+          "spo2": "98%",
+          "temperature": "38.8℃"
+        },
+        "history": [
+          "精神科に通院中",
+          "数日前に薬が追加されたらしい",
+          "薬袋とお薬手帳がある",
+          "飲酒は機会飲酒",
+          "本日は飲酒していない可能性が高い"
+        ],
+        "observations": [
+          "振戦あり",
+          "手足のこわばりあり",
+          "発汗あり"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この時点で活動方針を考えるうえで、最も重視すべき情報はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "SpO2が98％であること。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "酸素化が保たれていても、薬剤性重症反応を否定できない。"
+        },
+        {
+          "option_id": "B",
+          "text": "血圧が150/88mmHgであること。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "血圧は重要な観察項目だが、この場面で活動方針を考えるうえでは精神科薬が追加された情報をより重視する。"
+        },
+        {
+          "option_id": "C",
+          "text": "数日前に精神科薬が追加されたこと。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "suspected_malignant_syndrome"
+          ],
+          "rationale": "高熱、振戦、手足のこわばり、発汗があり、精神科薬の追加情報がある場合は、悪性症候群などの薬剤性重症反応を疑う。"
+        },
+        {
+          "option_id": "D",
+          "text": "飲酒が機会飲酒であること。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "飲酒歴は鑑別上の情報になるが、この場面では高熱、筋症状、精神科薬の追加情報を優先して評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "搬送準備中の重点観察",
+      "phase": "focused_observation",
+      "scene_goal": "搬送準備中に状態悪化を早期に捉えるため、筋症状の変化を観察する。",
+      "ideal_flow": [
+        "筋緊張の変化を確認する",
+        "意識状態の変化を確認する",
+        "体温の推移を確認する",
+        "脈拍や血圧変動を継続観察する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "重点観察",
+        "筋緊張",
+        "継続観察"
+      ],
+      "text": "搬送準備を進める。傷病者は発汗が続き、手足のこわばりと小刻みな震えを認めている。",
+      "visible_data": {
+        "current_observation": [
+          "発汗が続いている",
+          "手足のこわばりあり",
+          "小刻みな震えあり",
+          "呼びかけには短く返答する"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "搬送準備中に、状態悪化を早期に捉えるため重点的に確認する所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "筋緊張の変化。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "muscle_tone_monitored"
+          ],
+          "rationale": "この症例では高熱、振戦、手足のこわばり、発汗が重要な手がかりである。筋緊張が増悪する場合は重症化を疑う。"
+        },
+        {
+          "option_id": "B",
+          "text": "咳嗽の回数。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "呼吸状態の観察は必要だが、今回の主な異常所見からは筋緊張の変化を重点的に追う。"
+        },
+        {
+          "option_id": "C",
+          "text": "腹部膨満の変化。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "腹部膨満は今回の主病態を判断する中心所見ではない。"
+        },
+        {
+          "option_id": "D",
+          "text": "皮膚掻痒感の有無。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "皮膚掻痒感はアレルギーなどでは参考になるが、この場面の重点観察としては筋緊張の変化が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：服薬内容確認",
+      "phase": "exam_core",
+      "scene_goal": "高熱、振戦、こわばり、発汗と精神科薬内服から、服薬内容確認の重要性を判断する。",
+      "ideal_flow": [
+        "高熱と筋症状を結びつける",
+        "精神科通院中であることを重視する",
+        "薬剤性重症反応を疑う",
+        "服薬内容を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "国試の芯",
+        "服薬内容確認",
+        "悪性症候群疑い"
+      ],
+      "text": "24歳男性。体温38.8℃、振戦、手足のこわばり、発汗を認める。精神科に通院し、内服薬を処方されている。",
+      "visible_data": {
+        "summary": [
+          "JCS1",
+          "呼吸数28/分",
+          "脈拍120/分",
+          "血圧150/88mmHg",
+          "SpO2 98%",
+          "体温38.8℃",
+          "振戦あり",
+          "手足のこわばりあり",
+          "発汗あり",
+          "精神科通院中",
+          "内服薬あり"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この傷病者への対応で最も重要なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "酸素を投与する。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "SpO2は保たれており、酸素投与のみではこの病態の把握につながらない。服薬内容の確認が重要である。"
+        },
+        {
+          "option_id": "B",
+          "text": "アルコール臭の有無を確認する。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "飲酒の確認は鑑別上の情報になるが、高熱、筋症状、精神科薬内服からは服薬内容確認を優先する。"
+        },
+        {
+          "option_id": "C",
+          "text": "血糖値を測る。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "意識障害の評価として血糖測定は有用だが、この問題の最重要対応は服薬内容の確認である。"
+        },
+        {
+          "option_id": "D",
+          "text": "服薬内容を確認する。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [
+            "medication_content_confirmed"
+          ],
+          "rationale": "高熱、振戦、筋強剛様のこわばり、発汗があり、精神科薬を内服している場合は、悪性症候群などの薬剤性重症反応を疑う。処方薬の種類、変更、増量、中断の有無を確認することが重要である。"
+        },
+        {
+          "option_id": "E",
+          "text": "すぐに処方薬を飲ませる。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -3,
+          "status_effect": [],
+          "rationale": "原因薬剤が関与している可能性があるため、現場判断で処方薬を追加内服させる対応は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "悪性症候群の理解",
+      "phase": "pathophysiology",
+      "scene_goal": "悪性症候群の定義、主な症状、服薬歴確認の重要性を理解する。",
+      "ideal_flow": [
+        "精神神経用薬との関連を理解する",
+        "高熱と筋強剛を主な症状として理解する",
+        "自律神経症状を理解する",
+        "早期搬送と継続観察の必要性を理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "病態理解",
+        "悪性症候群",
+        "薬剤性重症反応"
+      ],
+      "text": "服薬内容の確認を進めながら、傷病者の病態を整理する。高熱、発汗、振戦、手足のこわばりがあり、精神科薬との関連が疑われる。",
+      "visible_data": {
+        "clinical_context": [
+          "精神科薬との関連が疑われる",
+          "高熱あり",
+          "発汗あり",
+          "振戦あり",
+          "筋強剛様のこわばりあり",
+          "頻脈・頻呼吸あり"
+        ]
+      },
+      "media": [
+        "media/malignant_syndrome_home_fever_rigidity_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "悪性症候群の説明として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "精神神経用薬に関連して、高熱、筋強剛、自律神経症状を来す重篤な副作用である。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [
+            "malignant_syndrome_understood"
+          ],
+          "rationale": "悪性症候群は、主に抗精神病薬などの精神神経用薬に関連して起こる重篤な副作用である。高熱、発汗、振戦、筋強剛、意識変容、頻脈・頻呼吸・血圧変動などを認める。"
+        },
+        {
+          "option_id": "B",
+          "text": "飲酒後に一過性の振戦を来すが、高熱や発汗は通常伴わない病態である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "悪性症候群は飲酒後の一過性振戦ではなく、精神神経用薬に関連して高熱、筋強剛、自律神経症状を来す重篤な副作用である。"
+        },
+        {
+          "option_id": "C",
+          "text": "低血糖によって筋肉のこわばりが主体となり、服薬歴の確認は不要となる病態である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "低血糖は鑑別に入ることがあるが、今回の病態理解では精神科薬との関連と服薬歴の確認が重要である。"
+        },
+        {
+          "option_id": "D",
+          "text": "気道閉塞によりSpO2が急低下することを主徴とし、精神科薬との関連は乏しい病態である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "悪性症候群は気道閉塞を主徴とする病態ではない。精神神経用薬との関連を考える必要がある。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "24歳男性の高熱症例。接触時は返答可能だが、発汗、熱感、振戦、手足のこわばりを認めた。家族から精神科通院中で数日前に薬が追加された情報を聞き取り、悪性症候群などの薬剤性重症反応を疑う流れである。国試の芯は、服薬内容を確認することである。",
+    "ideal_actions": [
+      "出場途上で呼びかけへの反応を確認する",
+      "接触直後に発汗、熱感、呼吸様式、手足のこわばりを観察する",
+      "数値バイタルを測定し、頻脈、頻呼吸、高熱を把握する",
+      "家族から精神科通院と処方薬の有無を聞き取る",
+      "最近の薬剤変更や追加を確認する",
+      "薬袋やお薬手帳を確認する",
+      "悪性症候群などの薬剤性重症反応を疑い、早期搬送につなげる"
+    ],
+    "good_points": [
+      "返答可能でも、こわばりや振戦を異常として拾えると重症化リスクを見逃しにくい",
+      "高熱だけで感染症や熱中症に固定せず、服薬歴を確認できると薬剤性病態に近づける",
+      "薬袋やお薬手帳の確認は、搬送先への重要な情報提供につながる",
+      "悪性症候群の特徴を理解していれば、SpO2や血圧が保たれていても安心しない判断ができる"
+    ],
+    "cautions": [
+      "高熱、発汗、振戦、筋強剛様のこわばりがある場合は、薬剤性重症反応を考慮する",
+      "精神科薬を現場判断で追加内服させない",
+      "SpO2が正常でも重症病態を否定しない",
+      "体温、意識、呼吸、循環、筋緊張の変化を継続して観察する"
+    ]
+  }
+}

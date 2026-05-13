@@ -1,0 +1,529 @@
+{
+  "case_id": "reproductive_obstetric_pregnant_choking_back_blows_001",
+  "version": "2.0",
+  "title": "妊娠34週の気道異物で完全閉塞を判断し背部叩打を行う症例",
+  "category": "reproductive_obstetric",
+  "difficulty": "Normal",
+  "estimated_time": 8,
+  "keywords": [
+    "妊婦",
+    "気道異物",
+    "完全気道閉塞",
+    "チョークサイン",
+    "背部叩打"
+  ],
+  "interactive": true,
+  "interactive_type": "dialogue_input",
+  "ai_grading_candidate": true,
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch_pac",
+      "scene_goal": "夫から必要な情報を聞き取り、完全気道閉塞を判断し、妊婦に適した口頭指導を行う。",
+      "ideal_flow": [
+        "意識の有無を確認する",
+        "声や咳が出るか確認する",
+        "呼吸状態と顔色を確認する",
+        "妊娠週数を確認する",
+        "完全気道閉塞を疑う",
+        "腹部突き上げを避けるよう指導する",
+        "前かがみに支えて背部叩打を行うよう指導する",
+        "意識消失時はすぐ伝えるよう指導する"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": "pac_dialogue_choking_pregnancy",
+      "text": "30歳の女性。妊娠34週。食事中に食物を詰まらせて苦しんでいると、夫が救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "妊娠34週の女性",
+          "食事中に急に苦しみ出した",
+          "夫が通報している",
+          "夫はかなり慌てている"
+        ]
+      },
+      "media": [],
+      "type": "dialogue_input",
+      "ui_style": "line_dialogue",
+      "target": "夫",
+      "prompt": "夫から必要な情報を聞き取り、適切な口頭指導を行ってください。",
+      "dialogue_rules": [
+        {
+          "intent_id": "check_consciousness",
+          "keywords": [
+            "意識",
+            "反応",
+            "呼びかけ",
+            "倒れた"
+          ],
+          "acceptable_questions": [
+            "意識はありますか",
+            "呼びかけに反応しますか",
+            "倒れていませんか"
+          ],
+          "reply": "意識はあります。こちらを見ていますが、かなり苦しそうです。",
+          "score_delta": 5,
+          "status_effect": [
+            "consciousness_confirmed"
+          ]
+        },
+        {
+          "intent_id": "check_voice",
+          "keywords": [
+            "声",
+            "話せる",
+            "しゃべれる",
+            "発声"
+          ],
+          "acceptable_questions": [
+            "声は出せますか",
+            "話せますか",
+            "しゃべれていますか"
+          ],
+          "reply": "声は出せません。口を開けていますが、何も話せません。",
+          "score_delta": 7,
+          "status_effect": [
+            "voice_absent"
+          ]
+        },
+        {
+          "intent_id": "check_cough",
+          "keywords": [
+            "咳",
+            "咳できますか",
+            "むせ",
+            "咳き込む"
+          ],
+          "acceptable_questions": [
+            "咳はできますか",
+            "咳き込んでいますか",
+            "むせていますか"
+          ],
+          "reply": "咳もできていないようです。喉を押さえて苦しんでいます。",
+          "score_delta": 8,
+          "status_effect": [
+            "cough_absent",
+            "complete_obstruction_suspected"
+          ]
+        },
+        {
+          "intent_id": "check_breathing_color",
+          "keywords": [
+            "呼吸",
+            "息",
+            "顔色",
+            "蒼白",
+            "チアノーゼ"
+          ],
+          "acceptable_questions": [
+            "呼吸はできていますか",
+            "息はできていますか",
+            "顔色はどうですか"
+          ],
+          "reply": "息ができない感じで、顔色が悪くなっています。",
+          "score_delta": 5,
+          "status_effect": [
+            "respiratory_distress_confirmed"
+          ]
+        },
+        {
+          "intent_id": "check_pregnancy",
+          "keywords": [
+            "妊娠",
+            "何週",
+            "週数",
+            "お腹"
+          ],
+          "acceptable_questions": [
+            "妊娠何週ですか",
+            "妊娠中ですか",
+            "お腹は大きいですか"
+          ],
+          "reply": "妊娠34週です。お腹はかなり大きいです。",
+          "score_delta": 5,
+          "status_effect": [
+            "late_pregnancy_confirmed"
+          ]
+        },
+        {
+          "intent_id": "check_food",
+          "keywords": [
+            "何を食べた",
+            "食べ物",
+            "詰まらせた",
+            "食事"
+          ],
+          "acceptable_questions": [
+            "何を食べていましたか",
+            "食べ物を詰まらせましたか",
+            "食事中でしたか"
+          ],
+          "reply": "食事中に急に苦しみ出しました。食べ物を詰まらせたと思います。",
+          "score_delta": 3,
+          "status_effect": [
+            "food_obstruction_suspected"
+          ]
+        },
+        {
+          "intent_id": "avoid_abdominal_thrust",
+          "keywords": [
+            "腹部",
+            "お腹",
+            "突き上げ",
+            "押さない",
+            "圧迫しない"
+          ],
+          "acceptable_questions": [
+            "お腹は押さないでください",
+            "腹部突き上げはしないでください",
+            "お腹を圧迫しないでください"
+          ],
+          "reply": "わかりました。お腹は押さないようにします。",
+          "score_delta": 5,
+          "status_effect": [
+            "abdominal_thrust_avoided"
+          ]
+        },
+        {
+          "intent_id": "instruction_back_blows",
+          "keywords": [
+            "背中",
+            "背部叩打",
+            "叩く",
+            "肩甲骨",
+            "前かがみ"
+          ],
+          "acceptable_questions": [
+            "前かがみに支えて背中を叩いてください",
+            "肩甲骨の間を強く叩いてください",
+            "背部叩打をしてください"
+          ],
+          "reply": "わかりました。前かがみに支えて、背中を叩きます。",
+          "score_delta": 10,
+          "status_effect": [
+            "back_blows_instructed"
+          ]
+        },
+        {
+          "intent_id": "avoid_blind_finger_sweep",
+          "keywords": [
+            "指",
+            "かき出す",
+            "口の中",
+            "見えない"
+          ],
+          "acceptable_questions": [
+            "見えないものを指でかき出さないでください",
+            "口の中にむやみに指を入れないでください"
+          ],
+          "reply": "わかりました。見えないものを無理に取ろうとしません。",
+          "score_delta": 3,
+          "status_effect": [
+            "blind_finger_sweep_avoided"
+          ]
+        },
+        {
+          "intent_id": "loss_of_consciousness_instruction",
+          "keywords": [
+            "意識がなくなった",
+            "倒れた",
+            "反応がない",
+            "すぐ言って"
+          ],
+          "acceptable_questions": [
+            "意識がなくなったらすぐ教えてください",
+            "倒れたらすぐ知らせてください",
+            "反応がなくなったら教えてください"
+          ],
+          "reply": "わかりました。意識がなくなったらすぐ伝えます。",
+          "score_delta": 5,
+          "status_effect": [
+            "loss_of_consciousness_instruction_given"
+          ]
+        }
+      ],
+      "fallback_reply": "すみません、どうしたらいいですか。妻がかなり苦しそうです。"
+    },
+    {
+      "id": "scene2",
+      "title": "現場到着と完全閉塞の判断",
+      "phase": "primary_assessment",
+      "scene_goal": "現場到着時の所見から、完全気道閉塞を判断する。",
+      "ideal_flow": [
+        "チョークサインを確認する",
+        "声が出せるか確認する",
+        "咳ができるか確認する",
+        "顔色と意識を確認する",
+        "完全気道閉塞を疑う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "airway_obstruction_assessment",
+      "text": "救急隊到着時、傷病者は顔面蒼白で、喉の辺りに手をやって苦しんでいる。声は出せず、咳もできないようである。",
+      "visible_data": {
+        "initial_assessment": [
+          "妊娠34週",
+          "顔面蒼白",
+          "喉の辺りに手を当てている",
+          "声が出せない",
+          "咳ができない",
+          "意識はある"
+        ]
+      },
+      "media": [
+        "media/pregnant_choking_universal_sign_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この状態として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "不完全気道閉塞",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "不完全閉塞では咳や発声が可能なことが多い。"
+        },
+        {
+          "option_id": "2",
+          "text": "完全気道閉塞",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "声が出せず咳もできないため、完全気道閉塞を疑う。"
+        },
+        {
+          "option_id": "3",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "チョークサイン、発声不能、咳不能から気道異物を優先して考える。"
+        },
+        {
+          "option_id": "4",
+          "text": "妊娠に伴う息切れ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "妊娠による息切れだけで、急な発声不能や咳不能は説明しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "直ちに行う処置",
+      "phase": "treatment_decision",
+      "scene_goal": "意識がある妊婦の完全気道閉塞に対して、直ちに行う処置を選択する。",
+      "ideal_flow": [
+        "意識があることを確認する",
+        "完全気道閉塞を判断する",
+        "妊娠後期であることを考慮する",
+        "腹部突き上げを避ける",
+        "背部叩打を行う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "back_blows_pregnant_choking",
+      "text": "傷病者は意識があり、声も咳も出せない。妊娠34週で腹部は大きい。",
+      "visible_data": {
+        "treatment_context": [
+          "意識あり",
+          "声が出せない",
+          "咳ができない",
+          "妊娠34週",
+          "顔面蒼白"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に直ちに行う処置として正しいのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "背部叩打",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "意識があり完全気道閉塞が疑われる妊婦では、腹部突き上げを避け、背部叩打を行う。"
+        },
+        {
+          "option_id": "2",
+          "text": "胸骨圧迫",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識がある段階では胸骨圧迫ではなく、異物除去を目的とした処置を行う。"
+        },
+        {
+          "option_id": "3",
+          "text": "腹部突き上げ",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "妊娠後期では腹部圧迫を避ける。"
+        },
+        {
+          "option_id": "4",
+          "text": "経鼻エアウェイの挿入",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "異物による完全閉塞が疑われる状況で、経鼻エアウェイ挿入は優先されない。"
+        },
+        {
+          "option_id": "5",
+          "text": "バッグ・バルブ・マスクでの人工呼吸",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識があり異物が閉塞している状況では、まず異物除去を試みる。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "妊婦としての判断",
+      "phase": "clinical_reasoning",
+      "scene_goal": "妊娠後期の気道異物で腹部突き上げを避ける理由を理解する。",
+      "ideal_flow": [
+        "妊娠34週であることを考慮する",
+        "腹部圧迫のリスクを考える",
+        "母体と胎児への影響を考える",
+        "背部叩打を優先する理由を理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "pregnancy_airway_obstruction_reasoning",
+      "text": "妊娠34週で腹部は大きい。完全気道閉塞が疑われるが、腹部突き上げは避ける必要がある。",
+      "visible_data": {
+        "clinical_focus": [
+          "妊娠34週",
+          "完全気道閉塞",
+          "腹部突き上げを避ける",
+          "背部叩打を優先"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "妊娠34週の傷病者で腹部突き上げを避ける理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "妊娠後期では腹部圧迫により母体・胎児へ影響する可能性があるため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "妊娠後期では腹部への強い圧迫を避ける必要がある。"
+        },
+        {
+          "option_id": "2",
+          "text": "妊婦では気道異物が自然に解除されやすいため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "妊婦で自然解除されやすいとはいえず、完全閉塞では直ちに対応が必要である。"
+        },
+        {
+          "option_id": "3",
+          "text": "妊婦では背部叩打が禁忌となるため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "妊娠後期では腹部突き上げを避け、背部叩打を行う。"
+        },
+        {
+          "option_id": "4",
+          "text": "妊娠中は意識がある場合でも人工呼吸を優先するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識があり完全閉塞が疑われる段階では、人工呼吸より異物除去を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "悪化時対応",
+      "phase": "deterioration_response",
+      "scene_goal": "背部叩打で解除できず意識を失った場合の対応を判断する。",
+      "ideal_flow": [
+        "意識消失を確認する",
+        "反応と呼吸を確認する",
+        "胸骨圧迫を開始する",
+        "口腔内に見える異物があれば除去する",
+        "盲目的な指拭いは避ける"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "unconscious_choking_response",
+      "text": "背部叩打を行っても異物が除去できず、傷病者が意識を失った。",
+      "visible_data": {
+        "deterioration_findings": [
+          "背部叩打で異物は出ていない",
+          "傷病者が意識を失った",
+          "反応がない"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "次に行う対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "胸骨圧迫を開始する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "気道異物で意識を失った場合は胸骨圧迫を開始する。口腔内に見える異物があれば除去する。"
+        },
+        {
+          "option_id": "2",
+          "text": "腹部突き上げを繰り返す。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "妊娠後期であり、意識消失後は胸骨圧迫へ移行する。"
+        },
+        {
+          "option_id": "3",
+          "text": "経鼻エアウェイを挿入して様子を見る。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "完全閉塞で意識消失した状況では、経鼻エアウェイ挿入で様子を見る段階ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "水を飲ませて異物を流し込む。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "意識消失時に水を飲ませるのは危険である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "妊娠34週の30歳女性が食事中に食物を詰まらせ、完全気道閉塞を疑う症例。夫からの通報段階で、声が出せない、咳ができない、顔色が悪い、妊娠34週であることを確認し、腹部突き上げを避けて背部叩打を口頭指導する。現場到着後もチョークサイン、発声不能、咳不能から完全気道閉塞と判断し、意識がある段階では背部叩打を行う。意識消失時は胸骨圧迫へ移行することが学習の中心である。",
+    "ideal_actions": [
+      "夫から意識、声、咳、呼吸、顔色を確認する",
+      "妊娠34週であることを確認する",
+      "完全気道閉塞を疑う",
+      "腹部突き上げを避けるよう指導する",
+      "前かがみに支えて背部叩打を行うよう指導する",
+      "現場到着後にチョークサイン、発声不能、咳不能を確認する",
+      "意識がある段階では背部叩打を行う",
+      "意識消失時は胸骨圧迫を開始する"
+    ],
+    "good_points": [
+      "PAC対話式で完全閉塞を見抜く流れを学べる",
+      "妊婦に対する腹部突き上げ回避の理由を理解できる",
+      "単純な異物除去問題を、通報段階から悪化時対応まで展開できる",
+      "意識ありと意識消失後で対応が変わることを整理できる"
+    ],
+    "cautions": [
+      "声が出ない、咳ができない場合は完全気道閉塞を疑う",
+      "妊娠後期では腹部突き上げを避ける",
+      "水を飲ませない",
+      "見えない異物を盲目的に指でかき出さない",
+      "意識消失時は胸骨圧迫へ移行する"
+    ]
+  }
+}

@@ -1,0 +1,697 @@
+{
+  "case_id": "mitral_stenosis_pulmonary_congestion_hemoptysis_001",
+  "version": "2.0",
+  "title": "僧帽弁狭窄症と心房細動を背景に、泡沫状血性痰から肺うっ血を疑う症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "boss_candidate": false,
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "僧帽弁狭窄症",
+    "心房細動",
+    "泡沫状血性痰",
+    "肺うっ血",
+    "湿性ラ音",
+    "頸静脈怒張"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "血性泡沫状痰と呼吸困難に対して、安静保持と呼吸状態の観察を指示する。",
+      "ideal_flow": "咳込み後の泡沫状血性痰を重症呼吸・循環器疾患の可能性として捉え、座位で安静を保たせ、意識・呼吸状態を見守るよう家族へ指示する。",
+      "ideal_score_delta": 10,
+      "action_tag": "pac_bloody_frothy_sputum",
+      "text": "68歳女性。自宅で咳込んだ後、泡沫状の血が混じった痰を出したため、家族が救急要請した。本人は座位で苦しそうにしており、ティッシュにピンク色の泡沫状痰を認める。",
+      "visible_data": {
+        "dispatch_information": {
+          "caller": "家族",
+          "location": "自宅内",
+          "chief_complaint": "咳込み後の泡沫状血性痰",
+          "current_condition": "意識はあり、座位で息苦しそうにしている",
+          "risk": "呼吸状態の悪化や喀痰による気道トラブルに注意が必要"
+        }
+      },
+      "media": [
+        "media/distress_in_a_cozy_living_room.png"
+      ],
+      "type": "single_choice",
+      "prompt": "現着前に家族へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "痰を飲み込ませ、横になって静かに待つよう伝える。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_positioning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "airway_risk",
+              "respiratory_worsening"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "血性痰を無理に飲み込ませる必要はなく、呼吸が楽な姿勢を保つ。"
+        },
+        {
+          "option_id": "b",
+          "text": "楽な座位で安静にし、痰は無理に飲み込ませず、意識と呼吸状態を見守るよう伝える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "safe_positioning",
+              "respiratory_monitoring"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "airway_risk"
+            ]
+          },
+          "rationale": "呼吸困難と血性泡沫状痰があり、座位安静と意識・呼吸状態の観察を優先する。"
+        },
+        {
+          "option_id": "c",
+          "text": "血の量を確認するため、強く咳を続けてもらうよう伝える。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "unnecessary_coughing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_distress"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸困難がある傷病者に咳を強いる必要はなく、苦痛や呼吸状態を悪化させる可能性がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "意識があるため緊急性は低いと説明し、普段どおり待機させる。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_response"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識清明でも、泡沫状血性痰と呼吸困難は重症疾患を疑う所見である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "初期評価で呼吸異常を中心に評価する。",
+      "ideal_flow": "意識、気道、呼吸、循環を確認し、咳嗽後の血性泡沫状痰と頻呼吸から呼吸異常に注目する。",
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment_breathing_focus",
+      "text": "接触時、傷病者は座位で会話可能。意識は清明で、気道は開通している。口元に泡沫状の血性痰が付着している。呼吸は速く、やや努力性である。橈骨動脈は触知できるが、不整で速い印象がある。",
+      "visible_data": {
+        "primary_assessment": {
+          "consciousness": "清明。質問に答えられる。",
+          "airway": "開通。口元に泡沫状血性痰あり。",
+          "breathing": "速く、やや努力性",
+          "circulation": "橈骨動脈触知可能。不整で速い印象",
+          "critical_impression": "呼吸異常が目立つ"
+        }
+      },
+      "media": [
+        "media/distress_in_a_cozy_living_room.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価で特に異常が認められる可能性が高い項目はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "意識",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識評価は必要だが、接触時は清明であり、より目立つ異常は呼吸である。"
+        },
+        {
+          "option_id": "b",
+          "text": "気道",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "血性痰に注意は必要だが、気道は開通しており、主な異常は呼吸状態である。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "breathing_abnormality_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頻呼吸、努力性呼吸、血性泡沫状痰があり、呼吸異常を最も重視する。"
+        },
+        {
+          "option_id": "d",
+          "text": "体温",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "non_abcd_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "初期評価ではまずABCDを確認する。体温測定は初期評価の中心ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "history_and_vitals",
+      "scene_goal": "低酸素、頻呼吸、不整脈、既往を把握し、病名を決めつけず追加観察へ進む。",
+      "ideal_flow": "呼吸状態を重視して酸素投与と安静保持を行い、僧帽弁狭窄症と心房細動の既往を踏まえて胸部・頸部・喀痰の追加観察へ進む。",
+      "ideal_score_delta": 10,
+      "action_tag": "vitals_and_cardiac_history",
+      "text": "傷病者は意識清明。咳込んだ後にピンク色の泡沫状血性痰を出した。僧帽弁狭窄症、心房細動で治療中とのことである。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "清明",
+          "respiratory_rate": "28回/分",
+          "pulse": "114回/分、不整",
+          "blood_pressure": "112/62mmHg",
+          "spo2": "91％"
+        },
+        "history": {
+          "event": "咳込んだ後に泡沫状血性痰を認めた",
+          "past_history": [
+            "僧帽弁狭窄症",
+            "心房細動"
+          ],
+          "treatment": "通院治療中"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "血性痰があるため、直ちに背部叩打法を行う。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "inappropriate_airway_clearance"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "respiratory_worsening"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "気道異物による閉塞ではなく、血性泡沫状痰と呼吸困難であり、背部叩打法は適切ではない。"
+        },
+        {
+          "option_id": "b",
+          "text": "低酸素と頻呼吸を重視し、酸素投与と安静保持を行いながら追加観察へ進む。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_started",
+              "additional_observation_planned"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "respiratory_worsening"
+            ]
+          },
+          "rationale": "SpO₂低値と頻呼吸があり、酸素投与と安静保持を行い、病態把握のため追加観察へ進む。"
+        },
+        {
+          "option_id": "c",
+          "text": "心房細動があるため、病態を不整脈のみと判断して観察を省略する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "premature_closure"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "insufficient_assessment"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "心房細動は重要な情報だが、呼吸状態や喀痰、胸部所見を含めて評価する必要がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "血圧が保たれているため、歩行可能か確認して活動性を評価する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_exertion"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hypoxemia_worsening",
+              "fall_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "低酸素と呼吸困難があるため、歩行確認ではなく安静保持を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "人体図による追加観察",
+      "phase": "focused_observation",
+      "scene_goal": "病態把握のため、頸部、胸部、口元・喀痰を重点的に観察する。",
+      "ideal_flow": "血性泡沫状痰だけで判断せず、頸部所見、胸部聴診、喀痰性状を組み合わせて循環器由来の呼吸障害を評価する。",
+      "ideal_score_delta": 12,
+      "action_tag": "body_map_observation_pulmonary_congestion",
+      "text": "酸素投与と座位安静を保ちながら、病態把握のために追加観察を行う。人体図から優先して観察したい部位を選択する。",
+      "visible_data": {
+        "instruction": "人体図を用いて追加観察を行う。"
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "observation_points",
+      "prompt": "病態把握のため、追加で優先して観察したい部位を3つ選べ。",
+      "observation_points": [
+        {
+          "point_id": "neck",
+          "label": "頸部",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "頸静脈が目立つ。",
+          "rationale": "肺循環負荷や右心負荷を示す所見として重要である。"
+        },
+        {
+          "point_id": "chest",
+          "label": "胸部",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "両側肺野で湿性ラ音を聴取する。",
+          "audio": {
+            "audio_id": "lung_crackles_bilateral",
+            "file": null,
+            "rights_status": "pending",
+            "display_text": "両側湿性ラ音（承認後に追加予定）"
+          },
+          "rationale": "肺うっ血を疑ううえで、湿性ラ音は重要な胸部所見である。"
+        },
+        {
+          "point_id": "mouth_sputum",
+          "label": "口元・喀痰",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "ピンク色の泡沫状血性痰を認める。",
+          "rationale": "泡沫状血性痰は肺うっ血や肺水腫を考える重要な所見である。"
+        },
+        {
+          "point_id": "eyes",
+          "label": "眼球",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな眼球突出は認めない。",
+          "rationale": "甲状腺機能亢進症を疑う情報としては参考になるが、今回の病態把握では優先度は低い。"
+        },
+        {
+          "point_id": "abdomen",
+          "label": "腹部",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな腹部膨満や圧痛を認めない。",
+          "rationale": "腹部疾患を主に疑う状況ではなく、今回の優先観察部位ではない。"
+        }
+      ],
+      "selection_rule": {
+        "min_select": 3,
+        "max_select": 3,
+        "correct_point_ids": [
+          "neck",
+          "chest",
+          "mouth_sputum"
+        ]
+      }
+    },
+    {
+      "id": "scene5",
+      "title": "所見の理解",
+      "phase": "clinical_finding",
+      "scene_goal": "観察した頸部所見を正式な所見名として理解する。",
+      "ideal_flow": "頸静脈が目立つ所見を、肺循環負荷や右心負荷に関連する頸静脈怒張として捉える。",
+      "ideal_score_delta": 12,
+      "action_tag": "identify_jugular_venous_distention",
+      "text": "追加観察では、頸静脈が目立ち、両側肺野で湿性ラ音を聴取した。ピンク色の泡沫状血性痰も確認された。",
+      "visible_data": {
+        "observed_findings": {
+          "neck": "頸静脈が目立つ",
+          "chest": "両側湿性ラ音",
+          "sputum": "ピンク色泡沫状血性痰",
+          "background": "僧帽弁狭窄症、心房細動"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に観察される所見として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "眼球突出",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "exophthalmos_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "眼球突出は甲状腺機能亢進症などでみられるが、今回の所見とは一致しない。"
+        },
+        {
+          "option_id": "b",
+          "text": "皮下気腫",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "subcutaneous_emphysema_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "皮下気腫は気胸や外傷などで問題となるが、今回の観察所見とは合わない。"
+        },
+        {
+          "option_id": "c",
+          "text": "頸静脈怒張",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "jvd_identified"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頸静脈が目立つ所見は頸静脈怒張であり、肺循環負荷や右心負荷を反映することがある。"
+        },
+        {
+          "option_id": "d",
+          "text": "クモ状血管腫",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "spider_angioma_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "クモ状血管腫は肝疾患などでみられる所見であり、今回の急性呼吸苦とは結びつきにくい。"
+        },
+        {
+          "option_id": "e",
+          "text": "クスマウル呼吸",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "kussmaul_respiration_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "クスマウル呼吸は代謝性アシドーシスなどでみられる深大呼吸であり、今回の主所見とは異なる。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態推論",
+      "phase": "diagnostic_reasoning",
+      "scene_goal": "観察所見と既往から肺うっ血を推論する。",
+      "ideal_flow": "僧帽弁狭窄症、心房細動、頻脈、不整脈、泡沫状血性痰、湿性ラ音、低酸素を組み合わせ、肺うっ血を疑う。",
+      "ideal_score_delta": 12,
+      "action_tag": "suspect_pulmonary_congestion",
+      "text": "傷病者には僧帽弁狭窄症と心房細動の既往がある。現在は頻呼吸、低酸素、不整脈、ピンク色泡沫状血性痰、両側湿性ラ音を認める。",
+      "visible_data": {
+        "key_findings": {
+          "vital_signs": "呼吸数28回/分、脈拍114回/分不整、SpO₂91％",
+          "history": "僧帽弁狭窄症、心房細動",
+          "sputum": "ピンク色泡沫状血性痰",
+          "auscultation": "両側湿性ラ音",
+          "neck": "頸静脈怒張"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ここまでの観察所見と既往から、最も考えられる病態はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tension_pneumothorax_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "緊張性気胸では呼吸音左右差や皮下気腫を伴うことがあるが、今回の泡沫状血性痰と湿性ラ音は説明しにくい。"
+        },
+        {
+          "option_id": "b",
+          "text": "甲状腺機能亢進症",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hyperthyroidism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頻脈や心房細動とは関連しうるが、泡沫状血性痰や湿性ラ音の主病態としては肺うっ血を考える。"
+        },
+        {
+          "option_id": "c",
+          "text": "肝硬変に伴う門脈圧亢進",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "portal_hypertension_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "クモ状血管腫や腹水などを考える病態であり、今回の急性呼吸困難と泡沫状血性痰とは合わない。"
+        },
+        {
+          "option_id": "d",
+          "text": "肺うっ血",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulmonary_congestion_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "僧帽弁狭窄症と心房細動を背景に左房圧が上昇し、肺うっ血により泡沫状血性痰や湿性ラ音を来す。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "僧帽弁狭窄症から肺うっ血、肺循環負荷、頸静脈怒張へ至る流れを理解する。",
+      "ideal_flow": "僧帽弁狭窄により左房圧が上昇し、肺静脈圧上昇と肺うっ血を来し、肺循環負荷から右心系へ負担がかかることを理解する。",
+      "ideal_score_delta": 10,
+      "action_tag": "mitral_stenosis_to_right_heart_strain",
+      "text": "僧帽弁狭窄症では左房から左室への血流が障害され、左房圧が上昇する。心房細動や頻脈はこの状態を悪化させ、肺うっ血を来しやすい。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "background": "僧帽弁狭窄症、心房細動",
+          "mechanism": "左房圧上昇から肺静脈圧が上昇する",
+          "result": "肺うっ血、湿性ラ音、泡沫状血性痰",
+          "additional_finding": "肺循環負荷により右心系への負担が増え、頸静脈怒張を認めることがある"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で頸静脈怒張がみられる理由として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "胸膜腔へ空気が漏れ、患側肺が虚脱するため。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pneumothorax_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸膜腔への空気漏れは気胸の機序であり、今回の肺うっ血とは異なる。"
+        },
+        {
+          "option_id": "b",
+          "text": "肺循環への負荷が増え、右心系へ負担がかかるため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "right_heart_strain_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "僧帽弁狭窄症では左房圧上昇から肺循環負荷が増し、右心系への負担により頸静脈怒張を来すことがある。"
+        },
+        {
+          "option_id": "c",
+          "text": "肝硬変により門脈圧が上昇するため。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "portal_hypertension_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "門脈圧亢進は腹水や食道静脈瘤などに関係するが、今回の頸静脈怒張の主因ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "代謝性アシドーシスにより深大呼吸が出現するため。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "kussmaul_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "代謝性アシドーシスではクスマウル呼吸を考えるが、頸静脈怒張の説明にはならない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "咳込み後にピンク色の泡沫状血性痰を認めた68歳女性の症例。僧帽弁狭窄症と心房細動の既往があり、頻呼吸、低酸素、不整脈を認める。追加観察で両側湿性ラ音、泡沫状血性痰、頸静脈怒張を認め、肺うっ血を疑う。僧帽弁狭窄により左房圧が上昇し、肺静脈圧上昇から肺うっ血を来す。肺循環への負荷が増大すると右心系に負担がかかり、頸静脈怒張を認めることがある。",
+    "ideal_actions": [
+      "通報段階で座位安静を保たせ、痰を無理に飲み込ませないよう指示する。",
+      "初期評価では意識、気道、呼吸、循環を確認し、特に呼吸異常を重視する。",
+      "低酸素と頻呼吸を認めたら酸素投与と安静保持を行う。",
+      "僧帽弁狭窄症と心房細動の既往を、呼吸困難の背景として評価する。",
+      "頸部、胸部、口元・喀痰を重点的に観察する。",
+      "湿性ラ音と泡沫状血性痰から肺うっ血を疑う。",
+      "頸静脈怒張を右心負荷の所見として捉える。",
+      "呼吸器症状でも循環器疾患が背景にある可能性を考える。"
+    ],
+    "good_points": [
+      "泡沫状血性痰を単なる喀血ではなく、肺うっ血の所見として評価できた。",
+      "僧帽弁狭窄症と心房細動を病態推論に結びつけられた。",
+      "湿性ラ音と低酸素を肺うっ血の根拠として整理できた。",
+      "頸静脈怒張を肺循環負荷・右心負荷と関連づけて理解できた。",
+      "観察選択で頸部、胸部、喀痰を優先できた。"
+    ],
+    "cautions": [
+      "血性痰だけで気道異物や外傷と決めつけない。",
+      "血圧が保たれていても、低酸素と頻呼吸があれば重症化に注意する。",
+      "心房細動だけに注目して、肺うっ血の評価を省略しない。",
+      "泡沫状血性痰、湿性ラ音、僧帽弁狭窄症を組み合わせて考える。",
+      "呼吸器症状でも、背景に心疾患がある可能性を忘れない。",
+      "頸静脈怒張は単独所見ではなく、病態全体の中で解釈する。"
+    ]
+  }
+}

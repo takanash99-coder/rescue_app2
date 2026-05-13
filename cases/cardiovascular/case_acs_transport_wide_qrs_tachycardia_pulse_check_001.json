@@ -1,0 +1,584 @@
+{
+  "case_id": "acs_transport_wide_qrs_tachycardia_pulse_check_001",
+  "version": "2.0",
+  "title": "ACS搬送中に反応消失し、心室頻拍様波形から脈拍確認を優先する症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "内因性L&G",
+  "estimated_time": 9,
+  "keywords": [
+    "胸痛",
+    "急性冠症候群",
+    "ST上昇",
+    "心室頻拍",
+    "脈拍確認",
+    "ROSC"
+  ],
+  "source_reference": {
+    "exam": "第47回救急救命士国家試験",
+    "section": "D問題17",
+    "note": "元問題の学習意図を症例化し、搬送中急変とROSC後対応まで再構成した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "max_life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "胸痛",
+      "ACS疑い",
+      "急変リスク",
+      "内因性L&G候補"
+    ],
+    "time_pressure": "high"
+  },
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出動途上の確認",
+      "phase": "通報内容＋プレアライバルコール",
+      "scene_goal": "胸痛症例で出動途上に確認すべき内容を整理する。",
+      "ideal_flow": [
+        "胸痛の経過を確認する",
+        "現在の全身状態を確認する",
+        "冷汗や息苦しさなどの重症感を確認する",
+        "発症時刻を意識して情報収集する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "52歳男性。胸痛を訴え、家族が救急要請した。通報時、本人は会話可能だが、胸部の圧迫感と冷汗を訴えている。",
+      "visible_data": {
+        "dispatch_information": [
+          "52歳男性",
+          "主訴は胸痛",
+          "家族が救急要請",
+          "本人は会話可能",
+          "冷汗あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出動途上で通報者に優先して確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "普段の運動習慣と最近の食事内容を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "生活背景は参考になるが、胸痛症例ではまず発症経過と現在の全身状態を確認する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "市販薬の使用歴を確認し、玄関で待つよう伝える。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "市販薬の情報は補助的であり、胸痛症例に歩行や移動を促すのは適切でない。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "体温を測定してもらい、発熱の有無を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "発熱の有無だけでは胸痛の緊急度を判断できない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "胸痛の経過と現在の全身状態を確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pac_chest_pain_checked"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "ACS疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸痛症例では発症経過と現在の全身状態を確認し、重症内因性疾患を想定する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時の初期評価",
+      "phase": "初期評価",
+      "scene_goal": "数値バイタルに先行して、反応・気道・呼吸・脈拍・重症感を評価する。",
+      "ideal_flow": [
+        "反応を確認する",
+        "気道開通を確認する",
+        "呼吸状態を確認する",
+        "橈骨動脈を触知する",
+        "冷汗と顔色不良を重症感として扱う"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "primary_assessment",
+      "text": "接触時、傷病者は座位で胸を押さえている。呼びかけに応じる。気道は開通している。呼吸はやや速い。橈骨動脈は触知できるが弱い。顔色不良と冷汗を認め、胸痛は持続している。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに応じる",
+          "気道は開通",
+          "呼吸はやや速い",
+          "橈骨動脈は触知できるが弱い",
+          "顔色不良",
+          "冷汗あり",
+          "胸痛は持続"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価として最も適切な判断はどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "観察所見から、緊急度は高くないと判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "rationale": "胸痛、冷汗、顔色不良、脈拍の弱さがあり、緊急度は高い。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "観察所見から、現場で詳しい生活歴を確認する方針とする。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "生活歴よりも重症内因性疾患としての初期対応と搬送判断を優先する。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "観察所見から、重症内因性疾患として対応する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "severe_internal_disease_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "内因性L&G候補"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸痛に冷汗と顔色不良を伴い、重症内因性疾患として対応する。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "観察所見から、痛みが軽快するまで現場で待機する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "胸痛が持続し重症感があるため、現場待機で経過を見るべきではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインと内因性L&G判断",
+      "phase": "情報収集＋バイタル評価",
+      "scene_goal": "バイタルサインと観察所見から内因性L&Gを判断する。",
+      "ideal_flow": [
+        "数値バイタルを確認する",
+        "胸痛と冷汗を重症徴候として扱う",
+        "低血圧をハイリスク徴候として扱う",
+        "ACS疑いとして内因性L&Gを判断する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "vital_and_lg",
+      "text": "バイタルサインを測定した。意識JCS1、呼吸数24/分、脈拍104/分・整、血圧88/56mmHg、体温35.9℃、SpO2 96％である。冷汗を認める。呼吸音は清である。",
+      "visible_data": {
+        "vital_signs": [
+          "JCS1",
+          "呼吸数 24/分",
+          "脈拍 104/分・整",
+          "血圧 88/56 mmHg",
+          "体温 35.9℃",
+          "SpO2 96％"
+        ],
+        "additional_findings": [
+          "冷汗あり",
+          "呼吸音清",
+          "胸痛持続"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での活動方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "観察所見から、現場で胸痛の経過を観察する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "重症感を伴う胸痛であり、現場で経過観察を続ける状況ではない。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "観察所見から、呼吸器疾患を主病態として対応する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "呼吸器疾患も鑑別に残るが、胸痛と循環不全所見を優先して評価する。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "観察所見から、重症内因性疾患を疑いL&Gとして活動する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "load_and_go_decided"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "ACS搬送中急変リスク"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "胸痛、冷汗、低血圧などから重症内因性疾患を疑い、L&Gとして活動する。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "観察所見から、低体温症を主病態として対応する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "体温はやや低めだが、主病態は胸痛を伴う循環器疾患を優先して考える。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "搬送開始前の対応",
+      "phase": "活動方針の再判断",
+      "scene_goal": "ACS疑いとして早期連絡と急変時再評価の準備を行う。",
+      "ideal_flow": [
+        "心電図モニターを確認する",
+        "ST変化をACS疑いとして扱う",
+        "医療機関へ早期第1報を入れる",
+        "モニター監視を継続する",
+        "急変時に再評価できる体制を整える"
+      ],
+      "ideal_score_delta": 14,
+      "action_tag": "acs_transport_preparation",
+      "text": "心電図モニターⅡ誘導でST上昇を認めた。酸素投与を行い、搬送準備を進めている。",
+      "visible_data": {
+        "key_findings": [
+          "胸痛持続",
+          "冷汗あり",
+          "血圧低下",
+          "Ⅱ誘導でST上昇",
+          "酸素投与中"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "搬送開始前の活動として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "波形が改善するまで現場で待機する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "ACS疑いでは現場で波形改善を待たず、早期搬送と連絡を進める。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "医療機関へ早期に第1報を入れる。",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "first_call_done"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "ACS疑いで循環動態も不安定なため、早期に受入調整を進める。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "胸痛の訴えがあるため、問診を完了してから搬送準備に移る。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "必要最小限の情報収集は行うが、詳細問診で搬送を遅らせない。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "モニター監視を継続し、急変時の再評価に備える。",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "monitoring_continued"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "ACS疑いでは搬送中急変のリスクがあり、モニター監視と再評価体制が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "搬送中急変と波形観察",
+      "phase": "車内活動",
+      "scene_goal": "搬送中の反応消失時に心電図モニター波形を確認し、波形の種類を読む。",
+      "ideal_flow": [
+        "反応消失を確認する",
+        "心電図モニターを確認する",
+        "波形を読み取る",
+        "次の再評価につなげる"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "ecg_image_observation",
+      "text": "搬送開始10分後、傷病者の反応がなくなった。心電図モニター波形を確認した。",
+      "visible_data": {
+        "situation_change": [
+          "搬送開始10分後",
+          "反応消失",
+          "心電図モニター波形を確認"
+        ]
+      },
+      "media": [
+        "media/ecg_monitor_wide_qrs_tachycardia_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "提示された心電図モニター波形として最も考えやすいものはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "心房細動",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "心房細動では不規則なRR間隔が特徴となるが、提示波形とは異なる。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "心室細動",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "心室細動は無秩序な波形であり、提示波形のような規則性は乏しい。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "完全房室ブロック",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "完全房室ブロックは徐脈性不整脈として認められることが多く、提示波形とは異なる。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "心室頻拍",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vt_waveform_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "脈なしVT疑い"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "規則的な幅広い頻拍波形であり、心室頻拍が考えやすい。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯：直ちに行う対応",
+      "phase": "国試知識",
+      "scene_goal": "反応消失と心室頻拍様波形を認めた際に、まず脈拍確認を行うことを理解する。",
+      "ideal_flow": [
+        "反応消失を確認する",
+        "心電図波形を確認する",
+        "脈拍を確認する",
+        "脈なしならCPA対応へ移行する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "exam_core",
+      "text": "胸痛で搬送中の傷病者が突然反応消失した。心電図モニター波形は写真のとおりである。",
+      "visible_data": {
+        "key_findings": [
+          "胸痛で搬送中",
+          "突然の反応消失",
+          "心電図モニター波形は写真のとおり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "直ちに行う対応はどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "胸骨圧迫",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "脈拍確認前に胸骨圧迫へ進むのではなく、まず脈拍の有無を確認する。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "脈拍の確認",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulse_check_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "反応消失と心室頻拍様波形を認めた場合、まず脈拍を確認し、脈なしVTか判断する。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "除細動の実施",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "脈なしVTであれば除細動の適応となるが、その前に脈拍を確認する。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "用手的気道確保",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "気道確保も重要だが、この場面ではまず脈拍確認によりCPAか判断する。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "乳酸リンゲル液投与の指示要請",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "循環補助は状況により検討されるが、反応消失直後は脈拍確認が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "脈なしVT対応とROSC後の再評価",
+      "phase": "病態理解",
+      "scene_goal": "脈なしVT対応後、ROSC後の再評価と継続監視を理解する。",
+      "ideal_flow": [
+        "頸動脈拍動を確認する",
+        "脈なしVTとして除細動と胸骨圧迫を行う",
+        "ROSC後に気道・呼吸・循環を再評価する",
+        "モニター監視を継続する",
+        "循環器対応可能な医療機関へ搬送する"
+      ],
+      "ideal_score_delta": 12,
+      "action_tag": "post_rosc_management",
+      "text": "頸動脈拍動を確認したところ触知できなかった。脈なしVTとして除細動を実施し、胸骨圧迫を継続した。その後、頸動脈拍動が触知可能となり、反応が戻り始めた。",
+      "visible_data": {
+        "clinical_course": [
+          "頸動脈拍動なし",
+          "脈なしVTとして除細動を実施",
+          "胸骨圧迫を継続",
+          "その後、頸動脈拍動が触知可能",
+          "反応が戻り始めた"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ROSC後の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "モニターを外して搬送を継続する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "ROSC後も再度不整脈や循環不安定となる可能性があり、モニター監視を継続する。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "気道・呼吸・循環を再評価し、監視を継続して搬送する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "post_rosc_reassessment_done"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "脈なしVT疑い"
+            ]
+          },
+          "rationale": "ROSC後はABCを再評価し、モニター監視を継続しながら搬送する。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "胸痛の問診を優先し、再評価は後にする。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -2,
+          "rationale": "ROSC後はまず気道・呼吸・循環の再評価と再急変への備えを優先する。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "反応が戻ったため、搬送先の緊急度を下げる。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -3,
+          "rationale": "ROSC後も重症循環器疾患であり、緊急度は高いままである。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "52歳男性の胸痛症例。胸痛、冷汗、血圧低下からACSを疑い、内因性L&Gとして活動する。Ⅱ誘導でST上昇を認め、医療機関への早期第1報とモニター監視を継続しながら搬送した。搬送中に反応消失し、心電図モニターで心室頻拍様波形を確認したため、まず脈拍を確認する。脈拍がなければ脈なしVTとして除細動と胸骨圧迫を行い、ROSC後は気道・呼吸・循環を再評価して監視を継続する。",
+    "ideal_actions": [
+      "出動途上で胸痛の経過と現在の全身状態を確認する",
+      "初期評価で重症内因性疾患として対応する",
+      "バイタルサインから内因性L&Gを判断する",
+      "ACS疑いとして早期に医療機関へ第1報を入れる",
+      "モニター監視を継続し、急変時の再評価に備える",
+      "搬送中の反応消失時に心電図波形を確認する",
+      "心室頻拍様波形を認識する",
+      "直ちに脈拍を確認する",
+      "脈なしVTなら除細動と胸骨圧迫へ移行する",
+      "ROSC後は気道・呼吸・循環を再評価し、監視を継続する"
+    ],
+    "good_points": [
+      "胸痛症例を重症内因性疾患として扱えた",
+      "ST上昇と循環不安定からACS疑いとして早期連絡につなげられた",
+      "搬送中急変に備えてモニター監視を継続できた",
+      "心室頻拍様波形を確認した後、脈拍確認を優先できた",
+      "国試の答えだけで終わらず、脈なしVT対応とROSC後再評価まで整理できた"
+    ],
+    "cautions": [
+      "胸痛と冷汗がある症例を、会話可能という理由で低緊急度にしない",
+      "SpO2が保たれていても、循環不全を見逃さない",
+      "心電図波形だけで除細動へ進まず、反応消失時は脈拍の有無を確認する",
+      "脈なしVTであれば除細動と胸骨圧迫を遅らせない",
+      "ROSC後も再急変リスクがあるため、モニター監視と再評価を継続する"
+    ]
+  }
+}

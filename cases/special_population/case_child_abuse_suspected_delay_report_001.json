@@ -1,0 +1,882 @@
+{
+  "case_id": "special_population_child_abuse_suspected_delay_report_001",
+  "version": "2.0",
+  "title": "ぐったりした1歳児の複数損傷から社会的リスクを疑い、情報収集と観察を行う症例",
+  "category": "special_population",
+  "difficulty": "Hard",
+  "algorithm_type": "小児・社会的リスク評価",
+  "estimated_time": 10,
+  "keywords": [
+    "小児",
+    "虐待疑い",
+    "新旧混在する損傷",
+    "情報収集",
+    "客観的記録"
+  ],
+  "ai_grading_candidate": true,
+  "ai_grading_scene": "scene3",
+  "ai_grading_reason": "母親への責めない対話式情報収集",
+  "boss_candidate": false,
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容",
+      "phase": "dispatch",
+      "scene_goal": "ぐったりしている1歳児の通報から、ハイリスク症候を意識する。",
+      "ideal_flow": [
+        "小児のぐったりを重症サインとして捉える",
+        "反応と呼吸を確認する",
+        "現場到着前から急変リスクを意識する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "1歳男児の母親から、帰宅したところ児がぐったりしているとの通報があった。",
+      "visible_data": {
+        "dispatch_information": [
+          "1歳男児",
+          "母親が帰宅時に発見",
+          "ぐったりしている",
+          "自宅内",
+          "母親からの通報"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で母親へ確認する内容として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "最後に食事をした時刻",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "secondary_history_first"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "食事時刻は情報収集として必要になることがあるが、出場途上ではまず反応や呼吸を確認する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "呼びかけへの反応と呼吸の様子",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "checked_response_and_breathing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "小児のぐったりは重症サインであり、反応、呼吸、顔色など生命危機に関わる情報を優先して確認する。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "普段使っているおもちゃ",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_question"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "発達や生活背景の参考になることはあるが、緊急度判断の優先情報ではない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "かかりつけ医の診療時間",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_priority"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "医療機関情報は後で確認してよいが、出場途上では児の反応と呼吸状態が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "接触時の反応低下を軽視せず、全身状態を評価する。",
+      "ideal_flow": [
+        "意識反応を確認する",
+        "気道と呼吸を確認する",
+        "循環と皮膚所見を確認する",
+        "Step3へ進み詳細評価を行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "initial_assessment",
+      "text": "救急隊が接触すると、児はあやしても笑わないが視線は合う。呼吸は保たれているが、全体に活気が乏しい。",
+      "visible_data": {
+        "initial_assessment": [
+          "あやしても笑わない",
+          "視線は合う",
+          "呼吸あり",
+          "皮膚はやや冷たい",
+          "活気が乏しい"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の判断として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "意識清明と判断し、緊急性は低い。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "underestimated_pediatric_condition"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_assessment"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "視線が合っても、1歳児があやしても笑わず活気が乏しい状態は軽視できない。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "呼吸があるため、バイタル測定は後回しにする。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "delayed_vital_assessment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_deterioration"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸が保たれていても、ぐったりした小児では早期にバイタル測定と詳細評価を行う。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "反応低下を重視し、全身状態を評価する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "recognized_pediatric_risk"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "delayed_assessment"
+            ]
+          },
+          "rationale": "1歳児で活気が乏しい状態は重要であり、初期評価後にバイタル測定と全身評価を進める。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "視線が合うため、搬送は不要と判断する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "inappropriate_non_transport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_non_transport"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "視線が合うことだけで搬送不要とは判断できない。全身状態と損傷所見を評価する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "vitals_and_history",
+      "scene_goal": "バイタルサインを測定し、母親から発見時刻と発見時の様子を責めずに聞き取る。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "発見時刻を確認する",
+        "発見時の状態を確認する",
+        "通報までの経過を確認する",
+        "責める表現を避けて事実を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "dialogue_history_taking",
+      "text": "バイタルサインを測定しながら、母親から発見時の状況を聞き取る。",
+      "visible_data": {
+        "vital_signs": [
+          {
+            "consciousness": "あやしても笑わないが、視線は合う",
+            "respiratory_rate": "32回/分",
+            "pulse": "132回/分・整",
+            "blood_pressure": "90/50mmHg",
+            "temperature": "35.2℃",
+            "spo2": "96%"
+          }
+        ],
+        "observed_condition": [
+          "ぐったりしている",
+          "体表に複数の打撲痕を認める",
+          "小さな熱傷創を認める"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "母親から情報収集を行う。最も適切な聞き方はどれか。1つ選べ。",
+      "templates": [
+        {
+          "template_id": "s3_t1",
+          "text": "なぜすぐ通報しなかったのですか。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "response": "すみません……どうしたらいいかわからなくて……。",
+          "status_effect": {
+            "add_flags": [
+              "accusatory_questioning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_rapport"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "責める聞き方は避ける。時刻や状態を客観的に確認することが重要である。"
+        },
+        {
+          "template_id": "s3_t2",
+          "text": "お子さんを見つけた時刻と、その時の様子を教えてください。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "response": "帰宅したのは少し前です。最初は眠っているのかと思いましたが、あやしても笑わなくて、様子がおかしいと思って電話しました。",
+          "status_effect": {
+            "add_flags": [
+              "obtained_discovery_timeline"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "poor_rapport"
+            ]
+          },
+          "rationale": "発見時刻、発見時の状態、通報までの経過を責めずに確認できる聞き方である。"
+        },
+        {
+          "template_id": "s3_t3",
+          "text": "本当のことを言ってください。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "response": "本当のことって……どういう意味ですか。",
+          "status_effect": {
+            "add_flags": [
+              "confrontational_questioning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_rapport"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "追及的な表現は避ける。救急隊は事実確認と観察記録を行う立場である。"
+        },
+        {
+          "template_id": "s3_t4",
+          "text": "虐待したのですか。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": 0,
+          "response": "そんなことしていません。",
+          "status_effect": {
+            "add_flags": [
+              "direct_accusation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_rapport",
+              "unsafe_scene_tension"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "現場で断定や追及を行うべきではない。所見と説明内容を客観的に記録する。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の再判断",
+      "phase": "reassessment_and_plan",
+      "scene_goal": "反応低下、低体温、複数損傷から詳細観察と搬送準備を判断する。",
+      "ideal_flow": [
+        "SpO2だけで安心しない",
+        "反応低下を重視する",
+        "低体温と複数損傷を評価する",
+        "詳細観察と搬送準備を進める"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "risk_reassessment",
+      "text": "バイタルサインと母親からの情報を得た。児はぐったりしており、体表には複数の損傷がある。",
+      "visible_data": {
+        "reassessment": [
+          "あやしても笑わないが視線は合う",
+          "呼吸数32回/分",
+          "脈拍132回/分・整",
+          "血圧90/50mmHg",
+          "体温35.2℃",
+          "SpO2 96%",
+          "母親は帰宅時にぐったりしている児を発見",
+          "複数の打撲痕と小さな熱傷創を認める"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "Scene3の情報を踏まえた活動方針として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "SpO2が保たれているため、自宅で経過観察とする。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -10,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_non_transport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_child_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO2が保たれていても、反応低下、低体温、複数損傷があり、自宅経過観察は適切でない。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "低体温のみを主病態と考え、外表所見は後回しにする。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "narrow_focus_on_hypothermia"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_external_injuries"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "低体温への対応は必要だが、複数の外表損傷も重要な所見であり、後回しにしない。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "反応低下と複数損傷を重視し、詳細観察と搬送準備を進める。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "planned_detailed_observation_and_transport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_child_risk"
+            ]
+          },
+          "rationale": "小児の反応低下、低体温、複数損傷を総合し、詳細観察、記録、搬送準備を進める。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "熱傷創が小さいため、通報の必要性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -10,
+          "status_effect": {
+            "add_flags": [
+              "underestimated_burn_and_bruising"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "unsafe_minimization"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "熱傷創の大きさだけで判断しない。複数損傷と全身状態を総合評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "全身観察",
+      "phase": "body_map_observation",
+      "scene_goal": "人体図から身体部位を選択し、損傷の色調・分布・新旧混在を確認する。",
+      "ideal_flow": [
+        "人体図を確認する",
+        "身体部位を選択する",
+        "損傷の色調を確認する",
+        "損傷の分布を確認する",
+        "説明と所見の整合性を考える"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "body_part_sidebar_observation",
+      "text": "全身観察を行う。人体図を見ながら、サイドバーから観察したい身体部位を選択して詳細所見を確認する。",
+      "visible_data": {
+        "instruction": [
+          "サイドバーから観察したい身体部位を選択する",
+          "選択した部位の詳細所見を確認する"
+        ],
+        "vital_signs": []
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "body_map_select",
+      "prompt": "人体図から身体部位を選択し、詳細所見を確認せよ。",
+      "body_parts": [
+        {
+          "part_id": "head_neck",
+          "label": "頭頸部",
+          "detail_media": [],
+          "findings": [
+            "明らかな開放創はない。",
+            "顔面に軽い皮下出血を認める。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 3
+        },
+        {
+          "part_id": "chest",
+          "label": "胸部",
+          "detail_media": [],
+          "findings": [
+            "呼吸運動の左右差は目立たない。",
+            "前胸部に黄色調の皮下出血を認める。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 4
+        },
+        {
+          "part_id": "abdomen",
+          "label": "腹部",
+          "detail_media": [],
+          "findings": [
+            "腹部膨隆は目立たない。",
+            "腹部にも小さな皮下出血を認める。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 4
+        },
+        {
+          "part_id": "back",
+          "label": "背部",
+          "detail_media": [],
+          "findings": [
+            "紫色と黄色の打撲痕を複数認める。",
+            "新旧の皮下出血が混在している。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 6
+        },
+        {
+          "part_id": "right_upper_limb",
+          "label": "右上肢",
+          "detail_media": [],
+          "findings": [
+            "小さな熱傷創を認める。",
+            "周囲に軽い発赤を認める。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 5
+        },
+        {
+          "part_id": "left_upper_limb",
+          "label": "左上肢",
+          "detail_media": [],
+          "findings": [
+            "紫色の打撲痕を認める。",
+            "明らかな変形はない。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 4
+        },
+        {
+          "part_id": "right_lower_limb",
+          "label": "右下肢",
+          "detail_media": [],
+          "findings": [
+            "黄色調の打撲痕を認める。",
+            "明らかな変形はない。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 4
+        },
+        {
+          "part_id": "left_lower_limb",
+          "label": "左下肢",
+          "detail_media": [],
+          "findings": [
+            "紫色の打撲痕を認める。",
+            "明らかな変形はない。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 4
+        },
+        {
+          "part_id": "pelvis_buttocks",
+          "label": "骨盤部・殿部",
+          "detail_media": [],
+          "findings": [
+            "殿部に黄色調の皮下出血を認める。",
+            "骨盤部の明らかな変形はない。"
+          ],
+          "is_key_observation": true,
+          "score_delta": 5
+        }
+      ],
+      "completion_condition": {
+        "required_part_ids": [
+          "back",
+          "right_upper_limb",
+          "pelvis_buttocks"
+        ],
+        "message": "主要な外表所見を確認した。損傷の色調と分布を踏まえて判断する。"
+      },
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "SpO2の数値のみ",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "focused_only_on_spo2"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_external_findings"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO2は重要だが、外表損傷の色調や分布も評価する必要がある。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "損傷の色調と分布",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "recognized_injury_pattern"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_external_findings"
+            ]
+          },
+          "rationale": "複数部位に新旧混在を疑う損傷がある場合、色調、分布、説明との整合性を確認する。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "母親の服装",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_observation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "現場安全に関わる場合を除き、この場面の主要な観察対象ではない。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "室内の照明",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_value_scene_observation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "観察環境として確認することはあるが、損傷評価の中心ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯",
+      "phase": "exam_core",
+      "scene_goal": "社会的リスクが疑われる小児で、親の説明や通報までの経過に注目する。",
+      "ideal_flow": [
+        "外表所見を整理する",
+        "説明内容と経過を確認する",
+        "受診・通報の遅れに注目する",
+        "国試の核を判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "exam_core_question",
+      "text": "体表には複数の紫色と黄色の打撲痕、小さな熱傷創を認める。発見時の説明と通報までの経過も確認している。",
+      "visible_data": {
+        "exam_focus": [
+          "複数の打撲痕",
+          "新旧混在を疑う色調",
+          "小さな熱傷創",
+          "通報までの経過"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "このような所見を呈する児の親の特徴はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "予後について関心がある。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_concerned_about_prognosis"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "予後への関心は一般的な保護者でもみられる。虐待疑いの特徴としては通報や受診の遅れなどが重視される。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "母子手帳を活用している。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_maternal_handbook"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "母子手帳の活用は養育状況の把握に役立つが、この所見に特有の親の特徴ではない。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "説明の内容が一貫している。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_consistent_explanation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "説明が一貫しない、または所見と説明が合わない場合に注意が必要である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "児の発育状態を理解している。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "selected_understands_development"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "発育状態の理解は望ましい養育行動であり、この所見を呈する児の親の特徴としては適切でない。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "発見から通報までの時間が長い。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "recognized_delay_in_calling"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "受傷や異常の発見から通報・受診までに時間を要することは、社会的リスクを疑う手がかりになる。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "社会的リスクと救急隊の役割",
+      "phase": "handoff_and_understanding",
+      "scene_goal": "現場で断定せず、観察所見と聞き取り内容を客観的に記録・共有する役割を理解する。",
+      "ideal_flow": [
+        "現場で断定しない",
+        "親を追及しない",
+        "観察所見を記録する",
+        "聞き取り内容を記録する",
+        "医療機関へ共有する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "objective_handoff",
+      "text": "搬送に向けて、救急隊は観察所見と聞き取り内容を整理する。救急隊は現場で断定せず、客観的な情報共有を行う。",
+      "visible_data": {
+        "handoff_focus": [
+          "発見時刻",
+          "発見時の様子",
+          "通報までの経過",
+          "損傷の部位",
+          "損傷の色調",
+          "説明内容"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この児を搬送する際の救急隊の対応として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "親を現場で追及する。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "accusatory_scene_management"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_rapport",
+              "unsafe_scene_tension"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "救急隊は現場で追及や断定を行わず、児の安全確保、観察、搬送、客観的な情報共有を優先する。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "損傷所見を省略する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "omitted_injury_findings"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "poor_handoff"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "損傷の部位、色調、分布は重要な情報であり、省略せず記録・共有する。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "聞き取り内容を記録する。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "documented_history_objectively"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "poor_handoff"
+            ]
+          },
+          "rationale": "発見時刻、発見時の様子、通報までの経過、説明内容を客観的に記録し、医療機関へ共有する。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "搬送を中止する。",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": -10,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_non_transport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "child_safety_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "反応低下と複数損傷があり、搬送中止は適切でない。医療機関での評価につなげる。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "1歳男児が帰宅した母親によりぐったりした状態で発見された症例。反応低下、低体温、複数の打撲痕、小さな熱傷創を認め、社会的リスクを含めて評価する必要がある。救急隊は現場で虐待と断定したり親を追及したりせず、発見時刻、発見時の状態、通報までの経過、損傷の部位・色調・分布、説明内容を客観的に記録し、医療機関へ共有する。",
+    "ideal_actions": [
+      "通報段階で小児のぐったりをハイリスク症候として捉える",
+      "初期評価で反応、気道、呼吸、循環を確認する",
+      "バイタルサインを測定する",
+      "発見時刻と発見時の様子を責めずに聞き取る",
+      "通報までの経過を確認する",
+      "人体図で身体部位を選択し、損傷の部位・色調・分布を確認する",
+      "説明内容と観察所見の整合性を意識する",
+      "観察所見と聞き取り内容を客観的に記録する",
+      "医療機関へ社会的リスクを含めて共有する"
+    ],
+    "good_points": [
+      "小児の反応低下を軽視せず評価できる",
+      "母親を責めずに発見時刻と経過を聞き取れる",
+      "新旧混在を疑う損傷の色調と分布に注目できる",
+      "救急隊の役割を断定や追及ではなく、観察・記録・共有として整理できる",
+      "国試の核である発見から通報までの時間に注目できる"
+    ],
+    "cautions": [
+      "現場で虐待と断定しない",
+      "親を問い詰める聞き方を避ける",
+      "SpO2が正常でも全身状態や外表所見を軽視しない",
+      "小さな熱傷創でも、複数損傷や説明との不一致があれば重要な所見となる",
+      "救急隊が保健所や警察へ直接判断を下すのではなく、医療機関へ客観情報を共有する",
+      "損傷の部位、色調、分布、発見時刻、説明内容を記録する"
+    ]
+  }
+}

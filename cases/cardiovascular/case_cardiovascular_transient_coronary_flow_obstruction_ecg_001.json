@@ -1,436 +1,465 @@
 {
-  "case_id": "case_cardiovascular_transient_coronary_flow_obstruction_ecg_001",
-  "category": "cardiovascular",
-  "title": "胸部不快感の再燃時に心電図変化を認めた男性",
-  "difficulty": "hard",
-  "version": "1.0",
-  "summary": "胸部不快感で救急要請された60歳男性。収容時には症状が一旦軽快していたが、搬送中に再び胸が締め付けられるような症状を訴えた。症状出現時のモニター波形変化から、一過性の冠動脈血流障害を背景とする虚血性心疾患を想定し、症状と心電図変化を関連づけて判断する症例。",
-  "learning_objectives": [
-    "一過性の胸部症状でも虚血性心疾患を疑う",
-    "症状出現時と無症状時のモニター波形差に注目する",
-    "胸部不快感とST変化を冠動脈血流障害として解釈する",
-    "搬送中の症状再燃を重視して観察を継続する"
-  ],
+  "case_id": "case_endocrine_metabolic_vitamin_b1_deficiency_alcohol_001",
+  "title": "低栄養と飲酒歴を背景に動けなくなった男性",
+  "category": "endocrine_metabolic",
+  "difficulty": "normal",
+  "version": "2.0",
   "scene_count": 7,
+  "overview": {
+    "chief_complaint": "動けない、手足の筋力低下",
+    "final_diagnosis": "ビタミンB1欠乏",
+    "learning_points": [
+      "飲酒偏重と低栄養を背景にビタミン欠乏を考える",
+      "急性発症に見えても、数週間から1か月単位の経過を拾う",
+      "筋力低下、記憶力低下、異常感覚の組み合わせから欠乏性疾患を疑う",
+      "アルコール多飲者の神経症状でビタミンB1欠乏を重要鑑別に入れる"
+    ]
+  },
   "scenes": [
     {
       "id": "scene1",
-      "title": "現場到着・状況把握",
-      "phase": "scene_assessment",
-      "scene_goal": "胸部不快感を主訴とする傷病者として、症状の性質と経過を把握する。",
+      "title": "現場到着",
+      "phase": "scene_arrival",
+      "scene_goal": "生活背景と現場状況から低栄養・飲酒偏重を把握する",
       "ideal_flow": [
-        "安全確認",
-        "傷病者への接触",
-        "主訴確認",
-        "症状の性質確認",
-        "発症から現在までの経過確認"
+        "安全確認を行う",
+        "傷病者の反応と姿勢を確認する",
+        "部屋の状況から生活背景を推測する",
+        "同伴者から発見時の状況を簡潔に確認する"
       ],
-      "ideal_score_delta": 15,
-      "action_tag": "initial_recognition",
-      "text": "自宅で60歳の男性が胸部不快感を訴えている。救急隊到着時、意識は清明。本人は『さっき胸が重苦しかったが、今は少し落ち着いている』と話している。",
+      "ideal_score_delta": 10,
+      "action_tag": "scene_assessment",
+      "text": "自宅居間に到着すると、60歳男性が床上で横になり、自力では起き上がれない状態であった。室内には酒の空き瓶や空き缶が散乱しており、友人は『最近は酒ばかりで、まともに食べていなかった』と話す。",
       "visible_data": {
-        "location": "自宅",
-        "chief_complaint": "胸部不快感",
-        "current_status": "症状は一旦軽快",
-        "consciousness": "意識清明"
+        "scene_info": [
+          "60歳男性",
+          "自宅居間",
+          "床上で動けない",
+          "室内は荒れている",
+          "酒の空き瓶や空き缶が目立つ",
+          "友人が発見して通報"
+        ]
       },
-      "media": [],
+      "author_note": "現場状況から低栄養と飲酒偏重を拾えるかを評価する場面。",
+      "media": [
+        "media/home_livingroom_male_malnutrition_alcohol_use_scene1.png"
+      ],
       "type": "single_choice",
-      "prompt": "この時点で最も優先して考えるべき病態はどれか。",
+      "prompt": "現場到着時にまず重視すべき視点はどれか。",
       "options": [
         {
-          "id": "s1o1",
-          "label": "虚血性心疾患",
+          "id": "s1_o1",
+          "text": "低栄養と長期の飲酒偏重を背景とした代謝・栄養障害を念頭に置く",
           "is_correct": true,
-          "score_delta": 15,
-          "feedback": "一過性でも胸部圧迫感・絞扼感は虚血性心疾患をまず考える。"
+          "score_delta": 10,
+          "feedback": "現場状況と友人の情報から、飲酒偏重と低栄養を背景にした病態を考えるのが重要。"
         },
         {
-          "id": "s1o2",
-          "label": "上気道感染",
+          "id": "s1_o2",
+          "text": "外傷がないため評価は不要である",
           "is_correct": false,
-          "score_delta": -3,
-          "feedback": "主訴と一致しにくい。"
+          "score_delta": -8,
+          "feedback": "動けないという主訴自体が重要であり、外傷の有無だけでは判断できない。"
         },
         {
-          "id": "s1o3",
-          "label": "低血糖発作",
+          "id": "s1_o3",
+          "text": "単なる酩酊として扱えばよい",
           "is_correct": false,
-          "score_delta": -2,
-          "feedback": "現時点で支持所見が乏しい。"
+          "score_delta": -10,
+          "feedback": "長期経過の神経症状があり、単純な酩酊では説明しにくい。"
         },
         {
-          "id": "s1o4",
-          "label": "髄膜刺激症候",
+          "id": "s1_o4",
+          "text": "まず室内清掃を優先し、その後に観察する",
           "is_correct": false,
-          "score_delta": -3,
-          "feedback": "症状が合わない。"
+          "score_delta": -6,
+          "feedback": "現場の安全確認は必要だが、傷病者評価が優先される。"
         }
       ]
     },
     {
       "id": "scene2",
       "title": "初期評価",
-      "phase": "primary_survey",
-      "scene_goal": "呼吸・循環の安定性を確認しつつ、高血圧下の胸部症状として重症度を判断する。",
+      "phase": "initial_assessment",
+      "scene_goal": "ABCと意識レベルから全身状態を把握する",
       "ideal_flow": [
-        "意識評価",
-        "気道評価",
-        "呼吸評価",
-        "循環評価",
-        "バイタルサイン確認"
+        "意識レベルを確認する",
+        "気道の開通を確認する",
+        "呼吸状態を確認する",
+        "循環状態を確認する"
       ],
       "ideal_score_delta": 15,
-      "action_tag": "primary_assessment",
-      "text": "救急隊到着時観察所見は、意識清明、呼吸数18/分、脈拍60/分・整、血圧172/96mmHg、SpO2 98％である。胸部不快感は約5分で消失している。",
+      "action_tag": "primary_survey",
+      "text": "傷病者は呼びかけに応じて開眼し、簡単な会話は可能である。気道は保たれ、呼吸はやや速いが明らかな呼吸困難はない。脈拍は整で、皮膚はやや乾燥している。",
       "visible_data": {
-        "consciousness": "意識清明",
-        "respiratory_rate": "18/分",
-        "pulse": "60/分・整",
-        "blood_pressure": "172/96mmHg",
-        "spo2": "98％",
-        "symptom_course": "胸部不快感は5分で消失"
+        "general_impression": [
+          "意識 JCS3",
+          "呼びかけに反応あり",
+          "気道は保たれている",
+          "呼吸やや速い",
+          "明らかなショック徴候なし"
+        ]
       },
+      "author_note": "ABCは比較的保たれているが、神経・代謝性疾患として迅速評価を続ける。",
       "media": [],
-      "type": "multiple_choice",
-      "prompt": "この場面で適切な判断を2つ選べ。",
+      "type": "single_choice",
+      "prompt": "この時点の評価として最も適切なのはどれか。",
       "options": [
         {
-          "id": "s2o1",
-          "label": "現時点で重度の呼吸不全は目立たない",
+          "id": "s2_o1",
+          "text": "ABCは現時点で保たれているが、意識変容と筋力低下を伴う全身性疾患として迅速評価が必要",
           "is_correct": true,
-          "score_delta": 7,
-          "feedback": "呼吸数とSpO2から著明な呼吸不全は示されない。"
+          "score_delta": 15,
+          "feedback": "呼吸循環は比較的保たれているが、神経・代謝性の異常を考えて評価を進める。"
         },
         {
-          "id": "s2o2",
-          "label": "症状消失後でも心血管イベントの可能性は残る",
-          "is_correct": true,
-          "score_delta": 8,
-          "feedback": "症状が消えても虚血が否定されるわけではない。"
-        },
-        {
-          "id": "s2o3",
-          "label": "症状が消えたので循環評価は不要である",
+          "id": "s2_o2",
+          "text": "直ちにCPA対応へ移る状態である",
           "is_correct": false,
-          "score_delta": -5,
-          "feedback": "胸部症状では継続評価が必要。"
+          "score_delta": -10,
+          "feedback": "CPAを示す所見はない。"
         },
         {
-          "id": "s2o4",
-          "label": "SpO2が保たれているため心疾患は否定できる",
+          "id": "s2_o3",
+          "text": "会話可能なので緊急性は低い",
           "is_correct": false,
-          "score_delta": -4,
-          "feedback": "SpO2正常でも虚血性心疾患はありうる。"
+          "score_delta": -8,
+          "feedback": "動けない、意識低下、筋力低下があり緊急評価が必要。"
         },
         {
-          "id": "s2o5",
-          "label": "高血圧なので胸部症状との関連は考えなくてよい",
+          "id": "s2_o4",
+          "text": "呼吸困難がないため観察を中止してよい",
           "is_correct": false,
-          "score_delta": -4,
-          "feedback": "胸部症状の評価が優先される。"
+          "score_delta": -8,
+          "feedback": "呼吸困難の有無だけで全身状態は判断できない。"
         }
       ]
     },
     {
       "id": "scene3",
-      "title": "症状聴取",
-      "phase": "focused_history",
-      "scene_goal": "胸部症状の性状を確認し、虚血性胸痛の特徴を整理する。",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "数週間単位の経過を把握し、欠乏性疾患を疑う材料を集める",
       "ideal_flow": [
-        "症状部位確認",
-        "症状の性質確認",
-        "持続時間確認",
-        "増悪軽快因子確認",
-        "既往や冠危険因子確認"
+        "いつから動けないか確認する",
+        "食事摂取状況を確認する",
+        "飲酒状況を確認する",
+        "疲労感、記憶力低下、異常感覚の経過を確認する"
       ],
       "ideal_score_delta": 15,
-      "action_tag": "history_taking",
-      "text": "本人は『胸の真ん中あたりが締め付けられるような感じだった』と話す。放散痛ははっきりしないが、嫌な圧迫感だったという。",
+      "action_tag": "focused_history",
+      "text": "友人によると、1か月ほど前から疲れやすさ、記憶力の低下、下肢のしびれるような違和感があったという。1週間前から立ち上がりが難しくなり、ここ数日は酒だけを摂取し、食事はほとんど摂れていなかった。",
       "visible_data": {
-        "pain_character": "締め付けられるような胸部不快感",
-        "location": "前胸部中央",
-        "duration": "数分程度",
-        "quality": "圧迫感"
+        "history": [
+          "1か月前から疲労感あり",
+          "1か月前から記憶力低下あり",
+          "1か月前から下肢の異常感覚あり",
+          "1週間前から起立困難",
+          "最近は酒のみで食事ほぼ摂取なし"
+        ]
       },
+      "author_note": "経過と栄養背景の聴取が鍵。欠乏性疾患の方向へつなげる。",
       "media": [],
-      "type": "single_choice",
-      "prompt": "この症状の性質として最も虚血性心疾患を示唆するのはどれか。",
+      "type": "multiple_choice",
+      "prompt": "この段階で病態把握のために特に重要な情報として適切なものを2つ選べ。",
       "options": [
         {
-          "id": "s3o1",
-          "label": "締め付けられるような胸部不快感",
+          "id": "s3_o1",
+          "text": "食事摂取状況と飲酒状況",
           "is_correct": true,
-          "score_delta": 15,
-          "feedback": "虚血性胸痛として典型的な表現のひとつである。"
+          "score_delta": 8,
+          "feedback": "低栄養やビタミン欠乏を考えるうえで重要な背景情報。"
         },
         {
-          "id": "s3o2",
-          "label": "体位で変わる背部痛",
-          "is_correct": false,
-          "score_delta": -3,
-          "feedback": "この症例では中心情報ではない。"
+          "id": "s3_o2",
+          "text": "異常感覚や記憶力低下の経過",
+          "is_correct": true,
+          "score_delta": 8,
+          "feedback": "神経症状と認知機能低下の経過は欠乏性神経障害を考える材料になる。"
         },
         {
-          "id": "s3o3",
-          "label": "吸気で悪化する限局性胸痛",
+          "id": "s3_o3",
+          "text": "学生時代のスポーツ歴",
           "is_correct": false,
-          "score_delta": -2,
-          "feedback": "胸膜性疼痛を考えやすい。"
+          "score_delta": -4,
+          "feedback": "現時点の病態把握には直結しない。"
         },
         {
-          "id": "s3o4",
-          "label": "咽頭痛を伴う胸部違和感",
+          "id": "s3_o4",
+          "text": "最近見たテレビ番組",
           "is_correct": false,
-          "score_delta": -3,
-          "feedback": "虚血性病態の根拠として弱い。"
+          "score_delta": -4,
+          "feedback": "優先度は低い。"
         }
       ]
     },
     {
       "id": "scene4",
-      "title": "搬送中の変化",
-      "phase": "reassessment",
-      "scene_goal": "症状の再燃を捉え、モニター評価へつなげる。",
+      "title": "バイタルサイン測定",
+      "phase": "vital_assessment",
+      "scene_goal": "全身状態の安定性を客観的に評価する",
       "ideal_flow": [
-        "継続観察",
-        "症状再確認",
-        "変化の有無把握",
-        "モニター波形確認準備",
-        "再評価へ移行"
+        "呼吸数を確認する",
+        "脈拍を確認する",
+        "血圧を測定する",
+        "SpO2を確認する"
       ],
       "ideal_score_delta": 10,
-      "action_tag": "trend_monitoring",
-      "text": "搬送中、本人は再び『胸が締め付けられるような感じがする』と訴えた。症状は再燃しており、継続観察が必要な状況である。",
+      "action_tag": "vital_check",
+      "text": "バイタルサインを測定した。",
       "visible_data": {
-        "symptom_recurrence": "あり",
-        "complaint": "胸が締め付けられる感じ",
-        "phase": "搬送中"
+        "vital_signs": [
+          "意識 JCS3",
+          "呼吸数 20/分",
+          "脈拍 88/分、整",
+          "血圧 100/82mmHg",
+          "SpO2 96%"
+        ]
       },
+      "author_note": "バイタルは比較的保たれているが、症状の重さから評価継続が必要。",
       "media": [],
       "type": "single_choice",
-      "prompt": "この時点で最も適切な対応はどれか。",
+      "prompt": "このバイタル所見の解釈として最も適切なのはどれか。",
       "options": [
         {
-          "id": "s4o1",
-          "label": "症状再燃としてモニター所見を再評価する",
+          "id": "s4_o1",
+          "text": "著明な呼吸循環不全はないが、神経・代謝性の障害は十分に疑うべきである",
           "is_correct": true,
           "score_delta": 10,
-          "feedback": "症状と心電図変化の関連を捉えることが重要である。"
+          "feedback": "バイタルが極端に崩れていなくても、重い栄養障害や神経障害は否定できない。"
         },
         {
-          "id": "s4o2",
-          "label": "一度軽快しているので経過観察のみとする",
+          "id": "s4_o2",
+          "text": "SpO2が保たれているため中枢・末梢神経の異常は考えなくてよい",
           "is_correct": false,
-          "score_delta": -5,
-          "feedback": "再燃しており再評価が必要。"
+          "score_delta": -8,
+          "feedback": "SpO2正常は神経・代謝異常の否定材料にならない。"
         },
         {
-          "id": "s4o3",
-          "label": "胸部症状とは無関係として扱う",
+          "id": "s4_o3",
+          "text": "血圧が100/82なので評価は終了してよい",
           "is_correct": false,
-          "score_delta": -5,
-          "feedback": "不適切。"
+          "score_delta": -8,
+          "feedback": "症状の重さに対し評価継続が必要。"
         },
         {
-          "id": "s4o4",
-          "label": "症状聴取をやめて搬送だけを続ける",
+          "id": "s4_o4",
+          "text": "バイタルが極端に悪くないため搬送優先度は低い",
           "is_correct": false,
-          "score_delta": -3,
-          "feedback": "症状と所見の変化把握が大切。"
+          "score_delta": -8,
+          "feedback": "動けない、意識低下、筋力低下があり慎重な判断が必要。"
         }
       ]
     },
     {
       "id": "scene5",
-      "title": "モニター波形の観察",
-      "phase": "focused_assessment",
-      "scene_goal": "無症状時と症状出現時の心電図変化を比較し、虚血性変化を読み取る。",
+      "title": "神経学的観察",
+      "phase": "focused_exam",
+      "scene_goal": "筋力低下と感覚異常の分布から栄養障害性神経障害を考える",
       "ideal_flow": [
-        "無症状時波形確認",
-        "症状出現時波形確認",
-        "2つを比較する",
-        "ST変化を捉える",
-        "原因病態を考える"
+        "四肢筋力を確認する",
+        "下肢の異常感覚を確認する",
+        "見当識や記憶の状態をみる",
+        "症状を全体として統合する"
       ],
       "ideal_score_delta": 20,
-      "action_tag": "ecg_interpretation",
-      "text": "救急車内収容時の波形Aと、症状再燃時の波形Bを比較する。症状出現時の波形で虚血を示唆する変化がみられる。",
+      "action_tag": "neurological_assessment",
+      "text": "手足の筋力は全体に著しく低下している。特に下肢は力が入りにくく、立ち上がりは困難である。本人は受け答えできるが反応は鈍く、最近のことを思い出しにくい様子がみられる。",
       "visible_data": {
-        "waveform_A": "収容時",
-        "waveform_B": "症状出現時",
-        "comparison_point": "症状と波形変化の関連"
+        "neurological_findings": [
+          "四肢筋力の著しい低下",
+          "下肢優位の機能低下",
+          "下肢の異常感覚の既往あり",
+          "反応はやや鈍い",
+          "記憶力低下あり"
+        ]
       },
-      "media": [
-        {
-          "file": "media/ecg_transient_chest_discomfort_coronary_flow_obstruction_scene5.png",
-          "description": "救急車内収容時Aと症状出現時Bの心電図モニター波形比較画像",
-          "source_note": "既存図版を直接使用せず、要点のみ残したオリジナル再構成画像"
-        }
-      ],
+      "author_note": "低栄養と神経症状の組み合わせから欠乏性神経障害を考える場面。",
+      "media": [],
       "type": "single_choice",
-      "prompt": "この波形変化から最も考えやすいのはどれか。",
+      "prompt": "この所見の組み合わせから最も考えやすい病態はどれか。",
       "options": [
         {
-          "id": "s5o1",
-          "label": "一過性の心筋虚血",
+          "id": "s5_o1",
+          "text": "低栄養と飲酒を背景にしたビタミン欠乏性の神経障害",
           "is_correct": true,
           "score_delta": 20,
-          "feedback": "症状出現時に一致したST変化は冠血流障害による虚血を示唆する。"
+          "feedback": "飲酒偏重、低栄養、異常感覚、筋力低下、記憶障害の組み合わせから欠乏性疾患を考える。"
         },
         {
-          "id": "s5o2",
-          "label": "髄膜刺激",
+          "id": "s5_o2",
+          "text": "単純な外傷性脊髄損傷",
           "is_correct": false,
-          "score_delta": -4,
-          "feedback": "心電図変化の説明にならない。"
+          "score_delta": -10,
+          "feedback": "外傷歴がなく、慢性経過の神経症状もある。"
         },
         {
-          "id": "s5o3",
-          "label": "頭部外傷",
+          "id": "s5_o3",
+          "text": "一過性の酩酊のみ",
           "is_correct": false,
-          "score_delta": -4,
-          "feedback": "本症例と一致しない。"
+          "score_delta": -8,
+          "feedback": "1か月単位の経過と神経症状を説明しにくい。"
         },
         {
-          "id": "s5o4",
-          "label": "発熱による循環変動",
+          "id": "s5_o4",
+          "text": "単純な脱水のみ",
           "is_correct": false,
-          "score_delta": -3,
-          "feedback": "根拠が乏しい。"
+          "score_delta": -8,
+          "feedback": "脱水だけでは記憶力低下や異常感覚の経過を説明しにくい。"
         }
       ]
     },
     {
       "id": "scene6",
-      "title": "重症度判断と申し送り",
-      "phase": "hospital_contact",
-      "scene_goal": "症状再燃と心電図変化を簡潔に伝え、冠血流障害を疑う症例として申し送る。",
+      "title": "原因の推定",
+      "phase": "clinical_reasoning",
+      "scene_goal": "低栄養と神経症状の組み合わせから原因ビタミンを推定する",
       "ideal_flow": [
-        "年齢・性別",
-        "主訴",
-        "症状経過",
-        "バイタル",
-        "モニター変化",
-        "疑う病態"
+        "飲酒偏重を整理する",
+        "食事摂取不良を整理する",
+        "記憶力低下、異常感覚、筋力低下を整理する",
+        "最も妥当な欠乏ビタミンを選ぶ"
       ],
-      "ideal_score_delta": 10,
-      "action_tag": "first_call",
-      "text": "胸部不快感の再燃と、症状に一致した心電図変化を認めるため、医療機関へ状況を連絡する。",
+      "ideal_score_delta": 20,
+      "action_tag": "cause_estimation",
+      "text": "酒のみで食事摂取が乏しい状態が続き、疲労感、記憶力低下、下肢の異常感覚、起立困難、四肢筋力低下を認める。",
       "visible_data": {
-        "age_sex": "60歳男性",
-        "chief_complaint": "胸部不快感",
-        "suspected_condition": "冠動脈血流障害による虚血性変化"
+        "reasoning_points": [
+          "長期の低栄養",
+          "飲酒偏重",
+          "疲労感あり",
+          "記憶力低下あり",
+          "下肢異常感覚あり",
+          "起立困難あり",
+          "四肢筋力低下あり"
+        ]
       },
+      "author_note": "ビタミンB1欠乏を選ばせる推論場面。",
       "media": [],
-      "type": "template_select",
-      "prompt": "この症例の申し送りとして最も適切な内容を選べ。",
-      "templates": [
+      "type": "single_choice",
+      "prompt": "この病態の原因として欠乏が推定されるビタミンはどれか。",
+      "options": [
         {
-          "id": "s6t1",
-          "label": "60歳男性。胸部不快感で要請。収容時は症状軽快していましたが、搬送中に胸部絞扼感が再燃しました。意識清明、脈拍60整、血圧172/96、SpO2 98％。症状出現時に虚血性変化を示唆するモニター波形変化を認めます。",
+          "id": "s6_o1",
+          "text": "葉酸",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "低栄養では不足し得るが、今回の神経症状の全体像とは合いにくい。"
+        },
+        {
+          "id": "s6_o2",
+          "text": "ビタミンC",
+          "is_correct": false,
+          "score_delta": -8,
+          "feedback": "壊血病の症状とは一致しにくい。"
+        },
+        {
+          "id": "s6_o3",
+          "text": "ビタミンB1",
           "is_correct": true,
-          "score_delta": 10,
-          "feedback": "経過、バイタル、波形変化が簡潔にまとまっている。"
+          "score_delta": 20,
+          "feedback": "アルコール多飲、低栄養、記憶障害、末梢神経障害からビタミンB1欠乏が最も考えやすい。"
         },
         {
-          "id": "s6t2",
-          "label": "60歳男性。今は少し落ち着いているので、念のため搬送します。",
+          "id": "s6_o4",
+          "text": "ビタミンB12",
           "is_correct": false,
-          "score_delta": -4,
-          "feedback": "重要な経過と波形情報が不足している。"
-        },
-        {
-          "id": "s6t3",
-          "label": "60歳男性。胸痛はありますが、SpO2が保たれているので緊急性は高くありません。",
-          "is_correct": false,
-          "score_delta": -5,
-          "feedback": "不適切。"
+          "score_delta": -6,
+          "feedback": "神経症状はあり得るが、飲酒偏重と急速な悪化の背景からはB1欠乏がより妥当。"
         }
       ]
     },
     {
       "id": "scene7",
-      "title": "病態理解",
-      "phase": "pathophysiology",
-      "scene_goal": "症状と心電図変化の原因病態を整理する。",
+      "title": "搬送判断と病院連絡",
+      "phase": "handover",
+      "scene_goal": "低栄養・飲酒背景と神経症状を整理して申し送る",
       "ideal_flow": [
-        "胸部症状を整理する",
-        "波形変化を振り返る",
-        "虚血の原因を考える",
-        "正しい病態を選択する"
+        "年齢・性別を伝える",
+        "発見状況を伝える",
+        "バイタルを伝える",
+        "生活背景と神経症状を伝える",
+        "原因として考えている病態を簡潔に伝える"
       ],
-      "ideal_score_delta": 15,
-      "action_tag": "final_reasoning",
-      "text": "胸部不快感は一旦軽快したが、搬送中に再燃し、そのタイミングでモニター波形の変化を認めた。症状と波形変化が連動している。",
+      "ideal_score_delta": 10,
+      "action_tag": "hospital_handover",
+      "text": "受入要請のため医療機関へ連絡する。",
       "visible_data": {
-        "key_clues": [
-          "締め付けられる胸部不快感",
-          "症状の再燃",
-          "症状出現時の波形変化",
-          "無症状時との違い"
+        "handover_elements": [
+          "60歳男性",
+          "自宅で動けなくなっているところを友人が発見",
+          "JCS3、RR20、PR88整、BP100/82、SpO2 96%",
+          "四肢筋力の著しい低下あり",
+          "1か月前から疲労感、記憶力低下、下肢異常感覚あり",
+          "最近は酒のみで食事摂取不良"
         ]
       },
+      "author_note": "申し送りでは、生活背景・経過・神経症状・バイタルを簡潔にまとめる。",
+      "scoring_keywords": [
+        "60歳男性",
+        "自宅で動けない",
+        "JCS3",
+        "四肢筋力低下",
+        "記憶力低下",
+        "下肢異常感覚",
+        "飲酒偏重",
+        "食事摂取不良"
+      ],
       "media": [],
-      "type": "single_choice",
-      "prompt": "原因となる病態はどれか。1つ選べ。",
-      "options": [
+      "type": "template_select",
+      "prompt": "最も適切な申し送りを選べ。",
+      "templates": [
         {
-          "id": "s7o1",
-          "label": "心筋の肥大",
-          "is_correct": false,
-          "score_delta": 0,
-          "feedback": "今回の一過性症状と波形変化の原因としては合いにくい。"
-        },
-        {
-          "id": "s7o2",
-          "label": "心膜の炎症",
-          "is_correct": false,
-          "score_delta": 0,
-          "feedback": "本症例の経過と一致しにくい。"
-        },
-        {
-          "id": "s7o3",
-          "label": "大動脈の解離",
-          "is_correct": false,
-          "score_delta": 0,
-          "feedback": "心電図変化の主説明としては不適切。"
-        },
-        {
-          "id": "s7o4",
-          "label": "冠動脈の血流障害",
+          "id": "s7_t1",
+          "text": "60歳男性、自宅で動けなくなっているところを友人が発見しました。意識JCS3、呼吸数20、脈拍88整、血圧100/82、SpO2 96%です。四肢筋力の著しい低下があり、1か月前から疲労感、記憶力低下、下肢の異常感覚があったとのことです。最近は酒ばかりで食事がほとんど摂れていません。",
           "is_correct": true,
-          "score_delta": 15,
-          "feedback": "症状とST変化の連動から、冠動脈血流障害による一過性心筋虚血が最も考えられる。"
+          "score_delta": 10,
+          "feedback": "生活背景、神経症状、バイタルが簡潔にまとまっている。"
         },
         {
-          "id": "s7o5",
-          "label": "大動脈弁の機能不全",
+          "id": "s7_t2",
+          "text": "飲酒している男性で、酔って寝ているだけかもしれませんが搬送します。",
           "is_correct": false,
-          "score_delta": 0,
-          "feedback": "本症例の中心病態ではない。"
+          "score_delta": -8,
+          "feedback": "慢性経過の神経症状と低栄養背景を過小評価している。"
+        },
+        {
+          "id": "s7_t3",
+          "text": "バイタルはそこまで悪くないので、自宅で食事を取れば様子を見られそうです。",
+          "is_correct": false,
+          "score_delta": -10,
+          "feedback": "動けない、筋力低下、意識低下があり不適切。"
+        },
+        {
+          "id": "s7_t4",
+          "text": "詳細は不明ですが、とりあえず搬送します。",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "経過や生活背景、神経症状を整理して伝える必要がある。"
         }
       ]
     }
   ],
   "debriefing": {
-    "summary": "胸部不快感が一旦軽快した後、搬送中に再燃し、そのタイミングで心電図モニター波形の変化を認めた症例である。症状とST変化の連動から、原因は冠動脈の一過性血流障害による心筋虚血が最も考えられる。症状軽快後も継続観察が重要である。",
+    "summary": "長期の飲酒偏重と食事摂取不良を背景に、疲労感、記憶力低下、下肢異常感覚、起立困難、四肢筋力低下を呈した症例である。低栄養性の神経障害と記憶障害を伴うことから、ビタミンB1欠乏を最も強く疑う。",
     "ideal_actions": [
-      "胸部不快感を虚血性心疾患として評価する",
-      "症状軽快後も観察を継続する",
-      "症状再燃時にモニター波形を再確認する",
-      "無症状時と症状出現時の変化を比較する",
-      "冠動脈血流障害を原因病態として整理する"
+      "現場状況から飲酒偏重と低栄養の背景を把握する",
+      "ABCと意識レベルを確認して全身状態を評価する",
+      "症状の経過を1か月単位で丁寧に聴取する",
+      "筋力低下、異常感覚、記憶力低下を統合して欠乏性疾患を考える",
+      "ビタミンB1欠乏を疑って適切に搬送・申し送りする"
     ],
     "good_points": [
-      "症状が消失しても油断せず観察を続けられた",
-      "症状と心電図変化を結びつけて考えられた",
-      "冠動脈血流障害という本質にたどり着けた"
+      "単純な酩酊で片づけず低栄養背景を拾えた",
+      "慢性経過の神経症状を重要視できた",
+      "記憶障害と末梢神経障害の組み合わせからB1欠乏を考えられた",
+      "生活背景を含めて病院へ申し送りできた"
     ],
     "cautions": [
-      "症状軽快のみで安心しない",
-      "SpO2が正常でも虚血性心疾患は否定できない",
-      "波形は単独でなく症状出現タイミングと合わせて評価する"
+      "アルコール多飲者では低栄養とビタミン欠乏を常に考える",
+      "動けない原因を酩酊だけで説明しない",
+      "バイタルが比較的保たれていても重い栄養障害はあり得る",
+      "神経症状と記憶障害の経過を丁寧に確認する"
     ]
   }
 }

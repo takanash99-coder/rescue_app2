@@ -1,0 +1,749 @@
+{
+  "case_id": "long_qt_syncope_vt_risk_001",
+  "version": "2.0",
+  "title": "若年者の突然失神と心電図モニター波形から致死的不整脈リスクを判断する症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "cardiovascular_protocol",
+  "estimated_time": 8,
+  "keywords": [
+    "若年失神",
+    "心電図モニター",
+    "QT延長症候群",
+    "心室頻拍",
+    "突然死リスク",
+    "家族歴"
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容とPAC",
+      "phase": "dispatch",
+      "scene_goal": "若年者の突然の意識消失を軽視せず、CPAの有無と現在の状態を確認する。",
+      "ideal_flow": [
+        "通報者に安全確認を促す",
+        "反応の有無を確認する",
+        "普段どおりの呼吸があるか確認する",
+        "反応と呼吸がなければ胸骨圧迫とAED手配を指示する",
+        "意識が戻った場合も再度倒れないよう安静を指示する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "PAC",
+        "syncope",
+        "bystander_assessment"
+      ],
+      "text": "18歳男性。夜食を食べている際、急に意識を失ったため、家族が救急要請した。通報時、家族は「急に倒れたが、今は目を開けている」と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "傷病者": "18歳男性",
+          "主訴": "突然の意識消失",
+          "通報者": "家族",
+          "現在の状態": "意識は戻っている様子"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "通報者への初期指示として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene1_o1",
+          "text": "反応と呼吸を確認し、安静にして救急隊を待つよう伝える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "initial_status_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "突然の意識消失では、まず反応と呼吸を確認する。意識が戻っていても再失神の可能性があるため安静を保つ。"
+        },
+        {
+          "option_id": "scene1_o2",
+          "text": "意識が戻っていれば救急要請を取り消すよう伝える。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "transport_cancelled_inappropriately"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "arrhythmia_risk"
+            ]
+          },
+          "rationale": "若年者でも突然の意識消失は不整脈性失神などを考える。症状が消失しても評価が必要である。"
+        },
+        {
+          "option_id": "scene1_o3",
+          "text": "すぐに立たせて歩けるか確認するよう伝える。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "standing_test_inappropriate"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "recurrent_syncope"
+            ]
+          },
+          "rationale": "失神後に立たせると再度倒れる危険がある。安静にして救急隊の到着を待つ。"
+        },
+        {
+          "option_id": "scene1_o4",
+          "text": "水を飲ませて様子を見るよう伝える。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "oral_intake_prioritized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "突然の意識消失では飲水よりも反応・呼吸確認と安静が優先される。原因評価も必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "救急隊到着時の初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "到着時に症状が消失していても、突然失神の原因評価が必要であることを理解する。",
+      "ideal_flow": [
+        "反応を確認する",
+        "気道・呼吸・循環を確認する",
+        "現在の症状を確認する",
+        "失神前後の状況を確認する",
+        "心電図モニター装着を検討する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "syncope",
+        "cardiac_monitoring"
+      ],
+      "text": "救急隊到着時、傷病者は意識清明で、特に症状を訴えない。呼吸数16回/分、脈拍72回/分で整、SpO2 98%である。",
+      "visible_data": {
+        "initial_findings": {
+          "意識": "清明",
+          "呼吸数": "16回/分",
+          "脈拍": "72回/分、整",
+          "SpO2": "98%",
+          "自覚症状": "なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での救急隊の考え方として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene2_o1",
+          "text": "症状がなくても不整脈性失神を考え評価を続ける。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cardiac_syncope_considered"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "突然の意識消失は、到着時に症状がなくても不整脈性失神を考える。心電図評価や問診を継続する。"
+        },
+        {
+          "option_id": "scene2_o2",
+          "text": "意識清明でバイタルが安定しているため不搬送とする。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "sudden_death_risk"
+            ]
+          },
+          "rationale": "若年者でも突然失神は危険な不整脈の可能性がある。現在安定していても評価が必要である。"
+        },
+        {
+          "option_id": "scene2_o3",
+          "text": "食事中だったため消化器症状のみを疑う。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "wrong_focus"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "食事中の発症であっても、突然の意識消失では循環器系の原因を含めて評価する。"
+        },
+        {
+          "option_id": "scene2_o4",
+          "text": "症状がないため心電図モニターは不要とする。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "ecg_not_monitored"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "arrhythmia_missed"
+            ]
+          },
+          "rationale": "不整脈性失神が疑われる場合、症状消失後でも心電図モニターで評価する意義がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "情報収集",
+      "phase": "history_taking",
+      "scene_goal": "若年者の失神で確認すべき家族歴、服薬、誘因を整理する。",
+      "ideal_flow": [
+        "失神の直前症状を確認する",
+        "運動中・食事中・安静時など発症状況を確認する",
+        "家族歴を確認する",
+        "内服薬やサプリメントを確認する",
+        "過去の失神歴を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "history_taking",
+        "family_history",
+        "medication_history",
+        "syncope"
+      ],
+      "text": "家族から情報を得た。傷病者は夜食中に突然意識を失い、数十秒で意識が戻った。けいれん様の動きははっきりせず、失禁もなかった。家族は「親族に若くして突然亡くなった人がいる」と話している。",
+      "visible_data": {
+        "history": {
+          "発症状況": "夜食中に突然意識消失",
+          "回復": "数十秒で意識回復",
+          "けいれん": "はっきりしない",
+          "失禁": "なし",
+          "家族歴": "若年突然死を疑う話あり",
+          "服薬": "確認中"
+        }
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この傷病者で追加確認すべき情報として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene3_o1",
+          "text": "若年突然死の家族歴",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "family_history_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "若年者の突然失神では遺伝性不整脈疾患を考える。突然死の家族歴は重要な情報である。"
+        },
+        {
+          "option_id": "scene3_o2",
+          "text": "内服薬やサプリメントの有無",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "medication_history_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "一部の薬剤や電解質異常は致死的不整脈のリスクに関わる。内服薬やサプリメントの確認は重要である。"
+        },
+        {
+          "option_id": "scene3_o3",
+          "text": "好きな食べ物",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_question"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "食事中の発症ではあるが、好きな食べ物は失神原因の評価に直結しにくい。"
+        },
+        {
+          "option_id": "scene3_o4",
+          "text": "学校での成績",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_history"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "学校成績は突然失神の原因評価には関係しにくい。家族歴や服薬歴などを優先する。"
+        },
+        {
+          "option_id": "scene3_o5",
+          "text": "自宅の間取り",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "environment_detail_overprioritized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "転倒外傷や現場安全では環境情報も重要だが、今回の主な評価は突然失神の原因検索である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "国試の芯：心電図モニター波形",
+      "phase": "exam_core",
+      "scene_goal": "若年者の突然失神と心電図モニター波形から、病態の特徴を判断する。",
+      "ideal_flow": [
+        "心電図モニター波形を確認する",
+        "若年失神の背景を整理する",
+        "家族歴や突然死リスクを考慮する",
+        "致死的不整脈の可能性を考える",
+        "病態の特徴を選択する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "exam_core",
+        "ecg_monitor",
+        "syncope",
+        "ventricular_tachycardia"
+      ],
+      "text": "搬送中、心電図モニターを装着した。傷病者は現在、意識清明で呼吸・循環は安定している。モニター波形を示す。",
+      "visible_data": {
+        "transport_status": {
+          "意識": "清明",
+          "呼吸": "安定",
+          "循環": "安定",
+          "心電図": "モニター波形を確認"
+        }
+      },
+      "media": [
+        "media/long_qt_ecg_monitor_scene4.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この病態の特徴はどれか。",
+      "options": [
+        {
+          "option_id": "scene4_o1",
+          "text": "女性に多い。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "sex_distribution_overfocused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "性別だけで判断する病態ではない。若年失神、家族歴、心電図異常から致死的不整脈リスクを考える。"
+        },
+        {
+          "option_id": "scene4_o2",
+          "text": "家族歴は重要でない。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "family_history_ignored"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "inherited_arrhythmia_missed"
+            ]
+          },
+          "rationale": "遺伝性不整脈疾患では家族歴が重要である。若年突然死や失神の家族歴を確認する。"
+        },
+        {
+          "option_id": "scene4_o3",
+          "text": "突然死のリスクは低い。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "sudden_death_risk_underestimated"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "sudden_death_risk"
+            ]
+          },
+          "rationale": "若年者の突然失神と心電図異常では、致死的不整脈や突然死リスクを軽視してはいけない。"
+        },
+        {
+          "option_id": "scene4_o4",
+          "text": "薬剤は原因とならない。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "drug_induced_risk_ignored"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "一部の薬剤や電解質異常は心電図異常や致死的不整脈リスクに関わる。服薬歴の確認が必要である。"
+        },
+        {
+          "option_id": "scene4_o5",
+          "text": "QT延長症候群により心室頻拍をおこす。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "long_qt_vt_risk_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "若年者の突然失神では不整脈性失神を考える。QT延長症候群では心室頻拍を起こし、失神や突然死につながることがある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "QT間隔の定義",
+      "phase": "ecg_interpretation",
+      "scene_goal": "QT間隔の測定範囲と、補正QT時間で評価する理由を理解する。",
+      "ideal_flow": [
+        "QRS開始点を確認する",
+        "T波終末を確認する",
+        "QT間隔を測定する",
+        "心拍数の影響を考える",
+        "QTcで評価する必要性を理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "qt_interval",
+        "ecg_interpretation",
+        "qtc"
+      ],
+      "text": "心電図でQT間隔を評価する際は、測定範囲を正しく理解する必要がある。QT間隔は心拍数の影響を受けるため、補正QT時間として評価する。",
+      "visible_data": {
+        "ecg_learning": {
+          "評価対象": "QT間隔",
+          "注意点": "心拍数の影響を受ける",
+          "評価方法": "補正QT時間で評価"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "QT間隔の測定範囲として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene5_o1",
+          "text": "P波の開始からQRSの開始まで",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pr_interval_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "P波の開始からQRS開始まではPR間隔であり、房室伝導時間を反映する。"
+        },
+        {
+          "option_id": "scene5_o2",
+          "text": "QRSの開始からT波の終末まで",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "qt_interval_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "QT間隔はQRS開始からT波終末までを測定し、心室の脱分極から再分極終了までを反映する。"
+        },
+        {
+          "option_id": "scene5_o3",
+          "text": "R波から次のR波まで",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "rr_interval_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "R波から次のR波まではRR間隔であり、心拍数の評価に用いられる。"
+        },
+        {
+          "option_id": "scene5_o4",
+          "text": "ST部分の開始からT波の頂点まで",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "st_t_segment_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ST部分の開始からT波頂点までではQT間隔を評価できない。T波終末までを含める必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "再分極遅延から心室頻拍、失神、突然死につながる機序を理解する。",
+      "ideal_flow": [
+        "心室再分極の遅延を理解する",
+        "致死的不整脈のリスクを考える",
+        "一過性の心室頻拍による失神を理解する",
+        "突然死リスクを認識する",
+        "症状が消失していても評価が必要と理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "ventricular_tachycardia",
+        "sudden_death",
+        "syncope"
+      ],
+      "text": "この病態では、心室の再分極が遅れることで不安定な電気的状態となり、多形性心室頻拍などの致死的不整脈を起こすことがある。短時間で自然停止すれば失神だけで回復することもあるが、持続すれば突然死につながる。",
+      "visible_data": {
+        "pathophysiology_review": {
+          "主な異常": "心室再分極の遅延",
+          "不整脈": "心室頻拍",
+          "症状": "失神、動悸、けいれん様発作に見えることもある",
+          "リスク": "突然死"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態で失神や突然死が起こる主な機序として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene6_o1",
+          "text": "心室再分極の遅延により心室頻拍を生じる。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pathophysiology_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "心室再分極が遅れると、心室頻拍などの致死的不整脈を起こし、失神や突然死につながることがある。"
+        },
+        {
+          "option_id": "scene6_o2",
+          "text": "房室結節の伝導が完全に途絶する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "av_block_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "房室伝導の途絶は完全房室ブロックなどで考える。今回の病態の中心は再分極異常と心室頻拍である。"
+        },
+        {
+          "option_id": "scene6_o3",
+          "text": "洞結節の自動能が恒常的に亢進する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "sinus_tachycardia_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "洞結節自動能の亢進は洞性頻脈などで考える。今回の失神リスクは心室性不整脈で説明される。"
+        },
+        {
+          "option_id": "scene6_o4",
+          "text": "肺動脈圧が急激に上昇する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulmonary_circulation_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "肺動脈圧上昇は肺塞栓などで考える。今回の中心は心電図異常による致死的不整脈リスクである。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "搬送判断",
+      "phase": "transport_decision",
+      "scene_goal": "若年失神と心電図異常を軽視せず、循環器評価が可能な医療機関へ搬送する。",
+      "ideal_flow": [
+        "現在症状がないことだけで軽症判断しない",
+        "突然失神のリスクを評価する",
+        "心電図異常を医療機関に伝える",
+        "家族歴や服薬歴を共有する",
+        "循環器評価が可能な医療機関へ搬送する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "transport_decision",
+        "cardiology",
+        "syncope",
+        "risk_communication"
+      ],
+      "text": "傷病者は搬送中も意識清明で症状はない。しかし、若年者の突然失神であり、心電図モニター波形に異常が疑われる。家族歴にも注意が必要である。",
+      "visible_data": {
+        "transport_decision": {
+          "現在の症状": "なし",
+          "リスク": "突然失神、心電図異常、家族歴",
+          "搬送方針": "循環器評価が可能な医療機関"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の搬送判断として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene7_o1",
+          "text": "症状が消失していても循環器評価が可能な医療機関へ搬送する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "appropriate_transport_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "若年者の突然失神と心電図異常は致死的不整脈リスクを伴う。症状がなくても循環器評価が必要である。"
+        },
+        {
+          "option_id": "scene7_o2",
+          "text": "意識清明でバイタル安定なら不搬送でよい。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "refusal_or_nontransport_inappropriate"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "sudden_death_risk"
+            ]
+          },
+          "rationale": "現在安定していても、突然失神と心電図異常がある場合は不整脈性失神を考える。不搬送判断は危険である。"
+        },
+        {
+          "option_id": "scene7_o3",
+          "text": "食後の一過性反応として自宅で経過観察とする。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "event_minimized"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "arrhythmia_missed"
+            ]
+          },
+          "rationale": "食事中の発症でも、突然の意識消失と心電図異常があれば不整脈性失神を疑う。"
+        },
+        {
+          "option_id": "scene7_o4",
+          "text": "心電図異常があっても家族歴確認は不要である。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "family_history_not_shared"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "遺伝性不整脈疾患では家族歴が重要である。医療機関へ情報提供する必要がある。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "18歳男性が夜食中に突然意識を失った症例。救急隊到着時には意識清明でバイタルも安定していたが、搬送中の心電図モニター波形からQT延長症候群を疑う。若年者の突然失神では不整脈性失神を考え、家族歴や服薬歴を確認し、循環器評価が可能な医療機関へ搬送する。QT延長症候群では心室再分極の遅延により心室頻拍を起こし、失神や突然死につながることがある。",
+    "ideal_actions": [
+      "通報段階で反応と呼吸を確認し、意識が戻っていても安静を指示する",
+      "到着時に症状がなくても突然失神の原因評価を継続する",
+      "若年突然死の家族歴を確認する",
+      "内服薬やサプリメントを確認する",
+      "心電図モニター波形を確認する",
+      "QT間隔はQRS開始からT波終末までと理解する",
+      "心室頻拍や突然死リスクを考慮する",
+      "循環器評価が可能な医療機関へ搬送する"
+    ],
+    "good_points": [
+      "若年者の突然失神を軽視しない視点を学べる",
+      "症状が消失していても心電図評価が必要な場面を理解できる",
+      "QT間隔の定義と病態理解をつなげられる",
+      "家族歴と薬剤歴の重要性を確認できる"
+    ],
+    "cautions": [
+      "意識清明・バイタル安定だけで不搬送にしない",
+      "食事中の失神を単純な迷走神経反射だけで片づけない",
+      "心電図異常を見ても家族歴や服薬歴の確認を忘れない",
+      "QT延長症候群では突然死リスクを軽視しない"
+    ]
+  }
+}

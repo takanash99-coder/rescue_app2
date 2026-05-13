@@ -1,0 +1,743 @@
+{
+  "case_id": "case_dispatch_cpa_pac_cpr_instruction_001",
+  "version": "2.0",
+  "title": "通信指令員として路上CPA疑いに対してABCD評価とCPR口頭指導を行う症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "通信指令・CPA口頭指導プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "通信指令",
+    "口頭指導",
+    "PAC",
+    "ABCDアプローチ",
+    "胸骨圧迫"
+  ],
+  "location_context": {
+    "prefecture": "{{prefecture}}",
+    "city": "{{city}}",
+    "area": "{{area}}",
+    "street_or_place": "{{street_or_place}}",
+    "landmark": "{{landmark}}",
+    "caller_location_response": "場所は{{prefecture}}{{city}}{{area}}の{{street_or_place}}付近です。近くに{{landmark}}があります。"
+  },
+  "overview": "あなたは消防指令センターの通信指令員である。携帯電話から、路上で高齢者が倒れていて声をかけても全く反応がないとの救急要請が若い女性から入った。周囲に人影はない。場所確認と安全確認を行い、ABCDアプローチで生命危険性を判断したうえで、胸骨圧迫の口頭指導を行う。胸骨圧迫を2分ごとに中断して反応確認させる指導が不適切であることを理解する症例である。",
+  "patient_profile": {
+    "age": "高齢",
+    "sex": "不明",
+    "chief_complaint": "路上で倒れており反応がない",
+    "background": "通報者は若い女性。傷病者との関係はなく、路上で偶然発見した。周囲に協力者はいない。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "suspected_cpa",
+      "single_bystander",
+      "telephone_instruction"
+    ],
+    "time_pressure": "high"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "通信指令員として、場所確認・生命危険性判断・CPR口頭指導・継続支援まで非常に的確に行えている。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "重要な口頭指導はできている。通報者支援や中断回避の理由も概ね理解できている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "CPR指導の流れは理解できているが、ABCD評価や継続支援に改善余地がある。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "一部の指示は適切だが、胸骨圧迫開始や中断回避の判断に迷いがある。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "CPA疑いの通報に対する口頭指導の基本を復習したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通信指令員としての入電対応",
+      "phase": "dispatch_call",
+      "scene_goal": "通信指令員役であることを理解し、場所確認・安全確認・スピーカーモード誘導を行う。",
+      "ideal_flow": [
+        "通信指令員として入電対応を開始する",
+        "発生場所と目標物を確認する",
+        "通報者の安全を確認する",
+        "救急車手配済みであることを伝える",
+        "携帯電話をスピーカーモードにしてもらう"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatcher_role",
+        "location_confirmation",
+        "speaker_mode",
+        "scene_safety"
+      ],
+      "text": "あなたは消防指令センターの通信指令員である。若い女性から携帯電話で救急要請が入った。通報者は『路上で老人が倒れていて、声をかけても全く反応がありません。周りには誰もいません』と話している。",
+      "visible_data": {
+        "role": "通信指令員",
+        "caller": "若い女性",
+        "situation": [
+          "路上で高齢者が倒れている",
+          "声をかけても全く反応がない",
+          "周囲に人影はない",
+          "携帯電話からの通報"
+        ],
+        "location_response_if_asked": "{{caller_location_response}}",
+        "caller_name_response_if_asked": "通報者は『私は通りがかりの者です。名前は〇〇です』と答える。",
+        "patient_name_response_if_asked": "通報者は『倒れている方の名前は分かりません』と答える。"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "通信指令員として最初の対応で優先する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "場所と通報者の安全を確認し、スピーカーモードにしてもらう。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "location_confirmed",
+              "speaker_mode_enabled"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "通信指令では場所特定と安全確認が最優先であり、その後の口頭指導のためスピーカーモード誘導が有効である。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "倒れている人の氏名を確認してから救急車を手配する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "dispatch_delay"
+            ]
+          },
+          "rationale": "氏名確認は有用な場合もあるが、CPA疑いでは場所特定と救急車手配、救命処置の指導が優先である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "通報者に周囲の人を探しに行ってもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "caller_leaves_patient"
+            ]
+          },
+          "rationale": "周囲に人影がない状況で通報者を離れさせると、救命処置開始が遅れる。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "救急隊が到着するまで何もせず待つよう伝える。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "no_bystander_cpr"
+            ]
+          },
+          "rationale": "CPAが疑われる場合は、救急隊到着前から胸骨圧迫を開始できるよう口頭指導する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "対話式：ABCDアプローチによる生命危険性判断",
+      "phase": "interactive_abcd_assessment",
+      "scene_goal": "PACの基本としてABCDアプローチで生命危険性を判断し、CPA疑いを見抜く。",
+      "ideal_flow": [
+        "反応の有無を確認する",
+        "気道閉塞を疑う情報を確認する",
+        "胸腹部の動きで呼吸を確認する",
+        "大量出血や顔色など循環に関わる情報を確認する",
+        "一般市民に脈拍確認は求めない",
+        "反応なし・呼吸不明ならCPA疑いとして扱う"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "interactive",
+        "pac",
+        "abcd_approach",
+        "cpa_recognition"
+      ],
+      "text": "通報者はスピーカーモードにした。あなたは電話越しに生命の危険性を判断する。通報者は『怖いです。近づいても大丈夫ですか』と不安そうに話している。",
+      "visible_data": {
+        "dialogue_context": "通信指令員と通報者の対話",
+        "caller_state": "不安が強いが指示には従える",
+        "available_information": [
+          "反応なし",
+          "呼吸の有無は未確認",
+          "周囲に協力者なし",
+          "大量出血は見えない"
+        ],
+        "if_ask_location": "{{caller_location_response}}",
+        "if_ask_caller_safety": "通報者は『車は通っていません。近くに危ない物はなさそうです』と答える。",
+        "if_ask_patient_name": "通報者は『知らない方なので名前は分かりません』と答える。"
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "ABCDアプローチとして、通報者への指示・確認で適切なものを選べ。",
+      "templates": [
+        {
+          "template_id": "s2_t1",
+          "text": "安全を確認しながら近づき、肩をたたいて大声で呼びかけてください。",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 0,
+          "rationale": "Dの意識評価として、反応の有無を確認する。通報者の安全確認も必要である。"
+        },
+        {
+          "template_id": "s2_t2",
+          "text": "胸とお腹の動きを見て、普段どおりの呼吸をしているか確認してください。",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 0,
+          "rationale": "Bの呼吸評価として、胸腹部の動きと正常呼吸の有無を確認する。"
+        },
+        {
+          "template_id": "s2_t3",
+          "text": "出血がたくさん出ている場所がないか、見える範囲で確認してください。",
+          "is_correct": true,
+          "score_delta": 1,
+          "life_delta": 0,
+          "rationale": "Cの循環に関わる危険として、大量出血の有無を確認する。"
+        },
+        {
+          "template_id": "s2_t4",
+          "text": "首の脈を探して、拍動があるか確認してください。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "一般市民に脈拍確認を求めると判断が遅れるため、反応と呼吸でCPA疑いを判断する。"
+        },
+        {
+          "template_id": "s2_t5",
+          "text": "倒れている方のお名前を確認してから呼吸を見てください。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "身元確認よりも、反応と呼吸の確認が優先される。"
+        },
+        {
+          "template_id": "s2_t6",
+          "text": "呼吸しているか分からなければ、胸骨圧迫を始める準備をしてください。",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 0,
+          "rationale": "呼吸が分からない、または正常でない場合はCPA疑いとして胸骨圧迫へ進める。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "対話式：CPRの口頭指導",
+      "phase": "interactive_cpr_instruction",
+      "scene_goal": "単独通報者に対して、胸骨圧迫のみのCPRを具体的に指導する。",
+      "ideal_flow": [
+        "胸の真ん中に手を置かせる",
+        "強く速く押すよう伝える",
+        "人工呼吸は省略してよいと伝える",
+        "1秒間に約2回のテンポを伝える",
+        "救急隊到着まで中断せず続けるよう支援する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "interactive",
+        "cpr_instruction",
+        "hands_only_cpr",
+        "dispatcher_support"
+      ],
+      "text": "通報者は『胸とお腹が動いているか分かりません。どうしたらいいですか』と話している。周囲に協力者はいない。",
+      "visible_data": {
+        "caller_statement": [
+          "呼吸しているか分からない",
+          "一人しかいない",
+          "人工呼吸は怖い"
+        ],
+        "available_action": [
+          "胸骨圧迫",
+          "胸骨圧迫のみのCPR",
+          "電話をつないだままの継続支援"
+        ]
+      },
+      "media": [],
+      "type": "template_select",
+      "prompt": "CPR口頭指導として適切な指示を選べ。",
+      "templates": [
+        {
+          "template_id": "s3_t1",
+          "text": "胸の真ん中に両手を重ねて置き、強く速く押してください。",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 0,
+          "rationale": "胸骨圧迫の開始位置と圧迫方法を短く具体的に伝えている。"
+        },
+        {
+          "template_id": "s3_t2",
+          "text": "人工呼吸は行わなくても構いません。胸骨圧迫を続けてください。",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 0,
+          "rationale": "単独市民への口頭指導では、胸骨圧迫のみのCPRを継続させることが重要である。"
+        },
+        {
+          "template_id": "s3_t3",
+          "text": "1秒に約2回のテンポで押してください。私も電話で一緒に確認します。",
+          "is_correct": true,
+          "score_delta": 2,
+          "life_delta": 0,
+          "rationale": "100〜120回/分に相当するテンポを分かりやすく伝えている。"
+        },
+        {
+          "template_id": "s3_t4",
+          "text": "疲れたら救急隊が来るまで休んでください。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "rationale": "胸骨圧迫の継続支援になっておらず、中断時間が長くなるおそれがある。"
+        },
+        {
+          "template_id": "s3_t5",
+          "text": "人工呼吸を必ず2回入れてから胸骨圧迫してください。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "単独通報者に人工呼吸を必須とすると、胸骨圧迫開始が遅れる可能性がある。"
+        },
+        {
+          "template_id": "s3_t6",
+          "text": "2分ごとに圧迫を止めて、反応があるか声をかけて確認してください。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "rationale": "胸骨圧迫を不要に中断させる指導であり不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "胸骨圧迫のテンポ",
+      "phase": "cpr_quality",
+      "scene_goal": "胸骨圧迫の適切なテンポを理解する。",
+      "ideal_flow": [
+        "胸骨圧迫のテンポを具体的に伝える",
+        "100〜120回/分を理解する",
+        "1秒間に約2回という表現を許容する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "cpr_quality",
+        "compression_rate"
+      ],
+      "text": "通報者は胸骨圧迫を始めたが、『どのくらいの速さで押せばいいですか』と聞いている。",
+      "visible_data": {
+        "cpr_status": "胸骨圧迫開始",
+        "caller_question": "どのくらいの速さで押せばよいか"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "胸骨圧迫のテンポとして適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "1秒間に約2回のテンポ",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "correct_compression_rate"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "1秒間に約2回は約120回/分であり、胸骨圧迫のテンポとして適切である。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "10秒に1回のテンポ",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "slow_compression"
+            ]
+          },
+          "rationale": "圧迫頻度が遅すぎる。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "1分間に30回程度のテンポ",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "slow_compression"
+            ]
+          },
+          "rationale": "胸骨圧迫としては遅すぎる。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "速ければ速いほどよい",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "poor_cpr_quality"
+            ]
+          },
+          "rationale": "過度に速い圧迫では十分な圧迫深度や胸郭の戻りが得られにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "国試の芯：適切でない口頭指導",
+      "phase": "national_exam_core",
+      "scene_goal": "口頭指導文の中で不適切な部分を選択する。",
+      "ideal_flow": [
+        "呼吸確認の指導が適切か判断する",
+        "呼吸不明時の胸骨圧迫開始を確認する",
+        "人工呼吸省略可を確認する",
+        "胸骨圧迫テンポを確認する",
+        "不要な中断指示を見抜く"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "national_exam_core",
+        "oral_instruction",
+        "cpr_interruption"
+      ],
+      "text": "通信指令員は次のように指導した。\nA：胸と腹の動きを見て呼吸しているか確認してください。\nB：呼吸しているかわからなければすぐに胸骨圧迫をしてください。\nC：人工呼吸は行わなくても構いません。胸骨圧迫のみ続けてください。\nD：胸骨圧迫は1秒間に2回のテンポで行ってください。\nE：胸骨圧迫は2分毎に中断して声をかけ反応があるか確認してください。",
+      "visible_data": {
+        "instruction_items": {
+          "A": "胸と腹の動きを見て呼吸確認",
+          "B": "呼吸不明なら胸骨圧迫",
+          "C": "人工呼吸省略可、胸骨圧迫のみ継続",
+          "D": "1秒間に2回のテンポ",
+          "E": "2分ごとに中断して反応確認"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "口頭指導として適切でないのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "A",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "胸腹部の動きで呼吸を確認する指導は適切である。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "B",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸が分からない場合はCPA疑いとして胸骨圧迫を開始する指導が適切である。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "C",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "人工呼吸を省略し、胸骨圧迫のみを継続する指導は適切である。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "D",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "1秒間に2回は約120回/分であり、胸骨圧迫のテンポとして適切である。"
+        },
+        {
+          "option_id": "s5_o5",
+          "text": "E",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "incorrect_instruction_identified"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "胸骨圧迫を2分ごとに中断して反応確認させると、不要な中断につながるため不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "胸骨圧迫を中断させない理由",
+      "phase": "pathophysiology_and_cpr_quality",
+      "scene_goal": "胸骨圧迫の中断を最小限にする理由を理解する。",
+      "ideal_flow": [
+        "胸骨圧迫の継続が循環維持に重要であることを理解する",
+        "不要な中断を避ける",
+        "通信指令員は継続支援を行う"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "cpr_quality",
+        "minimize_interruption",
+        "dispatcher_support"
+      ],
+      "text": "通報者は胸骨圧迫を続けている。通信指令員は、救急隊到着まで可能な限り胸骨圧迫を続けてもらう必要がある。",
+      "visible_data": {
+        "key_point": "胸骨圧迫の不要な中断を避ける",
+        "caller_condition": "一人で胸骨圧迫を継続中"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "胸骨圧迫の中断を避ける理由として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "胸骨圧迫の継続が脳や心臓への血流維持に重要だから。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cpr_interruption_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "胸骨圧迫を中断すると血流が途切れるため、不要な中断を避ける。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "反応確認は救急隊到着後まで一切不要だから。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "明らかに動き出すなどの変化があれば確認は必要だが、定期的に中断させる指導は不適切である。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "胸骨圧迫を中断するとAEDが使えなくなるから。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "AED使用とは別に、胸骨圧迫の継続が血流維持に重要である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "胸骨圧迫中は通報者と会話してはいけないから。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "通信指令員は通話を継続し、声かけやテンポ調整などの支援を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "通報者への継続支援",
+      "phase": "caller_support",
+      "scene_goal": "一人で対応する通報者を励まし、胸骨圧迫を継続できるよう支援する。",
+      "ideal_flow": [
+        "通報者の不安を受け止める",
+        "短く具体的な指示を出す",
+        "できている行動を肯定する",
+        "救急隊到着まで継続を支える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "caller_support",
+        "communication",
+        "cpr_continuation"
+      ],
+      "text": "通報者は胸骨圧迫を続けながら、『怖いです。これで合っていますか。腕も疲れてきました』と話している。救急隊はまもなく到着予定である。",
+      "visible_data": {
+        "caller_emotion": [
+          "不安",
+          "疲労",
+          "一人で対応している"
+        ],
+        "dispatcher_goal": [
+          "胸骨圧迫を中断させない",
+          "短い指示で支える",
+          "肯定的な声かけを行う"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "通信指令員の声かけとして最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "その調子です。胸の真ん中を強く速く押し続けてください。救急隊は向かっています。電話はつないだまま一緒に確認します。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "caller_supported",
+              "cpr_continued"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "通報者を肯定し、短く具体的に胸骨圧迫の継続を支援している。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "2分経ったら圧迫を止めて、もう一度声をかけて反応を確認してください。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpr_interruption"
+            ]
+          },
+          "rationale": "不要な胸骨圧迫の中断につながるため不適切である。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "疲れたら無理せず中止して、救急隊が到着するまで離れて待ってください。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpr_stopped"
+            ]
+          },
+          "rationale": "危険がない限り、胸骨圧迫を継続できるよう支援する必要がある。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "人工呼吸を必ず行ってから胸骨圧迫を再開してください。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_compression"
+            ]
+          },
+          "rationale": "単独通報者への口頭指導では、胸骨圧迫のみの継続を優先する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "通信指令員として、路上で反応のない高齢者を発見した若い女性からの救急要請に対応する症例。場所確認と通報者の安全確認を行い、スピーカーモードに誘導する。ABCDアプローチで反応なし・呼吸不明を確認し、CPA疑いとして胸骨圧迫を指導する。胸骨圧迫は1秒間に約2回のテンポで継続し、人工呼吸は省略してよい。2分ごとに中断して反応確認させる指導は不適切であり、通信指令員は通報者を励ましながら胸骨圧迫継続を支援する。",
+    "ideal_actions": [
+      "通信指令員役として、発生場所、目標物、通報者の安全を確認する。",
+      "携帯電話をスピーカーモードにしてもらい、口頭指導しやすい状態を作る。",
+      "ABCDアプローチで反応、呼吸、出血など生命危険性を確認する。",
+      "一般市民に脈拍確認を求めず、反応なし・呼吸不明ならCPA疑いとして扱う。",
+      "呼吸が分からなければ胸骨圧迫を開始するよう指導する。",
+      "人工呼吸は省略してよいことを伝え、胸骨圧迫のみを継続させる。",
+      "胸骨圧迫は1秒間に約2回、100〜120回/分を目安にする。",
+      "胸骨圧迫を2分ごとに中断して反応確認させない。",
+      "通報者の不安を受け止め、短く具体的な声かけで継続支援する。"
+    ],
+    "good_points": [
+      "プレイヤーの役柄を通信指令員として明示している。",
+      "ABCDアプローチからCPR口頭指導へ自然につなげている。",
+      "住所・目標物・氏名確認に対応できるよう、通報者の返答情報をvisible_dataに持たせている。",
+      "都道府県モードに対応できるよう、location_contextをプレースホルダー化している。",
+      "国試の芯である『2分ごとの中断指示は不適切』をScene5で明確に扱っている。"
+    ],
+    "cautions": [
+      "場所確認と安全確認は重要だが、CPA疑いでは救命処置の指導を遅らせない。",
+      "一般市民に頸動脈などの脈拍確認を求めると、胸骨圧迫開始が遅れる可能性がある。",
+      "胸骨圧迫は不要に中断させず、救急隊到着まで継続支援する。",
+      "通報者が一人で不安を感じている場合、命令的な表現ではなく、短く具体的で肯定的な声かけを行う。"
+    ]
+  }
+}

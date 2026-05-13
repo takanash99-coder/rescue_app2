@@ -1,0 +1,465 @@
+{
+  "case_id": "trauma_light_truck_collision_facial_bleeding_airway_001",
+  "version": "2.0",
+  "title": "軽トラック正面衝突後、顔面出血による気道リスクに対応する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "交通外傷",
+    "車外救出",
+    "顔面外傷",
+    "気道管理",
+    "側臥位"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "通報内容から事故の概要と現場リスクを把握し、通報者への適切な口頭指導を選択する。",
+      "ideal_flow": [
+        "正面衝突の受傷機転を高リスクと捉える",
+        "通報者自身の安全確保を優先する",
+        "無理な救出を避ける",
+        "反応・呼吸・出血状況の確認を依頼する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "35歳の男性。軽トラック運転中に電柱へ正面衝突した自損事故で受傷し、居合わせた通行人が救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "軽トラックが電柱に正面衝突した",
+          "運転者は車内に残っている",
+          "通報者は現場近くにいる"
+        ]
+      },
+      "media": [
+        "media/light_truck_crash_driver_side_window_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "通報者への口頭指導として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "傷病者をすぐ車外へ引き出し、道路脇へ移動してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "無理な救出は頚椎損傷や二次事故の危険がある。"
+        },
+        {
+          "option_id": "2",
+          "text": "通報者自身の安全を確保したうえで、反応・呼吸・出血の様子を確認してもらう。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "事故現場ではまず安全確保が必要であり、可能な範囲で反応・呼吸・出血状況を把握する。"
+        },
+        {
+          "option_id": "3",
+          "text": "傷病者の頭を後ろへ反らし、口の中の血液を出しやすくしてもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "外傷では頚椎損傷の可能性があり、安易な頭部操作は避ける。"
+        },
+        {
+          "option_id": "4",
+          "text": "意識があるなら、自分で降車して待つよう伝える。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "受傷機転が大きく、意識障害も想定されるため自力降車を勧めない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価",
+      "phase": "scene_size_up",
+      "scene_goal": "車両へ接近する前に、事故現場の危険因子を見抜いて安全に活動を開始する。",
+      "ideal_flow": [
+        "交通事故現場であることを意識する",
+        "二次事故の危険を確認する",
+        "車両の不安定性を確認する",
+        "安全を確保してから接触する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_safety",
+      "text": "現場は片側1車線の道路沿い。軽トラックは電柱に正面衝突して停止しており、運転者は運転席に残っている。",
+      "visible_data": {
+        "scene_findings": [
+          "車両前方は損傷している",
+          "運転者は車内に残っている",
+          "道路上での事故である"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "車両へ接近する前に、まず確認すべき内容として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "車内で詳細な全身観察を行えるスペースがあるか。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "詳細観察より前に、まず活動環境の安全確認を行う。"
+        },
+        {
+          "option_id": "2",
+          "text": "傷病者の氏名や年齢を確認できるか。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "個人情報の確認は優先順位が低い。"
+        },
+        {
+          "option_id": "3",
+          "text": "車両周囲の交通状況や車両の不安定性がないか。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "事故現場では二次事故や車両不安定性の確認が最優先となる。"
+        },
+        {
+          "option_id": "4",
+          "text": "搬送先候補となる病院を先に絞り込めるか。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "病院選定より先に現場の安全評価が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "事故車内での接触直後に、生命に関わる緊急所見を見抜く。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "気道の危険所見を拾う",
+        "呼吸と循環の大まかな異常を捉える",
+        "緊急度の高い問題を優先する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment",
+      "text": "運転席内で傷病者に接触した。呼びかけには開眼するが応答は鈍い。顔面から出血を認める。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけで開眼する",
+          "応答は鈍い",
+          "顔面から出血している"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "次のうち、初期評価で最も緊急度が高い所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "ハンドルの変形を認める。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "受傷機転として重要だが、直ちに生命を脅かす所見ではない。"
+        },
+        {
+          "option_id": "2",
+          "text": "前胸部にシートベルト痕を認める。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "重要な観察所見だが、まずは気道の危険を優先する。"
+        },
+        {
+          "option_id": "3",
+          "text": "両下腿に擦過傷を認める。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "局所外傷より生命危機に直結する所見を優先する。"
+        },
+        {
+          "option_id": "4",
+          "text": "口腔内に血液の貯留を認める。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "気道閉塞や誤嚥につながる危険所見であり、初期評価で最優先となる。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "車外救出の判断",
+      "phase": "extrication_decision",
+      "scene_goal": "事故車内では十分な気道管理が難しい状況で、適切な車外救出方針を選択する。",
+      "ideal_flow": [
+        "車内での限界を認識する",
+        "気道管理のしやすさを考える",
+        "頚椎保護を意識する",
+        "連携して速やかに車外救出する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "extrication",
+      "text": "口腔内出血が続いており、車内では十分な気道管理と体位管理が困難である。",
+      "visible_data": {
+        "extrication_context": [
+          "口腔内出血が続いている",
+          "車内では処置スペースが限られる",
+          "気道管理を継続する必要がある"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "次に最も適切な対応はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "車内で状態が落ち着くまで吸引を繰り返しながら経過をみる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "気道管理が不十分なまま車内に留めるのは不適切である。"
+        },
+        {
+          "option_id": "2",
+          "text": "頚椎保護を意識し、救助隊と連携して速やかに車外救出する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "車内で十分な気道管理が困難なため、頚椎保護を保ちながら救出する。"
+        },
+        {
+          "option_id": "3",
+          "text": "本人にゆっくり自力で降車してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "意識障害と外傷機転があり、自力降車は危険である。"
+        },
+        {
+          "option_id": "4",
+          "text": "詳細な全身観察を終えてから車外救出する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "まずは安全に救出し、処置と再評価を進める。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後の再評価",
+      "phase": "reassessment",
+      "scene_goal": "車内収容後の数値バイタルと出血状況から、現在の最重要問題を把握する。",
+      "ideal_flow": [
+        "車内収容後に数値バイタルを確認する",
+        "吸引後も続く気道汚染リスクを認識する",
+        "誤嚥・窒息の危険を重視する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_after_extrication",
+      "text": "車内収容後の観察所見：意識JCS3。呼吸数28/分。脈拍110/分、整。血圧110/80mmHg。SpO2値92％。鼻腔内・口腔内に出血が続いているため口腔内吸引を行った。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "JCS3",
+          "respiratory_rate": "28/分",
+          "pulse": "110/分、整",
+          "blood_pressure": "110/80mmHg",
+          "spo2": "92%"
+        },
+        "findings": [
+          "鼻腔内・口腔内出血が続いている",
+          "口腔内吸引を実施した"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も重視すべき問題はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "出血による気道汚染と誤嚥・窒息の危険。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "顔面外傷による出血は気道閉塞や誤嚥の危険が高く、最優先で対応する。"
+        },
+        {
+          "option_id": "2",
+          "text": "血圧が保たれているため、重症外傷ではないこと。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "血圧のみで重症度は判断できず、気道リスクが依然として高い。"
+        },
+        {
+          "option_id": "3",
+          "text": "SpO2低下のみを根拠とした緊張性気胸の存在。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "現時点の主問題は口腔・鼻腔出血に伴う気道危険である。"
+        },
+        {
+          "option_id": "4",
+          "text": "JCS3であるため、気道の問題は軽微であること。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "JCS3でも血液の自力排出が不十分となる可能性がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "次に行う処置",
+      "phase": "treatment_decision",
+      "scene_goal": "吸引後も出血が続く顔面外傷で、適切な体位管理を選択する。",
+      "ideal_flow": [
+        "吸引後も気道汚染リスクが残ると考える",
+        "外傷であるため頚椎保護を意識する",
+        "血液の排出を促せる体位を選ぶ"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "airway_management_positioning",
+      "text": "鼻腔内・口腔内に出血が続いているため口腔内吸引を行った。",
+      "visible_data": {
+        "treatment_context": [
+          "顔面外傷による出血が続いている",
+          "口腔内吸引を実施した"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "次に行うべき対応として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "経口エアウェイを挿入する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識が残る傷病者では嘔吐反射を誘発する可能性がある。"
+        },
+        {
+          "option_id": "2",
+          "text": "経鼻エアウェイを挿入する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "顔面外傷では頭蓋底損傷合併の可能性があり注意を要する。"
+        },
+        {
+          "option_id": "3",
+          "text": "脊椎運動制限を保ちながら、側臥位に近い体位とする。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "血液の排出を促し、誤嚥や気道閉塞を防ぐために適切である。"
+        },
+        {
+          "option_id": "4",
+          "text": "仰臥位のまま血液の自力排出を促す。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "仰臥位では血液が咽頭へ流れ込み、誤嚥や窒息の危険が高まる。"
+        },
+        {
+          "option_id": "5",
+          "text": "頭部後屈あご先挙上法により気道確保する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "外傷では頚椎損傷の可能性があり、安易な頭部後屈は避ける。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解",
+      "phase": "clinical_reasoning",
+      "scene_goal": "顔面外傷で経鼻エアウェイを避ける理由を理解し、体位管理の意味を整理する。",
+      "ideal_flow": [
+        "顔面外傷と頭蓋底損傷の関連を考える",
+        "経鼻エアウェイの危険性を理解する",
+        "吸引と体位管理の組み合わせを理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "pathophysiology_understanding",
+      "text": "顔面外傷では、鼻出血や口腔内出血に加えて頭蓋底損傷を合併していることがある。",
+      "visible_data": {
+        "clinical_focus": [
+          "顔面外傷",
+          "鼻腔内・口腔内出血",
+          "気道管理"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で経鼻エアウェイの挿入を避ける主な理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "SpO2が92％であり、気道補助の適応がないから。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "SpO2のみで適応を判断しない。"
+        },
+        {
+          "option_id": "2",
+          "text": "JCS3では、すべてのエアウェイ器具が禁忌になるから。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識障害だけで全ての器具が禁忌になるわけではない。"
+        },
+        {
+          "option_id": "3",
+          "text": "血圧が保たれているため、気道確保より循環管理を優先するから。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "この症例では気道管理が最優先課題である。"
+        },
+        {
+          "option_id": "4",
+          "text": "顔面外傷では頭蓋底損傷を合併している可能性があるから。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "顔面外傷では頭蓋底損傷の可能性があり、経鼻エアウェイ挿入は危険となり得る。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "35歳男性が軽トラックで電柱に正面衝突した交通外傷症例。運転席内で反応はあるものの応答は鈍く、顔面外傷に伴う鼻腔内・口腔内出血が持続していた。車内では十分な気道管理が困難であるため、頚椎保護を意識して車外救出し、車内収容後に再評価を行う。吸引後も出血が続くため、脊椎運動制限を保ちながら側臥位に近い体位とし、誤嚥・窒息を防ぐことが学習の中心である。",
+    "ideal_actions": [
+      "通報内容から高エネルギー外傷を疑う",
+      "事故現場では二次事故と車両不安定性を確認する",
+      "初期評価で口腔内血液貯留を最優先の危険所見として捉える",
+      "車内での管理が困難なら頚椎保護を意識して車外救出する",
+      "車内収容後は数値バイタルと気道汚染リスクを再評価する",
+      "吸引後も出血が続く場合は側臥位に近い体位で血液排出を促す",
+      "顔面外傷では経鼻エアウェイを安易に選択しない"
+    ],
+    "good_points": [
+      "状況評価、初期評価、救出判断、車内収容後再評価の流れが学べる",
+      "単なる正解暗記ではなく、なぜ側臥位が必要かを理解できる",
+      "顔面外傷における気道管理の優先順位を整理できる"
+    ],
+    "cautions": [
+      "外傷初期評価では数値バイタルを現場車内で先に取りにいかない",
+      "頭部後屈あご先挙上法を安易に選ばない",
+      "顔面外傷では経鼻エアウェイ挿入に注意する",
+      "仰臥位のまま血液の自力排出を期待しない"
+    ]
+  }
+}

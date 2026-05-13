@@ -1,0 +1,450 @@
+{
+  "case_id": "case_trauma_pelvic_fracture_fall_scaffold_001",
+  "version": "2.0",
+  "title": "足場からの墜落後、骨盤骨折によるショックを疑い骨盤固定を優先する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "高所墜落",
+    "骨盤骨折",
+    "ショック",
+    "骨盤固定",
+    "建設現場"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "状況評価",
+      "phase": "scene_size_up",
+      "scene_goal": "現場安全を確認し、受傷機転から重症外傷を想定する。",
+      "ideal_flow": [
+        "現場安全を確認する",
+        "足場の破損や落下物の危険を確認する",
+        "同僚から受傷状況を簡潔に聴取する",
+        "高所墜落による重症外傷を疑う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "scene_safety",
+      "text": "建設工事現場に到着した。コンクリート地面上に、建築現場用ヘルメットを装着した62歳男性が仰臥位で倒れている。近くの足場の一部が壊れており、同僚の作業員が付き添っている。目立った外出血はない。",
+      "visible_data": [
+        "建設現場",
+        "足場の一部が破損",
+        "コンクリート地面",
+        "傷病者は仰臥位",
+        "ヘルメット装着",
+        "同僚が付き添っている",
+        "目立った外出血なし"
+      ],
+      "media": [
+        "media/construction_site_fall_pelvic_fracture_scene1.png"
+      ],
+      "type": "multiple_choice",
+      "prompt": "状況評価として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "周囲の足場や資材の状態を確認し、二次災害の危険を評価する",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "建設現場ではまず安全確認が優先される。"
+        },
+        {
+          "option_id": "b",
+          "text": "同僚から墜落高や受傷直後の状況を聴取する",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "高所墜落という受傷機転は重症度判断に重要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "現場安全の確認より先に骨盤の圧痛確認を行う",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "現場安全を確保せずに接触するのは不適切。"
+        },
+        {
+          "option_id": "d",
+          "text": "目立った出血がないため軽症外傷として扱う",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "高所墜落では潜在的な重症外傷を考える必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "意識、気道、呼吸、循環所見からショック兆候の有無を判断する。",
+      "ideal_flow": [
+        "呼びかけと反応を確認する",
+        "気道の開通を確認する",
+        "呼吸の速さと深さを確認する",
+        "橈骨動脈と皮膚所見から循環を評価する",
+        "ショック兆候を把握する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "primary_assessment",
+      "text": "呼びかけると開眼し、簡単な受け答えは可能である。気道は開通している。呼吸は浅く速い。橈骨動脈は速くやや弱い。顔面はやや蒼白で、冷汗を認める。",
+      "visible_data": [
+        "呼びかけで開眼する",
+        "簡単な受け答え可能",
+        "気道開通",
+        "呼吸は浅く速い",
+        "橈骨動脈は速くやや弱い",
+        "顔面蒼白",
+        "冷汗あり"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸はあるためショックは否定的であり、局所観察を優先する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "蒼白、冷汗、弱い橈骨動脈はショックを示唆する。"
+        },
+        {
+          "option_id": "b",
+          "text": "ショック兆候を認めるため、重症外傷として全身観察へ進む",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "初期評価でショック兆候を把握し、重症外傷対応へつなげる。"
+        },
+        {
+          "option_id": "c",
+          "text": "この時点で血圧を測定し、異常がなければ安心する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "初期評価では数値より先に意識・気道・呼吸・循環所見をみる。"
+        },
+        {
+          "option_id": "d",
+          "text": "疼痛軽減のため上半身を起こして観察する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "重症外傷で不用意な体位変換は不適切。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "全身観察",
+      "phase": "rapid_trauma_survey",
+      "scene_goal": "頭からつま先まで短時間で観察し、骨盤損傷を疑う所見を拾う。",
+      "ideal_flow": [
+        "頭部、顔面、頸部、胸部、腹部を順に観察する",
+        "骨盤と下肢の所見を確認する",
+        "致死的損傷の有無をざっと評価する",
+        "骨盤損傷を疑う"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "rapid_trauma_assessment",
+      "text": "頭部に明らかな外傷痕はなく、顔面・頸部にも目立った異常はない。胸部・腹部に圧痛はない。右臀部痛を訴え、右下肢は外転・外旋している。右下肢そのものには明らかな圧痛や変形を認めない。",
+      "visible_data": [
+        "頭部に明らかな外傷痕なし",
+        "顔面・頸部に目立った異常なし",
+        "胸部圧痛なし",
+        "腹部圧痛なし",
+        "右臀部痛あり",
+        "右下肢は外転・外旋",
+        "右下肢そのものに明らかな圧痛なし",
+        "右下肢そのものに明らかな変形なし"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "全身観察から最も優先して疑うべき病態はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "単独の右足関節骨折",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "所見が一致しにくく、ショック徴候も説明しにくい。"
+        },
+        {
+          "option_id": "b",
+          "text": "骨盤骨折による出血性ショック",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "高所墜落、ショック兆候、臀部痛、下肢外転外旋から骨盤損傷を疑う。"
+        },
+        {
+          "option_id": "c",
+          "text": "緊張性気胸",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "胸部所見に乏しい。"
+        },
+        {
+          "option_id": "d",
+          "text": "頭蓋内出血",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "現時点で頭部外傷を前景に示す所見は乏しい。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "固定・車内収容とファーストコール",
+      "phase": "transport_preparation",
+      "scene_goal": "骨盤固定を選択し、SMRを意識して車内収容し、ファーストコールにつなげる。",
+      "ideal_flow": [
+        "骨盤骨折疑いとして扱う",
+        "骨盤動揺確認を避ける",
+        "骨盤固定具を装着する",
+        "必要な脊柱運動制限（SMR）を意識して車内収容する",
+        "MISTでファーストコールする"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "pelvic_stabilization_and_first_call",
+      "text": "高所墜落でショック兆候があり、全身観察で骨盤損傷が疑われた。現場滞在時間を延ばさず固定と収容を進め、車内収容後に医療機関へ収容依頼を行う必要がある。",
+      "visible_data": [
+        "高所墜落",
+        "ショック兆候あり",
+        "骨盤損傷疑い",
+        "現場滞在を延ばしたくない"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で最も適切な対応はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "下肢骨折を疑って副子固定を最優先する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "主病態は骨盤損傷疑いであり、優先順位が異なる。"
+        },
+        {
+          "option_id": "b",
+          "text": "骨盤動揺を何度も確認し、確信を得てから固定する",
+          "is_correct": false,
+          "score_delta": -6,
+          "rationale": "骨盤動揺の反復確認は不適切。"
+        },
+        {
+          "option_id": "c",
+          "text": "骨盤固定具を装着し、必要なSMRを意識して車内収容したうえで、MISTでファーストコールを行う",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "骨盤骨折疑いとショック兆候があり、固定と迅速搬送が優先される。"
+        },
+        {
+          "option_id": "d",
+          "text": "ログロールで背面観察を十分行ってから収容する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "現場滞在時間を延ばしすぎる。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内でのバイタルサイン測定",
+      "phase": "vital_signs",
+      "scene_goal": "車内収容後に器具を用いたバイタルサインを測定し、ショックを数値で裏づける。",
+      "ideal_flow": [
+        "JCSを確認する",
+        "呼吸数を測定する",
+        "脈拍数を測定する",
+        "血圧を測定する",
+        "SpO2を測定する",
+        "ショックの持続を判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "measure_vitals",
+      "text": "車内収容後にバイタルサインを測定した。意識はJCS1。呼吸数32/分。脈拍120/分、整。血圧90/60mmHg。SpO2値95％である。",
+      "visible_data": [
+        "意識 JCS1",
+        "呼吸数 32/分",
+        "脈拍 120/分 整",
+        "血圧 90/60mmHg",
+        "SpO2 95％"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "このバイタルサインの解釈として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "SpO2が保たれているので循環は安定している",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "SpO2だけでは循環状態を評価できない。"
+        },
+        {
+          "option_id": "b",
+          "text": "頻呼吸、頻脈、低血圧からショック状態が持続している",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "数値でもショックが裏づけられる。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸不全が主病態であり、骨盤損傷は考えにくい",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "循環不全が前景であり、骨盤損傷疑いと矛盾しない。"
+        },
+        {
+          "option_id": "d",
+          "text": "痛みだけで説明できる範囲であり、重症外傷ではない",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "高所墜落に加え、ショックの数値所見がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "詳細観察",
+      "phase": "detailed_assessment",
+      "scene_goal": "搬送中に詳細観察を行い、神経学的所見と追加情報を確認する。",
+      "ideal_flow": [
+        "神経学的観察を行う",
+        "瞳孔と四肢運動・感覚を確認する",
+        "頭からつま先までより細かく観察する",
+        "GUMBA/SAMPLEを聴取する",
+        "受傷機転や既往歴を整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "detailed_assessment",
+      "text": "搬送中に詳細観察を行った。瞳孔不同はなく、四肢の大きな麻痺は認めない。傷病者は『足場から落ちた。右のお尻のあたりが痛い』と話している。既往歴として高血圧があるが、抗凝固薬の内服はないという。",
+      "visible_data": [
+        "瞳孔不同なし",
+        "四肢の大きな麻痺なし",
+        "『足場から落ちた』との供述",
+        "右臀部痛の訴え",
+        "既往歴に高血圧あり",
+        "抗凝固薬内服なし"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "詳細観察と情報聴取を踏まえた判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "脳神経所見に異常が乏しいため、重症外傷ではない",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "骨盤損傷とショックが主問題であり、重症外傷である。"
+        },
+        {
+          "option_id": "b",
+          "text": "骨盤損傷疑いを維持しつつ、他の見逃し損傷がないか継続して確認する",
+          "is_correct": true,
+          "score_delta": 7,
+          "rationale": "詳細観察の目的に合致し、病態把握を深める。"
+        },
+        {
+          "option_id": "c",
+          "text": "抗凝固薬を内服していないため、ショック進行は考えにくい",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "骨盤内出血は抗凝固薬がなくても起こりうる。"
+        },
+        {
+          "option_id": "d",
+          "text": "四肢麻痺がないためSMRは不要と判断する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "高所墜落であり、脊椎損傷を安易に除外できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "継続観察と最終判断",
+      "phase": "reassessment",
+      "scene_goal": "搬送中の変化を追い、主病態と優先対応を最終整理する。",
+      "ideal_flow": [
+        "意識、呼吸、循環の変化を確認する",
+        "頸部、胸部、腹部を再確認する",
+        "ショック進行の有無をみる",
+        "処置効果を確認する",
+        "主病態と優先対応を整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_and_summary",
+      "text": "搬送中、傷病者は会話可能だが顔面蒼白が持続し、冷汗も続いている。呼吸はやや速く、脈拍も速いままである。骨盤固定具はずれていない。胸腹部に新たな異常所見はない。",
+      "visible_data": [
+        "会話可能",
+        "顔面蒼白が持続",
+        "冷汗が持続",
+        "呼吸はやや速い",
+        "脈拍は速いまま",
+        "骨盤固定具はずれていない",
+        "胸腹部に新たな異常所見なし"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の最終判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "右下肢骨折が主病態であり、副子固定を主処置とする",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "この症例の主病態を外している。"
+        },
+        {
+          "option_id": "b",
+          "text": "骨盤骨折による出血性ショックを疑い、骨盤固定と迅速搬送を継続する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "受傷機転、所見、経過から最も重要な判断である。"
+        },
+        {
+          "option_id": "c",
+          "text": "胸部外傷が隠れていると考え、骨盤損傷の可能性は下げる",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "胸部に新たな裏づけ所見はない。"
+        },
+        {
+          "option_id": "d",
+          "text": "会話可能であるためショックは否定的であり、緊急性は低い",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "会話可能でもショックは否定できない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "建設現場での高所墜落後、初期評価でショック兆候を把握し、全身観察で骨盤損傷を疑い、骨盤固定と迅速搬送につなげる症例である。車内ではファーストコール、詳細なバイタル測定、詳細観察、継続観察を行い、骨盤骨折による出血性ショックを前景に整理する。",
+    "ideal_actions": [
+      "現場安全を確認する",
+      "高所墜落という受傷機転から重症外傷を想定する",
+      "初期評価でショック兆候を把握する",
+      "全身観察で骨盤損傷を疑う",
+      "骨盤動揺確認を避ける",
+      "骨盤固定具を装着する",
+      "必要なSMRを意識して車内収容する",
+      "車内収容後にMISTでファーストコールする",
+      "車内で詳細なバイタルサインを測定する",
+      "搬送中に詳細観察と継続観察を行う"
+    ],
+    "good_points": [
+      "現場安全と受傷機転の評価ができた",
+      "初期評価でショック兆候を拾えた",
+      "下肢に目を奪われず骨盤損傷を疑えた",
+      "骨盤固定と迅速搬送を優先できた",
+      "SMRを意識した収容ができた",
+      "車内活動の流れに沿って観察を継続できた"
+    ],
+    "cautions": [
+      "初期評価でいきなり器具を用いたバイタル測定に入らない",
+      "骨盤動揺の反復確認は行わない",
+      "ログロールや現場詳細観察で滞在時間を延ばしすぎない",
+      "SpO2が保たれていても循環不全を否定しない",
+      "会話可能であってもショックはありうる",
+      "高所墜落では脊椎損傷を安易に除外せず、必要なSMRを考慮する"
+    ]
+  }
+}

@@ -1,0 +1,504 @@
+{
+  "case_id": "heatstroke_grade3_dysarthria_stroke_differential_001",
+  "version": "2.0",
+  "title": "高温環境で倒れていた高齢者に構音障害を認めⅢ度熱中症を疑う症例",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "algorithm_type": "熱中症対応プロトコル",
+  "estimated_time": 8,
+  "keywords": [
+    "熱中症",
+    "Ⅲ度熱中症",
+    "構音障害",
+    "高温障害",
+    "脳卒中鑑別"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "真夏の高温環境で倒れている高齢者から、熱中症と意識障害、脳卒中鑑別を想定する。",
+      "ideal_flow": [
+        "7月の高温環境を確認する",
+        "熱中症を疑う",
+        "高齢者であることから重症化リスクを意識する",
+        "意識状態や呼吸状態を確認するよう通報者へ伝える",
+        "涼しい場所への移動や冷却を可能な範囲で依頼する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "heatstroke"
+      ],
+      "text": "78歳女性。7月某日、エアコンのない室内で倒れているところを友人が発見し、救急要請した。室内は蒸し暑く、傷病者は頭痛と強いだるさを訴えている。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅室内",
+          "季節": "7月",
+          "環境": "エアコンなし、室内高温",
+          "通報者": "友人",
+          "主訴": "倒れていた、頭痛、全身倦怠感"
+        },
+        "pac": {
+          "指示": [
+            "可能なら涼しい場所へ移動する",
+            "衣服をゆるめる",
+            "反応と呼吸を観察する",
+            "無理に飲水させない",
+            "扇風機や保冷剤などで冷却を開始する"
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で最も意識すべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "高温環境による熱中症",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "7月、エアコンのない室内、高齢者、頭痛と倦怠感から熱中症を強く疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "低体温症",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "高温環境で発見されており、低体温症より熱中症を優先して考える。"
+        },
+        {
+          "option_id": "c",
+          "text": "外傷性ショック",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "外傷の情報はなく、環境要因と全身症状が中心である。"
+        },
+        {
+          "option_id": "d",
+          "text": "アナフィラキシー",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "アレルゲン暴露、皮疹、気道症状などを示す情報はない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "数値バイタルの前に、高温環境、意識、呼吸、皮膚所見、発語の異常を確認する。",
+      "ideal_flow": [
+        "室内環境を確認する",
+        "意識と反応を確認する",
+        "気道と呼吸状態を確認する",
+        "皮膚の乾燥や熱感を観察する",
+        "発語の異常に気づく",
+        "外傷の有無を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "primary_assessment",
+        "environmental_assessment",
+        "neurologic_sign"
+      ],
+      "text": "傷病者は床上で横になっている。呼びかけには反応するが、返答はやや不明瞭である。気道は開通し、呼吸は保たれている。皮膚は熱感があり乾燥している。明らかな外傷は認めない。",
+      "visible_data": {
+        "primary_assessment": {
+          "意識": "呼びかけに反応あり",
+          "気道": "開通",
+          "呼吸": "保たれている",
+          "皮膚": "熱感あり、乾燥",
+          "発語": "やや不明瞭",
+          "外傷": "明らかな外傷なし",
+          "環境": "室内高温"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価で特に注意すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "高温環境と発語の異常",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "熱中症を疑う環境に加え、発語の異常は中枢神経症状や脳卒中鑑別につながる重要所見である。"
+        },
+        {
+          "option_id": "b",
+          "text": "外傷がないことのみ",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "外傷がないことは確認するが、高温環境と神経症状を見逃してはいけない。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸が保たれていることのみ",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "呼吸が保たれていても、熱中症や中枢神経症状の評価は必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "年齢だけ",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "高齢はリスクだが、環境、意識、皮膚所見、神経症状を総合して判断する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタル測定と観察",
+      "phase": "assessment",
+      "scene_goal": "高体温、皮膚乾燥、頭痛、倦怠感、構音障害を統合して重症熱中症を疑う。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "体温上昇を確認する",
+        "皮膚乾燥を確認する",
+        "頭痛と倦怠感を確認する",
+        "構音障害を中枢神経症状として捉える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "heatstroke_assessment",
+        "dysarthria"
+      ],
+      "text": "涼しい場所へ移動し、衣服をゆるめながらバイタルサインと症状を確認した。",
+      "visible_data": {
+        "vitals": {
+          "意識": "JCS1",
+          "呼吸数": "20回/分",
+          "脈拍": "92回/分、整",
+          "血圧": "100/50mmHg",
+          "体温": "39.0℃",
+          "SpO2": "99％"
+        },
+        "symptoms": {
+          "頭痛": "あり",
+          "全身倦怠感": "あり",
+          "皮膚": "乾燥",
+          "発語": "構音障害あり"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も注意すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "構音障害を伴う高体温",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "高温環境で高体温があり、構音障害という中枢神経症状を伴うため重症熱中症を疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "SpO2が99％であること",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "酸素化は保たれているが、熱中症の重症度判断では中枢神経症状が重要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸数が20回/分であること",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "呼吸数のみではⅢ度熱中症を判断する決め手になりにくい。"
+        },
+        {
+          "option_id": "d",
+          "text": "脈拍が整であること",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "脈拍の整不整よりも、高体温と中枢神経症状が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "神経所見の追加確認",
+      "phase": "neurologic_assessment",
+      "scene_goal": "構音障害を認めるため、熱中症だけでなく脳卒中も鑑別し、神経所見を確認する。",
+      "ideal_flow": [
+        "構音障害を中枢神経症状として捉える",
+        "脳卒中の可能性も考える",
+        "顔面の左右差を確認する",
+        "発汗や皮膚乾燥だけで判断しない",
+        "神経所見を継続して観察する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "stroke_differential",
+        "neurologic_assessment",
+        "heatstroke"
+      ],
+      "text": "高温環境で倒れていたため熱中症を疑うが、構音障害を認める。熱中症だけに決めつけず、脳卒中の鑑別も意識して追加観察を行う。",
+      "visible_data": {
+        "current_findings": {
+          "環境": "高温環境",
+          "体温": "39.0℃",
+          "神経症状": "構音障害あり",
+          "意識": "JCS1",
+          "方針": "熱中症対応と神経所見確認を並行する"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "構音障害を認めるため、追加で優先して確認すべき所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "皮膚乾燥の程度",
+          "is_correct": false,
+          "score_delta": 1,
+          "rationale": "熱中症評価として必要だが、構音障害の鑑別としては神経所見の確認が優先される。"
+        },
+        {
+          "option_id": "b",
+          "text": "顔面の左右差",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "構音障害がある場合、脳卒中鑑別として顔面麻痺などの神経所見を確認する。"
+        },
+        {
+          "option_id": "c",
+          "text": "発汗の有無",
+          "is_correct": false,
+          "score_delta": 1,
+          "rationale": "熱中症評価には関係するが、構音障害の原因評価としては不十分である。"
+        },
+        {
+          "option_id": "d",
+          "text": "腹部の圧痛",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "腹部症状を示す情報はなく、構音障害に対する追加確認としては優先度が低い。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "国試問題の芯：Ⅲ度熱中症の判断",
+      "phase": "exam_core",
+      "scene_goal": "Ⅲ度熱中症を判断しうる所見として、中枢神経症状である構音障害を選ぶ。",
+      "ideal_flow": [
+        "熱中症の重症度を確認する",
+        "頭痛や倦怠感だけでⅢ度と判断しない",
+        "構音障害を中枢神経症状として捉える",
+        "Ⅲ度熱中症を疑う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "exam_core",
+        "grade3_heatstroke",
+        "central_nervous_symptom"
+      ],
+      "text": "この傷病者は高温環境で発見され、体温39.0℃、頭痛、全身倦怠感、皮膚乾燥を認める。さらに構音障害がある。",
+      "visible_data": {
+        "key_findings": {
+          "体温": "39.0℃",
+          "頭痛": "あり",
+          "全身倦怠感": "あり",
+          "皮膚": "乾燥",
+          "神経症状": "構音障害あり"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者をⅢ度熱中症と判断しうる観察所見はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸数",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "呼吸数だけではⅢ度熱中症を判断する決め手にはなりにくい。"
+        },
+        {
+          "option_id": "b",
+          "text": "脈拍",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "脈拍は重症度評価に使うが、この症例でⅢ度判断の決め手は中枢神経症状である。"
+        },
+        {
+          "option_id": "c",
+          "text": "頭痛",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "頭痛は熱中症でみられるが、Ⅲ度を判断する決め手としては不十分である。"
+        },
+        {
+          "option_id": "d",
+          "text": "構音障害",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "構音障害は中枢神経症状であり、Ⅲ度熱中症を疑う重要所見である。"
+        },
+        {
+          "option_id": "e",
+          "text": "全身倦怠感",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "全身倦怠感は熱中症でみられるが、Ⅲ度判断の決め手は中枢神経症状である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "輸液判断と優先対応",
+      "phase": "intervention_judgment",
+      "scene_goal": "バイタルから明らかなショックとは判断しにくい場合、輸液を最優先にせず冷却・観察・搬送を優先する。",
+      "ideal_flow": [
+        "血圧と脈拍を確認する",
+        "ショック所見が明らかか判断する",
+        "熱中症対応として冷却を優先する",
+        "神経所見を再評価する",
+        "搬送中もバイタルと意識を継続観察する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "fluid_judgment",
+        "cooling",
+        "transport"
+      ],
+      "text": "傷病者は体温39.0℃で皮膚乾燥を認めるが、血圧は100/50mmHg、脈拍92回/分で整。SpO2は99％である。明らかなショック所見は乏しい。",
+      "visible_data": {
+        "intervention_context": {
+          "血圧": "100/50mmHg",
+          "脈拍": "92回/分、整",
+          "SpO2": "99％",
+          "体温": "39.0℃",
+          "皮膚": "乾燥",
+          "神経症状": "構音障害あり",
+          "判断": "ショックは明らかではない"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "体温39.0℃なので大量輸液を最優先する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "体温だけで大量輸液を最優先とは判断しない。ショック所見や全身状態を確認する必要がある。"
+        },
+        {
+          "option_id": "b",
+          "text": "冷却と神経所見の再評価を優先する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "ショック所見は明らかでなく、Ⅲ度熱中症疑いとして冷却、神経所見再評価、搬送を優先する。"
+        },
+        {
+          "option_id": "c",
+          "text": "SpO2が99％なので熱中症対応は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "酸素化が保たれていても、高体温と中枢神経症状があり熱中症対応は必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "皮膚乾燥のみを理由に輸液適応と断定する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "皮膚乾燥は重要だが、輸液適応はバイタルやショック所見を含めて判断する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解：Ⅲ度熱中症と脳卒中鑑別",
+      "phase": "pathophysiology",
+      "scene_goal": "Ⅲ度熱中症では中枢神経症状が重要であり、構音障害では脳卒中鑑別も並行する必要があると理解する。",
+      "ideal_flow": [
+        "高温環境と高体温から熱中症を疑う",
+        "構音障害を中枢神経症状として捉える",
+        "Ⅲ度熱中症を疑う",
+        "同時に脳卒中を鑑別する",
+        "冷却、神経所見再評価、搬送を並行する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "grade3_heatstroke",
+        "stroke_differential"
+      ],
+      "text": "Ⅲ度熱中症では、意識障害、けいれん、小脳症状、構音障害などの中枢神経症状が重要となる。構音障害は熱中症でも起こりうるが、脳卒中でもみられるため、冷却を行いながら神経所見を継続して確認する必要がある。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "熱中症を疑う根拠": "高温環境、高体温、皮膚乾燥",
+          "Ⅲ度を疑う根拠": "構音障害などの中枢神経症状",
+          "鑑別": "脳卒中",
+          "優先対応": "冷却、脱衣、涼しい場所、神経所見再評価、搬送",
+          "輸液判断": "ショック所見が明らかかを確認して判断"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の活動方針として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "熱中症対応と脳卒中鑑別を並行する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "高温環境と高体温から熱中症を疑うが、構音障害があるため脳卒中鑑別も必要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "熱中症なので神経所見は確認しない",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "構音障害があるため、脳卒中鑑別として神経所見の確認が必要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "SpO2が正常なので搬送は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "酸素化が正常でも、Ⅲ度熱中症疑いでは医療機関での評価が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "頭痛と倦怠感だけを根拠に軽症と判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "構音障害という中枢神経症状を認めており、軽症とは判断できない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "7月にエアコンのない室内で倒れていた78歳女性の症例。高温環境、高体温、皮膚乾燥から熱中症を疑うが、構音障害を認めるためⅢ度熱中症を考える。構音障害は中枢神経症状であり、脳卒中でもみられるため、熱中症対応と脳卒中鑑別を並行する必要がある。明らかなショック所見が乏しい場合は、輸液を最優先にせず、冷却、神経所見再評価、搬送を優先する。",
+    "ideal_actions": [
+      "高温環境で倒れていた高齢者として熱中症を疑う",
+      "初期評価で意識、呼吸、皮膚所見、発語の異常を確認する",
+      "バイタル測定で高体温を確認する",
+      "構音障害を中枢神経症状として捉え、Ⅲ度熱中症を疑う",
+      "構音障害があるため脳卒中鑑別も並行する",
+      "顔面の左右差など神経所見を追加確認する",
+      "ショック所見が明らかでなければ輸液を最優先にせず、冷却と搬送を優先する"
+    ],
+    "good_points": [
+      "熱中症の重症度を体温だけでなく中枢神経症状で判断できる",
+      "構音障害をⅢ度熱中症の重要所見として理解できる",
+      "高温障害と脳卒中を並行して考えられる",
+      "熱中症だから輸液と決めつけず、バイタルから適応を考えられる"
+    ],
+    "cautions": [
+      "頭痛や倦怠感だけでⅢ度熱中症と判断しない",
+      "構音障害を熱中症だけで説明して脳卒中鑑別を省略しない",
+      "SpO2が正常でも重症度を低く見積もらない",
+      "体温が高いだけで大量輸液を最優先にしない",
+      "冷却開始と搬送準備を遅らせない"
+    ]
+  }
+}

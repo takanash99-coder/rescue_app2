@@ -1,0 +1,793 @@
+{
+  "case_id": "facial_trauma_airway_cspine_priority_001",
+  "version": "2.0",
+  "title": "顔面外傷とゴロゴロ音から気道確保と頸椎保護を優先する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "algorithm_type": "trauma_protocol",
+  "estimated_time": 8,
+  "keywords": [
+    "顔面外傷",
+    "気道閉塞",
+    "頸椎保護",
+    "修正下顎挙上",
+    "吸引",
+    "高エネルギー外傷"
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容と出場途上の確認",
+      "phase": "dispatch",
+      "scene_goal": "大型トラックへの追突事故から高エネルギー外傷を予測し、追加確認すべき情報を整理する。",
+      "ideal_flow": [
+        "事故現場の安全を確認する",
+        "傷病者数を確認する",
+        "閉じ込めの有無を確認する",
+        "車両損傷と火災・燃料漏れを確認する",
+        "意識・呼吸状態を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "dispatch",
+        "trauma",
+        "scene_safety",
+        "mechanism_of_injury"
+      ],
+      "text": "20代男性。乗用車を運転中、停車していた大型トラックに後方から追突して受傷した。通行人が救急要請した。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "交差点付近の道路",
+          "傷病者": "20代男性",
+          "事故状況": "乗用車が停車中の大型トラックに後方から追突",
+          "通報者": "通行人",
+          "詳細": "車両損傷の程度、閉じ込め、傷病者数は未確認"
+        }
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場途上で追加確認すべき情報として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene1_o1",
+          "text": "車両損傷と閉じ込めの有無",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vehicle_damage_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "高エネルギー外傷では車両損傷や閉じ込めの有無が、救助活動や応援要請、搬送先判断に関わる。"
+        },
+        {
+          "option_id": "scene1_o2",
+          "text": "火災や燃料漏れの有無",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "scene_hazards_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "交通事故現場では火災、燃料漏れ、交通危険などの安全確認が重要である。必要に応じて消防隊や警察と連携する。"
+        },
+        {
+          "option_id": "scene1_o3",
+          "text": "傷病者の勤務先",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_information"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "勤務先情報は現場安全や初期活動の優先情報ではない。まず事故状況、傷病者数、安全性を確認する。"
+        },
+        {
+          "option_id": "scene1_o4",
+          "text": "事故車両の所有者名",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "nonurgent_information"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "所有者名は救急活動の初期判断には直結しにくい。高エネルギー外傷では安全確認と傷病者情報が優先される。"
+        },
+        {
+          "option_id": "scene1_o5",
+          "text": "通行人の連絡先",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "witness_contact_prioritized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "目撃情報は重要だが、出場途上では傷病者数、閉じ込め、現場危険など活動に直結する情報を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "国試の芯：直ちに行う対応",
+      "phase": "initial_assessment",
+      "scene_goal": "顔面外傷、ゴロゴロ音、不穏から、直ちに頸椎保護と気道確保を優先する。",
+      "ideal_flow": [
+        "周囲の安全を確認する",
+        "呼びかけ反応を確認する",
+        "気道音と呼吸状態を確認する",
+        "頸椎保護を行う",
+        "気道確保を優先する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "airway",
+        "cervical_spine_protection",
+        "facial_trauma"
+      ],
+      "text": "救急隊到着時、傷病者は呼びかけに反応するが不穏である。呼吸は速く、ゴロゴロ音を聴取する。橈骨動脈は触れるが頻脈である。顔面に高度損傷を認める。",
+      "visible_data": {
+        "initial_findings": {
+          "反応": "呼びかけに反応するが不穏",
+          "呼吸": "速い。ゴロゴロ音あり",
+          "循環": "橈骨動脈は触れるが頻脈",
+          "顔面": "腫脹、擦過傷、出血を伴う顔面外傷",
+          "受傷機転": "乗用車が大型トラックに追突"
+        }
+      },
+      "media": [
+        "media/facial_trauma_airway_obstruction_scene2.png"
+      ],
+      "type": "multiple_choice",
+      "prompt": "直ちに行う対応はどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene2_o1",
+          "text": "頭部挙上",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "head_elevation_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "顔面外傷とゴロゴロ音がある初期評価では、頭部挙上よりも気道確保と頸椎保護を優先する。"
+        },
+        {
+          "option_id": "scene2_o2",
+          "text": "頸椎保護",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "c_spine_protected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "高エネルギー外傷では頸椎損傷を疑い、初期から頸椎保護を行う。"
+        },
+        {
+          "option_id": "scene2_o3",
+          "text": "補助換気",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "ventilation_before_airway_clearance"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "補助換気が必要になる場合はあるが、ゴロゴロ音があり気道内血液や分泌物が疑われるため、まず気道確保を優先する。"
+        },
+        {
+          "option_id": "scene2_o4",
+          "text": "気道の確保",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_secured"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "顔面外傷とゴロゴロ音から、血液や分泌物による気道閉塞を疑う。初期評価では気道確保が最優先となる。"
+        },
+        {
+          "option_id": "scene2_o5",
+          "text": "眼瞼結膜の観察",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "secondary_observation_prioritized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "眼瞼結膜の観察は循環評価の一部として有用だが、直ちに優先すべきは気道確保と頸椎保護である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "気道管理の具体化",
+      "phase": "airway_management",
+      "scene_goal": "頸椎保護下で行う気道確保の具体的手技を選択する。",
+      "ideal_flow": [
+        "頸椎保護を継続する",
+        "修正下顎挙上を行う",
+        "口腔内の血液や分泌物を確認する",
+        "口腔内吸引を行う",
+        "呼吸状態を再評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "modified_jaw_thrust",
+        "suction",
+        "airway_management",
+        "c_spine_protection"
+      ],
+      "text": "顔面外傷とゴロゴロ音から、血液や分泌物による気道閉塞リスクが高いと判断した。頸椎保護を継続しながら、気道確保を行う。",
+      "visible_data": {
+        "airway_findings": {
+          "気道音": "ゴロゴロ音",
+          "口腔内": "血液・分泌物の貯留が疑われる",
+          "頸椎": "損傷を否定できない",
+          "反応": "不穏"
+        }
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "頸椎保護下で行う気道確保として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene3_o1",
+          "text": "修正下顎挙上を行う",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "modified_jaw_thrust_performed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "頸椎損傷が疑われる外傷では、頸椎の動きを最小限にする修正下顎挙上を用いて気道を確保する。"
+        },
+        {
+          "option_id": "scene3_o2",
+          "text": "頭部後屈あご先挙上を行う",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "neck_extension_performed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "c_spine_movement"
+            ]
+          },
+          "rationale": "高エネルギー外傷で頸椎損傷が疑われる場合、頸部を大きく動かす頭部後屈あご先挙上は避ける。"
+        },
+        {
+          "option_id": "scene3_o3",
+          "text": "頭部を挙上して経過を見る",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "airway_obstruction_not_treated"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "airway_compromise"
+            ]
+          },
+          "rationale": "ゴロゴロ音がある場合は気道内の血液や分泌物を疑い、気道確保と吸引を行う。経過観察は不適切である。"
+        },
+        {
+          "option_id": "scene3_o4",
+          "text": "口腔内を吸引する",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "oral_suction_performed"
+            ],
+            "remove_flags": [
+              "airway_secretions"
+            ],
+            "danger_tags": []
+          },
+          "rationale": "ゴロゴロ音は血液や分泌物の貯留を示唆する。口腔内吸引により気道閉塞リスクを下げる。"
+        },
+        {
+          "option_id": "scene3_o5",
+          "text": "眼瞼結膜を観察する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_priority_missed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "眼瞼結膜の観察は二次的評価として行うが、気道閉塞リスクがある場面では優先されない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "受傷機転から考える全身観察",
+      "phase": "rapid_trauma_survey",
+      "scene_goal": "顔面外傷に目を奪われず、追突事故の受傷機転から見落としてはいけない損傷を予測する。",
+      "ideal_flow": [
+        "顔面外傷だけに集中しすぎない",
+        "高エネルギー受傷機転を整理する",
+        "胸部・腹部損傷を予測する",
+        "シートベルト外傷を確認する",
+        "ハンドル外傷を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "mechanism_of_injury",
+        "rapid_trauma_survey",
+        "seatbelt_injury",
+        "steering_wheel_injury"
+      ],
+      "text": "気道確保と頸椎保護を継続しながら全身観察へ移る。傷病者は乗用車運転中、停車中の大型トラックへ後方から追突している。車両前部の損傷が大きく、運転席周囲にも強い衝撃が加わった可能性がある。",
+      "visible_data": {
+        "mechanism_review": {
+          "車両": "乗用車",
+          "衝突対象": "停車中の大型トラック",
+          "衝突方向": "後方から追突",
+          "車両損傷": "前部損傷が大きい",
+          "注意点": "顔面外傷以外の胸腹部損傷も疑う"
+        }
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この事故状況から、全身観察で特に念頭に置くべき損傷機転はどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene4_o1",
+          "text": "シートベルトによる胸腹部損傷",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "seatbelt_injury_considered"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "追突事故ではシートベルトによる胸腹部損傷を念頭に置く。皮膚所見が軽くても内部損傷を疑う必要がある。"
+        },
+        {
+          "option_id": "scene4_o2",
+          "text": "ハンドルによる胸部損傷",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "steering_wheel_injury_considered"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "運転席周囲に強い衝撃が加わった場合、ハンドルによる胸部損傷を念頭に胸部観察を行う。"
+        },
+        {
+          "option_id": "scene4_o3",
+          "text": "低温環境による凍傷",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_mechanism_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "今回の主な受傷機転は自動車追突事故であり、凍傷はこの事故状況から優先して考える損傷機転ではない。"
+        },
+        {
+          "option_id": "scene4_o4",
+          "text": "長時間圧迫によるクラッシュ症候群",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "crush_syndrome_overselected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "長時間圧迫や救出困難がある場合は考慮するが、提示情報から直ちに優先する損傷機転ではない。"
+        },
+        {
+          "option_id": "scene4_o5",
+          "text": "高所墜落による踵骨損傷",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "fall_injury_confusion"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "踵骨損傷は高所墜落などで考える所見であり、今回の追突事故の主な損傷機転とは異なる。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "車内収容後の活動とファーストコール",
+      "phase": "ambulance_care",
+      "scene_goal": "外傷症例では車内収容後に酸素投与、モニター装着、バイタル測定、MIST連絡を行う。",
+      "ideal_flow": [
+        "車内収容後も頸椎保護を継続する",
+        "酸素投与を行う",
+        "必要に応じて吸引を継続する",
+        "モニター装着とバイタル測定を行う",
+        "MISTでファーストコールを行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "ambulance_care",
+        "oxygen",
+        "monitoring",
+        "MIST",
+        "first_call"
+      ],
+      "text": "傷病者を車内収容した。頸椎保護を継続し、酸素投与、口腔内吸引、モニター装着、保温を行った。車内収容後のバイタルは、呼吸数30回/分、脈拍120回/分、血圧110/72mmHg、SpO2 93%である。",
+      "visible_data": {
+        "ambulance_findings": {
+          "呼吸数": "30回/分",
+          "脈拍": "120回/分",
+          "血圧": "110/72 mmHg",
+          "SpO2": "93%",
+          "処置": [
+            "頸椎保護継続",
+            "酸素投与",
+            "口腔内吸引",
+            "モニター装着",
+            "保温"
+          ],
+          "搬送方針": "高次医療機関を検討"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ファーストコールで優先して伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene5_o1",
+          "text": "高エネルギー受傷機転、顔面外傷、気道リスク、頻呼吸・頻脈",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "mist_report_appropriate"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "MISTでは受傷機転、損傷部位、ショックや気道リスクを示す所見、処置と搬送予定を簡潔に伝える。"
+        },
+        {
+          "option_id": "scene5_o2",
+          "text": "傷病者の勤務先と家族構成",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_report"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "勤務先や家族構成は初回連絡で最優先ではない。医療機関には重症度と受け入れ判断に必要な情報を伝える。"
+        },
+        {
+          "option_id": "scene5_o3",
+          "text": "顔面の見た目だけを詳しく説明する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "injury_report_incomplete"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "顔面外傷の説明は必要だが、受傷機転、気道リスク、バイタル、処置もあわせて伝える。"
+        },
+        {
+          "option_id": "scene5_o4",
+          "text": "血圧が保たれているため軽症と伝える",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "severity_underestimated"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "airway_risk"
+            ]
+          },
+          "rationale": "血圧が保たれていても、顔面外傷、ゴロゴロ音、頻呼吸、頻脈があり重症化リスクがある。軽症とは判断しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "顔面外傷で気道閉塞が起こる理由",
+      "phase": "pathophysiology",
+      "scene_goal": "顔面外傷で血液、分泌物、腫脹により気道閉塞が起こる機序を理解する。",
+      "ideal_flow": [
+        "顔面外傷による出血を理解する",
+        "分泌物や血液貯留による気道音を理解する",
+        "軟部組織腫脹による上気道狭窄を理解する",
+        "骨折片や歯牙損傷の影響を考える",
+        "継続的な気道再評価の必要性を理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "airway_obstruction",
+        "facial_trauma"
+      ],
+      "text": "顔面外傷では、出血、分泌物、軟部組織の腫脹、歯牙損傷や骨折片などにより上気道が狭くなり、急速に気道閉塞へ進行することがある。ゴロゴロ音は気道内に血液や分泌物があるサインとなる。",
+      "visible_data": {
+        "pathophysiology_review": {
+          "出血": "口腔・鼻腔内へ流入する可能性",
+          "分泌物": "ゴロゴロ音の原因になり得る",
+          "腫脹": "上気道狭窄の原因",
+          "骨折片・歯牙": "気道閉塞や誤嚥の原因",
+          "注意点": "初期評価後も再評価が必要"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "顔面外傷で気道閉塞が起こりやすい理由として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene6_o1",
+          "text": "血液、分泌物、腫脹が上気道を狭くするため",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_pathophysiology_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "顔面外傷では出血、分泌物、軟部組織腫脹、骨折片などにより上気道が狭くなり、気道閉塞を起こしやすい。"
+        },
+        {
+          "option_id": "scene6_o2",
+          "text": "橈骨動脈が触れるため",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "circulation_finding_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "橈骨動脈の触知は循環評価の所見であり、顔面外傷による気道閉塞の直接的理由ではない。"
+        },
+        {
+          "option_id": "scene6_o3",
+          "text": "眼瞼結膜の観察が困難になるため",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "secondary_observation_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "眼瞼結膜の観察困難は気道閉塞の原因ではない。気道閉塞は血液、分泌物、腫脹などで起こる。"
+        },
+        {
+          "option_id": "scene6_o4",
+          "text": "血圧が安定しているため",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vital_stability_misread"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "血圧が安定していても気道閉塞リスクは否定できない。気道は初期評価で最優先に確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "搬送先判断",
+      "phase": "transport_destination",
+      "scene_goal": "気道リスクを伴う高エネルギー外傷として、気道管理と外傷診療に対応できる医療機関を選定する。",
+      "ideal_flow": [
+        "高エネルギー受傷機転を評価する",
+        "顔面外傷と気道リスクを評価する",
+        "バイタルと意識状態を再評価する",
+        "高次医療機関を選定する",
+        "搬送中も気道再評価を継続する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "transport_destination",
+        "tertiary_care",
+        "airway_risk",
+        "trauma"
+      ],
+      "text": "傷病者は高エネルギー外傷であり、顔面外傷、ゴロゴロ音、不穏、頻呼吸、頻脈を認める。気道閉塞リスクを伴うため、搬送中も吸引と気道再評価が必要である。",
+      "visible_data": {
+        "transport_decision": {
+          "受傷機転": "乗用車が大型トラックへ追突",
+          "主な損傷": "顔面外傷",
+          "気道リスク": "ゴロゴロ音、血液・分泌物貯留疑い",
+          "状態": "不穏、頻呼吸、頻脈",
+          "必要対応": "気道管理と外傷診療"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の搬送先選定として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene7_o1",
+          "text": "気道管理と外傷診療に対応できる三次救急医療機関",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tertiary_destination_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "高エネルギー外傷に加え、顔面外傷と気道閉塞リスクがあるため、気道管理と外傷診療に対応できる医療機関を選定する。"
+        },
+        {
+          "option_id": "scene7_o2",
+          "text": "顔面創のみを処置できる近隣診療所",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "destination_undertriage"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "airway_compromise"
+            ]
+          },
+          "rationale": "見た目が顔面外傷でも、気道閉塞リスクと高エネルギー受傷機転がある。近隣診療所では対応が不十分となる可能性がある。"
+        },
+        {
+          "option_id": "scene7_o3",
+          "text": "意識があるため二次救急医療機関",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_overvalued"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "airway_deterioration"
+            ]
+          },
+          "rationale": "意識があっても不穏、顔面外傷、ゴロゴロ音があり、気道悪化のリスクがある。高次医療機関を検討する。"
+        },
+        {
+          "option_id": "scene7_o4",
+          "text": "血圧が安定しているため現場待機",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "transport_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "definitive_care_delay"
+            ]
+          },
+          "rationale": "血圧が安定していても、気道閉塞リスクがある外傷では迅速な搬送と気道再評価が必要である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "20代男性が乗用車で大型トラックへ追突した高エネルギー外傷症例。救急隊到着時、呼びかけに反応するが不穏で、呼吸は速くゴロゴロ音を認め、顔面外傷がある。初期評価では、顔面外傷の見た目に引っ張られず、血液や分泌物による気道閉塞リスクを判断し、頸椎保護と気道確保を直ちに行う。頸椎保護下では修正下顎挙上と口腔内吸引を行い、車内収容後は酸素投与、モニター、バイタル測定、MIST連絡を行う。",
+    "ideal_actions": [
+      "出場途上で車両損傷、閉じ込め、火災・燃料漏れを確認する",
+      "初期評価で顔面外傷とゴロゴロ音から気道閉塞リスクを判断する",
+      "高エネルギー外傷として頸椎保護を行う",
+      "頸椎保護下で修正下顎挙上を行う",
+      "血液や分泌物を疑い、口腔内吸引を行う",
+      "受傷機転からシートベルト外傷やハンドル外傷を念頭に全身観察を行う",
+      "車内収容後に酸素投与、モニター装着、バイタル測定、保温を行う",
+      "MISTで受傷機転、損傷部位、重症度所見、処置と搬送方針を伝える",
+      "気道管理と外傷診療に対応できる三次救急医療機関を選定する"
+    ],
+    "good_points": [
+      "顔面外傷で最優先すべき気道確保を学べる",
+      "高エネルギー外傷では頸椎保護を同時に行うことを確認できる",
+      "修正下顎挙上と吸引を分けて具体的手技として整理できる",
+      "追突事故からシートベルト外傷・ハンドル外傷を予測できる"
+    ],
+    "cautions": [
+      "顔面外傷の見た目に引っ張られて眼瞼結膜観察などを優先しない",
+      "頸椎損傷が疑われる場面で頭部後屈あご先挙上を行わない",
+      "ゴロゴロ音を単なる呼吸音として見逃さない",
+      "血圧が安定していても気道閉塞リスクを軽視しない",
+      "顔面外傷だけに集中せず、胸腹部損傷も検索する"
+    ]
+  }
+}

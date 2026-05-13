@@ -1,93 +1,26 @@
 {
   "case_id": "case_cardiovascular_torsades_cpa_001",
-  "version": "2.0.0",
   "title": "胸部不快感後にトルサード・ド・ポワント様波形でCPAとなった症例",
   "category": "cardiovascular",
-  "difficulty": "Hard",
-  "algorithm_type": "PEMEC",
-  "estimated_time": "約12分",
-  "keywords": [
-    "torsades_de_pointes",
-    "cardiac_arrest",
-    "agonal_breathing",
-    "defibrillation",
-    "polymorphic_vt"
-  ],
-  "header": {
-    "overview": {
-      "学習目標": [
-        "胸部不快感持続例を急変高リスク症例として捉えられる",
-        "死戦期呼吸を正常呼吸と誤認せずCPAと判断できる",
-        "トルサード・ド・ポワント様波形を致死性不整脈として認識できる",
-        "胸骨圧迫と除細動準備を優先して開始できる",
-        "ファーストコールで急変後の要点を簡潔に伝えられる",
-        "車内での蘇生優先順位を維持できる"
-      ],
-      "対象": "EMT student",
-      "想定時間": "12分"
-    }
-  },
-  "patient_profile": {
-    "age": 57,
-    "sex": "female",
-    "setting": "自宅前の路上",
+  "difficulty": "hard",
+  "version": "3.0",
+  "scene_count": 7,
+  "overview": {
     "chief_complaint": "治まらない胸部不快感",
-    "background": {
-      "past_history": [],
-      "medications": [],
-      "allergies": [],
-      "adl": "発症前は自立",
-      "social_background": {
-        "witness": "家族あり",
-        "activity_before_event": "自宅で胸部不快感が出現し、改善しないため救急要請となった"
-      },
-      "notes": [
-        "到着時は路上で胸部を押さえて待機していた",
-        "自力で救急車に近づける状態だった"
-      ]
-    }
+    "learning_points": [
+      "胸部不快感持続例を急変高リスク症例として捉える",
+      "死戦期呼吸を正常呼吸と誤認せずCPAと判断する",
+      "トルサード・ド・ポワント様波形を致死性不整脈として認識する",
+      "胸骨圧迫と除細動準備を優先して開始する",
+      "急変直後の観察結果を簡潔に要約する",
+      "車内での蘇生優先順位を維持する"
+    ]
   },
-  "state_flags": [
-    "persistent_chest_discomfort",
-    "possible_acs",
-    "high_risk_arrhythmia_possible"
-  ],
-  "ideal_flow": [
-    "胸部不快感持続例として急性冠症候群や致死性不整脈を想定して接触する",
-    "初期評価で意識・呼吸・循環を迅速に確認し急変に備える",
-    "症状経過を収集しつつ早期にモニター装着と搬送準備を進める",
-    "車内収容後の急変をCPAとして判断し死戦期呼吸を見逃さない",
-    "トルサード・ド・ポワント様波形を致死性不整脈として捉える",
-    "直ちに胸骨圧迫を開始し除細動パッドを装着する",
-    "車内ではCPR継続、ショック適応判断、気道管理、病院連絡を進める"
-  ],
-  "result_rank": [
-    {
-      "rank": "Bad",
-      "min_score": 0,
-      "max_score": 49
-    },
-    {
-      "rank": "Normal",
-      "min_score": 50,
-      "max_score": 74
-    },
-    {
-      "rank": "Good",
-      "min_score": 75,
-      "max_score": 89
-    },
-    {
-      "rank": "Excellent",
-      "min_score": 90,
-      "max_score": 100
-    }
-  ],
   "scenes": [
     {
       "id": "scene1",
-      "title": "場面 1",
-      "phase": "通報内容＋プレアライバルコール",
+      "title": "出場指令",
+      "phase": "dispatch",
       "scene_goal": "胸部症状持続例として急変リスクを想定し、除細動対応を含む準備を整える。",
       "ideal_flow": [
         "胸部症状持続例として循環器緊急症を想定する",
@@ -107,38 +40,42 @@
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "プレアライバルコールの段階で最も適切な準備はどれか。",
+      "prompt": "出場時点で最も適切な準備はどれか。",
       "options": [
         {
-          "id": "A",
-          "label": "胸部症状持続例として、モニター・除細動器・CPR対応を意識して接触する",
-          "ideal": true,
+          "id": "s1_o1",
+          "text": "胸部症状持続例として、モニター・除細動器・CPR対応を意識して接触する",
+          "is_correct": true,
           "score_delta": 10,
-          "action_tag": "prepare_for_acs_and_arrhythmia",
           "feedback": "胸部不快感が持続する症例では急性冠症候群や致死性不整脈を想定し、急変対応の準備が必要である。"
         },
         {
-          "id": "B",
-          "label": "歩けるとの通報なので、急変の可能性は低いと判断して通常対応で向かう",
-          "ideal": false,
+          "id": "s1_o2",
+          "text": "歩けるとの通報なので、急変の可能性は低いと判断して通常対応で向かう",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "underestimate_because_ambulatory",
-          "feedback": "自力歩行可能でも胸部症状持続例は急変しうる。歩けることだけで安心するのは危険である。"
+          "feedback": "自力歩行可能でも胸部症状持続例は急変しうる。"
         },
         {
-          "id": "C",
-          "label": "まずは呼吸器疾患を主に想定し、心電図関連の準備は後回しにする",
-          "ideal": false,
+          "id": "s1_o3",
+          "text": "呼吸器疾患を主に想定し、心電図関連の準備は後回しにする",
+          "is_correct": false,
           "score_delta": -3,
-          "action_tag": "delay_cardiac_preparation",
-          "feedback": "本症例は胸部不快感が主訴であり、心疾患・不整脈への備えを優先すべきである。"
+          "feedback": "心疾患・不整脈への備えを優先すべきである。"
+        },
+        {
+          "id": "s1_o4",
+          "text": "症状が軽快する可能性を考え、救急車内資器材の準備は最小限にする",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "改善前提で準備を弱めるのは危険である。"
         }
       ]
     },
     {
       "id": "scene2",
-      "title": "場面 2",
-      "phase": "初期評価",
+      "title": "初期評価",
+      "phase": "initial_assessment",
       "scene_goal": "接触時点では意識・呼吸・循環が保たれていても、急変高リスク症例として把握する。",
       "ideal_flow": [
         "会話可能でも高リスクと考える",
@@ -160,35 +97,39 @@
       "prompt": "初期評価の時点で最も適切な認識はどれか。",
       "options": [
         {
-          "id": "A",
-          "label": "現時点で会話可能でも、胸部症状持続例として急変高リスクと考える",
-          "ideal": true,
+          "id": "s2_o1",
+          "text": "現時点で会話可能でも、胸部症状持続例として急変高リスクと考える",
+          "is_correct": true,
           "score_delta": 10,
-          "action_tag": "recognize_high_risk_chest_pain",
           "feedback": "胸部不快感が持続している時点で、たとえ歩行可能でも急変高リスク症例として扱うべきである。"
         },
         {
-          "id": "B",
-          "label": "歩行可能なので重症度は低く、観察は後回しでよい",
-          "ideal": false,
+          "id": "s2_o2",
+          "text": "歩行可能なので重症度は低く、観察は後回しでよい",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "misjudge_low_severity",
-          "feedback": "歩行可能でも胸部症状持続は危険であり、重症度を低く見積もるのは不適切である。"
+          "feedback": "歩行可能でも胸部症状持続は危険である。"
         },
         {
-          "id": "C",
-          "label": "胸部不快感は精神的緊張による可能性が高く、まずは安心させればよい",
-          "ideal": false,
+          "id": "s2_o3",
+          "text": "精神的緊張による症状の可能性が高く、まず安心させればよい",
+          "is_correct": false,
           "score_delta": -3,
-          "action_tag": "premature_psychogenic_assumption",
-          "feedback": "致死性心疾患を除外できない段階で精神的要因と決めつけるのは危険である。"
+          "feedback": "致死性心疾患を除外できない段階で決めつけるのは危険である。"
+        },
+        {
+          "id": "s2_o4",
+          "text": "胸痛でなく不快感なので循環器疾患の可能性は低い",
+          "is_correct": false,
+          "score_delta": -4,
+          "feedback": "胸部不快感でも重症循環器疾患は十分ありうる。"
         }
       ]
     },
     {
       "id": "scene3",
-      "title": "場面 3",
-      "phase": "情報収集＋バイタル評価",
+      "title": "情報収集と搬送準備",
+      "phase": "history_taking",
       "scene_goal": "胸部症状の経過と急変リスクを踏まえ、早期モニター装着と搬送を見据える。",
       "ideal_flow": [
         "発症時刻と持続時間を確認する",
@@ -211,51 +152,39 @@
       "prompt": "この場面で優先して押さえるべき事項を2つ選べ。",
       "options": [
         {
-          "id": "A",
-          "label": "症状の発症時刻と持続時間",
-          "ideal": true,
+          "id": "s3_o1",
+          "text": "症状の発症時刻と持続時間",
+          "is_correct": true,
           "score_delta": 5,
-          "action_tag": "check_onset_duration",
-          "feedback": "胸部症状の発症時刻と持続時間はACS評価や病院連絡で重要な情報である。"
+          "feedback": "胸部症状の発症時刻と持続時間は重要な情報である。"
         },
         {
-          "id": "B",
-          "label": "心電図モニターを早期に装着する準備",
-          "ideal": true,
+          "id": "s3_o2",
+          "text": "心電図モニターを早期に装着する準備",
+          "is_correct": true,
           "score_delta": 5,
-          "action_tag": "prepare_early_monitoring",
-          "feedback": "胸部症状持続例では不整脈や虚血変化評価のためモニター装着を急ぐ必要がある。"
+          "feedback": "胸部症状持続例では不整脈や虚血変化評価のためモニター装着を急ぐ。"
         },
         {
-          "id": "C",
-          "label": "ここ数年の食生活の詳細",
-          "ideal": false,
+          "id": "s3_o3",
+          "text": "ここ数年の食生活の詳細",
+          "is_correct": false,
           "score_delta": -2,
-          "action_tag": "irrelevant_diet_history",
-          "feedback": "背景評価として無関係ではないが、この急性期場面での優先度は低い。"
+          "feedback": "この急性期場面での優先度は低い。"
         },
         {
-          "id": "D",
-          "label": "胸痛が軽くなってから搬送する方針にする",
-          "ideal": false,
+          "id": "s3_o4",
+          "text": "胸部不快感が軽くなってから搬送する方針にする",
+          "is_correct": false,
           "score_delta": -4,
-          "action_tag": "wait_for_relief_before_transport",
-          "feedback": "胸部症状持続例で改善を待って搬送を遅らせるのは不適切である。"
-        },
-        {
-          "id": "E",
-          "label": "車内収容後も急変しうると考えてCPR対応を意識する",
-          "ideal": false,
-          "score_delta": -1,
-          "action_tag": "anticipate_collapse_extra",
-          "feedback": "意識としては重要だが、この設問では優先して押さえる2項目は発症時刻と早期モニター準備である。"
+          "feedback": "改善を待って搬送を遅らせるのは不適切である。"
         }
       ]
     },
     {
       "id": "scene4",
-      "title": "場面 4",
-      "phase": "活動方針の再判断",
+      "title": "活動方針の再判断",
+      "phase": "clinical_decision",
       "scene_goal": "胸部症状持続の高リスク症例として、現場停滞を避け搬送優先を決定する。",
       "ideal_flow": [
         "高リスク胸部症状例として搬送優先で進める",
@@ -277,36 +206,40 @@
       "prompt": "この時点の活動方針として最も適切なのはどれか。",
       "options": [
         {
-          "id": "A",
-          "label": "高リスク胸部症状例として搬送優先で進め、急変対応に備える",
-          "ideal": true,
+          "id": "s4_o1",
+          "text": "高リスク胸部症状例として搬送優先で進め、急変対応に備える",
+          "is_correct": true,
           "score_delta": 10,
-          "action_tag": "transport_priority_for_chest_case",
           "feedback": "胸部症状持続例では現場停滞を避け、モニター監視下で速やかに搬送するのが適切である。"
         },
         {
-          "id": "B",
-          "label": "いったん症状が自然軽快するまで車外で待機させる",
-          "ideal": false,
+          "id": "s4_o2",
+          "text": "症状が自然軽快するまで車外で待機させる",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "wait_outside",
-          "feedback": "高リスク胸部症状例で改善待ちをするのは不適切で、急変時対応も遅れる。"
+          "feedback": "改善待ちは不適切で、急変時対応も遅れる。"
         },
         {
-          "id": "C",
-          "label": "歩行可能だったので非緊急搬送に切り替える",
-          "ideal": false,
+          "id": "s4_o3",
+          "text": "歩行可能だったので非緊急搬送に切り替える",
+          "is_correct": false,
           "score_delta": -5,
-          "action_tag": "downgrade_due_to_ambulation",
-          "feedback": "歩行可能であっても胸部症状持続例は高リスクであり、重症度を下げる根拠にはならない。"
+          "feedback": "歩行可能でも胸部症状持続例は高リスクである。"
+        },
+        {
+          "id": "s4_o4",
+          "text": "まず詳細な生活歴を聴取してから搬送方針を決める",
+          "is_correct": false,
+          "score_delta": -3,
+          "feedback": "急性期は搬送優先と急変対応準備が先である。"
         }
       ]
     },
     {
       "id": "scene5",
-      "title": "場面 5",
-      "phase": "全身観察",
-      "scene_goal": "急変直前までの状態から、意識消失後はCPA判定へ直結する所見を捉える。",
+      "title": "急変直後の評価",
+      "phase": "focused_assessment",
+      "scene_goal": "急変直後の観察結果からCPAを判断し、直ちに心停止対応へ移行する。",
       "ideal_flow": [
         "反応消失を把握する",
         "死戦期呼吸を正常呼吸と誤認しない",
@@ -324,45 +257,28 @@
         ]
       },
       "media": [],
-      "type": "single_choice",
-      "prompt": "この時点で最も適切な評価はどれか。",
-      "options": [
-        {
-          "id": "A",
-          "label": "死戦期呼吸を伴うCPAと考え、直ちに心停止対応へ移行する",
-          "ideal": true,
-          "score_delta": 15,
-          "action_tag": "recognize_cardiac_arrest",
-          "feedback": "反応消失と口をパクパクさせるような呼吸は正常呼吸ではなく、死戦期呼吸を伴う心停止として扱う。"
-        },
-        {
-          "id": "B",
-          "label": "まだ呼吸があるので心停止ではなく、経過観察する",
-          "ideal": false,
-          "score_delta": -10,
-          "action_tag": "mistake_agonal_for_normal_breathing",
-          "feedback": "死戦期呼吸を正常呼吸と誤認するとCPR開始が遅れ、予後を悪化させる。"
-        },
-        {
-          "id": "C",
-          "label": "失神発作の可能性が高いため、まず血圧測定を優先する",
-          "ideal": false,
-          "score_delta": -8,
-          "action_tag": "prioritize_bp_measurement",
-          "feedback": "反応消失と死戦期呼吸様所見がある状況では、血圧測定より心停止対応が優先される。"
-        }
+      "type": "free_text",
+      "prompt": "この時点の観察結果と判断を簡潔に記せ。",
+      "scoring_keywords": [
+        "反応消失",
+        "死戦期呼吸",
+        "正常呼吸ではない",
+        "CPA",
+        "心停止対応"
+      ],
+      "templates": [
+        "反応が消失し、死戦期呼吸を認める。正常呼吸ではなくCPAと判断し、直ちに心停止対応へ移行する。"
       ]
     },
     {
       "id": "scene6",
-      "title": "場面 6",
-      "phase": "評価・ファーストコール・特定行為",
+      "title": "モニター評価と初動対応",
+      "phase": "clinical_decision",
       "scene_goal": "トルサード・ド・ポワント様の致死性不整脈を把握し、心停止対応の優先順位を判断する。",
       "ideal_flow": [
         "致死性不整脈として把握する",
         "胸骨圧迫を開始する",
-        "除細動パッドを装着する",
-        "要点を病院へ伝える"
+        "除細動パッドを装着する"
       ],
       "ideal_score_delta": 20,
       "action_tag": "immediate_cpr_and_defib_preparation",
@@ -376,65 +292,47 @@
         ]
       },
       "media": [
-        {
-          "media_id": "media_01",
-          "type": "image",
-          "path": "media/ecg_torsades_001.png",
-          "label": "Ⅱ誘導モニター波形",
-          "description": "多形性心室頻拍のうち、トルサード・ド・ポワント様のねじれるような振幅変化が分かる再構成画像。",
-          "source_note": "既存図版を直接使用せず、波形の要点のみを残して背景や構図を調整したオリジナル再構成画像。"
-        }
+        "media/ecg_torsades_001.png"
       ],
+      "author_note": "Scene6の波形画像ファイル名は元JSON内で確認済み。",
       "type": "multiple_choice",
-      "prompt": "救急隊が直ちに行うべき対応はどれか。2つ選べ。",
+      "prompt": "救急隊が直ちに行うべき対応を2つ選べ。",
       "options": [
         {
-          "id": "A",
-          "label": "胸骨圧迫",
-          "ideal": true,
+          "id": "s6_o1",
+          "text": "胸骨圧迫",
+          "is_correct": true,
           "score_delta": 10,
-          "action_tag": "start_chest_compressions",
-          "feedback": "反応消失と死戦期呼吸を伴うCPAであり、胸骨圧迫を直ちに開始する。"
+          "feedback": "反応消失と死戦期呼吸を伴うCPAであり、直ちに開始する。"
         },
         {
-          "id": "B",
-          "label": "補助換気",
-          "ideal": false,
-          "score_delta": 2,
-          "action_tag": "assist_ventilation_early",
-          "feedback": "換気も重要だが、この設問で直ちに優先すべき2つは胸骨圧迫と除細動パッド装着である。"
+          "id": "s6_o2",
+          "text": "除細動パッド装着",
+          "is_correct": true,
+          "score_delta": 10,
+          "feedback": "ショック適応波形が疑われ、除細動準備が必要である。"
         },
         {
-          "id": "C",
-          "label": "血圧測定",
-          "ideal": false,
+          "id": "s6_o3",
+          "text": "血圧測定を先に行う",
+          "is_correct": false,
           "score_delta": -8,
-          "action_tag": "measure_bp_during_arrest",
-          "feedback": "心停止対応が最優先であり、血圧測定を先行させるべきではない。"
+          "feedback": "心停止対応が最優先である。"
         },
         {
-          "id": "D",
-          "label": "高濃度酸素投与",
-          "ideal": false,
-          "score_delta": 2,
-          "action_tag": "high_flow_oxygen_only",
-          "feedback": "酸素投与は重要だが、直ちに行うべき優先対応としては胸骨圧迫とパッド装着が上位である。"
-        },
-        {
-          "id": "E",
-          "label": "除細動パッド装着",
-          "ideal": true,
-          "score_delta": 10,
-          "action_tag": "attach_defibrillation_pads",
-          "feedback": "トルサード・ド・ポワント様のショック適応波形であり、除細動に備えてパッドを直ちに装着する。"
+          "id": "s6_o4",
+          "text": "詳細な病歴聴取を優先する",
+          "is_correct": false,
+          "score_delta": -6,
+          "feedback": "蘇生対応より先に行う内容ではない。"
         }
       ]
     },
     {
       "id": "scene7",
-      "title": "場面 7",
-      "phase": "車内活動",
-      "scene_goal": "CPA対応を継続し、ショック適応不整脈として電気ショックと蘇生の流れを維持する。",
+      "title": "車内活動",
+      "phase": "transport_reassessment",
+      "scene_goal": "CPA対応を継続し、ショック適応不整脈として蘇生の流れを維持する。",
       "ideal_flow": [
         "胸骨圧迫を中断最小で継続する",
         "波形確認とショック適応判断を行う",
@@ -452,16 +350,6 @@
           "除細動準備と再評価が必要"
         ]
       },
-      "dynamic_events": [
-        {
-          "trigger": "scene_start",
-          "description": "死戦期呼吸を正常呼吸と誤認して対応が遅れた場合、無反応状態が持続し、モニター波形はさらに粗く不安定となる。",
-          "visible_data_update": {
-            "general_status": "無反応持続",
-            "ecg_status": "致死性不整脈持続"
-          }
-        }
-      ],
       "media": [],
       "type": "ranking",
       "prompt": "この後の車内活動として優先度が高い順に並べよ。",
@@ -490,7 +378,7 @@
     }
   ],
   "debriefing": {
-    "summary": "本症例は胸部不快感持続後、車内収容直後に反応消失し、死戦期呼吸とトルサード・ド・ポワント様波形を呈したCPA症例である。ポイントは、死戦期呼吸を正常呼吸と誤認せず、直ちに胸骨圧迫を開始し、除細動パッドを装着することである。",
+    "summary": "本症例は胸部不快感持続後、車内収容直後に反応消失し、死戦期呼吸とトルサード・ド・ポワント様波形を呈したCPA症例である。死戦期呼吸を正常呼吸と誤認せず、直ちに胸骨圧迫を開始し、除細動準備を進めることが重要である。",
     "ideal_actions": [
       "胸部症状持続例として急変リスクを想定する",
       "会話可能・歩行可能でも高リスクと判断する",

@@ -1,0 +1,449 @@
+{
+  "case_id": "case_environmental_special_bath_drowning_pac_001",
+  "version": "2.0",
+  "title": "浴槽内溺水でPAC口頭指導後に脈あり無呼吸を見抜き、換気優先へ切り替える症例",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "溺水",
+    "浴槽",
+    "PAC口頭指導",
+    "脈あり無呼吸",
+    "BVM換気"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "出場途上の指令内容確認とPAC口頭指導",
+      "phase": "scene_size_up",
+      "scene_goal": "通報内容とPAC口頭指導の状況を整理し、現着後に再評価が必要であることを理解する。",
+      "ideal_flow": [
+        "指令内容を確認する",
+        "浴槽内溺水を疑う",
+        "PAC口頭指導で胸骨圧迫が開始されていることを把握する",
+        "通報時情報と現着後評価は異なる可能性を意識する",
+        "現着後はCPAかどうかを再評価する方針を共有する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_briefing",
+      "text": "指令内容は『60歳男性。入浴後1時間経過しても浴室から上がってこないため息子が見に行くと、浴槽内で顔面まで湯に浸かっていた。呼びかけへの反応が乏しく、指令室のPAC口頭指導で息子が胸骨圧迫を開始している』であった。救急隊は出場途上に活動方針を確認する。",
+      "visible_data": [
+        "60歳男性",
+        "入浴後1時間以上経過",
+        "浴槽内で顔面まで浸水",
+        "息子が発見",
+        "PAC口頭指導で胸骨圧迫開始",
+        "CPA疑いで通報されている"
+      ],
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場途上の共有事項として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "PAC口頭指導で胸骨圧迫が始まっていても、現着後はCPAかどうか再評価する",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "通報時の情報と現着後の評価が異なることがある。"
+        },
+        {
+          "option_id": "b",
+          "text": "浴槽内溺水を疑い、呼吸障害が前景の病態を想定する",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "溺水では低酸素による呼吸障害が本体である。"
+        },
+        {
+          "option_id": "c",
+          "text": "PACで胸骨圧迫が始まっているため、現着後も評価せずそのまま胸骨圧迫を継続する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "救急隊は現着後に自ら評価し直す必要がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "浴槽事故では溺水は考えにくいため、内因性疾患だけを想定する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "浴槽内溺水自体をまず考える必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "現着後の安全確認と初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "脈拍の有無と呼吸状態を迅速に評価し、脈あり無呼吸と判断する。",
+      "ideal_flow": [
+        "浴室内の安全を確認する",
+        "息子の胸骨圧迫を引き継ぎつつ迅速に評価する",
+        "反応、気道、呼吸、脈拍を確認する",
+        "脈あり無呼吸と判断する",
+        "胸骨圧迫継続の適応を見直す"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "primary_assessment",
+      "text": "現着すると、傷病者は浴槽から出された状態で脱衣場付近に仰臥位となっており、息子が胸骨圧迫を行っていた。傷病者に反応はなく、呼吸停止と判断した。一方で脈拍は触知できた。",
+      "visible_data": [
+        "浴槽から搬出済み",
+        "息子が胸骨圧迫中",
+        "反応なし",
+        "呼吸停止",
+        "脈拍触知あり"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "まず行う対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "頸椎保護",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "外傷機転は前景ではなく、まず呼吸管理が優先である。"
+        },
+        {
+          "option_id": "b",
+          "text": "傷病者の搬出",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "既に浴槽から出されている。"
+        },
+        {
+          "option_id": "c",
+          "text": "胸骨圧迫の継続",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "脈拍が触知できるため、まず換気を優先する。"
+        },
+        {
+          "option_id": "d",
+          "text": "除細動パッドの装着",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "初手としては呼吸停止への対応が優先される。"
+        },
+        {
+          "option_id": "e",
+          "text": "バッグ・バルブ・マスク換気",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "脈あり無呼吸では換気を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "全身観察",
+      "phase": "rapid_assessment",
+      "scene_goal": "外傷所見の有無と溺水らしい所見を確認し、病態の中心が低酸素であることを考える。",
+      "ideal_flow": [
+        "頭部から体幹、四肢を観察する",
+        "外傷所見の有無を確認する",
+        "口鼻周囲や皮膚所見を観察する",
+        "浴槽内溺水として病態を整理する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "secondary_overview",
+      "text": "全身観察では頭部・顔面・体幹・四肢に目立った外傷はない。口鼻周囲に水分付着を認め、皮膚はやや冷たく湿っている。浴槽内事故であり、外傷性の機序は乏しい。",
+      "visible_data": [
+        "明らかな外傷所見なし",
+        "口鼻周囲に水分付着",
+        "皮膚はやや冷たく湿っている",
+        "浴槽内事故",
+        "外傷性機序は乏しい"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の病態として最も考えるべきものはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "低酸素血症を主体とする溺水",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "溺水では低酸素血症が本体となる。"
+        },
+        {
+          "option_id": "b",
+          "text": "外傷性ショック",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "外傷所見に乏しく前景ではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "大量出血による循環不全",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "出血所見はない。"
+        },
+        {
+          "option_id": "d",
+          "text": "脊髄損傷による呼吸停止",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "この情報からは優先して考えにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "現場処置",
+      "phase": "treatment",
+      "scene_goal": "溺水に対する現場処置として換気、酸素化、吸引、保温の優先順位を整理する。",
+      "ideal_flow": [
+        "BVM換気を開始する",
+        "必要に応じ吸引を行う",
+        "高濃度酸素投与を行う",
+        "モニター装着を進める",
+        "保温を開始する",
+        "脈拍と呼吸の再評価を行う"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "airway_breathing_management",
+      "text": "BVM換気を開始する場面である。浴槽内事故であり、低酸素が主病態と考えられる。濡れた状態であり、低体温にも注意が必要である。",
+      "visible_data": [
+        "呼吸停止",
+        "脈拍あり",
+        "溺水疑い",
+        "濡れた状態",
+        "低体温リスクあり"
+      ],
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "現場で優先して行う対応として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "BVMによる換気を継続する",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "脈あり無呼吸では換気が優先される。"
+        },
+        {
+          "option_id": "b",
+          "text": "濡れた体をふき、保温を行う",
+          "is_correct": true,
+          "score_delta": 5,
+          "rationale": "溺水では低体温予防も重要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "胸骨圧迫のみを継続し、換気は行わない",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "脈拍があるため換気が優先される。"
+        },
+        {
+          "option_id": "d",
+          "text": "誤嚥の可能性があっても吸引は不要である",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "必要に応じて吸引を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "車内収容後のファーストコール",
+      "phase": "first_call",
+      "scene_goal": "浴槽内溺水として重要な情報を簡潔に医療機関へ伝達する。",
+      "ideal_flow": [
+        "発見状況を整理する",
+        "PAC口頭指導の経過を整理する",
+        "現着後評価を整理する",
+        "実施した処置を整理する",
+        "到着予定時間を含めて報告する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "first_call",
+      "text": "傷病者を車内に収容し、呼吸管理を継続している。医療機関へ、通報時の状況と現着後評価、現在の処置内容を報告する。",
+      "visible_data": [
+        "60歳男性",
+        "浴槽内で顔面まで浸水",
+        "入浴後約1時間で発見",
+        "PAC口頭指導で家族が胸骨圧迫実施",
+        "現着後に脈拍あり・呼吸停止と判断",
+        "BVM換気開始"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ファーストコールとして最も適切な内容はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "60歳男性。浴槽内で顔面まで浸水した状態で発見。PAC口頭指導で家族が胸骨圧迫を実施していましたが、現着後評価では脈拍あり・呼吸停止で、現在BVM換気を行っています",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "発見状況、PAC、再評価、現在処置が簡潔にまとまっている。"
+        },
+        {
+          "option_id": "b",
+          "text": "60歳男性。CPAのため胸骨圧迫を続けています",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "現着後評価では脈拍ありである。"
+        },
+        {
+          "option_id": "c",
+          "text": "浴室事故でした。詳細は不明です",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "重要な情報が不足している。"
+        },
+        {
+          "option_id": "d",
+          "text": "溺水ではない可能性があるため、水没状況は伝えない",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "浴槽内浸水の情報は重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "詳細観察",
+      "phase": "detailed_assessment",
+      "scene_goal": "溺水の病態、背景疾患、予後に関わる要素を整理する。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "呼吸と循環の変化を確認する",
+        "体温を確認する",
+        "背景疾患や飲酒歴などを聴取する",
+        "溺水の病態を整理する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "detailed_assessment",
+      "text": "詳細観察では、換気継続下で脈拍は保たれている。浴槽内事故であり、外傷以外に失神、不整脈、脳血管障害などの内因性疾患が背景にある可能性も考える必要がある。低酸素血症、低体温、誤嚥による呼吸障害にも注意する。",
+      "visible_data": [
+        "換気継続中",
+        "脈拍は保たれている",
+        "浴槽内事故",
+        "内因性疾患の可能性",
+        "低酸素血症に注意",
+        "低体温に注意",
+        "誤嚥に注意"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の説明として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "溺水ではまず低酸素血症が問題となるため、脈あり無呼吸では換気が重要である",
+          "is_correct": true,
+          "score_delta": 8,
+          "rationale": "この症例の病態と処置の結びつきを正しく表している。"
+        },
+        {
+          "option_id": "b",
+          "text": "浴槽内事故では内因性疾患を考える必要はない",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "浴槽内事故では内因性疾患も背景にありうる。"
+        },
+        {
+          "option_id": "c",
+          "text": "溺水では低体温は問題になりにくい",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "低体温にも注意が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "呼吸停止でも脈があれば観察のみでよい",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "換気管理が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "継続観察と最終判断",
+      "phase": "reassessment",
+      "scene_goal": "呼吸循環の変化と溺水後合併症に注意しながら搬送継続を判断する。",
+      "ideal_flow": [
+        "呼吸再開の有無を確認する",
+        "脈拍変化を確認する",
+        "酸素化と意識変化を確認する",
+        "遅発性呼吸障害を意識する",
+        "継続した呼吸循環管理を行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment",
+      "text": "搬送中も換気を継続し、呼吸再開の有無、脈拍、意識の変化を観察する。溺水では一時的に改善しても、誤嚥や肺水腫などによる呼吸障害が後から目立つ可能性がある。",
+      "visible_data": [
+        "換気継続中",
+        "呼吸再開の有無を観察",
+        "脈拍を観察",
+        "意識変化を観察",
+        "誤嚥・肺水腫に注意",
+        "継続観察が必要"
+      ],
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の最終判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "浴槽内溺水では、現着後の再評価で脈あり無呼吸を見抜いたら換気を優先し、その後も呼吸循環を継続観察する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "この症例の最重要ポイントを正しくまとめている。"
+        },
+        {
+          "option_id": "b",
+          "text": "PACで胸骨圧迫が始まっていた場合は、現着後も必ず胸骨圧迫を継続する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "現着後は救急隊が再評価して方針修正する。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸停止でも脈拍があれば搬送のみで処置は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "換気管理が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "浴槽内事故では溺水後合併症は考えなくてよい",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "誤嚥や肺水腫などに注意する必要がある。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "浴槽内溺水で、通報時にはCPA疑いとしてPAC口頭指導による胸骨圧迫が開始されていたが、救急隊が現着後に再評価して脈あり無呼吸と判断し、換気優先へ切り替える症例である。溺水の本体は低酸素血症であり、呼吸管理、保温、継続観察が重要となる。浴槽内事故では内因性疾患の関与も考える。",
+    "ideal_actions": [
+      "指令内容とPAC口頭指導の状況を把握する",
+      "現着後にCPAかどうかを再評価する",
+      "脈あり無呼吸と判断する",
+      "BVM換気を開始する",
+      "必要に応じ吸引と酸素化を行う",
+      "保温を行う",
+      "浴槽内溺水として発見状況を整理する",
+      "背景にある内因性疾患の可能性も考える",
+      "搬送中も呼吸循環を継続観察する",
+      "遅発性呼吸障害に注意する"
+    ],
+    "good_points": [
+      "PAC口頭指導と現着後評価の違いを整理できた",
+      "脈あり無呼吸を見抜いて換気優先に切り替えられた",
+      "溺水の本体が低酸素血症であると理解できた",
+      "低体温や誤嚥への注意ができた"
+    ],
+    "cautions": [
+      "PACで胸骨圧迫が始まっていても、現着後は必ず再評価する",
+      "脈拍がある場合は胸骨圧迫継続ではなく換気を優先する",
+      "浴槽内事故では外傷だけでなく内因性疾患も考える",
+      "一時的に改善しても誤嚥や肺水腫に注意する",
+      "濡れた環境では保温も重要である"
+    ]
+  }
+}

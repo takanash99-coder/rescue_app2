@@ -1,0 +1,485 @@
+{
+  "case_id": "hyperventilation_tetany_breathing_control_001",
+  "version": "2.0",
+  "title": "口論後の頻呼吸と手指テタニーから呼吸を整える対応を選ぶ症例",
+  "category": "respiratory",
+  "difficulty": "Easy",
+  "algorithm_type": "呼吸困難対応プロトコル",
+  "estimated_time": 7,
+  "keywords": [
+    "呼吸困難",
+    "頻呼吸",
+    "口唇しびれ",
+    "テタニー",
+    "呼吸調整"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "口論後の呼吸困難という情報から、精神的誘因を意識しつつ、重症疾患を決めつけずに出場する。",
+      "ideal_flow": [
+        "呼吸困難の通報として重症化の可能性を考える",
+        "口論後という誘因を確認する",
+        "家族に安全確保と安静を依頼する",
+        "意識状態や呼吸状態の変化を確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "dyspnea"
+      ],
+      "text": "48歳女性。息子と口論中に急に息苦しさを訴え、息子が救急要請した。息子は「急に呼吸が速くなり、手がこわばっているように見える」と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "通報者": "息子",
+          "主訴": "呼吸困難",
+          "発症状況": "口論中に発症",
+          "追加情報": "呼吸が速く、手がこわばっているように見える"
+        },
+        "pac": {
+          "指示": [
+            "安全な場所で座らせる",
+            "無理に歩かせない",
+            "強く刺激せず落ち着いて声をかける",
+            "意識や呼吸状態が悪化したらすぐに伝える"
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上の考え方として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸困難として評価し、誘因も確認する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "口論後という情報は重要だが、まず呼吸困難として重症疾患を除外しながら評価する。"
+        },
+        {
+          "option_id": "b",
+          "text": "精神的な問題と決めつける",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "精神的誘因があっても、呼吸困難では重症疾患を除外する必要がある。"
+        },
+        {
+          "option_id": "c",
+          "text": "低酸素性呼吸不全と断定する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "出場前情報だけでは低酸素性呼吸不全とは断定できない。現場評価が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "外傷対応を最優先に準備する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "外傷を示す情報はなく、主訴は呼吸困難である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "初期評価では数値バイタルに入らず、気道・呼吸・循環の切迫所見を確認する。",
+      "ideal_flow": [
+        "第一印象を確認する",
+        "発語の有無から気道開通を確認する",
+        "呼吸の見た目と胸郭挙上を確認する",
+        "チアノーゼや冷汗などの切迫所見を確認する",
+        "直ちにL&Gや補助換気と決めつけず観察を続ける"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "primary_assessment",
+        "airway_breathing",
+        "clinical_judgment"
+      ],
+      "text": "傷病者は居間の椅子に座っている。呼びかけには反応し、短い言葉で返答できる。呼吸は浅く速いが、胸郭の動きは確認できる。明らかなチアノーゼや冷汗は目立たない。",
+      "visible_data": {
+        "primary_assessment": {
+          "意識": "呼びかけに反応あり",
+          "気道": "発語あり、開通している",
+          "呼吸": "浅く速い呼吸、胸郭挙上あり",
+          "循環": "明らかなショック所見は目立たない",
+          "皮膚所見": "著明なチアノーゼや冷汗なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価後の対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "切迫所見を確認しながら観察を続ける",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "発語と胸郭挙上があり、直ちに処置を決めつけず、重症所見を確認しながら観察を続ける。"
+        },
+        {
+          "option_id": "b",
+          "text": "頻呼吸のみでL&Gと判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "呼吸が速いだけでL&Gとは判断せず、意識、気道、胸郭挙上、循環所見を総合する。"
+        },
+        {
+          "option_id": "c",
+          "text": "胸郭挙上不十分として補助換気する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "胸郭挙上は確認できており、この時点では補助換気の根拠が不足している。"
+        },
+        {
+          "option_id": "d",
+          "text": "気道閉塞として下顎挙上する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "発語があり、気道は開通しているため、下顎挙上を最優先する状況ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル測定",
+      "phase": "assessment",
+      "scene_goal": "数値バイタルと症状から、低酸素ではなく頻呼吸としびれが中心であることを整理する。",
+      "ideal_flow": [
+        "バイタルサインを測定する",
+        "SpO2が保たれていることを確認する",
+        "頻呼吸と口唇しびれを関連づける",
+        "重症呼吸不全を示す所見が乏しいことを確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "vital_signs",
+        "assessment",
+        "dyspnea"
+      ],
+      "text": "情報収集とバイタル測定を行った。傷病者は「息が吸えない感じがする」「口のまわりがしびれる」と訴えている。",
+      "visible_data": {
+        "vitals": {
+          "意識": "JCS1",
+          "呼吸数": "36回/分",
+          "脈拍": "80回/分、整",
+          "血圧": "102/62mmHg",
+          "SpO2": "100%"
+        },
+        "symptoms": {
+          "呼吸困難": "あり",
+          "口唇部しびれ": "軽度あり",
+          "胸痛": "明らかな訴えなし",
+          "意識低下": "なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の所見として最も重要なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "頻呼吸だがSpO2は保たれている",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "呼吸困難はあるがSpO2は100%であり、低酸素だけで説明する状況ではない。"
+        },
+        {
+          "option_id": "b",
+          "text": "SpO2低下を伴う重症低酸素である",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "SpO2は100%であり、低酸素血症は示されていない。"
+        },
+        {
+          "option_id": "c",
+          "text": "徐脈による循環不全である",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "脈拍は80回/分で整であり、徐脈による循環不全とはいえない。"
+        },
+        {
+          "option_id": "d",
+          "text": "血圧高値による急性心不全である",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "血圧高値ではなく、肺うっ血やチアノーゼなど急性心不全を強く示す所見も乏しい。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "手指所見の確認",
+      "phase": "focused_assessment",
+      "scene_goal": "手指のこわばりと口唇しびれを、頻呼吸に伴う所見として捉える。",
+      "ideal_flow": [
+        "手指の状態を観察する",
+        "口唇しびれと手指のこわばりを確認する",
+        "頻呼吸との関連を考える",
+        "重症呼吸不全の所見と区別する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "focused_assessment",
+        "tetany",
+        "neuromuscular_signs"
+      ],
+      "text": "傷病者は両手のこわばりを訴えている。手指は内側に引き込まれるような姿勢となり、本人は「手が固まる感じがする」と話している。",
+      "visible_data": {
+        "focused_findings": {
+          "手指": "こわばりあり",
+          "口唇部": "しびれあり",
+          "呼吸": "浅く速い呼吸が持続",
+          "SpO2": "100%"
+        }
+      },
+      "media": [
+        "media/hyperventilation_tetany_hand_scene4.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この手指所見と口唇しびれを説明する機序として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "過剰な換気により二酸化炭素が低下している",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "過剰換気でCO2が低下すると、しびれや手指のこわばりを来すことがある。"
+        },
+        {
+          "option_id": "b",
+          "text": "気道閉塞により酸素が取り込めない",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "発語がありSpO2も保たれているため、気道閉塞による低酸素とは考えにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "大量出血により末梢循環が途絶している",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "出血やショックを示す情報はなく、頻呼吸としびれが中心である。"
+        },
+        {
+          "option_id": "d",
+          "text": "脳卒中により片側麻痺が出現している",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "片側麻痺や構音障害ではなく、両側性のこわばりとしびれが中心である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "病態推定",
+      "phase": "clinical_reasoning",
+      "scene_goal": "発症状況、頻呼吸、SpO2正常、しびれ、手指こわばりから病態を推定する。",
+      "ideal_flow": [
+        "口論後の発症を誘因として捉える",
+        "SpO2が保たれていることを確認する",
+        "頻呼吸、口唇しびれ、手指こわばりを統合する",
+        "低酸素性呼吸不全やショックと区別する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "clinical_reasoning",
+        "hyperventilation",
+        "differential_diagnosis"
+      ],
+      "text": "発症は息子との口論中であり、傷病者は強い不安を訴えている。頻呼吸は続いているが、SpO2は100%で、チアノーゼや明らかな循環不全は認めない。",
+      "visible_data": {
+        "integrated_findings": {
+          "誘因": "口論、強い不安",
+          "呼吸": "頻呼吸",
+          "SpO2": "100%",
+          "神経筋症状": "口唇しびれ、手指こわばり",
+          "切迫所見": "明らかな低酸素やショック所見なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "これらの所見から最も疑うべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "過換気に伴う症状",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "口論後の頻呼吸、SpO2正常、口唇しびれ、手指こわばりから過換気に伴う症状を疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "低酸素性呼吸不全",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "SpO2は100%であり、低酸素を主因とする呼吸不全とは考えにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "閉塞性ショック",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "頸静脈怒張や著明な循環不全を示す情報はなく、閉塞性ショックは考えにくい。"
+        },
+        {
+          "option_id": "d",
+          "text": "気道異物による窒息",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "発語可能でSpO2も保たれており、気道異物による窒息を示す所見は乏しい。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "適切な対応",
+      "phase": "intervention",
+      "scene_goal": "低酸素ではなく過剰換気が中心の症例では、安心させてゆっくりした呼吸を促す。",
+      "ideal_flow": [
+        "傷病者を安心させる",
+        "座位など楽な姿勢を保つ",
+        "ゆっくりした呼吸を促す",
+        "状態悪化がないか継続観察する",
+        "高濃度酸素や補助換気を安易に行わない"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "breathing_control",
+        "patient_reassurance",
+        "intervention"
+      ],
+      "text": "傷病者は不安が強く、浅く速い呼吸を続けている。SpO2は保たれており、発語も可能で、胸郭挙上も確認できる。",
+      "visible_data": {
+        "current_status": {
+          "意識": "JCS1",
+          "呼吸": "浅く速いが胸郭挙上あり",
+          "SpO2": "100%",
+          "発語": "可能",
+          "訴え": "息苦しさ、口唇しびれ、手指こわばり"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者への適切な対応はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "ゆっくりとした呼吸を促す",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "過換気に伴う症状が疑われるため、安心させてゆっくりした呼吸を促す。"
+        },
+        {
+          "option_id": "b",
+          "text": "下顎を挙上する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "発語可能で気道は開通しており、下顎挙上を最優先する状況ではない。"
+        },
+        {
+          "option_id": "c",
+          "text": "補助換気をする",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "胸郭挙上がありSpO2も保たれているため、この時点で補助換気を優先する状況ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "高濃度酸素を投与する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "SpO2は100%であり、主病態は低酸素ではなく過剰換気が疑われる。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解：頻呼吸としびれ",
+      "phase": "pathophysiology",
+      "scene_goal": "過剰換気によりCO2が低下し、口唇しびれや手指こわばりが生じる流れを理解する。",
+      "ideal_flow": [
+        "不安や緊張を誘因として頻呼吸が起こる",
+        "過剰換気によりCO2が低下する",
+        "呼吸性アルカローシスによりしびれや手指こわばりが生じる",
+        "SpO2が保たれている場合、低酸素だけで説明しない",
+        "重症疾患の除外と継続観察を忘れない"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "respiratory_alkalosis",
+        "clinical_understanding"
+      ],
+      "text": "強い不安や緊張で呼吸が速くなると、体内の二酸化炭素が過剰に排出される。二酸化炭素が低下すると、口唇のしびれや手指のこわばりが出現することがある。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "誘因": "不安、緊張、口論",
+          "呼吸": "過剰な換気",
+          "変化": "二酸化炭素低下",
+          "症状": "口唇しびれ、手指こわばり",
+          "対応": "安心させる、ゆっくり呼吸を促す、継続観察"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症状が起こる流れとして最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "過剰換気でCO2が低下し、しびれや手指こわばりが出る",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "過剰換気によりCO2が低下し、呼吸性アルカローシスを介してしびれやテタニー様症状が出現する。"
+        },
+        {
+          "option_id": "b",
+          "text": "低酸素によりSpO2が著明に低下し、手指がこわばる",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "SpO2は100%であり、低酸素が主因とは考えにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "気道閉塞により発語不能となり、呼吸が停止する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "発語可能で気道は開通しており、気道閉塞を示す所見ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "出血で循環血液量が低下し、ショックとなる",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "出血やショックを示す情報はなく、頻呼吸としびれが中心である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "口論後に呼吸困難を訴えた48歳女性の症例。初期評価では発語と胸郭挙上があり、直ちにL&Gや補助換気と決めつけず観察を継続する。バイタルでは頻呼吸だがSpO2は100%で、口唇しびれと手指のこわばりを認める。過剰換気に伴う症状を疑い、安心させてゆっくりとした呼吸を促すことが重要である。",
+    "ideal_actions": [
+      "呼吸困難として重症疾患を除外しながら評価する",
+      "初期評価では発語、気道開通、胸郭挙上、切迫所見を確認する",
+      "頻呼吸のみでL&Gや補助換気と決めつけない",
+      "SpO2が保たれていること、口唇しびれ、手指こわばりを統合して判断する",
+      "傷病者を安心させ、ゆっくりとした呼吸を促す",
+      "状態悪化や別疾患の可能性に注意して継続観察する"
+    ],
+    "good_points": [
+      "SpO2 100%でも呼吸困難を訴えることがあると理解できる",
+      "頻呼吸、口唇しびれ、手指こわばりのつながりを理解できる",
+      "酸素投与や補助換気ではなく、呼吸を整える対応を選択できる"
+    ],
+    "cautions": [
+      "精神的誘因があっても最初から軽症と決めつけない",
+      "頻呼吸だけでL&Gや補助換気を判断しない",
+      "SpO2が保たれている症例に高濃度酸素を安易に投与しない",
+      "紙袋再呼吸を安易に行わず、重症疾患の見逃しに注意する"
+    ]
+  }
+}

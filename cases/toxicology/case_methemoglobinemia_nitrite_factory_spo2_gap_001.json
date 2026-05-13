@@ -1,0 +1,796 @@
+{
+  "case_id": "methemoglobinemia_nitrite_factory_spo2_gap_001",
+  "version": "2.0",
+  "title": "亜硝酸塩曝露によるメトヘモグロビン血症でSpO2値の限界を理解する症例",
+  "category": "toxicology",
+  "difficulty": "Normal",
+  "algorithm_type": "toxicology_protocol",
+  "estimated_time": 8,
+  "keywords": [
+    "亜硝酸塩",
+    "メトヘモグロビン血症",
+    "チアノーゼ",
+    "SpO2",
+    "酸素運搬障害",
+    "化学物質曝露"
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "通報内容と出場途上の確認",
+      "phase": "dispatch",
+      "scene_goal": "工場内での呼吸困難から化学物質曝露を疑い、物質名と曝露範囲を確認する。",
+      "ideal_flow": [
+        "通報内容から化学物質曝露の可能性を考える",
+        "曝露した物質名を確認する",
+        "他作業員の症状を確認する",
+        "現場の安全性を確認する",
+        "必要に応じて関係機関との連携を考える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "dispatch",
+        "chemical_exposure",
+        "scene_safety",
+        "toxicology"
+      ],
+      "text": "50歳男性。亜硝酸塩を含む肥料を生産する工場で作業中、呼吸困難が出現したため、同僚が救急要請した。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "肥料を生産する工場",
+          "傷病者": "50歳男性",
+          "主訴": "呼吸困難",
+          "通報者": "同僚",
+          "作業環境": "亜硝酸塩を含む肥料を扱っている"
+        }
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "出場途上で追加確認すべき情報として適切なのはどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene1_o1",
+          "text": "曝露した物質名",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "substance_identified"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "化学物質曝露では、物質名が現場安全、症状予測、医療機関連絡に直結する。"
+        },
+        {
+          "option_id": "scene1_o2",
+          "text": "他作業員の症状",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "multiple_exposure_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "同じ作業環境にいた他作業員にも曝露の可能性がある。複数傷病者の有無を確認する。"
+        },
+        {
+          "option_id": "scene1_o3",
+          "text": "傷病者の趣味",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "low_priority_information"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "趣味は初期対応に直結しにくい。まず物質名、曝露人数、現場安全を確認する。"
+        },
+        {
+          "option_id": "scene1_o4",
+          "text": "工場の創業年数",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_information"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "工場の創業年数は急性曝露の評価には直結しない。扱っている物質と現場状況が重要である。"
+        },
+        {
+          "option_id": "scene1_o5",
+          "text": "作業服の色",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "nonessential_detail"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "作業服の色は曝露評価や安全管理に直結しにくい。物質名や曝露範囲を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "状況評価",
+      "phase": "scene_assessment",
+      "scene_goal": "化学物質曝露が疑われる工場現場で、救急隊の二次曝露を防ぐ。",
+      "ideal_flow": [
+        "工場敷地内の安全性を確認する",
+        "安全区域を設定する",
+        "関係者から物質情報を得る",
+        "必要な防護を確認する",
+        "傷病者の移動や除染の必要性を検討する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "scene_safety",
+        "chemical_hazard",
+        "hot_warm_cold_zone"
+      ],
+      "text": "現場は亜硝酸塩を含む肥料を扱う工場内である。傷病者は作業場内で呼吸困難を訴えており、化学物質曝露の可能性がある。",
+      "visible_data": {
+        "scene_information": {
+          "現場": "肥料工場",
+          "作業区域": "亜硝酸塩を含む物質を扱う区域",
+          "危険性": "化学物質曝露の可能性",
+          "他作業員": "症状の有無を確認中"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "救急隊が工場内へ進入する前に優先すべき対応はどれか。",
+      "options": [
+        {
+          "option_id": "scene2_o1",
+          "text": "安全区域を設定する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "safety_zone_established"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "化学物質曝露が疑われる現場では、救急隊の二次曝露を防ぐため、安全区域を設定してから活動する。"
+        },
+        {
+          "option_id": "scene2_o2",
+          "text": "傷病者の近くへ進入する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_entry"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "secondary_exposure"
+            ]
+          },
+          "rationale": "現場安全が確認できないまま作業区域へ進入すると、救急隊が二次曝露を受ける危険がある。"
+        },
+        {
+          "option_id": "scene2_o3",
+          "text": "作業場内で酸素投与を開始する。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "treatment_in_unsafe_zone"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "secondary_exposure"
+            ]
+          },
+          "rationale": "酸素投与は重要だが、安全確認や区域設定を行わず作業場内で処置を始めるのは危険である。"
+        },
+        {
+          "option_id": "scene2_o4",
+          "text": "防護なしで換気を行う。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "unprotected_action"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "chemical_exposure"
+            ]
+          },
+          "rationale": "化学物質曝露現場では、防護なしの活動は危険である。関係者と連携し、安全な活動範囲を確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "SpO2値とチアノーゼのズレに気づき、数値だけで酸素化を判断しない。",
+      "ideal_flow": [
+        "意識を確認する",
+        "呼吸数と呼吸努力を確認する",
+        "脈拍を確認する",
+        "SpO2を確認する",
+        "チアノーゼとSpO2値の乖離を考える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "initial_assessment",
+        "cyanosis",
+        "spo2_gap",
+        "methemoglobinemia"
+      ],
+      "text": "安全が確認された区域で傷病者と接触した。意識は清明。呼吸数32回/分、脈拍112回/分で整、SpO2値は92%である。口唇や爪先にチアノーゼを認める。",
+      "visible_data": {
+        "initial_findings": {
+          "意識": "清明",
+          "呼吸数": "32回/分",
+          "脈拍": "112回/分、整",
+          "SpO2": "92%",
+          "皮膚・粘膜": "口唇と爪先にチアノーゼ",
+          "主訴": "呼吸困難"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で特に注意すべき点はどれか。",
+      "options": [
+        {
+          "option_id": "scene3_o1",
+          "text": "SpO2だけで酸素化を判断しない。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "spo2_limitation_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "チアノーゼ、頻呼吸、化学物質曝露がある場合、SpO2値だけで実際の酸素化を判断しない。"
+        },
+        {
+          "option_id": "scene3_o2",
+          "text": "SpO2が92%なので重症ではない。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "spo2_overtrusted"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxia_missed"
+            ]
+          },
+          "rationale": "メトヘモグロビン血症ではSpO2値が実際の酸素化を正確に反映しないことがある。チアノーゼを軽視しない。"
+        },
+        {
+          "option_id": "scene3_o3",
+          "text": "チアノーゼがあるため酸素投与は不要である。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_withheld"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxia"
+            ]
+          },
+          "rationale": "チアノーゼや呼吸困難がある場合は酸素投与を行う。SpO2値の解釈には注意が必要である。"
+        },
+        {
+          "option_id": "scene3_o4",
+          "text": "意識清明なら曝露の影響はない。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "exposure_effect_missed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "意識清明でも、呼吸困難、頻呼吸、頻脈、チアノーゼがあれば中毒や酸素運搬障害を疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "情報収集",
+      "phase": "exposure_history",
+      "scene_goal": "亜硝酸塩曝露と産業医からの情報を結びつけ、メトヘモグロビン血症を疑う。",
+      "ideal_flow": [
+        "曝露物質を確認する",
+        "曝露経路を確認する",
+        "曝露時間を確認する",
+        "産業医や工場関係者から情報を得る",
+        "他作業員の症状を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "exposure_history",
+        "nitrite",
+        "occupational_exposure",
+        "methemoglobinemia"
+      ],
+      "text": "工場の産業医から、「この作業場では亜硝酸塩を含む肥料を扱っており、メトヘモグロビン血症の可能性がある」と情報提供があった。",
+      "visible_data": {
+        "exposure_information": {
+          "物質": "亜硝酸塩を含む肥料",
+          "曝露場所": "肥料工場の作業場",
+          "産業医の見解": "メトヘモグロビン血症の可能性",
+          "他作業員": "曝露の有無を確認中"
+        }
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "この病態を疑ううえで重要な情報はどれか。2つ選べ。",
+      "options": [
+        {
+          "option_id": "scene4_o1",
+          "text": "亜硝酸塩への曝露",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "nitrite_exposure_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "亜硝酸塩曝露はメトヘモグロビン血症を疑う重要な情報である。"
+        },
+        {
+          "option_id": "scene4_o2",
+          "text": "チアノーゼと呼吸困難",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cyanosis_dyspnea_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "メトヘモグロビン血症では酸素運搬障害によりチアノーゼや呼吸困難を来すことがある。"
+        },
+        {
+          "option_id": "scene4_o3",
+          "text": "工場の駐車台数",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "irrelevant_information_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "駐車台数は曝露評価や病態判断には直結しにくい。物質名と症状が重要である。"
+        },
+        {
+          "option_id": "scene4_o4",
+          "text": "作業靴のメーカー",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "nonessential_detail_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "作業靴のメーカーは病態判断の優先情報ではない。曝露物質、曝露経路、症状を確認する。"
+        },
+        {
+          "option_id": "scene4_o5",
+          "text": "昼食の内容のみ",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "history_focus_wrong"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "食事歴も中毒では参考になる場合があるが、今回は工場内での亜硝酸塩曝露と症状が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "国試の芯：SpO2値の限界",
+      "phase": "exam_core",
+      "scene_goal": "メトヘモグロビン血症ではSpO2値が実際の酸素飽和度を正確に反映しないことを理解する。",
+      "ideal_flow": [
+        "亜硝酸塩曝露を確認する",
+        "チアノーゼを確認する",
+        "SpO2値との乖離を考える",
+        "メトヘモグロビン血症を疑う",
+        "SpO2値の限界を判断する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "exam_core",
+        "spo2",
+        "methemoglobinemia",
+        "oxygen_saturation"
+      ],
+      "text": "傷病者は亜硝酸塩を扱う工場で作業中に呼吸困難を訴えた。救急隊接触時、SpO2値は92%であるが、口唇や爪先にチアノーゼを認める。産業医からメトヘモグロビン血症の可能性を指摘された。",
+      "visible_data": {
+        "exam_information": {
+          "曝露": "亜硝酸塩を含む肥料",
+          "症状": "呼吸困難",
+          "SpO2": "92%",
+          "皮膚・粘膜": "チアノーゼあり",
+          "産業医情報": "メトヘモグロビン血症の可能性"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "正しいのはどれか。",
+      "options": [
+        {
+          "option_id": "scene5_o1",
+          "text": "酸素投与は必要ない。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_not_given"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxia"
+            ]
+          },
+          "rationale": "呼吸困難やチアノーゼがある場合は酸素投与が必要である。メトヘモグロビン血症でも酸素投与を行い、専門治療につなげる。"
+        },
+        {
+          "option_id": "scene5_o2",
+          "text": "肺の傷害が起きている。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "lung_injury_misidentified"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "メトヘモグロビン血症の主病態は肺の構造傷害ではなく、ヘモグロビンの酸素運搬障害である。"
+        },
+        {
+          "option_id": "scene5_o3",
+          "text": "他の作業員に影響はない。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "multiple_exposure_ignored"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "secondary_cases_missed"
+            ]
+          },
+          "rationale": "同じ作業環境にいた作業員にも曝露の可能性がある。他傷病者の有無を確認する。"
+        },
+        {
+          "option_id": "scene5_o4",
+          "text": "SpO2値は酸素飽和度を反映しない。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "spo2_gap_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "メトヘモグロビン血症では、パルスオキシメータのSpO2値が実際の酸素飽和度を正確に反映しないことがある。"
+        },
+        {
+          "option_id": "scene5_o5",
+          "text": "直ちに二次救急医療機関へ搬送する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "destination_undertriage"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "中毒や特殊治療が必要となる可能性があるため、対応可能な医療機関の選定が重要である。単純に二次救急へ固定しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "メトヘモグロビン血症の病態として、ヘモグロビン酸化による酸素運搬障害を理解する。",
+      "ideal_flow": [
+        "亜硝酸塩曝露を病態のきっかけとして考える",
+        "ヘモグロビンの酸化を理解する",
+        "酸素運搬能低下を理解する",
+        "チアノーゼや頻呼吸の理由を理解する",
+        "SpO2値の限界を再確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "methemoglobin",
+        "oxygen_transport",
+        "cyanosis"
+      ],
+      "text": "メトヘモグロビン血症では、ヘモグロビンの鉄が酸化され、酸素を運搬しにくい状態となる。そのため、血液中に酸素があっても組織へ十分に酸素を運べず、チアノーゼや呼吸困難を来す。",
+      "visible_data": {
+        "pathophysiology_review": {
+          "主な異常": "ヘモグロビンの酸化",
+          "結果": "酸素運搬能の低下",
+          "症状": [
+            "チアノーゼ",
+            "呼吸困難",
+            "頻呼吸",
+            "頻脈"
+          ],
+          "注意点": "SpO2値と実際の酸素化が一致しないことがある"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "メトヘモグロビン血症の病態として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene6_o1",
+          "text": "ヘモグロビンの鉄が酸化され、酸素運搬能が低下する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "methemoglobin_pathophysiology_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "メトヘモグロビン血症では、ヘモグロビンが酸化され酸素を運搬しにくくなる。組織低酸素によりチアノーゼや呼吸困難を呈する。"
+        },
+        {
+          "option_id": "scene6_o2",
+          "text": "肺胞が破れて気胸を起こす。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "pneumothorax_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "気胸は肺・胸膜の問題であり、メトヘモグロビン血症の主病態ではない。"
+        },
+        {
+          "option_id": "scene6_o3",
+          "text": "気管支が収縮して喘鳴を起こす。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "bronchospasm_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "気管支攣縮は喘息などで重視する。今回の中心は酸素運搬障害である。"
+        },
+        {
+          "option_id": "scene6_o4",
+          "text": "血液量が急激に減少する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "hypovolemia_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "血液量減少は出血性ショックなどで考える。メトヘモグロビン血症では酸素運搬能の障害が中心である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "亜硝酸塩の特徴",
+      "phase": "knowledge_review",
+      "scene_goal": "亜硝酸塩曝露がメトヘモグロビン血症を起こす機序と、主な用途を理解する。",
+      "ideal_flow": [
+        "亜硝酸塩への曝露を確認する",
+        "ヘモグロビン酸化による酸素運搬障害を理解する",
+        "チアノーゼ、頻呼吸、頻脈を確認する",
+        "SpO2値の限界を理解する",
+        "亜硝酸塩が使われる場面を整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "nitrite",
+        "methemoglobinemia",
+        "oxygen_transport",
+        "knowledge_review"
+      ],
+      "text": "産業医から、作業場では亜硝酸塩を含む肥料を扱っていたと情報提供があった。傷病者はチアノーゼ、頻呼吸、頻脈を認め、メトヘモグロビン血症が疑われる。",
+      "visible_data": {
+        "nitrite_review": {
+          "主な作用": "ヘモグロビンを酸化してメトヘモグロビンを増加させ、酸素運搬能を低下させる",
+          "主な症状": [
+            "チアノーゼ",
+            "頻呼吸",
+            "頻脈",
+            "呼吸困難",
+            "意識障害"
+          ],
+          "SpO2の注意点": "パルスオキシメータ値は実際の酸素化を正確に反映しないことがある",
+          "用途": [
+            {
+              "用途": "食品添加物",
+              "例": "ハム・ソーセージなどの発色剤、保存性向上"
+            },
+            {
+              "用途": "工業用途",
+              "例": "染料、ゴム、金属処理、防錆など"
+            },
+            {
+              "用途": "肥料・農業関連",
+              "例": "窒素化合物として関連工程で扱われる"
+            },
+            {
+              "用途": "医療・中毒領域",
+              "例": "一部のシアン中毒治療でメトヘモグロビンを作る目的で使われることがある"
+            }
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "亜硝酸塩曝露による病態の特徴として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene7_o1",
+          "text": "ヘモグロビンを酸化し、酸素運搬能を低下させる。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "nitrite_feature_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "亜硝酸塩はヘモグロビンを酸化してメトヘモグロビンを増加させ、酸素運搬能を低下させる。チアノーゼ、頻呼吸、頻脈などを来し、パルスオキシメータ値は実際の酸素化を正確に反映しないことがある。亜硝酸塩は食品添加物、工業用途、肥料・農業関連、一部の医療用途などで扱われる。"
+        },
+        {
+          "option_id": "scene7_o2",
+          "text": "肺胞を破壊し、緊張性気胸を起こす。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "lung_injury_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "メトヘモグロビン血症の主病態は肺の構造破壊ではなく、ヘモグロビンの酸素運搬障害である。"
+        },
+        {
+          "option_id": "scene7_o3",
+          "text": "曝露者本人以外には影響しない。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "secondary_exposure_ignored"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "scene_safety_risk"
+            ]
+          },
+          "rationale": "化学物質曝露では、同じ作業環境にいた他の作業員にも影響が出る可能性がある。曝露範囲と他傷病者の確認が必要である。"
+        },
+        {
+          "option_id": "scene7_o4",
+          "text": "SpO2が正常なら重症化しない。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "spo2_overtrusted"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "hypoxia_missed"
+            ]
+          },
+          "rationale": "メトヘモグロビン血症では、パルスオキシメータ値が実際の酸素化を正確に反映しないことがある。SpO2だけで重症度を判断しない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "亜硝酸塩を含む肥料を生産する工場で作業中に呼吸困難を来した50歳男性の症例。チアノーゼ、頻呼吸、頻脈、SpO2値と臨床所見の乖離からメトヘモグロビン血症を疑う。メトヘモグロビン血症では、ヘモグロビンが酸化され酸素運搬能が低下するため、パルスオキシメータ値が実際の酸素化を正確に反映しないことがある。救急隊は現場安全を確保し、他作業員への影響を確認しながら、中毒対応可能な医療機関へつなげる。",
+    "ideal_actions": [
+      "出場途上で曝露物質名と他作業員の症状を確認する",
+      "工場内進入前に安全区域を設定する",
+      "呼吸困難、頻呼吸、頻脈、チアノーゼを評価する",
+      "SpO2値だけで酸素化を判断しない",
+      "亜硝酸塩曝露と産業医情報からメトヘモグロビン血症を疑う",
+      "酸素投与を行い、中毒対応可能な医療機関へ搬送する",
+      "同じ作業環境にいた他作業員の曝露可能性を確認する"
+    ],
+    "good_points": [
+      "化学物質曝露現場での二次曝露防止を学べる",
+      "チアノーゼとSpO2値の乖離に気づける",
+      "メトヘモグロビン血症の酸素運搬障害を理解できる",
+      "亜硝酸塩の用途と曝露場面を整理できる"
+    ],
+    "cautions": [
+      "SpO2値だけを信じて重症度を低く見積もらない",
+      "酸素投与は不要と判断しない",
+      "他作業員への曝露可能性を見落とさない",
+      "安全確認前に作業場内へ進入しない",
+      "搬送先を単純に二次救急医療機関へ固定しない"
+    ]
+  }
+}

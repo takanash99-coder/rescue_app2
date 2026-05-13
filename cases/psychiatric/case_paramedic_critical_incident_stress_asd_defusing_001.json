@@ -1,0 +1,726 @@
+{
+  "case_id": "paramedic_critical_incident_stress_asd_defusing_001",
+  "version": "2.0",
+  "title": "交通事故傷病者の死亡を契機に救急隊員の惨事ストレス反応を考える症例",
+  "category": "psychiatric",
+  "difficulty": "Normal",
+  "algorithm_type": "stress_management",
+  "estimated_time": 8,
+  "keywords": [
+    "惨事ストレス",
+    "ストレス反応",
+    "睡眠障害",
+    "再体験",
+    "PTSDとの鑑別",
+    "デフュージング"
+  ],
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "交通事故現場での活動",
+      "phase": "trauma_activity",
+      "scene_goal": "一見安定している外傷傷病者でも、経過中に急変し得ることを確認する。",
+      "ideal_flow": [
+        "現場の安全を確認する",
+        "初期評価を行う",
+        "頭部外傷の所見を確認する",
+        "意識状態を継続評価する",
+        "搬送先を選定する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "trauma",
+        "initial_assessment",
+        "head_injury"
+      ],
+      "text": "救急隊員として交通事故現場に出場した。傷病者は22歳女性。自転車で交差点を青信号で直進中、信号無視の乗用車にはねられた。現場到着時、頭部に挫創を認めたが、意識はJCS1で、呼吸・脈拍・血圧は安定していた。",
+      "visible_data": {
+        "scene_information": {
+          "傷病者": "22歳女性",
+          "事故状況": "自転車走行中に乗用車と衝突",
+          "意識": "JCS1",
+          "外傷所見": "頭部挫創",
+          "呼吸循環": "安定",
+          "初期搬送先": "二次救急医療機関"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で救急隊が特に注意すべき点として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene1_o1",
+          "text": "意識状態の変化を継続して観察する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_monitoring"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "頭部外傷では初期に意識が保たれていても、搬送中に意識低下を来すことがある。継続的な意識評価が重要である。"
+        },
+        {
+          "option_id": "scene1_o2",
+          "text": "意識JCS1なら頭部外傷の評価は不要とする。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "head_injury_underestimated"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_deterioration_missed"
+            ]
+          },
+          "rationale": "意識が軽度障害でも、受傷機転と頭部外傷所見があれば経過観察が必要である。"
+        },
+        {
+          "option_id": "scene1_o3",
+          "text": "血圧が安定していれば搬送中の再評価は省略する。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "reassessment_omitted"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "deterioration_missed"
+            ]
+          },
+          "rationale": "搬送中も意識、呼吸、循環、神経所見を再評価する。血圧安定だけで安全とは判断できない。"
+        },
+        {
+          "option_id": "scene1_o4",
+          "text": "頭部挫創があれば搬送先変更は不要である。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "transport_decision_fixed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "搬送先は傷病者の状態変化に応じて見直す。意識低下などがあれば高次医療機関への変更を検討する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "搬送中の急変",
+      "phase": "transport_reassessment",
+      "scene_goal": "搬送中の意識低下を重症化サインとして捉え、搬送先を切り替える判断を確認する。",
+      "ideal_flow": [
+        "搬送中も意識状態を再評価する",
+        "急激な意識低下を重症化サインとして捉える",
+        "頭蓋内損傷の可能性を考える",
+        "搬送先を高次医療機関へ切り替える",
+        "受け入れ先へ状態変化を連絡する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "transport_change",
+        "neurologic_deterioration",
+        "head_injury"
+      ],
+      "text": "二次救急医療機関を選定し搬送を開始したが、搬送中に傷病者の意識がJCS200へ低下した。隊長は頭蓋内損傷の可能性を考え、三次救急医療機関へ搬送先を切り替えた。",
+      "visible_data": {
+        "transport_change": {
+          "搬送前意識": "JCS1",
+          "搬送中意識": "JCS200",
+          "判断": "三次救急医療機関へ変更",
+          "背景": "交通事故による頭部外傷"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送中の意識低下を受けた対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene2_o1",
+          "text": "高次医療機関への搬送に切り替える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "tertiary_transport_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "頭部外傷後の急激な意識低下は重篤な頭蓋内病変を疑う。高次医療機関への搬送を検討する。"
+        },
+        {
+          "option_id": "scene2_o2",
+          "text": "当初の搬送先を変更せず搬送する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -5,
+          "status_effect": {
+            "add_flags": [
+              "transport_destination_not_revised"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "severe_head_injury"
+            ]
+          },
+          "rationale": "状態が悪化した場合は搬送先を再検討する。意識JCS200への低下は重症化サインである。"
+        },
+        {
+          "option_id": "scene2_o3",
+          "text": "意識低下があってもバイタルが安定していれば経過をみる。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_change_ignored"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "neurologic_worsening"
+            ]
+          },
+          "rationale": "頭部外傷では意識低下自体が重要な重症化サインであり、血圧が保たれていても軽視できない。"
+        },
+        {
+          "option_id": "scene2_o4",
+          "text": "搬送を中断し、現場に戻って再評価する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -4,
+          "status_effect": {
+            "add_flags": [
+              "transport_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": [
+              "definitive_care_delay"
+            ]
+          },
+          "rationale": "搬送中の急変では、必要な処置と連絡を行いながら適切な医療機関へ迅速に搬送する。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "活動後に死亡を知る",
+      "phase": "critical_incident",
+      "scene_goal": "救急隊員が強い心理的負荷を受ける契機を確認する。",
+      "ideal_flow": [
+        "傷病者の死亡を知った事実を整理する",
+        "自責感や無力感が生じ得ることを理解する",
+        "惨事ストレスの契機になり得る活動と捉える",
+        "心身の反応を観察する",
+        "必要時に支援につなげる視点を持つ"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "critical_incident",
+        "paramedic_stress",
+        "psychological_impact"
+      ],
+      "text": "翌日、その救急隊員はニュースで、前日に搬送した傷病者が死亡したことを知った。搬送中の意識低下や、搬送先を切り替えた場面が何度も思い出された。",
+      "visible_data": {
+        "post_event": {
+          "出来事": "搬送した傷病者の死亡をニュースで知る",
+          "心理的反応": "搬送中の場面を繰り返し思い出す",
+          "背景": "若年女性の交通事故死亡"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この救急隊員に生じ得る反応として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene3_o1",
+          "text": "強い心理的負荷によるストレス反応",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "stress_reaction_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "悲惨な事故や傷病者の死亡を経験・認知した後、救急隊員にもストレス反応が生じることがある。"
+        },
+        {
+          "option_id": "scene3_o2",
+          "text": "通常業務なので心理的影響は起こらない",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "stress_denial"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "救急隊員であっても強い心理的負荷を受けることがある。職業経験だけで影響を否定しない。"
+        },
+        {
+          "option_id": "scene3_o3",
+          "text": "本人の性格の問題として扱う",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "individual_blame"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "惨事ストレスは個人の弱さではなく、強い負荷に対する反応として理解する必要がある。"
+        },
+        {
+          "option_id": "scene3_o4",
+          "text": "症状が出るまで活動内容を一切振り返らない",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "support_delayed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "活動後の心身の変化に気づき、必要に応じて早期支援につなげることが重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "ストレス反応の出現",
+      "phase": "symptom_recognition",
+      "scene_goal": "睡眠障害、再体験、動悸、集中困難などのストレス反応を整理する。",
+      "ideal_flow": [
+        "睡眠障害の有無を確認する",
+        "搬送場面の再体験を確認する",
+        "交通事故出場時の動悸を確認する",
+        "集中困難を確認する",
+        "症状の持続期間を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "sleep_disturbance",
+        "reexperiencing",
+        "hyperarousal",
+        "concentration_difficulty"
+      ],
+      "text": "傷病者の死亡を知った2日後から、救急隊員は搬送中の場面を思い出して夜もよく眠れなくなった。交通事故傷病者の対応中に動悸がして、仕事に集中できなくなることもあった。そのような症状はしばらく続いたが、2週間後には落ち着き、集中力も回復した。",
+      "visible_data": {
+        "symptoms": {
+          "出現時期": "死亡を知った2日後から",
+          "睡眠": "夜もよく眠れない",
+          "再体験": "搬送中のことを思い出す",
+          "身体反応": "交通事故対応中に動悸",
+          "仕事への影響": "集中困難",
+          "経過": "2週間後に落ち着き集中力も回復"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この救急隊員にみられる反応として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "scene4_o1",
+          "text": "外傷的出来事後のストレス反応",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "stress_symptoms_identified"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "搬送場面の再体験、不眠、動悸、集中困難は、強い心理的負荷の後にみられるストレス反応として理解できる。"
+        },
+        {
+          "option_id": "scene4_o2",
+          "text": "身体疾患とは無関係な単なる気分不良",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "symptoms_minimized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "症状は活動内容と時間的に関連しており、単なる気分不良として片づけるべきではない。"
+        },
+        {
+          "option_id": "scene4_o3",
+          "text": "救急隊員には通常みられない異常な反応",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "normal_reaction_misunderstood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "惨事ストレス反応は救急隊員にも起こり得る。早期に気づき、必要に応じて支援につなげる。"
+        },
+        {
+          "option_id": "scene4_o4",
+          "text": "本人の努力不足による勤務態度の問題",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "blaming_attitude"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "不眠や再体験、動悸、集中困難は支援の対象となる反応であり、努力不足と決めつけない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "国試の芯：症状名の判断",
+      "phase": "exam_core",
+      "scene_goal": "症状の内容と持続期間から、最も考えられる状態を選択する。",
+      "ideal_flow": [
+        "外傷的出来事との関連を確認する",
+        "症状の内容を確認する",
+        "症状の出現時期を確認する",
+        "症状の持続期間を確認する",
+        "最も適切な症状名を判断する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "exam_core",
+        "stress_disorder",
+        "duration_based_differential"
+      ],
+      "text": "救急隊員は、搬送した交通事故傷病者の死亡を知った後から、不眠、搬送場面の再体験、動悸、集中困難を認めた。それらの症状はしばらく続いたが、2週間後には落ち着いた。",
+      "visible_data": {
+        "exam_information": {
+          "きっかけ": "搬送した交通事故傷病者の死亡",
+          "症状": [
+            "不眠",
+            "搬送場面の想起",
+            "動悸",
+            "集中困難"
+          ],
+          "経過": "2週間後に改善"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この救急隊員の症状として最も考えられるのはどれか。",
+      "options": [
+        {
+          "option_id": "scene5_o1",
+          "text": "パニック障害",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "panic_disorder_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "動悸はあるが、外傷的出来事後の再体験や不眠があり、症状経過からパニック障害よりストレス反応を考える。"
+        },
+        {
+          "option_id": "scene5_o2",
+          "text": "急性ストレス障害",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "acute_stress_disorder_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "外傷的出来事後に再体験、不眠、動悸、集中困難が出現し、2週間で改善しているため急性ストレス障害が最も考えられる。"
+        },
+        {
+          "option_id": "scene5_o3",
+          "text": "急性型の心的外傷後ストレス障害",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "acute_ptsd_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "PTSDは症状が1か月以上続く場合に考える。今回は2週間で改善している点が合わない。"
+        },
+        {
+          "option_id": "scene5_o4",
+          "text": "慢性型の心的外傷後ストレス障害",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "chronic_ptsd_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "慢性型PTSDは症状が長期に持続する場合に考える。今回の2週間で改善した経過とは異なる。"
+        },
+        {
+          "option_id": "scene5_o5",
+          "text": "遅発型の心的外傷後ストレス障害",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "delayed_ptsd_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "遅発型PTSDは外傷体験から時間をおいて発症する場合に考える。今回は死亡を知った直後から症状が出ている。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "判断理由：期間による整理",
+      "phase": "knowledge_review",
+      "scene_goal": "急性ストレス障害とPTSDを、症状の持続期間で整理する。",
+      "ideal_flow": [
+        "症状の出現時期を確認する",
+        "症状の持続期間を確認する",
+        "1か月未満かどうかを確認する",
+        "PTSDとの違いを整理する",
+        "期間だけでなく生活への影響も確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "duration",
+        "acute_stress_disorder",
+        "ptsd_differential"
+      ],
+      "text": "この症例では、搬送した傷病者の死亡を知った後にストレス反応が出現したが、2週間後には症状が落ち着き、集中力も回復している。",
+      "visible_data": {
+        "duration_review": {
+          "症状出現": "死亡を知った2日後から",
+          "症状内容": "不眠、再体験、動悸、集中困難",
+          "改善": "2週間後",
+          "整理": "1か月未満で改善"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "PTSDではなく急性ストレス障害と判断するうえで、最も重要な情報はどれか。",
+      "options": [
+        {
+          "option_id": "scene6_o1",
+          "text": "症状が2週間で落ち着いたこと",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "duration_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "症状が1か月未満で改善している点が重要である。PTSDは一般に症状が1か月以上持続する場合に考える。"
+        },
+        {
+          "option_id": "scene6_o2",
+          "text": "交通事故傷病者を搬送したこと",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "trigger_only_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "外傷的出来事はきっかけとして重要だが、PTSDとの区別では症状の持続期間が重要である。"
+        },
+        {
+          "option_id": "scene6_o3",
+          "text": "搬送中に意識低下があったこと",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "clinical_event_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "意識低下は活動の心理的負荷には関係するが、症状名の判断では隊員自身の症状と期間を見る。"
+        },
+        {
+          "option_id": "scene6_o4",
+          "text": "勤務中に動悸を感じたこと",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "single_symptom_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "動悸は症状の一つだが、PTSDとの鑑別では症状全体の経過と持続期間が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "惨事ストレスへの早期支援",
+      "phase": "stress_support",
+      "scene_goal": "惨事ストレスに対する早期支援として、デフュージングの位置づけを理解する。",
+      "ideal_flow": [
+        "惨事ストレスの存在を認める",
+        "活動後早期に隊員同士で共有する場を設ける",
+        "体験や感情を無理なく話せる環境を整える",
+        "責めずに受け止める",
+        "必要に応じて専門的支援につなげる"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "defusing",
+        "critical_incident_stress",
+        "peer_support",
+        "organizational_support"
+      ],
+      "text": "所属では、強い心理的負荷を受ける活動の後に、関わった隊員同士で早期に集まり、体験や反応を共有する機会を設けている。目的は、隊員を責めることではなく、ストレスの発散と早期支援につなげることである。",
+      "visible_data": {
+        "support_review": {
+          "対象": "同じ活動に関わった隊員",
+          "時期": "活動後早期",
+          "目的": "ストレス軽減、反応の共有、早期支援",
+          "注意": "責任追及ではなく支援として行う"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "災害・外傷活動後の早期支援として、活動後おおむね短時間内に隊員同士で自由に話し合い、ストレス軽減を図る対応はどれか。",
+      "options": [
+        {
+          "option_id": "scene7_o1",
+          "text": "デフュージング",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "defusing_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "デフュージングは、活動後早期に同じ活動に関わった隊員が集まり、体験や反応を共有してストレス軽減を図る支援である。"
+        },
+        {
+          "option_id": "scene7_o2",
+          "text": "心理的デブリーフィング",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "debriefing_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "心理的デブリーフィングは、専門家が関与して心理的負担の軽減を図る支援であり、デフュージングとは実施時期や実施者が異なる。"
+        },
+        {
+          "option_id": "scene7_o3",
+          "text": "バイスタンダーサポート",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bystander_support_confused"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "バイスタンダーサポートは、救急現場に居合わせた一般市民などへの支援を指す。隊員同士の早期支援とは異なる。"
+        },
+        {
+          "option_id": "scene7_o4",
+          "text": "パワーハラスメント相談",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wrong_support_framework"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ハラスメント相談は職場問題への対応であり、惨事ストレスに対する活動後早期の隊員間支援とは目的が異なる。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "若年女性の交通事故傷病者を搬送し、翌日に死亡を知った救急隊員に不眠、再体験、動悸、集中困難が出現した症例。症状は死亡を知った直後から出現し、2週間後には落ち着いているため、急性ストレス障害が最も考えられる。強い心理的負荷を受ける活動後は、個人の弱さとして扱わず、デフュージングなどの早期支援につなげることが重要である。",
+    "ideal_actions": [
+      "外傷活動後の心理的負荷を認識する",
+      "不眠、再体験、動悸、集中困難などの症状を把握する",
+      "症状の出現時期と持続期間を確認する",
+      "2週間で改善している点から急性ストレス障害を考える",
+      "活動後早期に隊員同士で体験や反応を共有するデフュージングを理解する",
+      "症状が持続・悪化する場合は専門的支援につなげる"
+    ],
+    "good_points": [
+      "救急隊員自身もストレス反応の対象であることを学べる",
+      "ASDとPTSDを期間で整理できる",
+      "デフュージングと心理的デブリーフィングの違いを確認できる"
+    ],
+    "cautions": [
+      "症状を本人の弱さや努力不足と決めつけない",
+      "PTSDと判断する前に症状の持続期間を確認する",
+      "活動後支援は責任追及ではなく心理的負担軽減を目的とする",
+      "症状が長引く場合や業務に支障が続く場合は専門的支援を検討する"
+    ]
+  }
+}

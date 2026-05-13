@@ -1,0 +1,495 @@
+{
+  "case_id": "elderly_head_injury_anticoagulant_refusal_001",
+  "version": "2.0",
+  "title": "高齢者頭部外傷で抗凝固薬内服を確認し搬送交渉を行う症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "algorithm_type": "外傷プロトコル",
+  "estimated_time": 7,
+  "keywords": [
+    "高齢者頭部外傷",
+    "抗凝固薬",
+    "搬送拒否",
+    "遅発性頭蓋内出血",
+    "施設内転倒"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "高齢者の頭部打撲では、意識消失がなくても頭蓋内出血リスクを意識して出場する。",
+      "ideal_flow": [
+        "施設内転倒の状況を把握する",
+        "頭部打撲として軽視しない",
+        "職員に安静保持を依頼する",
+        "意識状態や嘔吐、麻痺の有無を観察するよう依頼する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "elderly_trauma"
+      ],
+      "text": "82歳男性。施設内の廊下で誤って転倒し、後頭部を打撲した。意識消失はなく、転倒後も普段と同じ様子だったが、心配した施設職員が救急要請した。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "高齢者施設の廊下",
+          "通報者": "施設職員",
+          "主訴": "転倒による後頭部打撲",
+          "意識消失": "なしとの情報",
+          "現在の様子": "普段と大きく変わらない"
+        },
+        "pac": {
+          "指示": [
+            "無理に歩かせず安静にする",
+            "意識状態の変化を観察する",
+            "嘔吐や麻痺、強い頭痛がないか確認する",
+            "内服薬情報を準備する"
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で最も意識すべきことはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "高齢者頭部外傷として慎重に評価する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "高齢者の頭部打撲では、意識消失がなくても頭蓋内出血の可能性を考えて評価する。"
+        },
+        {
+          "option_id": "b",
+          "text": "意識消失がないため搬送不要と決める",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "意識消失がないだけで頭蓋内出血リスクを否定することはできない。"
+        },
+        {
+          "option_id": "c",
+          "text": "歩行できるかだけを確認する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "歩行可否だけでなく、受傷機転、頭部所見、既往、内服薬の確認が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "外傷ではなく内因性疾患としてのみ対応する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "転倒後の後頭部打撲であり、まず頭部外傷として評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "観察と次に確認すべき情報",
+      "phase": "assessment",
+      "scene_goal": "一見安定していても、転倒状況・既往・内服薬を確認する必要性を理解する。",
+      "ideal_flow": [
+        "状況評価を行う",
+        "後頭部の負傷部位を確認する",
+        "バイタルサインを確認する",
+        "神経症状の有無を確認する",
+        "搬送可否を判断する前に既往と内服薬を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "assessment",
+        "head_injury",
+        "medication_check"
+      ],
+      "text": "傷病者は廊下脇の椅子に座っている。意識は清明で会話可能。後頭部に鶏卵大の皮下血腫を認める。本人は『大丈夫だから病院はいらない』と話している。",
+      "visible_data": {
+        "scene_assessment": {
+          "受傷機転": "施設内廊下で転倒し後頭部を打撲",
+          "意識": "清明",
+          "呼吸数": "20回/分",
+          "脈拍": "92回/分、不整",
+          "血圧": "140/88mmHg",
+          "SpO2": "95%",
+          "負傷部位": "後頭部に鶏卵大の皮下血腫",
+          "麻痺": "明らかな麻痺なし",
+          "嘔吐": "なし",
+          "本人の希望": "搬送拒否"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で次に優先すべき対応はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "転倒状況・既往・内服薬を確認する",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "見た目が安定していても、高齢者頭部外傷では受傷状況、既往、内服薬が搬送判断に重要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "本人が拒否しているため活動を終了する",
+          "is_correct": false,
+          "score_delta": -6,
+          "rationale": "拒否があっても、リスクを説明するために必要な情報収集を行う必要がある。"
+        },
+        {
+          "option_id": "c",
+          "text": "SpO2が95％なので高濃度酸素を投与する",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "主問題は頭部外傷リスクであり、この状況で高濃度酸素が最優先ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "皮下血腫のみなので搬送不要と判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "皮下血腫のみと決めつけず、抗凝固薬などのリスク因子を確認する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "本人・施設職員への対話式確認",
+      "phase": "dialogue",
+      "scene_goal": "本人の拒否理由を尊重しつつ、施設職員から既往・内服薬を確認し、搬送の必要性を丁寧に説明する。",
+      "ideal_flow": [
+        "本人の搬送拒否理由を確認する",
+        "転倒時の状況を施設職員から確認する",
+        "意識消失、頭痛、嘔吐、麻痺の有無を確認する",
+        "既往歴と内服薬を確認する",
+        "抗凝固薬内服による遅発性頭蓋内出血リスクを説明する",
+        "威圧せず、検査の必要性を伝えて搬送受諾につなげる"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": [
+        "dialogue",
+        "negotiation",
+        "anticoagulant",
+        "transport_refusal"
+      ],
+      "text": "本人は搬送を拒否している。本人と施設職員に必要な確認を行い、リスクを丁寧に説明して搬送につなげよう。",
+      "visible_data": {
+        "current_status": {
+          "本人": "意識清明、会話可能、搬送拒否あり",
+          "施設職員": "転倒状況と普段の情報を把握している",
+          "課題": "搬送拒否に対する丁寧な説明"
+        }
+      },
+      "media": [],
+      "type": "dialogue",
+      "prompt": "本人と施設職員に質問・説明して、搬送判断に必要な情報を集めよう。",
+      "dialogue": {
+        "max_turns": 10,
+        "targets": [
+          {
+            "target_id": "patient",
+            "label": "傷病者本人",
+            "recommended_framework": "拒否理由の確認とリスク説明",
+            "persona": {
+              "age": 82,
+              "sex": "男性",
+              "attitude": "少し頑固で、病院に行くのを面倒がっている",
+              "reliability": "現在の自覚症状については答えられるが、薬の名前は曖昧"
+            }
+          },
+          {
+            "target_id": "staff",
+            "label": "施設職員",
+            "recommended_framework": "SAMPLE",
+            "persona": {
+              "attitude": "心配しており協力的",
+              "reliability": "転倒状況、既往、内服薬を把握している"
+            }
+          }
+        ],
+        "answers": [
+          {
+            "id": "patient_refusal_reason",
+            "target_id": "patient",
+            "category": "拒否理由",
+            "keywords": ["行きたくない", "理由", "病院", "どうして", "拒否"],
+            "response": "いや、病院なんて大げさだよ。頭は少し痛いけど、いつも通りだし、行かなくていい。",
+            "score_tag": "refusal_reason"
+          },
+          {
+            "id": "patient_symptoms_headache",
+            "target_id": "patient",
+            "category": "自覚症状",
+            "keywords": ["頭痛", "痛み", "頭", "どこが痛い"],
+            "response": "ぶつけたところは痛いけど、我慢できるくらいだよ。",
+            "score_tag": "headache"
+          },
+          {
+            "id": "patient_symptoms_vomiting",
+            "target_id": "patient",
+            "category": "嘔吐",
+            "keywords": ["吐き気", "嘔吐", "気持ち悪い", "吐いた"],
+            "response": "吐き気はないし、吐いてもいないよ。",
+            "score_tag": "vomiting"
+          },
+          {
+            "id": "patient_neuro_symptoms",
+            "target_id": "patient",
+            "category": "神経症状",
+            "keywords": ["しびれ", "麻痺", "手足", "力", "ろれつ"],
+            "response": "手足は普通に動くよ。しびれもない。",
+            "score_tag": "neuro_symptoms"
+          },
+          {
+            "id": "patient_explanation_bad",
+            "target_id": "patient",
+            "category": "不適切な説明",
+            "keywords": ["絶対", "行きなさい", "拒否できない", "危ないから黙って"],
+            "response": "そんな言い方をされるなら、なおさら行きたくないね。",
+            "score_tag": "poor_communication"
+          },
+          {
+            "id": "patient_explanation_good_anticoagulant",
+            "target_id": "patient",
+            "category": "リスク説明",
+            "keywords": ["血をさらさら", "薬", "出血", "後から", "頭の中", "検査", "安全"],
+            "response": "薬のせいで、後から頭の中で出血することがあるのか……。それなら診てもらった方が安心なのかな。",
+            "score_tag": "risk_explanation"
+          },
+          {
+            "id": "patient_accept_transport",
+            "target_id": "patient",
+            "category": "搬送受諾",
+            "keywords": ["検査", "確認", "安全", "念のため", "一度診てもらう"],
+            "response": "そこまで心配なら、一度診てもらうよ。職員さんにも迷惑かけたくないしね。",
+            "score_tag": "transport_acceptance"
+          },
+          {
+            "id": "staff_mechanism",
+            "target_id": "staff",
+            "category": "受傷機転",
+            "keywords": ["転倒", "どう転んだ", "状況", "見ていた", "機転"],
+            "response": "廊下で足を滑らせるように後ろへ倒れて、後頭部を床にぶつけました。",
+            "score_tag": "mechanism"
+          },
+          {
+            "id": "staff_loss_of_consciousness",
+            "target_id": "staff",
+            "category": "意識消失",
+            "keywords": ["意識消失", "気を失った", "失神", "すぐ反応"],
+            "response": "気を失った様子はなく、すぐに返事をしていました。",
+            "score_tag": "loc"
+          },
+          {
+            "id": "staff_baseline",
+            "target_id": "staff",
+            "category": "普段との違い",
+            "keywords": ["普段", "いつも", "変化", "様子"],
+            "response": "今のところ会話は普段と変わりません。ただ、頭をぶつけているので心配です。",
+            "score_tag": "baseline"
+          },
+          {
+            "id": "staff_past_history",
+            "target_id": "staff",
+            "category": "既往歴",
+            "keywords": ["既往", "病気", "心房細動", "持病"],
+            "response": "心房細動があります。",
+            "score_tag": "past_history"
+          },
+          {
+            "id": "staff_medication_general",
+            "target_id": "staff",
+            "category": "内服薬",
+            "keywords": ["薬", "内服", "飲んでいる", "服薬", "薬手帳"],
+            "response": "心房細動の薬を飲んでいます。薬手帳もあります。",
+            "score_tag": "medication"
+          },
+          {
+            "id": "staff_anticoagulant",
+            "target_id": "staff",
+            "category": "抗凝固薬",
+            "keywords": ["抗凝固", "血液さらさら", "ワーファリン", "DOAC", "アピキサバン", "リバーロキサバン", "エドキサバン", "ダビガトラン"],
+            "response": "血液をさらさらにする薬を飲んでいます。薬手帳では抗凝固薬と書かれています。",
+            "score_tag": "anticoagulant"
+          },
+          {
+            "id": "staff_transport_concern",
+            "target_id": "staff",
+            "category": "職員の心配",
+            "keywords": ["心配", "搬送", "病院", "どうしたい"],
+            "response": "ご本人は嫌がっていますが、薬のこともあるので病院で診てもらった方がいいと思っています。",
+            "score_tag": "staff_concern"
+          }
+        ],
+        "must_ask": [
+          "mechanism",
+          "loc",
+          "headache",
+          "vomiting",
+          "neuro_symptoms",
+          "past_history",
+          "medication",
+          "anticoagulant",
+          "refusal_reason",
+          "risk_explanation"
+        ],
+        "fallback": "すみません、そこまではわかりません。"
+      }
+    },
+    {
+      "id": "scene4",
+      "title": "国試問題の芯：搬送を強く勧める理由",
+      "phase": "exam_core",
+      "scene_goal": "軽症に見える頭部外傷でも、抗凝固薬内服が搬送判断に重要であることを理解する。",
+      "ideal_flow": [
+        "高齢者頭部外傷を軽視しない",
+        "現在の意識やバイタルだけで安全と判断しない",
+        "抗凝固薬内服をリスク因子として捉える",
+        "遅発性頭蓋内出血を疑い搬送を勧める"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "exam_core",
+        "anticoagulant",
+        "head_injury"
+      ],
+      "text": "施設職員から、傷病者には心房細動の既往があり、抗凝固薬を服用していることが確認できた。本人は意識清明で症状も軽いと話しているが、後頭部には皮下血腫がある。",
+      "visible_data": {
+        "key_findings": {
+          "年齢": "82歳",
+          "受傷": "後頭部打撲",
+          "意識": "清明",
+          "バイタル": "大きな破綻なし",
+          "局所所見": "後頭部皮下血腫",
+          "既往": "心房細動",
+          "内服": "抗凝固薬"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に搬送を強く勧める理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "高齢であること",
+          "is_correct": false,
+          "score_delta": 2,
+          "rationale": "高齢は重要な背景だが、この症例で搬送を強く勧める最大の理由は抗凝固薬内服である。"
+        },
+        {
+          "option_id": "b",
+          "text": "血圧が140/88mmHgであること",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "この血圧値だけで頭部外傷後の搬送を強く勧める理由にはなりにくい。"
+        },
+        {
+          "option_id": "c",
+          "text": "SpO2が95％であること",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "SpO2 95％は注意して観察するが、頭蓋内出血リスクを直接示す所見ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "後頭部に皮下血腫があること",
+          "is_correct": false,
+          "score_delta": 2,
+          "rationale": "皮下血腫は頭部打撲の所見として重要だが、抗凝固薬内服ほど強い搬送理由ではない。"
+        },
+        {
+          "option_id": "e",
+          "text": "抗凝固薬を服用していること",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "抗凝固薬内服中は頭部外傷後に頭蓋内出血を起こすリスクがあり、搬送を強く勧める理由となる。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "病態理解：抗凝固薬と遅発性頭蓋内出血",
+      "phase": "pathophysiology",
+      "scene_goal": "抗凝固薬内服中の高齢者頭部外傷では、意識清明でも遅発性頭蓋内出血を疑う必要があることを理解する。",
+      "ideal_flow": [
+        "抗凝固薬は出血を止まりにくくすることを理解する",
+        "高齢者では症状が遅れて出ることがあると理解する",
+        "意識清明でも頭蓋内出血を否定できないと理解する",
+        "搬送拒否時は威圧せずリスクを説明する",
+        "本人の意思を尊重しながら安全な選択を促す"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "delayed_intracranial_hemorrhage",
+        "communication"
+      ],
+      "text": "抗凝固薬を服用している傷病者では、頭部外傷後に出血が止まりにくくなる。受傷直後に意識がはっきりしていても、後から頭蓋内出血の症状が出ることがある。搬送を拒否している場合も、本人の不安や希望を聞いたうえで、医学的リスクをわかりやすく説明することが重要である。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "背景": "高齢者頭部外傷",
+          "重要因子": "抗凝固薬内服",
+          "リスク": "遅発性頭蓋内出血",
+          "注意点": "意識清明でも否定できない",
+          "対応": "丁寧な説明と医療機関受診の勧め"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送拒否がある傷病者への説明として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "薬の影響で後から頭の中に出血することがあるため、検査を勧める",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "抗凝固薬内服中の頭部外傷では、遅発性頭蓋内出血のリスクを説明し、医療機関受診を勧める。"
+        },
+        {
+          "option_id": "b",
+          "text": "本人が拒否しているので、リスク説明は不要である",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "拒否があっても、判断に必要な医学的リスクを説明することが重要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "意識が清明なら頭蓋内出血は否定できると説明する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "意識清明でも頭蓋内出血を否定できず、後から症状が出ることがある。"
+        },
+        {
+          "option_id": "d",
+          "text": "年齢だけを理由に強制搬送すると説明する",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "威圧的な説明ではなく、抗凝固薬内服と頭部外傷のリスクを具体的に伝える。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "施設内で転倒し後頭部を打撲した82歳男性の症例。意識清明でバイタルも大きく破綻していないが、心房細動に対して抗凝固薬を服用していることが重要なリスクとなる。抗凝固薬内服中の頭部外傷では、受傷直後に症状が軽くても遅発性頭蓋内出血を来す可能性がある。搬送拒否がある場合は、本人の意思を尊重しつつ、後から悪化する可能性を丁寧に説明して搬送を勧める。",
+    "ideal_actions": [
+      "高齢者頭部外傷として慎重に評価する",
+      "受傷機転、意識消失、頭痛、嘔吐、麻痺の有無を確認する",
+      "既往歴と内服薬を確認する",
+      "抗凝固薬内服を頭蓋内出血リスクとして捉える",
+      "搬送拒否の理由を確認する",
+      "威圧せず、遅発性頭蓋内出血のリスクをわかりやすく説明する",
+      "医療機関での評価を強く勧める"
+    ],
+    "good_points": [
+      "見た目が軽症でも、抗凝固薬内服でリスクが上がることを理解できる",
+      "搬送拒否に対して、情報収集と説明を組み合わせて対応できる",
+      "本人と施設職員の両方から情報を取る重要性を学べる",
+      "高齢者頭部外傷で遅発性頭蓋内出血を意識できる"
+    ],
+    "cautions": [
+      "意識清明だから安全と判断しない",
+      "本人の拒否だけで活動を終了しない",
+      "皮下血腫の大きさだけで重症度を判断しない",
+      "威圧的な言い方で搬送を迫らない",
+      "抗凝固薬の有無を確認し忘れない"
+    ]
+  }
+}

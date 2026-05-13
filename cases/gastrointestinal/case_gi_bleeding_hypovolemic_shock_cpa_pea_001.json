@@ -1,0 +1,474 @@
+{
+  "case_id": "gi_bleeding_hypovolemic_shock_cpa_pea_001",
+  "version": "2.0",
+  "title": "大量下血から循環血液量減少性ショックを来しCPAへ移行した症例",
+  "category": "gastrointestinal",
+  "difficulty": "Normal",
+  "algorithm_type": "心停止対応プロトコル",
+  "estimated_time": 8,
+  "keywords": [
+    "大量下血",
+    "循環血液量減少性ショック",
+    "CPA",
+    "PEA",
+    "胸骨圧迫"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場前判断",
+      "phase": "dispatch",
+      "scene_goal": "大量下血という通報内容から、出場前に循環血液量減少性ショックと急変リスクを想定する。",
+      "ideal_flow": [
+        "大量下血という情報から重症出血を想定する",
+        "反応低下があるためショックやCPA移行の危険を考える",
+        "家族に安全確保と状態観察を依頼する",
+        "反応や呼吸がなくなった場合は口頭指導につなげる"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch_assessment",
+        "pac",
+        "shock_prediction"
+      ],
+      "text": "80歳男性。自宅トイレで大量に下血し、家族が救急要請した。家族は「便器が血で真っ赤になっていて、本人の反応がかなり悪い」と話している。",
+      "visible_data": {
+        "dispatch_information": {
+          "場所": "自宅",
+          "通報者": "家族",
+          "主訴": "大量下血、反応低下",
+          "追加情報": "顔色が悪く、呼びかけへの反応が弱い"
+        },
+        "pac": {
+          "指示": [
+            "周囲の安全を確保する",
+            "傷病者を無理に立たせない",
+            "反応と呼吸の有無を観察する",
+            "反応や呼吸がなくなった場合はすぐに伝える"
+          ]
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で最も強く想定しておくべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "循環血液量減少性ショック",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "大量下血では急速な循環血液量低下によりショックやCPAへ移行する危険がある。"
+        },
+        {
+          "option_id": "b",
+          "text": "気道異物による窒息",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "呼吸状態の確認は必要だが、通報内容の中心は大量下血であり、まず出血性ショックを想定する。"
+        },
+        {
+          "option_id": "c",
+          "text": "熱中症による意識障害",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "環境因子よりも、大量下血という明確な循環不全リスクを優先して考える。"
+        },
+        {
+          "option_id": "d",
+          "text": "低血糖による意識障害",
+          "is_correct": false,
+          "score_delta": -2,
+          "rationale": "意識障害の鑑別にはなるが、この時点では大量出血に伴うショックを最も疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "接触時のショック認識",
+      "phase": "primary_assessment",
+      "scene_goal": "顔面蒼白、冷汗、反応低下、末梢脈拍触知困難から重度ショックを認識する。",
+      "ideal_flow": [
+        "第一印象で重症と判断する",
+        "意識、気道、呼吸、循環を速やかに確認する",
+        "皮膚所見と末梢循環からショックを疑う",
+        "CPA移行に備えて資器材と人員配置を整える"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "primary_assessment",
+        "shock",
+        "circulation_assessment"
+      ],
+      "text": "救急隊が接触すると、傷病者はトイレ近くの床上で仰臥位となっていた。顔面は蒼白で冷汗を認める。呼びかけに開眼せず、痛み刺激でわずかに体動がある。周囲には血液を含む便が多量に認められる。",
+      "visible_data": {
+        "initial_assessment": {
+          "意識": "JCS100",
+          "気道": "明らかな閉塞音なし",
+          "呼吸": "浅く、回数は少ない",
+          "循環": "橈骨動脈は触知困難",
+          "皮膚所見": "顔面蒼白、冷汗あり",
+          "周囲の状況": "血液を含む便が多量"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も疑うべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "大量下血による循環血液量減少性ショック",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "大量下血、蒼白、冷汗、末梢脈拍触知困難から、重度の循環血液量減少性ショックを疑う。"
+        },
+        {
+          "option_id": "b",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "過換気を示す所見ではなく、出血と循環不全を示す所見が中心である。"
+        },
+        {
+          "option_id": "c",
+          "text": "一過性脳虚血発作",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "意識障害はあるが、大量下血とショック所見から循環不全を優先する。"
+        },
+        {
+          "option_id": "d",
+          "text": "急性薬物中毒",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "薬物暴露を示す情報はなく、大量下血によるショックが最も自然である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "ショック悪化とCPA直前の判断",
+      "phase": "deterioration",
+      "scene_goal": "血圧測定困難、頻脈、意識障害から代償破綻に近い状態を理解する。",
+      "ideal_flow": [
+        "意識レベル低下と呼吸の浅さを再評価する",
+        "血圧測定困難を重度循環不全として捉える",
+        "頻脈は代償反応である可能性を考える",
+        "CPAへ移行する危険を想定して心停止対応の準備を進める"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "reassessment",
+        "decompensated_shock",
+        "cpa_preparation"
+      ],
+      "text": "車内収容を急ぐ準備中、傷病者の反応はさらに乏しくなった。呼吸は浅く、脈拍は非常に速い。血圧は測定できない。",
+      "visible_data": {
+        "vitals": {
+          "意識": "JCS100",
+          "呼吸数": "12回/分、浅い",
+          "脈拍": "144回/分",
+          "血圧": "測定不能",
+          "皮膚": "冷感、湿潤あり"
+        },
+        "clinical_interpretation": {
+          "状態": "重度ショック、CPA移行リスクが高い"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この状態の理解として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "出血性ショックが進行し、代償が破綻しつつある",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "血圧測定不能、頻脈、意識障害、冷汗は重度ショックを示し、CPA直前の状態と考える。"
+        },
+        {
+          "option_id": "b",
+          "text": "血圧が測定できないため、重症度は判断できない",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "血圧測定不能自体が重度循環不全を示す重要所見であり、判断を保留してはいけない。"
+        },
+        {
+          "option_id": "c",
+          "text": "脈拍が速いため、循環は保たれている",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "頻脈は代償反応であり、血圧測定不能や意識障害があれば循環は保たれていない。"
+        },
+        {
+          "option_id": "d",
+          "text": "呼吸数が12回/分なので、緊急性は低い",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "呼吸数だけで判断せず、浅い呼吸、意識障害、循環不全を総合して重症と判断する。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "CPAの認識",
+      "phase": "cardiac_arrest_recognition",
+      "scene_goal": "反応なし、自発呼吸なし、頸動脈拍動なしからCPAと判断する。",
+      "ideal_flow": [
+        "反応消失を確認する",
+        "正常な呼吸がないことを確認する",
+        "頸動脈拍動を確認する",
+        "心停止と判断し、直ちに蘇生処置へ移行する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "cardiac_arrest",
+        "breathing_check",
+        "pulse_check"
+      ],
+      "text": "観察中に傷病者の反応が消失した。胸郭の動きはなく、自発呼吸を認めない。頸動脈の拍動も触知できない。",
+      "visible_data": {
+        "reassessment": {
+          "反応": "なし",
+          "自発呼吸": "なし",
+          "頸動脈拍動": "触知せず",
+          "状況": "心停止が疑われる"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な判断はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "CPAと判断し、直ちに心肺蘇生を開始する",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "反応なし、自発呼吸なし、頸動脈拍動なしであり、CPAとして直ちに対応する。"
+        },
+        {
+          "option_id": "b",
+          "text": "意識障害として血糖測定を優先する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "すでに無呼吸・脈拍なしであり、意識障害の鑑別より心停止対応が優先される。"
+        },
+        {
+          "option_id": "c",
+          "text": "血圧を再測定してから判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "心停止所見がそろっており、血圧測定で蘇生開始を遅らせてはいけない。"
+        },
+        {
+          "option_id": "d",
+          "text": "搬送を開始してから処置を行う",
+          "is_correct": false,
+          "score_delta": -6,
+          "rationale": "CPAでは直ちに胸骨圧迫を開始し、蘇生処置を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "心停止直後の初手",
+      "phase": "initial_cpr",
+      "scene_goal": "CPA認識後、最初に胸骨圧迫を開始する判断を身につける。",
+      "ideal_flow": [
+        "CPAを認識する",
+        "直ちに胸骨圧迫を開始する",
+        "BVM換気、AEDまたは除細動器準備、応援要請を並行して進める",
+        "静脈路確保は胸骨圧迫開始後に役割分担して行う"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "cpr",
+        "chest_compression",
+        "team_resuscitation"
+      ],
+      "text": "傷病者は反応なし、自発呼吸なし、頸動脈拍動なし。隊員がモニター装着と換気準備を進めている。",
+      "visible_data": {
+        "cardiac_arrest_status": {
+          "反応": "なし",
+          "呼吸": "なし",
+          "脈拍": "頸動脈触知せず",
+          "直ちに必要な対応": "心肺蘇生の開始"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "まず行うべき処置はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "胸骨圧迫",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "CPAを認識したら、最初に質の高い胸骨圧迫を開始する。"
+        },
+        {
+          "option_id": "b",
+          "text": "除細動",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "除細動は適応波形を確認して行う。脈なしの初期対応として胸骨圧迫を遅らせてはいけない。"
+        },
+        {
+          "option_id": "c",
+          "text": "酸素投与のみ",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "酸素化は重要だが、CPAでは胸骨圧迫開始が最優先である。"
+        },
+        {
+          "option_id": "d",
+          "text": "静脈路確保",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "静脈路確保は必要だが、胸骨圧迫開始後に並行して行う処置である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "モニター波形とPEAの理解",
+      "phase": "rhythm_assessment",
+      "scene_goal": "電気活動があっても脈拍がなければPEAを疑い、除細動ではなくCPR継続が必要と理解する。",
+      "ideal_flow": [
+        "胸骨圧迫を継続しながらモニターを確認する",
+        "組織化された波形があることを確認する",
+        "頸動脈拍動がないことと合わせてPEAを疑う",
+        "除細動ではなくCPR継続と原因検索を優先する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": [
+        "rhythm_check",
+        "pea",
+        "non_shockable_rhythm"
+      ],
+      "text": "胸骨圧迫を開始し、心電図モニターを装着した。画面には規則的な電気活動が表示されている。しかし、頸動脈拍動は触知できない。",
+      "visible_data": {
+        "monitor": {
+          "心電図波形": "規則的な電気活動あり",
+          "頸動脈拍動": "触知せず",
+          "解釈": "脈拍を伴わない電気活動を疑う"
+        }
+      },
+      "media": [
+        "media/gi_bleeding_cpa_monitor_scene6.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この波形と身体所見から最も考えるべき状態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "PEA",
+          "is_correct": true,
+          "score_delta": 15,
+          "rationale": "組織化された電気活動があっても脈拍がなければ、PEAとしてCPRを継続する。"
+        },
+        {
+          "option_id": "b",
+          "text": "心室細動",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "心室細動は無秩序な波形であり、規則的な電気活動とは異なる。"
+        },
+        {
+          "option_id": "c",
+          "text": "自己心拍再開",
+          "is_correct": false,
+          "score_delta": -6,
+          "rationale": "波形があっても頸動脈拍動が触知できなければ、自己心拍再開とは判断できない。"
+        },
+        {
+          "option_id": "d",
+          "text": "洞性頻脈で循環は保たれている",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "電気活動が規則的でも、脈拍がなければ有効な循環は保たれていない。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解：大量下血からPEAへ",
+      "phase": "pathophysiology",
+      "scene_goal": "大量下血による循環血液量低下が、PEAに至る機序を理解する。",
+      "ideal_flow": [
+        "大量下血により循環血液量が低下する",
+        "静脈還流と前負荷が低下する",
+        "心臓に電気活動があっても有効な拍出が得られなくなる",
+        "PEAでは除細動ではなくCPRと原因対応を優先する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": [
+        "pathophysiology",
+        "hemorrhagic_shock",
+        "reversible_causes"
+      ],
+      "text": "大量下血では、体内を循環する血液量が急激に減少する。心臓に戻る血液が不足すると、電気活動が残っていても有効な拍出ができず、脈拍を触知できない状態になる。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "原因": "大量下血",
+          "主病態": "循環血液量減少性ショック",
+          "心停止波形": "PEAを疑う",
+          "対応": "胸骨圧迫、換気、原因検索、搬送準備"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例でPEAに至った機序として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "循環血液量低下により有効な心拍出が得られなくなった",
+          "is_correct": true,
+          "score_delta": 10,
+          "rationale": "大量下血により前負荷が低下し、電気活動があっても有効な拍出が得られずPEAとなる。"
+        },
+        {
+          "option_id": "b",
+          "text": "心室が無秩序に興奮し、除細動が最優先となった",
+          "is_correct": false,
+          "score_delta": -4,
+          "rationale": "心室細動ではなく、規則的な電気活動と脈拍なしからPEAを考える。"
+        },
+        {
+          "option_id": "c",
+          "text": "気道閉塞により換気だけが障害された",
+          "is_correct": false,
+          "score_delta": -3,
+          "rationale": "換気障害も心停止原因になるが、この症例の主因は大量下血による循環血液量低下である。"
+        },
+        {
+          "option_id": "d",
+          "text": "高血圧により心拍出量が過剰になった",
+          "is_correct": false,
+          "score_delta": -5,
+          "rationale": "血圧は測定不能であり、高血圧ではなく重度の循環不全が中心である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "大量下血により循環血液量減少性ショックを来し、代償が破綻してCPAへ移行した症例。反応なし、自発呼吸なし、頸動脈拍動なしでCPAと判断し、まず胸骨圧迫を開始する。モニター上に規則的な電気活動があっても脈拍がなければPEAを疑い、除細動ではなくCPR継続と原因対応を優先する。",
+    "ideal_actions": [
+      "大量下血から循環血液量減少性ショックを想定する",
+      "顔面蒼白、冷汗、末梢脈拍触知困難から重度ショックを認識する",
+      "反応なし、自発呼吸なし、頸動脈拍動なしでCPAと判断する",
+      "CPA認識後は直ちに胸骨圧迫を開始する",
+      "モニター波形と脈拍の有無を合わせてPEAを判断する",
+      "PEAではCPR継続、換気、原因検索、搬送準備を並行して進める"
+    ],
+    "good_points": [
+      "大量下血からショック、CPAへ進行する流れを理解できる",
+      "波形だけでなく、反応・呼吸・脈拍で心停止を判断できる",
+      "電気活動があっても有効循環がないPEAを理解できる"
+    ],
+    "cautions": [
+      "モニターに波形が出ていても、脈拍がなければ有効循環があるとは判断しない",
+      "CPA認識後に血圧測定や静脈路確保を優先して胸骨圧迫を遅らせない",
+      "PEAでは除細動ではなく、質の高いCPRと原因検索が重要である"
+    ]
+  }
+}

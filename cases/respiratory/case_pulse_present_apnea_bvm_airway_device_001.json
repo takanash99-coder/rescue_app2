@@ -1,0 +1,737 @@
+{
+  "case_id": "case_pulse_present_apnea_bvm_airway_device_001",
+  "version": "2.0",
+  "title": "脈あり無呼吸の高齢女性に対するBVM換気と気道管理デバイスの検討",
+  "category": "respiratory",
+  "difficulty": "Easy",
+  "algorithm_type": "呼吸不全・意識障害対応プロトコル",
+  "estimated_time": 8,
+  "keywords": [
+    "脈あり無呼吸",
+    "BVM換気",
+    "気道確保",
+    "気道管理デバイス",
+    "地域プロトコール"
+  ],
+  "overview": "75歳女性。家族から意識がないとの通報で救急隊が出場した。現着時、呼びかけに反応はなく、呼吸は認めないが頸動脈拍動は触知できた。CPAではなく脈あり無呼吸として評価し、まずバッグ・バルブ・マスクによる換気補助を行う判断が学習の中心である。さらに、呼吸停止が続く場合には地域プロトコールに基づく気道管理デバイスの検討も扱う。",
+  "patient_profile": {
+    "age": 75,
+    "sex": "女性",
+    "chief_complaint": "意識障害",
+    "background": "家族が自宅で意識のない状態に気づき救急要請した。既往歴や内服薬は現時点では不明。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "apnea",
+      "altered_consciousness",
+      "airway_risk"
+    ],
+    "time_pressure": "high"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "脈あり無呼吸を正しく判断し、BVM換気と気道管理の優先順位まで的確に整理できている。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "初期対応は良好。地域プロトコール下の気道管理デバイスの考え方も概ね理解できている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "BVM換気の必要性は理解できているが、CPAとの切り分けや再評価をもう少し整理したい。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "一部の判断は適切だが、脈あり無呼吸の処置優先順位に迷いがある。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "呼吸なし＝即CPAと決めつけず、脈拍の有無と換気補助を復習したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場途上確認",
+      "phase": "dispatch",
+      "scene_goal": "意識なし通報に対して、反応と呼吸の有無を確認する。",
+      "ideal_flow": [
+        "反応の有無を確認する",
+        "呼吸の有無を確認する",
+        "普段どおりの呼吸かを確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "dispatch",
+        "unconscious",
+        "breathing_check"
+      ],
+      "text": "家族から『母が倒れていて、声をかけても反応がありません』と通報があった。家族は動揺しており、呼吸の有無ははっきり確認できていない。",
+      "visible_data": {
+        "dispatch_information": "75歳女性。自宅で意識がない状態で発見。",
+        "caller_information": [
+          "呼びかけに反応なし",
+          "呼吸の有無は不明",
+          "家族が同室にいる"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で家族へ確認・指示する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "反応と普段どおりの呼吸があるか確認してもらう。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "breathing_status_checked"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "意識なし通報では、反応と正常呼吸の有無を確認し、CPA疑いかを判断する。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "水分を飲ませて反応を確認してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "aspiration_risk"
+            ]
+          },
+          "rationale": "意識障害では誤嚥の危険があり、飲水は不適切である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "歩けるか確認するため立たせてもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "fall_risk"
+            ]
+          },
+          "rationale": "意識がない傷病者を立たせる対応は危険である。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "救急隊到着まで体に触れず待ってもらう。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_assessment"
+            ]
+          },
+          "rationale": "通報段階でも反応や呼吸の確認は重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "呼吸停止と脈拍触知から、脈あり無呼吸を判断する。",
+      "ideal_flow": [
+        "呼びかけへの反応を確認する",
+        "呼吸の有無を確認する",
+        "頸動脈拍動を確認する",
+        "CPAではなく脈あり無呼吸として判断する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "primary_survey",
+        "apnea",
+        "pulse_present"
+      ],
+      "text": "救急隊到着時、傷病者は仰臥位で倒れている。呼びかけに反応はなく、胸郭の動きは認めない。頸動脈拍動は触知できる。",
+      "visible_data": {
+        "consciousness": "呼びかけに反応なし",
+        "breathing": "呼吸なし",
+        "pulse": "頸動脈拍動を触知",
+        "position": "仰臥位"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の状態として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "脈あり無呼吸",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "pulse_present_apnea_identified"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸はないが頸動脈拍動を触知するため、CPAではなく脈あり無呼吸と判断する。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "心肺機能停止",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "misclassified_cpa"
+            ]
+          },
+          "rationale": "呼吸はないが脈拍を触知しており、CPAとは判断しない。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "軽症の失神",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "呼吸がなく意識反応もないため、軽症失神として扱う状況ではない。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "過換気状態",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸がないため、過換気状態ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "必要な資器材の選択",
+      "phase": "national_exam_core",
+      "scene_goal": "脈あり無呼吸に対して必要な換気資器材を選択する。",
+      "ideal_flow": [
+        "呼吸停止を重視する",
+        "脈拍があるため胸骨圧迫資器材を優先しない",
+        "BVMによる換気補助を選択する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "bvm",
+        "ventilation",
+        "national_exam_core"
+      ],
+      "text": "傷病者は呼びかけに反応がなく、呼吸は認めないが、頸動脈拍動は触知できる。換気補助が必要な状態である。",
+      "visible_data": {
+        "current_status": [
+          "反応なし",
+          "呼吸なし",
+          "頸動脈拍動あり"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者の処置に必要な資器材はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "AED",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "脈拍を触知しており、まず必要なのは除細動ではなく換気補助である。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "気管内チューブ",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "この場面で最初に選択する資器材はBVMであり、気管挿管を最優先とはしない。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "自動式心マッサージ器",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "unnecessary_compression_device"
+            ]
+          },
+          "rationale": "脈拍を触知しており、胸骨圧迫を行う状態ではない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "リザーバ付き酸素マスク",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "oxygen_without_ventilation"
+            ]
+          },
+          "rationale": "呼吸がないため、酸素投与だけでは換気を確保できない。"
+        },
+        {
+          "option_id": "s3_o5",
+          "text": "バッグ・バルブ・マスク",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "bvm_selected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "脈あり無呼吸では、まずBVMで人工換気を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "BVM換気の実施",
+      "phase": "airway_management",
+      "scene_goal": "BVM換気を行う際の基本手順を整理する。",
+      "ideal_flow": [
+        "気道を確保する",
+        "マスクを密着させる",
+        "胸郭挙上を確認する",
+        "過換気を避ける"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "bvm_technique",
+        "airway_opening",
+        "ventilation_check"
+      ],
+      "text": "BVMを準備し、換気補助を開始する。呼吸停止があるため、酸素を接続して人工換気を行う必要がある。",
+      "visible_data": {
+        "equipment": [
+          "BVM",
+          "酸素",
+          "吸引器",
+          "気道確保資器材"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "BVM換気を行う際に確認すべき点として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "胸郭が挙上しているか確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "effective_ventilation_confirmed"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "有効な換気が行えているかは、胸郭挙上やSpO2、換気抵抗などで確認する。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "できるだけ速い頻度で換気する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "hyperventilation"
+            ]
+          },
+          "rationale": "過換気は胸腔内圧上昇や循環悪化につながるため避ける。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "マスクの密着よりバッグの圧迫を優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "mask_leak"
+            ]
+          },
+          "rationale": "マスク密着が不十分だと有効な換気が得られにくい。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "呼吸がないため胸骨圧迫を開始する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "unnecessary_cpr"
+            ]
+          },
+          "rationale": "脈拍を触知しているため、まず換気補助を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "気道管理デバイスの検討",
+      "phase": "advanced_airway_consideration",
+      "scene_goal": "呼吸停止が続く場合、地域プロトコールに基づく気道管理デバイスを検討する。",
+      "ideal_flow": [
+        "BVM換気の有効性を評価する",
+        "換気維持が難しい場合を想定する",
+        "地域プロトコールで認められた気道管理デバイスを検討する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "airway_device",
+        "medical_control",
+        "local_protocol"
+      ],
+      "text": "BVM換気を開始したが、呼吸停止は続いている。換気の維持が難しい場面や長時間の管理が必要な場面では、地域プロトコールに基づく気道管理デバイスの使用を検討する。",
+      "visible_data": {
+        "consideration": [
+          "呼吸停止が続く",
+          "BVM換気の有効性を継続評価",
+          "地域プロトコールの確認が必要",
+          "医師の具体的指示が必要となる場合がある"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で気道管理デバイスを検討する際の考え方として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "地域プロトコールで認められた器具を適応に沿って検討する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "local_protocol_considered"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "気道管理デバイスの使用は、適応や手順、指示体系を含めて地域プロトコールに従う。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "脈拍があれば気道管理デバイスは一切検討しない。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "呼吸停止や換気不十分が続く場合、地域の適応に従って検討する余地がある。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "現場判断だけで気管内チューブを使用する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "protocol_violation"
+            ]
+          },
+          "rationale": "気管挿管を含む特定行為は適応や指示体系が厳格であり、独断で行うものではない。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "換気状態を確認せず器具選択を優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "poor_reassessment"
+            ]
+          },
+          "rationale": "まずBVM換気の有効性を確認し、状況に応じて次の気道管理を検討する。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "原因検索",
+      "phase": "clinical_reasoning",
+      "scene_goal": "脈あり無呼吸の背景にある原因を考える。",
+      "ideal_flow": [
+        "換気補助を継続する",
+        "原因検索を並行する",
+        "低血糖・中毒・脳血管障害などを考える"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "clinical_reasoning",
+        "apnea_cause",
+        "reassessment"
+      ],
+      "text": "BVM換気により胸郭挙上は得られている。脈拍は触知できるが、自発呼吸は戻らない。家族から既往歴や内服薬を確認する必要がある。",
+      "visible_data": {
+        "current_status": [
+          "BVM換気で胸郭挙上あり",
+          "頸動脈拍動あり",
+          "自発呼吸なし",
+          "原因は未確定"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この状態の原因検索として考慮すべきものはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "脳血管障害、薬物中毒、低血糖などを並行して確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cause_search_started"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "脈あり無呼吸では換気補助を継続しながら、意識障害や呼吸停止の原因検索を行う。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "呼吸がないため原因検索は不要である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "missed_cause"
+            ]
+          },
+          "rationale": "処置と並行して原因検索を行う必要がある。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "失神と判断し、換気を中止して経過を見る。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "ventilation_stopped"
+            ]
+          },
+          "rationale": "呼吸停止が続いており、換気補助を中止してはならない。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "脈拍があるため緊急性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "脈拍があっても呼吸停止は生命危機であり、緊急性は高い。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "CPAへの切り替え判断",
+      "phase": "reassessment",
+      "scene_goal": "換気補助中の再評価とCPA移行時の対応を理解する。",
+      "ideal_flow": [
+        "脈拍を定期的に再評価する",
+        "呼吸再開の有無を確認する",
+        "脈拍消失時はCPA対応へ移行する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "reassessment",
+        "cpa_transition",
+        "continuous_monitoring"
+      ],
+      "text": "換気補助を継続しながら、脈拍、呼吸、意識状態を再評価する。脈拍が触知できなくなった場合は、ただちにCPA対応へ切り替える必要がある。",
+      "visible_data": {
+        "reassessment_points": [
+          "頸動脈拍動",
+          "自発呼吸",
+          "意識反応",
+          "胸郭挙上",
+          "SpO2"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "搬送準備中に頸動脈拍動が触知できなくなった場合の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "CPA対応へ切り替え、胸骨圧迫を開始する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cpa_transition_done"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "脈拍が触知できなくなればCPAとして扱い、胸骨圧迫を開始する。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "脈拍確認をやめ、BVM換気だけを続ける。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "cpa_missed"
+            ]
+          },
+          "rationale": "脈拍消失を見逃すとCPA対応が遅れる。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "リザーバ付き酸素マスクに変更する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "ventilation_insufficient"
+            ]
+          },
+          "rationale": "呼吸停止またはCPAでは酸素マスクのみでは不十分である。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "家族からの情報収集を優先する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_cpr"
+            ]
+          },
+          "rationale": "脈拍消失時は直ちにCPA対応へ移行する。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "75歳女性が意識なしで発見された症例。現着時、呼びかけに反応はなく呼吸もなかったが、頸動脈拍動は触知できた。これはCPAではなく脈あり無呼吸であり、まずバッグ・バルブ・マスクによる人工換気が必要である。BVM換気の有効性を確認し、呼吸停止が続く場合には地域プロトコールに基づき気道管理デバイスの使用も検討する。脈拍が触知できなくなればCPA対応へ切り替える。",
+    "ideal_actions": [
+      "通報段階で反応と正常呼吸の有無を確認する。",
+      "現着時に呼吸の有無と頸動脈拍動を確認する。",
+      "呼吸なし・脈拍ありを脈あり無呼吸として判断する。",
+      "BVMを選択し、酸素を接続して人工換気を開始する。",
+      "BVM換気ではマスク密着と胸郭挙上を確認する。",
+      "換気維持が難しい場合は、地域プロトコールに基づき気道管理デバイスを検討する。",
+      "脳血管障害、薬物中毒、低血糖など原因検索を並行する。",
+      "脈拍が消失した場合はCPA対応へ切り替える。"
+    ],
+    "good_points": [
+      "国試の芯であるBVM選択をScene3で明確に扱っている。",
+      "呼吸なし＝即CPAではなく、脈拍確認によって脈あり無呼吸を切り分ける構成にしている。",
+      "地域プロトコールに基づく気道管理デバイスの検討を入れ、現場運用に近づけている。"
+    ],
+    "cautions": [
+      "呼吸がなくても脈拍が触知できる場合は、胸骨圧迫より換気補助を優先する。",
+      "リザーバ付き酸素マスクは自発呼吸がない傷病者の換気確保には不十分である。",
+      "気管挿管や気道管理デバイスは、適応・指示体系・地域プロトコールを確認して扱う。",
+      "換気補助中も脈拍と呼吸の再評価を継続し、CPA移行を見逃さない。"
+    ]
+  }
+}

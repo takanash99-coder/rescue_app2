@@ -1,0 +1,428 @@
+{
+  "case_id": "trauma_lower_leg_compartment_syndrome_5p_001",
+  "version": "2.0",
+  "title": "飲酒後転落し長時間経過した右下腿外傷で急性阻血症状の5Pを評価する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 9,
+  "keywords": [
+    "下腿外傷",
+    "急性コンパートメント症候群",
+    "急性阻血症状",
+    "5P",
+    "脈拍消失"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "飲酒後の転落を単なる酩酊として扱わず、外傷と長時間経過による障害を想定する。",
+      "ideal_flow": [
+        "飲酒後の転落として受傷機転を確認する",
+        "転落後から発見まで時間が経過している点に注意する",
+        "傷病者を無理に歩かせない",
+        "反応・呼吸・強い疼痛の有無を確認してもらう"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "38歳の男性。大量飲酒後に階段から転落し、そのまま就寝していた。翌朝、右下腿の痛みを訴えたため、家族が救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "大量飲酒後に階段から転落した",
+          "転落後、そのまま就寝していた",
+          "翌朝になって右下腿痛を訴えている",
+          "家族が救急要請している"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "通報内容から、救急隊が特に注意すべき点はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "大量飲酒後であるため、意識や訴えは酩酊の影響として扱う。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "飲酒により症状が隠れることがあり、外傷や圧迫による障害を見逃してはならない。"
+        },
+        {
+          "option_id": "2",
+          "text": "転落後に長時間経過しており、外傷や圧迫による障害を疑う。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "転落後に長時間同じ姿勢でいた可能性があり、局所の圧迫や下腿損傷による緊急性を考える。"
+        },
+        {
+          "option_id": "3",
+          "text": "翌朝まで就寝できていたため、緊急性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "就寝していたことは安全を意味せず、飲酒により症状の自覚や訴えが遅れた可能性がある。"
+        },
+        {
+          "option_id": "4",
+          "text": "右下腿痛が主訴であるため、家族に歩行状態を確認してもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "強い下腿痛がある場合、不用意な歩行確認は避ける。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価と情報収集",
+      "phase": "scene_size_up",
+      "scene_goal": "転落後の経過と下腿圧迫の可能性を確認し、病態把握につなげる。",
+      "ideal_flow": [
+        "転落後から発見までの経過を確認する",
+        "右下腿が圧迫されていた可能性を確認する",
+        "飲酒による訴えの遅れを考慮する",
+        "局所損傷と全身状態を分けて評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "history_and_scene_assessment",
+      "text": "家族によると、傷病者は深夜に階段から転落した後、『大丈夫』と言ってそのまま寝室で眠った。朝になって右下腿の強い痛みとしびれを訴えている。",
+      "visible_data": {
+        "scene_information": [
+          "深夜に階段から転落した",
+          "転落後から翌朝まで時間が経過している",
+          "大量飲酒があった",
+          "右下腿の痛みとしびれを訴えている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "病態把握のため、家族から追加で確認すべき情報として最も重要なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "転落後、右下腿が長時間圧迫されていたか。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "長時間圧迫は筋区画内圧上昇や循環障害につながる可能性があり、病態把握に重要である。"
+        },
+        {
+          "option_id": "2",
+          "text": "飲酒後に嘔吐があったか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "誤嚥リスクの評価として重要だが、この場面では右下腿の緊急性評価には直結しにくい。"
+        },
+        {
+          "option_id": "3",
+          "text": "階段のどの段でつまずいたか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "受傷機転の参考にはなるが、現在の右下腿症状の病態把握では圧迫時間の確認がより重要である。"
+        },
+        {
+          "option_id": "4",
+          "text": "普段から足がつりやすいか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "既往の情報として参考になる場合はあるが、外傷後の強い疼痛としびれの評価では優先度が下がる。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "生命危機を短時間で確認し、初期評価後に右下腿の重点観察へ進む判断をする。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "気道の開通を確認する",
+        "呼吸様式を確認する",
+        "橈骨動脈の触知を確認する",
+        "大量外出血の有無を確認する",
+        "初期評価後に局所損傷の重点観察へ移る"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment",
+      "text": "傷病者は呼びかけに開眼し、簡単な会話は可能である。気道は開通している。呼吸はやや速いが、明らかな努力呼吸はない。橈骨動脈は触知可能で、大量外出血は認めない。右下腿痛を強く訴えている。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに開眼する",
+          "簡単な会話は可能である",
+          "気道は開通している",
+          "呼吸はやや速い",
+          "明らかな努力呼吸はない",
+          "橈骨動脈は触知可能である",
+          "大量外出血はない",
+          "右下腿痛を強く訴えている"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価で生命危機を示す異常は明らかでない。右下腿に局所損傷が疑われる場合、次に行う観察として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "詳細観察",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "詳細観察は車内収容後などに行う詳細な観察であり、この場面では局所の重点観察が優先される。"
+        },
+        {
+          "option_id": "2",
+          "text": "重点観察",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "初期評価で明らかな生命危機がなく、局所損傷が疑われる場合は、その部位を中心に重点観察を行う。"
+        },
+        {
+          "option_id": "3",
+          "text": "継続観察",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "継続観察は搬送中などに状態変化を追う観察であり、まず右下腿の重点観察が必要である。"
+        },
+        {
+          "option_id": "4",
+          "text": "搬送後観察",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "搬送後まで待たず、現場または車内で局所損傷を評価する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "重点観察と5P",
+      "phase": "focused_assessment",
+      "scene_goal": "右下腿の重点観察から急性阻血症状の5Pを整理する。",
+      "ideal_flow": [
+        "右下腿の腫脹と緊満を確認する",
+        "疼痛と異常感覚を確認する",
+        "足趾の運動を確認する",
+        "末梢循環を確認する",
+        "急性阻血症状の5Pを整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "focused_assessment_5p",
+      "text": "右下腿の重点観察を行う。右下腿に皮下出血、変形、著明な緊満を認める。傷病者は強い疼痛を訴え、右足のしびれがある。足趾は動かしにくい。",
+      "visible_data": {
+        "focused_findings": [
+          "右下腿に皮下出血がある",
+          "右下腿に変形がある",
+          "右下腿は著明に緊満している",
+          "強い疼痛を訴えている",
+          "右足のしびれがある",
+          "足趾を動かしにくい"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "急性阻血症状の5Pとして誤っているものはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "疼痛",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "疼痛は急性阻血症状の5Pに含まれる。"
+        },
+        {
+          "option_id": "2",
+          "text": "熱感",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "急性阻血症状の5Pに含まれるのは熱感ではなく蒼白である。"
+        },
+        {
+          "option_id": "3",
+          "text": "異常感覚",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "異常感覚は急性阻血症状の5Pに含まれる。"
+        },
+        {
+          "option_id": "4",
+          "text": "運動麻痺",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "運動麻痺は急性阻血症状の5Pに含まれる。"
+        },
+        {
+          "option_id": "5",
+          "text": "脈拍消失",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "脈拍消失は急性阻血症状の5Pに含まれるが、遅れて出現することがある。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "緊急性判断",
+      "phase": "urgency_decision",
+      "scene_goal": "右下腿の強い疼痛、緊満、しびれ、運動障害から緊急性を判断する。",
+      "ideal_flow": [
+        "右下腿の緊満を重視する",
+        "疼痛としびれを重視する",
+        "運動障害を確認する",
+        "脈拍消失を待たずに緊急性を判断する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "urgency_decision_limb_ischemia",
+      "text": "右下腿は著明に緊満し、強い疼痛、しびれ、足趾の動かしにくさを認める。",
+      "visible_data": {
+        "urgency_findings": [
+          "右下腿の著明な緊満",
+          "強い疼痛",
+          "しびれ",
+          "足趾の動かしにくさ"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この所見から判断する対応として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "足背動脈が触れる場合でも、緊急性の高い下腿障害を否定しない。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "脈拍消失は遅れて出現することがあり、疼痛・しびれ・緊満・運動障害を重視して判断する。"
+        },
+        {
+          "option_id": "2",
+          "text": "皮下出血があるため、冷却のみで経過をみる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "皮下出血だけでなく、緊満や神経症状を伴っており、冷却のみでの経過観察は不適切である。"
+        },
+        {
+          "option_id": "3",
+          "text": "飲酒後の訴えであれば、しびれは酩酊によるものと判断する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "飲酒後であっても、外傷後のしびれや運動障害を酩酊だけで説明してはならない。"
+        },
+        {
+          "option_id": "4",
+          "text": "足趾が少しでも動けば、血流障害は否定できる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "軽度の運動が残っていても、進行する下腿障害を否定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "国試の芯と病態理解",
+      "phase": "core_question",
+      "scene_goal": "急性コンパートメント症候群で最も遅れて出現する症候を理解する。",
+      "ideal_flow": [
+        "筋区画内圧上昇を考える",
+        "疼痛や異常感覚が早期から重要であることを理解する",
+        "脈拍消失は遅れて出現することを理解する",
+        "足背動脈触知の有無だけで判断しない"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "exam_core_pathophysiology",
+      "text": "右下腿の疼痛、異常感覚、運動麻痺、著明な緊満を認め、進行した下腿の循環障害が疑われる。",
+      "visible_data": {
+        "core_findings": [
+          "右下腿の疼痛",
+          "異常感覚",
+          "運動麻痺",
+          "著明な緊満",
+          "足背動脈は触知しない"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態で最も遅れて出現する症候はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "疼痛",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "疼痛は比較的早期から重要な所見となる。"
+        },
+        {
+          "option_id": "2",
+          "text": "脈拍消失",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "脈拍消失は高度に進行してからみられる遅い所見であり、これを待って判断してはならない。"
+        },
+        {
+          "option_id": "3",
+          "text": "皮下出血",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "皮下出血は外傷所見であり、遅れて出現する急性阻血症状の中心ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "異常感覚",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "異常感覚は神経障害を示す重要な早期所見として扱う。"
+        },
+        {
+          "option_id": "5",
+          "text": "運動麻痺",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "運動麻痺は進行を示す重要所見だが、脈拍消失より前に問題となることがある。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "38歳男性が大量飲酒後に階段から転落し、そのまま就寝して翌朝に右下腿痛を訴えた症例。右下腿には皮下出血、変形、著明な緊満があり、疼痛、しびれ、足趾の動かしにくさを認めた。急性阻血症状の5Pを整理し、脈拍消失は遅れて出現する所見であるため、脈拍消失を待たずに緊急性を判断することが学習の中心である。",
+    "ideal_actions": [
+      "飲酒による症状と決めつけず、外傷と長時間圧迫を疑う",
+      "転落後に右下腿が圧迫されていた可能性を確認する",
+      "初期評価で生命危機を確認したうえで重点観察へ進む",
+      "右下腿の緊満、疼痛、しびれ、運動障害を重視する",
+      "急性阻血症状の5Pを整理する",
+      "脈拍消失は遅れて出現することを理解する",
+      "足背動脈触知の有無だけで安心しない"
+    ],
+    "good_points": [
+      "飲酒後の転落を単なる酩酊として扱わない視点を学べる",
+      "初期評価から重点観察へ進む流れを確認できる",
+      "急性阻血症状の5Pを整理できる",
+      "脈拍消失を待たずに緊急性を判断する重要性を学べる"
+    ],
+    "cautions": [
+      "飲酒後の訴えを酩酊だけで説明しない",
+      "足背動脈が触れる場合でも重症下腿障害を否定しない",
+      "冷却のみで経過観察しない",
+      "脈拍消失を待ってから判断しない",
+      "右下腿の強い疼痛、緊満、しびれ、運動障害を軽視しない"
+    ]
+  }
+}

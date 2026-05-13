@@ -1,0 +1,462 @@
+{
+  "case_id": "trauma_fall_6m_pelvic_fracture_shock_prediction_001",
+  "version": "2.0",
+  "title": "6m墜落後、骨盤骨折によるショック進行を予測し骨盤固定を判断する症例",
+  "category": "trauma",
+  "difficulty": "Normal",
+  "estimated_time": 10,
+  "keywords": [
+    "高所墜落",
+    "骨盤骨折",
+    "出血性ショック",
+    "骨盤固定",
+    "全身観察"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "6m墜落を高エネルギー外傷として捉え、同僚への適切な口頭指導を選択する。",
+      "ideal_flow": [
+        "高所墜落を重症外傷として捉える",
+        "傷病者を不用意に動かさない",
+        "反応と呼吸を確認してもらう",
+        "落下物や作業現場の安全を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac",
+      "text": "52歳の男性。建築作業中に6mの高さから墜落し、同僚が救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "建築作業中に6mの高さから墜落した",
+          "同僚が通報している",
+          "傷病者は腰部から左下肢の痛みを訴えている",
+          "作業現場内での事故である"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "同僚への口頭指導として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "傷病者を楽な姿勢にするため、同僚に上体を起こしてもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "高所墜落では脊椎・骨盤損傷を想定し、不用意に動かさない。"
+        },
+        {
+          "option_id": "2",
+          "text": "落下物などに注意して安全を確保し、傷病者を動かさず反応と呼吸を確認してもらう。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "高所墜落では現場安全を確保し、無理に動かさず反応と呼吸を確認する。"
+        },
+        {
+          "option_id": "3",
+          "text": "左下肢が痛い場合は、同僚に下肢を引っ張って長さをそろえてもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "無理な整復操作は損傷や出血を悪化させる可能性がある。"
+        },
+        {
+          "option_id": "4",
+          "text": "意識があるなら、本人に立てるか確認して歩かせてもらう。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "高エネルギー外傷では歩行確認を優先しない。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "状況評価と受傷機転の確認",
+      "phase": "scene_size_up",
+      "scene_goal": "墜落外傷で損傷の程度を推測するために、受傷機転を具体的に確認する。",
+      "ideal_flow": [
+        "墜落高さを確認する",
+        "接地時の体位を確認する",
+        "接地した部位を確認する",
+        "地面の性状や中間障害物の有無を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "mechanism_assessment",
+      "text": "現場は建築作業現場である。傷病者は地面に仰臥位で倒れており、周囲には作業資材がある。墜落した高さは約6mと同僚から聴取した。",
+      "visible_data": {
+        "scene_findings": [
+          "建築作業現場での墜落である",
+          "墜落高さは約6mである",
+          "傷病者は地面に倒れている",
+          "周囲に作業資材がある"
+        ],
+        "important_mechanism_points": [
+          "墜落の高さ",
+          "地面の性状",
+          "墜落時の体位",
+          "中間障害物の有無"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "損傷の程度を推測するために追加で確認すべき情報として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "墜落時の体位と接地した部位。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "墜落では接地時の体位や接地部位が損傷部位や重症度の推測に直結する。"
+        },
+        {
+          "option_id": "2",
+          "text": "墜落後に本人が訴える痛みの強さ。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "痛みの強さも重要だが、受傷機転の重症度評価としては接地状況の確認がより直接的である。"
+        },
+        {
+          "option_id": "3",
+          "text": "作業中に使用していた保護具の種類。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "保護具の情報も参考になるが、損傷の程度を推測するには体位や接地部位の確認が優先される。"
+        },
+        {
+          "option_id": "4",
+          "text": "墜落前に体調不良があったか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "墜落原因の把握には重要だが、外傷の重症度評価としては接地状況の確認が優先される。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "初期評価",
+      "phase": "primary_survey",
+      "scene_goal": "初期評価で生命危機を確認し、高所墜落として全身観察へ進む判断をする。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "気道の開通を確認する",
+        "呼吸様式を確認する",
+        "橈骨動脈の触知を確認する",
+        "大量外出血の有無を確認する",
+        "高所墜落として全身観察へ進む"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment",
+      "text": "傷病者は呼びかけに明瞭に応答する。気道は開通しており、呼吸様式に明らかな異常はない。橈骨動脈は触知可能で、大量外出血は認めない。腰部から左下肢の強い疼痛を訴える。",
+      "visible_data": {
+        "initial_assessment": [
+          "呼びかけに明瞭に応答する",
+          "気道は開通している",
+          "呼吸様式に明らかな異常はない",
+          "橈骨動脈は触知可能である",
+          "大量外出血はない",
+          "腰部から左下肢の強い疼痛を訴える"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "初期評価後の対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "初期評価に異常がないため、左下肢のみを観察して搬送する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "高所墜落では初期評価が安定していても全身観察が必要である。"
+        },
+        {
+          "option_id": "2",
+          "text": "痛みのある左下肢を動かして、関節可動域を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "無理な可動域確認は損傷を悪化させる可能性がある。"
+        },
+        {
+          "option_id": "3",
+          "text": "高所墜落として脊椎運動制限を意識し、全身観察へ進む。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "高エネルギー外傷として、脊椎・骨盤・胸腹部などを系統的に観察する。"
+        },
+        {
+          "option_id": "4",
+          "text": "意識清明であるため、本人に座位をとらせて問診を優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "意識清明でも重症外傷は否定できず、不用意な体位変換は避ける。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "全身観察と国試の芯",
+      "phase": "whole_body_assessment",
+      "scene_goal": "人体図で骨盤部と下肢所見を確認し、骨盤骨折に伴うショック進行を予測する。",
+      "ideal_flow": [
+        "頭部から下肢まで系統的に観察する",
+        "骨盤部の圧痛を確認する",
+        "左下肢短縮と疼痛を確認する",
+        "骨盤損傷による出血性ショックの可能性を考える",
+        "骨盤動揺を繰り返し確認しない"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "pelvic_assessment_exam_core",
+      "text": "全身観察を行う。人体図で骨盤部と下肢を確認すると、仙腸関節部と恥骨部に圧痛を認める。両下肢に明らかな変形はないが、左下肢は短縮し、疼痛のため動かせない。",
+      "visible_data": {
+        "body_map_template": "media/neutral_mannequin_body_diagram_template.png",
+        "body_regions": [
+          {
+            "region_id": "head_face",
+            "label": "頭部・顔面",
+            "finding": "明らかな大量外出血や顔面変形はない。",
+            "clinical_meaning": "頭部顔面の明らかな重症所見は目立たない。"
+          },
+          {
+            "region_id": "neck_spine",
+            "label": "頚部・脊椎",
+            "finding": "頚部の明らかな変形はない。高所墜落のため脊椎損傷は否定しない。",
+            "clinical_meaning": "外見上異常がなくても脊椎運動制限を意識する。"
+          },
+          {
+            "region_id": "chest",
+            "label": "胸部",
+            "finding": "明らかな胸郭変形や開放創はない。",
+            "clinical_meaning": "胸部外傷の明らかな所見は乏しいが、継続評価は必要である。"
+          },
+          {
+            "region_id": "abdomen",
+            "label": "腹部",
+            "finding": "腹部膨隆や強い腹部圧痛は目立たない。",
+            "clinical_meaning": "腹部所見は目立たないが、内出血は外表だけでは否定できない。"
+          },
+          {
+            "region_id": "pelvis",
+            "label": "骨盤部",
+            "finding": "仙腸関節部と恥骨部に圧痛を認める。",
+            "clinical_meaning": "骨盤骨折を疑う重要所見である。骨盤動揺の反復確認は避ける。"
+          },
+          {
+            "region_id": "lower_extremities",
+            "label": "下肢",
+            "finding": "両下肢に明らかな変形はない。左下肢は短縮し、疼痛のため動かせない。",
+            "clinical_meaning": "骨盤部または股関節周囲の損傷を疑う。"
+          },
+          {
+            "region_id": "back",
+            "label": "背部",
+            "finding": "背部観察は必要だが、骨盤損傷が疑われるため体位変換は慎重に行う。",
+            "clinical_meaning": "不用意なログロールは骨盤損傷を悪化させる可能性がある。"
+          }
+        ]
+      },
+      "media": [
+        "media/neutral_mannequin_body_diagram_template.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この傷病者について正しいのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "下肢外固定を行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "左下肢短縮はあるが、仙腸関節部・恥骨部圧痛から骨盤損傷を優先して考える。"
+        },
+        {
+          "option_id": "2",
+          "text": "骨盤動揺を確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "骨盤動揺の確認は損傷や出血を悪化させる可能性があり、反復して行わない。"
+        },
+        {
+          "option_id": "3",
+          "text": "安定型骨盤骨折を想定する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "高所墜落と骨盤部圧痛、左下肢短縮から不安定な骨盤損傷を疑う。"
+        },
+        {
+          "option_id": "4",
+          "text": "ショックの進行が予測される。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "骨盤骨折では骨盤内や後腹膜への出血により、初期評価が安定していてもショックへ進行することがある。"
+        },
+        {
+          "option_id": "5",
+          "text": "背面観察はログロールで行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "骨盤損傷が疑われる場合、不用意なログロールは避け、体位変換は慎重に行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "骨盤固定手技",
+      "phase": "treatment_decision",
+      "scene_goal": "骨盤骨折が疑われる傷病者に対し、適切な骨盤固定具の装着位置を選択する。",
+      "ideal_flow": [
+        "骨盤骨折を疑ったら骨盤固定を検討する",
+        "骨盤動揺の反復確認を避ける",
+        "大転子の高さで固定する",
+        "無理な下肢整復を行わない"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "pelvic_binder_application",
+      "text": "全身観察から骨盤骨折が疑われた。骨盤固定具を使用して固定する方針とした。",
+      "visible_data": {
+        "treatment_context": [
+          "仙腸関節部と恥骨部に圧痛がある",
+          "左下肢短縮がある",
+          "疼痛のため左下肢を動かせない",
+          "骨盤損傷による出血を考慮する"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "骨盤固定具を使用する際の対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "腸骨稜の高さで締める。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "骨盤固定具は腸骨稜ではなく大転子の高さで固定する。"
+        },
+        {
+          "option_id": "2",
+          "text": "大転子の高さで固定する。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "骨盤輪を安定させるため、骨盤固定具は大転子の高さで装着する。"
+        },
+        {
+          "option_id": "3",
+          "text": "固定前に骨盤動揺を繰り返し確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "骨盤動揺の反復確認は出血や損傷を悪化させる可能性がある。"
+        },
+        {
+          "option_id": "4",
+          "text": "左下肢短縮を徒手整復してから固定する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "rationale": "無理な整復は損傷や出血の悪化につながるため避ける。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態理解",
+      "phase": "clinical_reasoning",
+      "scene_goal": "骨盤骨折でショックが進行し得る理由と出血量を理解する。",
+      "ideal_flow": [
+        "骨盤骨折では外表出血が少なくても内出血を考える",
+        "骨盤内や後腹膜への出血を理解する",
+        "初期評価が安定していてもショックが進行し得ると考える",
+        "早期固定と迅速搬送の必要性を理解する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "pathophysiology_understanding",
+      "text": "骨盤骨折では、外表から大量出血が見えなくても、骨盤内や後腹膜へ大量出血していることがある。",
+      "visible_data": {
+        "clinical_focus": [
+          "骨盤骨折",
+          "後腹膜出血",
+          "出血性ショック",
+          "骨盤固定"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "骨盤骨折でショックが進行し得る理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "骨盤内や後腹膜に大量出血をきたすことがあるため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "骨盤骨折では1,000〜4,000mL規模の出血が起こり得るため、初期評価が安定していてもショック進行に注意する。"
+        },
+        {
+          "option_id": "2",
+          "text": "骨盤痛により必ず呼吸停止へ進行するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "疼痛で呼吸が浅くなることはあるが、ショック進行の主因ではない。"
+        },
+        {
+          "option_id": "3",
+          "text": "左下肢短縮があると脳圧が急上昇するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "左下肢短縮は骨盤部や股関節周囲の損傷を示唆するが、脳圧上昇の直接原因ではない。"
+        },
+        {
+          "option_id": "4",
+          "text": "恥骨部の圧痛があると急性心不全を起こすため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "恥骨部圧痛は骨盤損傷を示唆する所見であり、急性心不全の直接原因ではない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "52歳男性が建築作業中に6mの高さから墜落した症例。初期評価では呼吸・循環・意識に大きな異常はないが、全身観察で仙腸関節部と恥骨部の圧痛、左下肢短縮、疼痛による運動困難を認めた。骨盤骨折では骨盤内や後腹膜への大量出血により、初期評価が安定していてもショックへ進行する可能性がある。骨盤動揺の反復確認を避け、大転子の高さで骨盤固定具を使用することが学習の中心である。",
+    "ideal_actions": [
+      "6m墜落を高エネルギー外傷として捉える",
+      "墜落時の体位や接地部位を確認する",
+      "初期評価で生命危機を確認したうえで全身観察へ進む",
+      "仙腸関節部と恥骨部の圧痛を骨盤損傷の重要所見として捉える",
+      "骨盤動揺の反復確認を避ける",
+      "骨盤固定具を大転子の高さで装着する",
+      "骨盤骨折による出血性ショックの進行を予測する"
+    ],
+    "good_points": [
+      "高所墜落の受傷機転評価から全身観察へつなげられる",
+      "国試問題の正解であるショック進行予測を現場判断として理解できる",
+      "骨盤固定具の装着位置を手技として学べる",
+      "骨盤骨折で起こり得る大量出血量を病態理解に組み込める"
+    ],
+    "cautions": [
+      "初期評価が安定していても骨盤骨折を軽視しない",
+      "骨盤動揺を繰り返し確認しない",
+      "骨盤固定具を腸骨稜の高さで締めない",
+      "左下肢短縮を無理に整復しない",
+      "外表出血が少なくても内出血を疑う"
+    ]
+  }
+}

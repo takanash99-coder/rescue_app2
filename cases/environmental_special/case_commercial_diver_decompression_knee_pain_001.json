@@ -1,0 +1,433 @@
+{
+  "case_id": "environmental_special_commercial_diver_decompression_knee_pain_001",
+  "version": "2.0",
+  "title": "潜水作業中の急浮上後に両膝痛を訴え、減圧症を疑う症例",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "estimated_time": 9,
+  "keywords": [
+    "減圧症",
+    "潜水作業",
+    "急浮上",
+    "関節痛",
+    "高気圧酸素療法"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch_pac",
+      "scene_goal": "通報内容から潜水後症状を疑い、発症時期を確認する。",
+      "ideal_flow": [
+        "潜水作業中の急浮上という情報を重視する",
+        "浮上後から症状出現までの時間を確認する",
+        "膝痛だけで単純な外傷と決めつけない",
+        "しびれや力の入りにくさなど神経症状の有無も確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_pac_diving_injury",
+      "text": "30歳の男性。水深15mでの作業中、トラブルのため急に水面に浮上したところ、膝の痛みを感じたため救急要請した。",
+      "visible_data": {
+        "dispatch_information": [
+          "水深15mで作業していた",
+          "トラブルにより急に水面へ浮上した",
+          "浮上後に膝の痛みを訴えている",
+          "港湾工事現場からの通報である"
+        ]
+      },
+      "media": [
+        "media/commercial_diver_decompression_knee_pain_harbor_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "通報内容から、救急隊が追加で確認すべき情報として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "膝関節部の皮膚色に変化があるか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "局所所見として参考になるが、潜水後症状の評価では発症時期の確認がより重要である。"
+        },
+        {
+          "option_id": "2",
+          "text": "普段から膝痛の既往があるか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "既往は参考になるが、急浮上後の症状では浮上後からの経過を優先して確認する。"
+        },
+        {
+          "option_id": "3",
+          "text": "急浮上後から膝痛が出るまでの時間。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "潜水後症状では、浮上後から症状出現までの時間が病態把握に重要である。"
+        },
+        {
+          "option_id": "4",
+          "text": "しびれや力の入りにくさがあるか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "神経症状の確認は重要だが、通報段階でまず把握したいのは急浮上後から症状出現までの時間である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "潜水状況の情報収集",
+      "phase": "history_taking",
+      "scene_goal": "潜水条件を確認し、潜水後症状として評価する視点を持つ。",
+      "ideal_flow": [
+        "潜水深度を確認する",
+        "潜水時間を確認する",
+        "浮上速度を確認する",
+        "反復潜水の有無を確認する",
+        "症状出現までの時間を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "diving_history_assessment",
+      "text": "作業関係者によると、傷病者はアクアラングを使用して港湾工事に従事していた。作業中のトラブルで通常より急いで水面へ浮上したという。",
+      "visible_data": {
+        "history_information": [
+          "アクアラングを使用していた",
+          "港湾工事中の潜水作業である",
+          "通常より急いで浮上した",
+          "浮上後に両膝痛を訴えている"
+        ],
+        "important_diving_history": [
+          "潜水深度",
+          "潜水時間",
+          "浮上速度",
+          "症状出現時刻",
+          "反復潜水の有無"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "潜水作業後の症状として評価するため、作業関係者から追加で確認すべき情報として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "水面に浮上した後の歩行状態。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "歩行状態も参考になるが、潜水後症状の評価では潜水条件の確認が優先される。"
+        },
+        {
+          "option_id": "2",
+          "text": "潜水していた深さ。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "潜水深度は体内に溶け込む不活性ガス量に関係し、減圧障害の評価に重要である。"
+        },
+        {
+          "option_id": "3",
+          "text": "膝関節をぶつけた可能性。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "外傷の有無も確認するが、急浮上後の両膝痛では潜水深度の確認がより重要である。"
+        },
+        {
+          "option_id": "4",
+          "text": "過去に同じ症状があったか。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "既往は参考になるが、現在の病態把握では潜水条件を優先して確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタルサインと身体所見",
+      "phase": "vital_signs_and_findings",
+      "scene_goal": "バイタルサインが安定していても、潜水後症状として評価する。",
+      "ideal_flow": [
+        "バイタルサインを確認する",
+        "両膝関節痛を確認する",
+        "呼吸困難の有無を確認する",
+        "しびれや麻痺の有無を確認する",
+        "潜水後症状として評価する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "vital_signs_diving_assessment",
+      "text": "救急隊到着時観察所見：意識清明。呼吸数24/分。脈拍80/分、整。血圧122/80mmHg。体温35.0℃。SpO2値98％。両膝関節部に拍動性の疼痛を認める。呼吸困難、しびれ、麻痺は認めない。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "意識清明",
+          "respiratory_rate": "24/分",
+          "pulse": "80/分、整",
+          "blood_pressure": "122/80mmHg",
+          "temperature": "35.0℃",
+          "spo2": "98%"
+        },
+        "findings": [
+          "両膝関節部に拍動性の疼痛を認める",
+          "呼吸困難は認めない",
+          "しびれは認めない",
+          "麻痺は認めない"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この所見から判断として適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "SpO2が98％であるため、潜水に関連した病態は否定できる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "SpO2が保たれていても、潜水後症状は否定できない。"
+        },
+        {
+          "option_id": "2",
+          "text": "体温35.0℃であるため、膝痛は低体温のみで説明できる。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "低体温への対応は必要だが、急浮上後の関節痛を低体温のみで説明してはならない。"
+        },
+        {
+          "option_id": "3",
+          "text": "呼吸困難がないため、高濃度酸素投与は不要である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "潜水後症状では呼吸困難がなくても高濃度酸素投与を考慮する。"
+        },
+        {
+          "option_id": "4",
+          "text": "バイタルサインが安定していても、潜水後症状として評価する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "急浮上後の関節痛は、バイタルサインが安定していても潜水後症状として評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "症状変化の確認",
+      "phase": "symptom_monitoring",
+      "scene_goal": "関節痛だけで軽症と判断せず、神経症状や呼吸症状の出現を確認する。",
+      "ideal_flow": [
+        "関節痛の程度と変化を確認する",
+        "しびれや力の入りにくさを確認する",
+        "呼吸困難や胸部症状を確認する",
+        "意識変化を確認する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "deterioration_monitoring_diving",
+      "text": "現時点では両膝関節部の疼痛が中心で、意識障害、呼吸困難、しびれ、麻痺は認めない。",
+      "visible_data": {
+        "current_symptoms": [
+          "両膝関節部の疼痛",
+          "意識障害なし",
+          "呼吸困難なし",
+          "しびれなし",
+          "麻痺なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で、今後特に確認すべき症状はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "食欲低下と口渇。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "確認する価値はあるが、潜水後症状の悪化確認としては優先度が低い。"
+        },
+        {
+          "option_id": "2",
+          "text": "しびれや力の入りにくさ。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "神経症状の出現は重症化を示す可能性があり、継続して確認する必要がある。"
+        },
+        {
+          "option_id": "3",
+          "text": "鼻汁と咽頭痛。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "上気道症状はこの病態の悪化確認としては優先度が低い。"
+        },
+        {
+          "option_id": "4",
+          "text": "皮膚のかゆみのみ。",
+          "is_correct": false,
+          "score_delta": 0,
+          "life_delta": 0,
+          "rationale": "皮膚症状も参考になるが、ここでは神経症状の出現確認がより重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "国試の芯：判断と対応",
+      "phase": "core_question",
+      "scene_goal": "急浮上後の関節痛から、減圧症に対する適切な対応を選択する。",
+      "ideal_flow": [
+        "急浮上後の関節痛を重視する",
+        "減圧症を疑う",
+        "高濃度酸素投与を考慮する",
+        "高気圧酸素療法が可能な医療機関を考慮する",
+        "二酸化炭素ではなく窒素の気泡化を理解する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "decompression_sickness_core",
+      "text": "水深15mでの作業中、トラブルのため急に水面に浮上した後、両膝関節部に拍動性の疼痛を認めている。",
+      "visible_data": {
+        "core_findings": [
+          "水深15mでの潜水作業",
+          "トラブルによる急浮上",
+          "両膝関節部の拍動性疼痛",
+          "意識清明",
+          "呼吸困難なし",
+          "しびれや麻痺なし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者に対する判断および対応として正しいのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "II型減圧症である。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "神経症状や呼吸循環障害は認めず、関節痛が中心である。"
+        },
+        {
+          "option_id": "2",
+          "text": "航空機搬送を優先する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "航空機搬送では気圧変化が問題となることがあり、単純に優先とはいえない。"
+        },
+        {
+          "option_id": "3",
+          "text": "頭部を低くして搬送する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "頭低位搬送は標準的対応ではない。安静、保温、高濃度酸素投与を考える。"
+        },
+        {
+          "option_id": "4",
+          "text": "高気圧酸素療法の適応である。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "rationale": "急浮上後の関節痛から減圧症を疑い、高気圧酸素療法が可能な医療機関への搬送を考慮する。"
+        },
+        {
+          "option_id": "5",
+          "text": "組織中の二酸化炭素が気泡となっている。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "気泡の主因は二酸化炭素ではなく、体内に溶け込んだ窒素である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態理解：高気圧酸素療法の理由",
+      "phase": "clinical_reasoning",
+      "scene_goal": "減圧症で高気圧酸素療法が必要となる理由を理解する。",
+      "ideal_flow": [
+        "急浮上により窒素が気泡化することを理解する",
+        "高圧環境で気泡を小さくする意味を理解する",
+        "高濃度酸素で窒素排出を促す意味を理解する",
+        "高気圧酸素療法の目的を整理する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "hyperbaric_oxygen_reasoning",
+      "text": "減圧症では、急浮上により体内に溶けていた窒素が気泡化し、関節痛や神経症状などを起こす。",
+      "visible_data": {
+        "clinical_focus": [
+          "急浮上",
+          "窒素の気泡化",
+          "関節痛",
+          "高気圧酸素療法"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "減圧症で高気圧酸素療法が必要となる理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "1",
+          "text": "体温を上昇させ、関節内の炎症を直接冷却するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "高気圧酸素療法の主目的は体温上昇や関節炎の冷却ではない。"
+        },
+        {
+          "option_id": "2",
+          "text": "二酸化炭素を気泡化させ、肺から一気に排出するため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "減圧症の主因は二酸化炭素ではなく窒素の気泡化である。"
+        },
+        {
+          "option_id": "3",
+          "text": "高圧環境で気泡を小さくし、高濃度酸素により窒素の排出を促すため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "rationale": "高気圧酸素療法は気泡を縮小させ、高濃度酸素により窒素の排出を促す治療である。"
+        },
+        {
+          "option_id": "4",
+          "text": "血圧を低下させ、関節痛を感じにくくするため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "rationale": "血圧低下や鎮痛が主目的ではない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "30歳男性の潜水士が、水深15mでの港湾作業中にトラブルで急浮上し、浮上後に両膝関節部の拍動性疼痛を訴えた症例。意識清明でSpO2は保たれていても、潜水後の関節痛は減圧症を疑う重要な症状である。現場では潜水深度、潜水時間、浮上速度、症状出現時刻を確認し、高濃度酸素投与、安静、保温を行い、高気圧酸素療法が可能な医療機関への搬送を考慮する。",
+    "ideal_actions": [
+      "急浮上後から症状出現までの時間を確認する",
+      "潜水深度、潜水時間、浮上速度、反復潜水の有無を確認する",
+      "バイタルサインが安定していても潜水後症状として評価する",
+      "しびれや力の入りにくさなど神経症状の出現を確認する",
+      "高濃度酸素投与、安静、保温を考慮する",
+      "高気圧酸素療法が可能な医療機関への搬送を考える",
+      "減圧症の主因は窒素の気泡化であると理解する"
+    ],
+    "good_points": [
+      "潜水後の関節痛を単なる膝痛として扱わない視点を学べる",
+      "PACで確認すべき発症時期と、現場で確認すべき潜水条件を整理できる",
+      "国試の選択肢である高気圧酸素療法の理由まで理解できる",
+      "I型とII型の違いを意識しながら神経症状の有無を確認できる"
+    ],
+    "cautions": [
+      "SpO2が正常でも減圧症を否定しない",
+      "膝痛だけで整形外科的外傷と決めつけない",
+      "航空機搬送を安易に優先しない",
+      "頭低位搬送を選択しない",
+      "二酸化炭素ではなく窒素の気泡化を考える"
+    ]
+  }
+}

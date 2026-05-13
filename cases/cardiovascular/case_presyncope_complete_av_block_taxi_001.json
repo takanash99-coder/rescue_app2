@@ -1,0 +1,705 @@
+{
+  "case_id": "presyncope_complete_av_block_taxi_001",
+  "version": "2.0",
+  "title": "タクシー降車時の眼前暗黒感から徐脈性不整脈を疑う症例",
+  "category": "cardiovascular",
+  "difficulty": "Normal",
+  "algorithm_type": "循環器プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "眼前暗黒感",
+    "徐脈",
+    "房室ブロック",
+    "脳血流低下",
+    "アダムス・ストークス症候群"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "通報内容から転倒予防と安静保持の必要性を判断する。",
+      "ideal_flow": "立ち上がり時の眼前暗黒感を失神前駆症状として捉え、無理に立たせず安全な場所で安静を保たせる。",
+      "ideal_score_delta": 10,
+      "action_tag": "pac_safety_positioning",
+      "text": "76歳男性。タクシーを降りる際に「フワッとして目の前が白くなった」と訴え、運転手が救急要請した。現在はタクシー横の歩道に座っており、運転手が肩を支えている。",
+      "visible_data": {
+        "dispatch_information": {
+          "caller": "タクシー運転手",
+          "location": "市街地の歩道上、タクシー横",
+          "chief_complaint": "立ち上がった際の眼前暗黒感",
+          "current_condition": "意識はあり、会話は可能。座っていると症状は軽くなる様子。",
+          "risk": "再度立ち上がると転倒する可能性がある。"
+        }
+      },
+      "media": [
+        "media/driver_assisting_elderly_passenger_on_sidewalk.png"
+      ],
+      "type": "single_choice",
+      "prompt": "現着前に通報者へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "症状が落ち着いていれば、立って歩けるか確認してもらう。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_standing"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "fall_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "立位で症状が出ており、歩行確認は転倒リスクを高める。"
+        },
+        {
+          "option_id": "b",
+          "text": "安全な場所で座位または臥位を保ち、無理に立たせないよう伝える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "safe_positioning"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "fall_risk"
+            ]
+          },
+          "rationale": "失神前駆症状が疑われるため、転倒予防と安静保持を優先する。"
+        },
+        {
+          "option_id": "c",
+          "text": "めまいがあるため、頭を左右に動かして症状の変化を確認してもらう。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "unnecessary_symptom_test"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "現着前に頭位変換を行わせる必要はなく、症状増悪や転倒につながる可能性がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "呼吸苦がないため、救急隊到着まで普段どおり待機してもらう。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_safety_action"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸苦がなくても失神前駆症状では転倒や急変に注意が必要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "意識、気道、呼吸、循環、切迫状態の有無を確認し、次に必要な情報収集へつなげる。",
+      "ideal_flow": "意識清明、呼吸保たれる、橈骨動脈触知可能。ただし脈は遅い印象があり、症状の出現状況と失神の有無を確認する。",
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment_presyncope",
+      "text": "救急隊接触時、傷病者は歩道上に座っている。呼びかけに明瞭に応答し、気道は開通している。呼吸は保たれており、橈骨動脈は触知できるが、やや遅い印象がある。明らかな外傷はない。",
+      "visible_data": {
+        "primary_assessment": {
+          "consciousness": "清明。質問に明瞭に答える。",
+          "airway": "開通",
+          "breathing": "努力呼吸なし",
+          "circulation": "橈骨動脈触知可能。脈はやや遅い印象。",
+          "critical_condition": "現時点でCPAや切迫した呼吸不全は認めない。",
+          "trauma": "明らかな外傷なし"
+        }
+      },
+      "media": [
+        "media/driver_assisting_elderly_passenger_on_sidewalk.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価後、次に優先して確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "眼球運動と眼振の有無を詳しく確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vestibular_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "めまいの評価として一部有用だが、まずは症状が起きた状況と失神前駆の有無を確認したい。"
+        },
+        {
+          "option_id": "b",
+          "text": "症状が出た姿勢や状況、失神の有無を確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "presyncope_history_obtained"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "立位で誘発された眼前暗黒感では、失神前駆症状かどうかを確認することが重要である。"
+        },
+        {
+          "option_id": "c",
+          "text": "歩行させてふらつきの程度を確認する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_walking_test"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "fall_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "立ち上がりで症状が出ており、歩行確認は転倒リスクを高める。"
+        },
+        {
+          "option_id": "d",
+          "text": "頭痛の有無だけを確認し、脳卒中の可能性を判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "narrow_history"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "頭痛の確認は必要だが、それだけで判断せず、発症状況や失神の有無も含めて評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "情報収集とバイタル評価",
+      "phase": "history_and_vitals",
+      "scene_goal": "眼前暗黒感の性質とバイタルサインから、失神前駆症状として捉える。",
+      "ideal_flow": "立位で誘発され、座位で軽快する眼前暗黒感と徐脈を組み合わせ、循環器由来の失神前状態を疑う。",
+      "ideal_score_delta": 10,
+      "action_tag": "recognize_presyncope",
+      "text": "傷病者は「座っていれば何ともない。立ち上がる時にフワッとして、目の前が白くなる」と話している。胸痛、強い頭痛、回転性のめまい、しびれは訴えない。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "清明",
+          "respiratory_rate": "16回/分",
+          "pulse": "48回/分、整",
+          "blood_pressure": "152/64mmHg",
+          "spo2": "99％"
+        },
+        "history": {
+          "onset": "タクシーを降りて立ち上がる時に出現",
+          "symptom": "フワッとして目の前が白くなる",
+          "relieving_factor": "座っていると軽快",
+          "chest_pain": "なし",
+          "headache": "強い頭痛なし",
+          "vertigo": "ぐるぐる回る感じはない",
+          "numbness": "なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も優先して考えるべき症状の性質はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "立位で誘発される失神前駆症状",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "presyncope_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "立ち上がりで眼前が白くなり、座位で軽快しているため、失神前駆症状として捉える。"
+        },
+        {
+          "option_id": "b",
+          "text": "視界がぼやけることを主とする眼科的症状",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "visual_symptom_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "見え方の訴えだけで眼科的症状と判断せず、姿勢との関係を重視する。"
+        },
+        {
+          "option_id": "c",
+          "text": "体が浮くように感じる不安発作に伴う症状",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "psychogenic_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "不安発作で説明する前に、徐脈と姿勢変化に伴う症状を評価する必要がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "体の傾きや回転感を主とする前庭系症状",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vestibular_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "回転性めまいは訴えておらず、今回の主訴は眼前暗黒感に近い。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "活動方針の再判断",
+      "phase": "field_decision",
+      "scene_goal": "徐脈を伴う失神前駆症状として、安静保持、モニター管理、搬送準備を判断する。",
+      "ideal_flow": "座位で症状が落ち着いていても、徐脈と眼前暗黒感から急変リスクを考え、心電図モニター装着と搬送を進める。",
+      "ideal_score_delta": 10,
+      "action_tag": "monitor_and_transport_decision",
+      "text": "傷病者は座位では会話可能で落ち着いているが、立ち上がると症状が再燃しそうだと訴えている。脈拍は遅く、症状の経過から失神前状態が疑われる。",
+      "visible_data": {
+        "assessment": {
+          "current_position": "座位",
+          "symptom_status": "座位では軽快",
+          "risk": "立位で再発し転倒する可能性がある",
+          "field_impression": "徐脈を伴う失神前状態"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者への対応方針として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "症状が座位で消失しているため、不搬送も含めて本人の希望を優先する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_arrhythmia"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "一時的に軽快していても、徐脈を伴う失神前駆症状では急変リスクを評価する必要がある。"
+        },
+        {
+          "option_id": "b",
+          "text": "回転性めまいが目立たないため、神経学的評価は不要と判断する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "insufficient_assessment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "神経学的評価を完全に省略するのは不適切であり、全身状態と鑑別を並行して確認する。"
+        },
+        {
+          "option_id": "c",
+          "text": "安静を保ち、心電図モニターを装着して急変に備えながら搬送を考える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "monitoring_started",
+              "transport_planned"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_arrhythmia"
+            ]
+          },
+          "rationale": "徐脈と眼前暗黒感から不整脈による失神前状態を疑い、モニター管理と搬送準備を行う。"
+        },
+        {
+          "option_id": "d",
+          "text": "SpO₂が保たれているため、酸素投与のみで経過を観察する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "oxygen_only_management"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_monitoring"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO₂が正常でも、徐脈性不整脈による脳灌流低下は否定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "心電図モニター所見",
+      "phase": "ecg_assessment",
+      "scene_goal": "心電図波形から徐脈性不整脈を読み取り、3度房室ブロックを疑う。",
+      "ideal_flow": "心電図モニターで徐脈を確認し、P波とQRS波の関連が乏しい所見から3度房室ブロックを疑う。",
+      "ideal_score_delta": 12,
+      "action_tag": "ecg_complete_av_block",
+      "text": "車内収容後、心電図モニターを装着した。モニターでは徐脈性の波形を認める。",
+      "visible_data": {
+        "ecg_observation": {
+          "rate": "徐脈",
+          "rhythm": "P波とQRS波の関係が一定しないように見える",
+          "clinical_context": "眼前暗黒感と徐脈を伴う"
+        }
+      },
+      "media": [
+        "media/ecg_complete_av_block_scene5.png"
+      ],
+      "type": "single_choice",
+      "prompt": "このモニター波形から最も疑われる不整脈はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "洞性徐脈",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "sinus_bradycardia_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "徐脈ではあるが、P波とQRS波の対応関係を確認すると洞性徐脈だけでは説明しにくい。"
+        },
+        {
+          "option_id": "b",
+          "text": "2度房室ブロック Wenckebach型",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "wenckebach_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "Wenckebach型ではPR間隔が徐々に延長してQRSが脱落する所見をみる。"
+        },
+        {
+          "option_id": "c",
+          "text": "2度房室ブロック MobitzⅡ型",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "mobitz2_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "MobitzⅡ型も重要な徐脈性不整脈だが、本波形では心房と心室が独立している所見がより目立つ。"
+        },
+        {
+          "option_id": "d",
+          "text": "3度房室ブロック",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "complete_av_block_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "P波とQRS波の関連がみられず、心房と心室が独立して興奮している所見は3度房室ブロックを疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "症状の原因",
+      "phase": "core_question",
+      "scene_goal": "眼前暗黒感の原因を、心拍出量低下による脳灌流低下として理解する。",
+      "ideal_flow": "3度房室ブロックによる徐脈から心拍出量が低下し、一過性に脳血流が低下して症状が出ることを判断する。",
+      "ideal_score_delta": 12,
+      "action_tag": "understand_cerebral_hypoperfusion",
+      "text": "傷病者は立ち上がった時に「目の前が白くなる」と訴えていた。心電図では徐脈性不整脈が疑われる。",
+      "visible_data": {
+        "key_findings": {
+          "symptom_trigger": "立ち上がった時",
+          "symptom_character": "眼前暗黒感",
+          "pulse": "48回/分、整",
+          "ecg_impression": "3度房室ブロック疑い"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で「目の前が白くなる」症状が起こった主な原因として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "視覚入力の異常",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "visual_cause_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "見え方の訴えはあるが、姿勢変化と徐脈を伴うため視覚入力そのものの異常とは考えにくい。"
+        },
+        {
+          "option_id": "b",
+          "text": "大脳皮質活動の異常",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cortical_cause_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "けいれんや意識障害を主体とする経過ではなく、徐脈と立位での眼前暗黒感が中心である。"
+        },
+        {
+          "option_id": "c",
+          "text": "深部感覚入力の異常",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "sensory_cause_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "深部感覚障害ではふらつきや姿勢保持障害が問題となるが、眼前暗黒感の主因とは考えにくい。"
+        },
+        {
+          "option_id": "d",
+          "text": "前庭器機能の異常",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "vestibular_cause_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "回転性めまいではなく、立位で誘発される眼前暗黒感である点が異なる。"
+        },
+        {
+          "option_id": "e",
+          "text": "脳循環の一時的な低下",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cerebral_hypoperfusion_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "徐脈性不整脈により心拍出量が低下すると、脳血流が一時的に低下し眼前暗黒感や失神を来す。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解と急変リスク",
+      "phase": "clinical_reasoning",
+      "scene_goal": "3度房室ブロックによる徐脈が、失神やCPAにつながる可能性を理解する。",
+      "ideal_flow": "アダムス・ストークス症候群を念頭に、モニター継続、再評価、早期搬送、急変対応準備を行う。",
+      "ideal_score_delta": 10,
+      "action_tag": "risk_awareness_complete_av_block",
+      "text": "傷病者は座位で会話可能だが、徐脈性不整脈が疑われる。搬送中も症状の再燃や意識消失に注意が必要である。",
+      "visible_data": {
+        "risk_assessment": {
+          "suspected_condition": "3度房室ブロック",
+          "mechanism": "徐脈による心拍出量低下",
+          "possible_event": "一過性の脳血流低下による失神",
+          "transport_attention": "心電図モニター継続、意識・呼吸・脈拍の再評価"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で今後最も警戒すべき事態として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "聴力低下が進行し、耳鳴りを伴う発作へ移行する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "otologic_risk_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "耳鼻科的疾患よりも、徐脈性不整脈に伴う失神や急変を警戒する状況である。"
+        },
+        {
+          "option_id": "b",
+          "text": "一過性の視覚症状のみで自然軽快し、急変リスクは低い。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "risk_underestimated"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_cardiac_syncope"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "3度房室ブロックが疑われる場合、自然軽快と判断せず急変リスクを警戒する。"
+        },
+        {
+          "option_id": "c",
+          "text": "脳灌流がさらに低下し、失神やCPAへ移行する可能性がある。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "adams_stokes_risk_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_cardiac_syncope"
+            ]
+          },
+          "rationale": "高度徐脈では心拍出量が低下し、脳灌流低下による失神やCPA移行に注意する。"
+        },
+        {
+          "option_id": "d",
+          "text": "深部感覚障害により、閉眼時のふらつきが主体となる。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "sensory_risk_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "今回の主病態は姿勢感覚障害ではなく、徐脈性不整脈による脳灌流低下である。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "タクシー降車時に眼前暗黒感を訴えた76歳男性の症例。座位では軽快するが、脈拍48回/分の徐脈を認め、心電図では3度房室ブロックが疑われる。徐脈により心拍出量が低下し、立位時に脳灌流が一時的に低下したことで症状が出現したと考える。めまいという訴えに引っ張られず、失神前駆症状として捉えることが重要である。",
+    "ideal_actions": [
+      "通報段階で無理に立たせず、座位または臥位で安静を保たせる。",
+      "初期評価で意識、気道、呼吸、脈拍、切迫状態の有無を確認する。",
+      "症状が出た姿勢、発症状況、失神の有無を確認する。",
+      "徐脈を伴う眼前暗黒感から、循環器由来の失神前状態を疑う。",
+      "心電図モニターを装着し、徐脈性不整脈を評価する。",
+      "3度房室ブロックを疑い、失神やCPAへの移行に備えながら搬送する。",
+      "搬送中も意識、呼吸、脈拍、心電図波形を継続して再評価する。"
+    ],
+    "good_points": [
+      "眼前暗黒感を単なるめまいではなく、失神前駆症状として捉えられた。",
+      "座位で軽快していても、徐脈を見逃さずモニター管理へつなげられた。",
+      "心電図波形から3度房室ブロックを疑う流れを作れた。",
+      "症状の原因を脳血流低下として説明できた。"
+    ],
+    "cautions": [
+      "めまいという言葉だけで末梢前庭障害と決めつけない。",
+      "症状が一時的に軽快していても、徐脈性不整脈では急変リスクがある。",
+      "歩行確認や起立負荷を不用意に行うと転倒につながる。",
+      "SpO₂が正常でも、心拍出量低下による脳灌流低下は否定できない。",
+      "3度房室ブロックでは失神やCPA移行を想定し、搬送中の再評価を怠らない。"
+    ]
+  }
+}

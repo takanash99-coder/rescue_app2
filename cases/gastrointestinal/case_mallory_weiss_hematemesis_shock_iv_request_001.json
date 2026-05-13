@@ -1,0 +1,978 @@
+{
+  "case_id": "mallory_weiss_hematemesis_shock_iv_request_001",
+  "version": "2.0",
+  "title": "大量飲酒後の反復嘔吐と吐血からMallory-Weiss症候群を疑い、ショック輸液の指示要請を行う症例",
+  "category": "gastrointestinal",
+  "difficulty": "Hard",
+  "boss_candidate": false,
+  "algorithm_type": "内因性吐血・ショック対応プロトコル",
+  "estimated_time": 11,
+  "keywords": [
+    "吐血",
+    "大量飲酒",
+    "反復嘔吐",
+    "Mallory-Weiss症候群",
+    "出血性ショック",
+    "特定行為指示要請",
+    "ショック輸液"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "吐血後の傷病者に対して、安静保持を指示する。",
+      "ideal_flow": "大量飲酒後の嘔吐と吐血を重症化の可能性がある症状として捉え、無理に動かさず安静にして救急隊到着を待つよう伝える。",
+      "ideal_score_delta": 10,
+      "action_tag": "pac_hematemesis_rest",
+      "text": "20歳男性。大量飲酒後に何度か嘔吐し、その後血を吐いたため自ら救急要請した。自宅内の洗面所付近で座り込んでいる。",
+      "visible_data": {
+        "dispatch_information": {
+          "caller": "本人",
+          "location": "自宅内、洗面所付近",
+          "chief_complaint": "大量飲酒後の嘔吐と吐血",
+          "current_condition": "会話は可能だが、ぐったりしている様子",
+          "risk": "再吐血、意識低下、転倒に注意が必要"
+        }
+      },
+      "media": [
+        "media/fallen_and_fatigued_in_the_bathroom.png"
+      ],
+      "type": "single_choice",
+      "prompt": "現着前に本人へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "水を飲んで、吐き気が落ち着くまで様子を見る。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_drinking"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "aspiration_risk",
+              "delayed_response"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "吐血後に飲水させる必要はなく、誤嚥や再嘔吐のリスクがある。"
+        },
+        {
+          "option_id": "b",
+          "text": "安静にして救急隊の到着を待つ。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "rest_instruction_given"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "delayed_response"
+            ]
+          },
+          "rationale": "吐血後は無理に動かさず、安静にして救急隊の到着を待つ。"
+        },
+        {
+          "option_id": "c",
+          "text": "吐血量を確認するため、もう一度吐けるか試す。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "provoked_vomiting"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "rebleeding_risk",
+              "aspiration_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "吐血を誘発する必要はなく、再吐血や誤嚥の危険がある。"
+        },
+        {
+          "option_id": "d",
+          "text": "飲酒後の嘔吐なので、眠って回復を待つ。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "undertriage"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_shock",
+              "aspiration_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "飲酒後でも吐血は重症出血の可能性があり、眠らせて様子を見るのは危険である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "吐血後の傷病者で循環異常を見抜く。",
+      "ideal_flow": "意識、気道、呼吸、循環を確認し、吐血後の速く弱い橈骨動脈、冷汗、顔色不良から循環異常を重視する。",
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment_circulatory_shock",
+      "text": "接触時、傷病者は床に座り込んでいる。呼びかけには反応するが反応は鈍い。口元に血性吐物を認める。呼吸は保たれている。橈骨動脈は速く弱く触れる。顔色不良で冷汗を認める。",
+      "visible_data": {
+        "primary_assessment": {
+          "consciousness": "呼びかけに反応するが反応は鈍い",
+          "airway": "開通しているが、口元に血性吐物あり",
+          "breathing": "呼吸は保たれている",
+          "circulation": "橈骨動脈は速く弱い",
+          "skin": "顔色不良、冷汗あり",
+          "critical_impression": "吐血後の循環異常を疑う"
+        }
+      },
+      "media": [
+        "media/fallen_and_fatigued_in_the_bathroom.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価で特に重視すべき異常はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "意識",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "consciousness_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識低下にも注意が必要だが、吐血後の速く弱い脈と冷汗から循環異常を最も重視する。"
+        },
+        {
+          "option_id": "b",
+          "text": "気道",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "airway_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "吐物による気道汚染には注意するが、初期評価で最も重視すべき異常は循環である。"
+        },
+        {
+          "option_id": "c",
+          "text": "呼吸",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "breathing_focus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸は保たれており、今回の主な異常は吐血後の循環不全である。"
+        },
+        {
+          "option_id": "d",
+          "text": "循環",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "circulatory_shock_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "missed_shock"
+            ]
+          },
+          "rationale": "吐血後に速く弱い脈、冷汗、顔色不良を認め、循環異常を最も重視する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "バイタル評価と緊急度判断",
+      "phase": "vitals_and_load_go",
+      "scene_goal": "吐血後ショックとして早期搬送を判断する。",
+      "ideal_flow": "JCS3、頻脈、低血圧、吐血歴から出血性ショックを疑い、現場滞在を短くして早期搬送と指示要請へ進む。",
+      "ideal_score_delta": 12,
+      "action_tag": "load_and_go_hematemesis_shock",
+      "text": "傷病者は大量飲酒後に何度か嘔吐し、その後吐血した。既往歴はない。",
+      "visible_data": {
+        "vital_signs": {
+          "consciousness": "JCS3",
+          "respiratory_rate": "20回/分",
+          "pulse": "120回/分、整",
+          "blood_pressure": "80/60mmHg"
+        },
+        "history": {
+          "event": "大量飲酒後に反復嘔吐",
+          "bleeding": "その後吐血",
+          "past_history": "既往歴なし"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での緊急度判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "意識障害は飲酒によるものと考え、現場で経過を見る。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "alcohol_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_transport",
+              "missed_shock"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "飲酒だけで説明せず、吐血後の頻脈と低血圧をショックとして評価する。"
+        },
+        {
+          "option_id": "b",
+          "text": "既往歴がないため、重症出血の可能性は低いと判断する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "past_history_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "undertriage"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "既往歴がなくても、吐血後に頻脈と低血圧があれば重症出血を疑う。"
+        },
+        {
+          "option_id": "c",
+          "text": "吐血後のショックを疑い、早期搬送を優先する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "load_and_go_decision",
+              "shock_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "delayed_transport"
+            ]
+          },
+          "rationale": "吐血後にJCS3、脈拍120回/分、血圧80/60mmHgを認め、ショックとして早期搬送を優先する。"
+        },
+        {
+          "option_id": "d",
+          "text": "嘔吐が落ち着いていれば、歩行可能か確認する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_walking_test"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "collapse_risk",
+              "rebleeding_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "ショックが疑われる傷病者を歩かせる必要はなく、安静と早期搬送を優先する。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "対話式・特定行為指示要請",
+      "phase": "medical_control_request",
+      "scene_goal": "吐血後ショックとして、医師へ静脈路確保と輸液の指示要請を自ら組み立てる。",
+      "ideal_flow": "年齢・性別、発症経過、意識、バイタル、ショック判断を簡潔に伝え、静脈路確保と輸液の指示を明確に要請する。",
+      "ideal_score_delta": 18,
+      "action_tag": "dialogue_iv_fluid_request_hematemesis_shock",
+      "text": "車内収容後、吐血後ショックとして医師へ特定行為の指示要請を行う。プレイヤーは救急救命士として、必要事項を順に伝える。",
+      "visible_data": {
+        "request_material": {
+          "patient": "20歳男性",
+          "history": "大量飲酒後に複数回嘔吐し、その後吐血",
+          "consciousness": "JCS3",
+          "vital_signs": "呼吸数20回/分、脈拍120回/分整、血圧80/60mmHg",
+          "impression": "吐血後ショック疑い",
+          "requested_procedure": "静脈路確保、輸液"
+        }
+      },
+      "media": [],
+      "type": "dialogue",
+      "prompt": "医師へ特定行為の指示要請を行う。救急救命士として適切な内容を順に伝えよ。",
+      "dialogue": [
+        {
+          "turn_id": "step1_summary",
+          "speaker": "player",
+          "task": "傷病者概要を伝える。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "20歳男性、大量飲酒後に複数回嘔吐し、その後吐血しています。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "doctor_response": "了解。吐血後ですね。意識とバイタルを続けてください。",
+              "status_effect": {
+                "add_flags": [
+                  "summary_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "年齢、性別、飲酒後の反復嘔吐、吐血という重要情報を簡潔に伝えている。"
+            },
+            {
+              "option_id": "b",
+              "text": "20歳男性、飲酒後で眠そうです。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "doctor_response": "それだけでは判断できません。吐血の有無は？",
+              "status_effect": {
+                "add_flags": [
+                  "incomplete_summary"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "飲酒だけが強調され、吐血という重要情報が抜けている。"
+            },
+            {
+              "option_id": "c",
+              "text": "20歳男性、吐血はありますが若いので大丈夫そうです。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "doctor_response": "若いかどうかではありません。状態を具体的にください。",
+              "status_effect": {
+                "add_flags": [
+                  "age_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "undertriage"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "若年であっても吐血後ショックは重症であり、重症度を軽視している。"
+            },
+            {
+              "option_id": "d",
+              "text": "20歳男性、嘔吐のみです。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "doctor_response": "吐血しているんですよね。情報を落とさないでください。",
+              "status_effect": {
+                "add_flags": [
+                  "missed_hematemesis_report"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "hospital_underprepared"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "吐血を伝えないと、病院側が重症度を判断できない。"
+            }
+          ]
+        },
+        {
+          "turn_id": "step2_vitals",
+          "speaker": "player",
+          "task": "意識とバイタルを伝える。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "JCS3、呼吸数20回/分、脈拍120回/分、血圧80/60mmHgです。",
+              "is_correct": true,
+              "score_delta": 4,
+              "life_delta": 0,
+              "doctor_response": "血圧低下と頻脈がありますね。ショック評価を続けてください。",
+              "status_effect": {
+                "add_flags": [
+                  "vitals_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "意識、呼吸数、脈拍、血圧を具体的に伝えている。"
+            },
+            {
+              "option_id": "b",
+              "text": "呼吸はあります。飲酒後なので反応は鈍いです。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": -1,
+              "doctor_response": "血圧と脈拍を具体的にください。",
+              "status_effect": {
+                "add_flags": [
+                  "vitals_incomplete"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "shock_underreported"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショック判断に必要な脈拍と血圧が伝わっていない。"
+            },
+            {
+              "option_id": "c",
+              "text": "意識は少し悪いですが、若いので搬送は可能です。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "doctor_response": "若さでは判断できません。バイタルは？",
+              "status_effect": {
+                "add_flags": [
+                  "non_specific_status_report"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "doctor_unable_to_judge"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "具体的なバイタルを伝えておらず、医師が指示を出しにくい。"
+            },
+            {
+              "option_id": "d",
+              "text": "血圧は低いです。",
+              "is_correct": false,
+              "score_delta": -3,
+              "life_delta": 0,
+              "doctor_response": "低いだけでは判断できません。数値でください。",
+              "status_effect": {
+                "add_flags": [
+                  "blood_pressure_not_numeric"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "血圧は具体的な数値で伝える必要がある。"
+            }
+          ]
+        },
+        {
+          "turn_id": "step3_assessment",
+          "speaker": "player",
+          "task": "状態評価を伝える。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "飲酒による意識障害が主と考えます。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "doctor_response": "飲酒だけで片づけないでください。ショック所見は？",
+              "status_effect": {
+                "add_flags": [
+                  "alcohol_only_assessment"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "missed_shock"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "吐血後の頻脈・低血圧を見落としており、ショック評価が不十分である。"
+            },
+            {
+              "option_id": "b",
+              "text": "吐血後の出血性ショックを疑います。",
+              "is_correct": true,
+              "score_delta": 5,
+              "life_delta": 0,
+              "doctor_response": "妥当です。必要な指示を明確に言ってください。",
+              "status_effect": {
+                "add_flags": [
+                  "hemorrhagic_shock_assessed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": [
+                  "missed_shock"
+                ]
+              },
+              "rationale": "吐血後の頻脈・低血圧から出血性ショックを疑えている。"
+            },
+            {
+              "option_id": "c",
+              "text": "吐血はありますが、既往がないため重症ではなさそうです。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "doctor_response": "既往の有無ではありません。血圧80ですよね？",
+              "status_effect": {
+                "add_flags": [
+                  "past_history_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "undertriage"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "既往歴がなくても、現在のショック所見を重視する必要がある。"
+            },
+            {
+              "option_id": "d",
+              "text": "嘔吐後なので、脱水の可能性だけ考えます。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "doctor_response": "吐血しています。出血性ショックを外さないでください。",
+              "status_effect": {
+                "add_flags": [
+                  "dehydration_only_assessment"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "bleeding_underestimated"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "嘔吐による脱水だけでなく、吐血による出血性ショックを疑う必要がある。"
+            }
+          ]
+        },
+        {
+          "turn_id": "step4_request",
+          "speaker": "player",
+          "task": "特定行為の指示を要請する。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "静脈路確保および輸液の指示をお願いします。",
+              "is_correct": true,
+              "score_delta": 5,
+              "life_delta": 0,
+              "doctor_response": "指示します。静脈路確保後、輸液を開始してください。再評価を忘れずに。",
+              "status_effect": {
+                "add_flags": [
+                  "iv_fluid_order_obtained"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "rationale": "吐血後ショックとして、静脈路確保と輸液の指示要請が明確である。"
+            },
+            {
+              "option_id": "b",
+              "text": "搬送だけでよいか指示をお願いします。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "doctor_response": "指示要請なら、何をしてほしいのか明確に言ってください。",
+              "status_effect": {
+                "add_flags": [
+                  "unclear_request"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_iv_fluid"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショック輸液の適応を考える状況で、要請内容が不明確である。"
+            },
+            {
+              "option_id": "c",
+              "text": "飲水させてよいか指示をお願いします。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "doctor_response": "吐血後ショックです。飲水ではありません。",
+              "status_effect": {
+                "add_flags": [
+                  "unsafe_oral_intake_request"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "aspiration_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "吐血後に飲水を優先するのは不適切であり、静脈路確保と輸液を考える。"
+            },
+            {
+              "option_id": "d",
+              "text": "現場で経過観察してよいか指示をお願いします。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "doctor_response": "血圧80です。経過観察ではありません。",
+              "status_effect": {
+                "add_flags": [
+                  "watchful_waiting_request"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "delayed_transport",
+                  "shock_worsening"
+                ],
+                "remove_danger_tags": []
+              },
+              "rationale": "ショックが疑われるため、経過観察ではなく早期搬送と輸液が必要である。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "輸液開始後の再評価",
+      "phase": "post_intervention_reassessment",
+      "scene_goal": "特定行為実施後に、輸液反応とショック進行、気道汚染を再評価する。",
+      "ideal_flow": "医師の指示を受けて静脈路確保と輸液を開始した後、血圧、脈拍、意識レベル、再吐血、口腔内汚染を継続的に確認する。",
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_after_iv_fluid",
+      "text": "医師の指示を受け、静脈路確保と輸液を開始した。酸素投与とモニター管理を継続している。傷病者はまだ顔色不良で、口元に血性吐物を認める。",
+      "visible_data": {
+        "post_intervention_context": {
+          "procedure": "静脈路確保、輸液開始",
+          "monitoring": "酸素投与、心電図・SpO₂・血圧モニター",
+          "current_status": "顔色不良持続、口元に血性吐物あり",
+          "risk": "再吐血、気道汚染、ショック進行"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "輸液開始後、優先して再評価すべき内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "飲酒量の詳細",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "alcohol_history_overfocus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "飲酒量の確認も情報としては有用だが、輸液開始後はショック反応と再吐血を優先して再評価する。"
+        },
+        {
+          "option_id": "b",
+          "text": "血圧、脈拍、意識レベル、再吐血の有無",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "reassessment_appropriate"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "shock_worsening"
+            ]
+          },
+          "rationale": "輸液反応、ショック進行、再吐血、意識低下を継続的に確認する必要がある。"
+        },
+        {
+          "option_id": "c",
+          "text": "歩行可能かどうか",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_walking_test"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "collapse_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "ショックが疑われる傷病者を歩かせる必要はない。"
+        },
+        {
+          "option_id": "d",
+          "text": "食事内容と海産魚介類の摂取歴",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "anisakis_history_overfocus"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "鑑別としての問診は有用な場合もあるが、輸液開始後の優先再評価ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "病態推論",
+      "phase": "diagnostic_reasoning",
+      "scene_goal": "大量飲酒後の反復嘔吐と吐血からMallory-Weiss症候群を疑う。",
+      "ideal_flow": "若年者、大量飲酒後、反復嘔吐後の吐血、既往歴なしという流れから食道胃接合部付近の粘膜裂創を疑う。",
+      "ideal_score_delta": 12,
+      "action_tag": "suspect_mallory_weiss_syndrome",
+      "text": "大量飲酒後に何度か嘔吐し、その後吐血した。既往歴はなく、若年男性である。",
+      "visible_data": {
+        "key_findings": {
+          "age_sex": "20歳男性",
+          "trigger": "大量飲酒",
+          "course": "反復嘔吐後に吐血",
+          "past_history": "既往歴なし",
+          "current_priority": "吐血後ショックとして処置・搬送中"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この経過から最も考えられる疾患はどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "食道静脈瘤破裂",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "esophageal_varix_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "食道静脈瘤破裂は門脈圧亢進や肝硬変背景を考える。今回は若年で反復嘔吐後の吐血が中心である。"
+        },
+        {
+          "option_id": "b",
+          "text": "アニサキス症",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "anisakis_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "アニサキス症では海産魚介類摂取後の強い腹痛を考えるが、今回は反復嘔吐後の吐血が中心である。"
+        },
+        {
+          "option_id": "c",
+          "text": "消化性潰瘍穿孔",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "perforated_ulcer_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "穿孔では強い腹膜刺激症状を伴いやすく、反復嘔吐後の吐血という経過とは異なる。"
+        },
+        {
+          "option_id": "d",
+          "text": "Mallory-Weiss症候群",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "mallory_weiss_suspected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "大量飲酒後の反復嘔吐に続く吐血では、食道胃接合部付近の粘膜裂創であるMallory-Weiss症候群を疑う。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "疾患理解",
+      "phase": "core_knowledge",
+      "scene_goal": "Mallory-Weiss症候群の好発部位を理解する。",
+      "ideal_flow": "反復嘔吐などで食道胃接合部付近の粘膜が裂け、吐血を来すことを理解する。",
+      "ideal_score_delta": 12,
+      "action_tag": "mallory_weiss_location",
+      "text": "Mallory-Weiss症候群は、反復嘔吐などで食道胃接合部付近に粘膜裂創を来して吐血する疾患である。",
+      "visible_data": {
+        "disease_summary": {
+          "suspected_condition": "Mallory-Weiss症候群",
+          "trigger": "反復嘔吐",
+          "main_finding": "吐血",
+          "typical_location": "食道胃接合部付近"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この疾患について正しいのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "浅い潰瘍を伴う。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "shallow_ulcer_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "Mallory-Weiss症候群は潰瘍ではなく、反復嘔吐などによる粘膜裂創が中心である。"
+        },
+        {
+          "option_id": "b",
+          "text": "食道胃接合部に好発する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "gastroesophageal_junction_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "Mallory-Weiss症候群は、反復嘔吐などにより食道胃接合部付近に粘膜裂創を来しやすい。"
+        },
+        {
+          "option_id": "c",
+          "text": "門脈圧の上昇が原因である。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "portal_hypertension_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "門脈圧亢進は食道静脈瘤破裂の背景であり、Mallory-Weiss症候群の主因ではない。"
+        },
+        {
+          "option_id": "d",
+          "text": "胸腔内圧の上昇によって発症する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "intrathoracic_pressure_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "嘔吐で圧がかかることは関連するが、選択肢としては食道胃接合部に好発することが最も適切である。"
+        },
+        {
+          "option_id": "e",
+          "text": "海産魚介類の摂取によって発症する。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "seafood_cause_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "海産魚介類摂取後の腹痛ではアニサキス症を考える。Mallory-Weiss症候群とは異なる。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "大量飲酒後に反復嘔吐し、その後吐血した20歳男性の症例。接触時はJCS3、脈拍120回/分、血圧80/60mmHgであり、吐血後ショックとしてLoad & Goを判断する。車内収容後は医師へ特定行為指示要請を行い、静脈路確保と輸液の指示を受ける。輸液開始後も血圧、脈拍、意識レベル、再吐血、気道汚染を継続して再評価する。病態としては、反復嘔吐により食道胃接合部付近に粘膜裂創を来すMallory-Weiss症候群が考えられる。",
+    "ideal_actions": [
+      "通報段階で安静にして救急隊の到着を待つよう伝える。",
+      "初期評価で意識、気道、呼吸、循環を確認し、速く弱い脈と冷汗から循環異常を見抜く。",
+      "吐血後の頻脈と低血圧をショックとして評価する。",
+      "飲酒だけで意識障害を説明せず、吐血後ショックとしてLoad & Goを判断する。",
+      "車内収容後、医師へ特定行為指示要請を行う。",
+      "指示要請では年齢・性別、経過、意識、バイタル、ショック判断、要請内容を明確に伝える。",
+      "医師の指示を受け、静脈路確保と輸液を開始する。",
+      "輸液開始後も血圧、脈拍、意識、再吐血、気道汚染を再評価する。",
+      "大量飲酒後の反復嘔吐と吐血からMallory-Weiss症候群を疑う。"
+    ],
+    "good_points": [
+      "吐血を単なる飲酒後嘔吐として扱わず、ショックとして評価できた。",
+      "頻脈と低血圧を根拠にLoad & Goへつなげられた。",
+      "特定行為指示要請で、静脈路確保と輸液の必要性を明確に伝えられた。",
+      "輸液開始後の再評価項目を整理できた。",
+      "食道静脈瘤破裂ではなく、Mallory-Weiss症候群を疑う流れを理解できた。"
+    ],
+    "cautions": [
+      "飲酒後だからといって意識障害や嘔吐を軽視しない。",
+      "若年者でも吐血後にショックを来すことがある。",
+      "吐血後に飲水させない。",
+      "口腔内の血性吐物による気道汚染や誤嚥に注意する。",
+      "特定行為指示要請では、何をしてほしいのか明確に伝える。",
+      "医師へは主訴だけでなく、意識レベル、脈拍、血圧、ショック判断を具体的に伝える。",
+      "輸液を開始して終わりではなく、反応と再吐血を継続して再評価する。"
+    ]
+  }
+}

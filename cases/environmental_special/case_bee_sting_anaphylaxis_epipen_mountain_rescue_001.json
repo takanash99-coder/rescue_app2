@@ -1,0 +1,726 @@
+{
+  "case_id": "case_bee_sting_anaphylaxis_epipen_mountain_rescue_001",
+  "version": "2.0",
+  "title": "ハイキング中のハチ刺傷によるアナフィラキシーショックと自己注射用アドレナリン使用",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "algorithm_type": "環境障害・アレルギー対応プロトコル",
+  "estimated_time": 9,
+  "keywords": [
+    "ハチ刺傷",
+    "アナフィラキシー",
+    "自己注射用アドレナリン",
+    "気道狭窄音",
+    "山岳搬出"
+  ],
+  "overview": "34歳男性。ハイキング中にハチに刺され、刺傷部の腫脹と激痛を来した。救急隊到着時は意識障害、低血圧、低酸素血症、皮膚紅潮、高度の気道狭窄音を認め、アナフィラキシーショックが疑われる。山中で搬出困難が予想されるため、現場評価と応援要請も重要となる。自己注射用アドレナリンを所持している場合に、最優先で使用を判断できるかが学習の中心である。",
+  "patient_profile": {
+    "age": 34,
+    "sex": "男性",
+    "chief_complaint": "ハチ刺傷後の呼吸困難と意識障害",
+    "background": "友人とハイキング中。ハチに刺された後、刺傷部の腫脹と激痛に続いて全身状態が悪化した。"
+  },
+  "initial_state": {
+    "life": 5,
+    "max_life": 5,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "anaphylaxis",
+      "shock",
+      "airway_narrowing",
+      "remote_location"
+    ],
+    "time_pressure": "high"
+  },
+  "result_rank": [
+    {
+      "rank": "S",
+      "min_score": 31,
+      "max_score": 35,
+      "message": "現場評価、応援要請、アナフィラキシー判断、アドレナリン優先まで的確に判断できている。"
+    },
+    {
+      "rank": "A",
+      "min_score": 25,
+      "max_score": 30,
+      "message": "主要判断は良好。搬出困難と処置優先順位も概ね整理できている。"
+    },
+    {
+      "rank": "B",
+      "min_score": 18,
+      "max_score": 24,
+      "message": "アナフィラキシーは疑えているが、現場活動や優先処置の整理をもう少し強化したい。"
+    },
+    {
+      "rank": "C",
+      "min_score": 10,
+      "max_score": 17,
+      "message": "一部の対応は適切だが、ショック・気道狭窄への危機感が弱い。"
+    },
+    {
+      "rank": "D",
+      "min_score": 0,
+      "max_score": 9,
+      "message": "アナフィラキシーショックの初期対応と山岳現場での活動判断を復習したい。"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容と出場途上確認",
+      "phase": "dispatch",
+      "scene_goal": "ハチ刺傷後の全身症状を確認し、重症アレルギー反応を疑う。",
+      "ideal_flow": [
+        "刺された時刻と部位を確認する",
+        "呼吸苦や声の変化を確認する",
+        "意識状態と全身症状を確認する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "prearrival",
+        "bee_sting",
+        "anaphylaxis_suspicion"
+      ],
+      "text": "友人から『ハイキング中にハチに刺され、刺された場所が腫れて強く痛がっています。今は息が苦しそうで、返事もぼんやりしています』と通報があった。",
+      "visible_data": {
+        "dispatch_information": "34歳男性。ハイキング中にハチに刺され、腫脹と激痛が出現。",
+        "caller_information": [
+          "友人が通報",
+          "呼吸苦あり",
+          "反応が鈍い",
+          "山道の途中で救急車は近くまで入れない"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "出場途上で追加確認する内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "呼吸苦、声の変化、意識状態の有無を確認する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "severe_allergy_suspected"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ハチ刺傷後の呼吸苦や意識障害はアナフィラキシーを疑う重要所見である。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "刺されたハチの種類だけを詳しく確認する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ハチの種類も参考になるが、まず全身症状と重症度の確認が優先である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "歩いて登山口まで来られるか確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "forced_walking"
+            ]
+          },
+          "rationale": "呼吸苦と意識障害があり、歩行を促すと状態悪化や転倒の危険がある。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "刺傷部を強く揉んでよいか確認する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "刺傷部を揉む対応は優先されず、全身状態の確認が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "現場評価",
+      "phase": "scene_assessment",
+      "scene_goal": "山中での二次被害と搬出困難を踏まえて現場を評価する。",
+      "ideal_flow": [
+        "周囲にハチが残っていないか確認する",
+        "安全に活動できる場所を選ぶ",
+        "車両接近困難と搬出距離を把握する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "scene_assessment",
+        "mountain_trail",
+        "secondary_hazard"
+      ],
+      "text": "現場はハイキングコースの途中で、救急車は登山口までしか進入できない。傷病者は狭く傾斜のある山道に座り込み、友人が付き添っている。周囲にハチが残っている可能性もある。",
+      "visible_data": {
+        "scene": [
+          "狭い山道",
+          "傾斜あり",
+          "車両進入困難",
+          "搬出距離が長い",
+          "ハチによる二次被害の可能性"
+        ]
+      },
+      "media": [
+        "media/bee_sting_anaphylaxis_mountain_trail_scene2.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この現場評価として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "周囲の安全と搬出経路を確認し、安全な活動場所を確保する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "scene_safety_confirmed",
+              "transport_difficulty_recognized"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "山中では二次被害と搬出困難を早期に評価し、安全な活動環境を整える。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "刺傷部だけを確認し、その場で活動を継続する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "secondary_sting_risk"
+            ]
+          },
+          "rationale": "ハチが残っている可能性や搬出困難を無視して活動すると二次被害につながる。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "友人に背負わせて登山口まで移動してもらう。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "unsafe_evacuation"
+            ]
+          },
+          "rationale": "ショックと気道狭窄が疑われ、友人による搬出は危険である。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "救急車まで自力歩行できるか試してもらう。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "forced_walking"
+            ]
+          },
+          "rationale": "意識障害やショックが疑われる傷病者を歩かせるのは不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "応援要請",
+      "phase": "resource_request",
+      "scene_goal": "重症度と搬出困難を踏まえ、必要な応援を判断する。",
+      "ideal_flow": [
+        "傷病者の重症度を把握する",
+        "徒歩搬出困難を判断する",
+        "消防隊・山岳救助隊などの応援を要請する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "request_support",
+        "mountain_rescue",
+        "shock"
+      ],
+      "text": "傷病者は反応が鈍く、呼吸苦を訴えている。山道は狭く傾斜があり、登山口まで距離がある。救急隊のみで短時間に安全搬出することは難しい。",
+      "visible_data": {
+        "transport_problem": [
+          "JCS10相当の反応低下が疑われる",
+          "呼吸困難あり",
+          "山道で担架搬出が必要となる可能性",
+          "救急隊のみでは搬出に時間を要する"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で早期に検討すべき対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "消防隊や山岳救助隊などの応援を要請する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "support_requested"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "重症で搬出困難が予想されるため、早期に応援を要請して搬出体制を整える。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "救急隊のみで徒歩搬出を開始する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "delayed_support"
+            ]
+          },
+          "rationale": "山中で重症傷病者を救急隊のみで搬出すると、安全性と処置継続に問題が出やすい。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "状態が落ち着くまで応援要請を保留する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "support_delay"
+            ]
+          },
+          "rationale": "ショックと気道狭窄が疑われる場面では、搬出体制を早期に整える必要がある。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "友人に搬送先を選ばせてから応援を検討する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "搬送先調整よりも、まず安全な搬出体制の確保が優先である。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "全身所見からアナフィラキシーショックを疑う。",
+      "ideal_flow": [
+        "意識・呼吸・循環を評価する",
+        "気道狭窄音を重視する",
+        "皮膚症状とショックを結びつける"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "primary_survey",
+        "anaphylaxis",
+        "shock"
+      ],
+      "text": "傷病者は呼びかけへの反応が鈍い。皮膚は紅潮し、刺傷部の腫脹と強い痛みがある。呼吸は速く、高度の気道狭窄音を聴取する。",
+      "visible_data": {
+        "level_of_consciousness": "JCS 10",
+        "respiratory_rate": "28/分",
+        "pulse": "124/分・整",
+        "blood_pressure": "70mmHg（触診）",
+        "spo2": "88％（室内気）",
+        "skin": "紅潮あり",
+        "airway_breathing": "高度の気道狭窄音"
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で最も疑うべき病態はどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "アナフィラキシーショック",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "anaphylaxis_identified"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "ハチ刺傷後に皮膚症状、気道狭窄、低血圧、意識障害を認め、アナフィラキシーショックを疑う。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "熱疲労",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "低血圧や意識障害はあり得るが、ハチ刺傷後の気道狭窄音と皮膚紅潮からはアナフィラキシーを優先する。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "SpO2低下、低血圧、気道狭窄音を説明しにくい。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "局所の炎症反応のみ",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "undertriage"
+            ]
+          },
+          "rationale": "全身症状を伴っており、局所反応のみとして扱うのは危険である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "自己注射用アドレナリンの使用判断",
+      "phase": "national_exam_core",
+      "scene_goal": "アナフィラキシーショックで最優先となる対応を選択する。",
+      "ideal_flow": [
+        "気道狭窄とショックを重症所見として捉える",
+        "自己注射用アドレナリンの所持を確認する",
+        "早期投与を判断する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "epinephrine_auto_injector",
+        "anaphylaxis",
+        "national_exam_core"
+      ],
+      "text": "友人が傷病者の荷物から自己注射用アドレナリンを見つけた。傷病者は意識が低下し、低血圧、低酸素、高度の気道狭窄音を認める。",
+      "visible_data": {
+        "current_findings": [
+          "JCS10",
+          "血圧70mmHg（触診）",
+          "SpO2 88％",
+          "高度の気道狭窄音",
+          "自己注射用アドレナリンを所持"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者にまず行うべき対応はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "半坐位にする。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "体位調整は重要だが、ショックと気道狭窄があり、自己注射用アドレナリンを優先する。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "エアウエイを挿入する。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "気道管理の準備は必要だが、病態の進行を抑えるためにアドレナリンが優先される。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "自己注射用アドレナリンを投与する。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "epinephrine_given"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "アナフィラキシーショックではアドレナリンが第一選択であり、所持している製剤を早期に使用する。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "バッグ・バルブ・マスク換気を行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "換気不全が進行すれば必要だが、まずアナフィラキシーに対するアドレナリンを優先する。"
+        },
+        {
+          "option_id": "s5_o5",
+          "text": "静脈路確保と輸液の指示要請を行う。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "循環管理として重要だが、最初に選ぶ対応は自己注射用アドレナリン投与である。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "アドレナリンを優先する理由",
+      "phase": "pathophysiology",
+      "scene_goal": "アナフィラキシーに対するアドレナリンの作用を理解する。",
+      "ideal_flow": [
+        "気道浮腫を改善する作用を理解する",
+        "気管支収縮への作用を理解する",
+        "血管拡張と血圧低下への作用を理解する"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "epinephrine_effect",
+        "airway",
+        "shock"
+      ],
+      "text": "アナフィラキシーでは気道浮腫、気管支収縮、血管拡張、血圧低下が急速に進行する。アドレナリンはこれらの病態に対して中心的に作用する。",
+      "visible_data": {
+        "pathophysiology": [
+          "気道狭窄",
+          "気管支収縮",
+          "血管拡張",
+          "血圧低下"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "アナフィラキシーショックでアドレナリンを優先する理由として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "気道狭窄と血圧低下の両方に作用するため。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "epinephrine_effect_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "アドレナリンは気道浮腫・気管支収縮・血管拡張・血圧低下に対して作用する。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "刺傷部の痛みだけを速やかに取るため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "アドレナリンの主目的は疼痛緩和ではなく、アナフィラキシーの病態進行抑制である。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "意識障害の原因をすべて改善できるため。",
+          "is_correct": false,
+          "score_delta": -1,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "意識障害の原因をすべて改善するわけではないが、ショックの改善に重要である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "搬出に必要な体力を一時的に回復させるため。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "歩行や搬出のためではなく、生命危機に関わるアナフィラキシーへの治療として使用する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "最近の制度トピック",
+      "phase": "system_learning",
+      "scene_goal": "自己注射用アドレナリン製剤の投与対象拡大に関する最近の動きを理解する。",
+      "ideal_flow": [
+        "従来は本人所持の製剤使用が中心だったことを確認する",
+        "投与対象拡大は体制整備下で進められたことを理解する",
+        "地域MC・講習・プロトコールの重要性を押さえる"
+      ],
+      "ideal_score_delta": 5,
+      "action_tag": [
+        "system_learning",
+        "epinephrine_policy",
+        "medical_control"
+      ],
+      "text": "アナフィラキシーへの自己注射用アドレナリン製剤については、従来の本人所持製剤の使用に加え、体制整備下で投与対象拡大が検討・実証されている。実施には地域のメディカルコントロール体制、講習、プロトコールなどが重要となる。",
+      "visible_data": {
+        "system_topic": [
+          "本人所持製剤の使用",
+          "投与対象拡大の検討・実証",
+          "地域MC体制",
+          "講習とプロトコール"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この制度トピックの理解として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "地域の体制やプロトコールに基づいて運用される。",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "system_topic_understood"
+            ],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "投与対象拡大は、MC体制や講習、プロトコールなどの整備を前提として扱う必要がある。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "全国どこでも救急隊が自由に投与できる。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "policy_misunderstanding"
+            ]
+          },
+          "rationale": "自由使用ではなく、地域の運用体制や指示体系に基づいて扱われる。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "本人所持の製剤は今後すべて不要になる。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": []
+          },
+          "rationale": "本人所持製剤の重要性がなくなるわけではない。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "アナフィラキシーではアドレナリンより搬出を優先する。",
+          "is_correct": false,
+          "score_delta": -2,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [],
+            "remove_flags": [],
+            "danger_tags": [
+              "treatment_delay"
+            ]
+          },
+          "rationale": "搬出体制は重要だが、ショックと気道狭窄があればアドレナリンを遅らせない。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "34歳男性がハイキング中にハチに刺され、腫脹と激痛に続いて意識障害、低血圧、低酸素血症、皮膚紅潮、高度の気道狭窄音を呈した症例。山中で搬出困難が予想されるため、現場評価と応援要請が重要である。病態としてはアナフィラキシーショックを疑い、自己注射用アドレナリンを所持している場合は早期投与を優先する。",
+    "ideal_actions": [
+      "出場途上で呼吸苦、声の変化、意識状態など全身症状を確認する。",
+      "山中ではハチによる二次被害と搬出経路を評価する。",
+      "搬出困難が予想される場合は、消防隊や山岳救助隊などの応援を早期要請する。",
+      "皮膚症状、気道狭窄、低血圧、低酸素血症からアナフィラキシーショックを疑う。",
+      "自己注射用アドレナリンを所持している場合は、早期投与を判断する。",
+      "アドレナリンが気道狭窄、気管支収縮、血管拡張、血圧低下に作用することを理解する。",
+      "制度面では、地域MC体制やプロトコールに基づく運用を確認する。"
+    ],
+    "good_points": [
+      "エピペン問題だけでなく、山中での現場評価と応援要請を学べる構成になっている。",
+      "搬送中管理を広げすぎず、現場活動と国試の芯に焦点を絞っている。",
+      "最近の制度トピックを、自由使用ではなく体制整備下の運用として整理している。"
+    ],
+    "cautions": [
+      "山中の重症傷病者を無理に歩かせて搬出しない。",
+      "ショックと気道狭窄を局所反応のみとして過小評価しない。",
+      "半坐位、気道管理、輸液も重要だが、アナフィラキシーショックではアドレナリン投与を遅らせない。",
+      "救急隊携行製剤の扱いは、地域のMC体制やプロトコールに従う必要がある。"
+    ]
+  }
+}

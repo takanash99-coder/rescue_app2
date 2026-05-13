@@ -1,0 +1,926 @@
+{
+  "case_id": "severe_hypoglycemia_type1dm_dialogue_sample_001",
+  "version": "2.0",
+  "title": "1型糖尿病治療中の意識障害から重度低血糖を疑い、家族からSAMPLEを聞き取る症例",
+  "category": "endocrine_metabolic",
+  "difficulty": "Hard",
+  "boss_candidate": false,
+  "ai_scoring_candidate": true,
+  "ai_scoring_target_scene": "scene3",
+  "ai_scoring_reason": "家族からSAMPLEを自由対話で聞き取り、低血糖の背景を推論する訓練に適しているため。",
+  "algorithm_type": "意識障害プロトコル",
+  "estimated_time": 11,
+  "keywords": [
+    "重度低血糖",
+    "1型糖尿病",
+    "意識障害",
+    "SAMPLE",
+    "血糖LOW",
+    "ブドウ糖溶液投与"
+  ],
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "通報内容とプレアライバルコール",
+      "phase": "dispatch",
+      "scene_goal": "意識障害の傷病者に対して、無理な飲食や移動を避けて安静を指示する。",
+      "ideal_flow": "意識がない状態で発見されたため、母親へ無理に起こしたり口から飲食物を入れたりせず、安静にして救急隊の到着を待つよう伝える。",
+      "ideal_score_delta": 10,
+      "action_tag": "pac_unconscious_rest",
+      "text": "35歳男性。朝、母親が自室で意識がない状態の息子を発見し、救急要請した。傷病者はベッド横の床に倒れており、呼びかけに反応しない。",
+      "visible_data": {
+        "dispatch_information": {
+          "caller": "母親",
+          "location": "自宅の自室",
+          "chief_complaint": "意識がない",
+          "current_condition": "床に倒れており、呼びかけに反応しない",
+          "known_history_from_call": "1型糖尿病とうつ病で治療中"
+        }
+      },
+      "media": [
+        "media/concerned_woman_checks_on_man_in_distress.png"
+      ],
+      "type": "single_choice",
+      "prompt": "現着前に母親へ伝える内容として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "水や砂糖を口に入れて、飲み込めるか確認してもらう。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_oral_intake"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "aspiration_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識障害がある傷病者へ口から飲食物を入れると誤嚥の危険がある。"
+        },
+        {
+          "option_id": "b",
+          "text": "そのまま安静にして救急隊の到着を待つよう伝える。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "safe_waiting_instruction"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "aspiration_risk"
+            ]
+          },
+          "rationale": "意識障害では無理に飲食させず、安静にして救急隊到着を待つ。"
+        },
+        {
+          "option_id": "c",
+          "text": "意識を戻すため、強く揺さぶって起こしてもらう。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_stimulation"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "injury_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "強い揺さぶりは不要であり、安全を保って救急隊の到着を待つ。"
+        },
+        {
+          "option_id": "d",
+          "text": "かかりつけ医に先に連絡してもらう。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "delayed_emergency_response"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_care"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識がない状態では救急対応を優先し、救急隊到着を待つ。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "JCS300の重度意識障害として赤1相当・Load & Goを判断する。",
+      "ideal_flow": "意識、気道、呼吸、循環を確認し、呼吸と循環が保たれていてもJCS300の意識障害として赤1相当と判断する。",
+      "ideal_score_delta": 10,
+      "action_tag": "primary_assessment_jcs300_load_go",
+      "text": "接触時、傷病者はベッド横の床に倒れている。呼びかけに反応しない。気道は開通しており、呼吸は保たれている。橈骨動脈は触知可能。皮膚は湿っており、冷汗を認める。",
+      "visible_data": {
+        "primary_assessment": {
+          "consciousness": "JCS300",
+          "airway": "開通",
+          "breathing": "呼吸あり。明らかな努力呼吸なし。",
+          "circulation": "橈骨動脈触知可能",
+          "skin": "冷汗あり",
+          "critical_impression": "重度意識障害"
+        }
+      },
+      "media": [
+        "media/concerned_woman_checks_on_man_in_distress.png"
+      ],
+      "type": "single_choice",
+      "prompt": "初期評価から判断する緊急度として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "呼吸数とSpO₂が保たれていれば、現場で詳しい問診を優先する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "delayed_transport"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_care"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "呼吸が保たれていても、JCS300の意識障害は赤1相当として扱う。"
+        },
+        {
+          "option_id": "b",
+          "text": "JCS300の意識障害として、赤1相当で早期搬送を意識する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "load_and_go_decision",
+              "severe_consciousness_disturbance_recognized"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "delayed_care"
+            ]
+          },
+          "rationale": "JCS300は重度意識障害であり、赤1相当として早期搬送を意識して活動する。"
+        },
+        {
+          "option_id": "c",
+          "text": "徐脈があるため、まず循環器疾患として対応する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "cardiac_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "脈拍の評価は必要だが、主問題はJCS300の意識障害である。"
+        },
+        {
+          "option_id": "d",
+          "text": "うつ病の既往があるため、精神科疾患を優先して評価する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "psychiatric_bias"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "missed_hypoglycemia"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "精神科既往に引っ張られず、まず生命に関わる意識障害として評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "対話式SAMPLE情報収集",
+      "phase": "dialogue_history_sample",
+      "scene_goal": "母親からSAMPLEを中心に情報収集し、低血糖の背景を把握する。",
+      "ideal_flow": "最終健常確認、発見状況、最終食事、インスリン使用、既往歴、アレルギーを母親から聞き取り、食事摂取不足とインスリン使用から低血糖リスクを推論する。",
+      "ideal_score_delta": 18,
+      "action_tag": "dialogue_sample_family_hypoglycemia",
+      "text": "傷病者はJCS300であり、家族から情報収集を行う。母親は動揺しているが、質問には答えられる。",
+      "visible_data": {
+        "dialogue_context": {
+          "target": "母親",
+          "purpose": "SAMPLEを中心に、重度低血糖につながる背景を聞き取る",
+          "ai_scoring_candidate": true
+        }
+      },
+      "media": [],
+      "type": "dialogue",
+      "prompt": "母親からSAMPLEを中心に情報収集を行う。適切な問いかけを選べ。",
+      "dialogue": [
+        {
+          "turn_id": "q1_symptom_discovery",
+          "speaker": "mother",
+          "text": "朝、起こしに行ったら返事がなくて……。",
+          "task": "発見状況を確認する。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "普段の起床時間は何時ですか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "普段は6時半ごろですが、今日は返事がありませんでした。",
+              "rationale": "起床時間よりも、発見時の状態を直接確認したい。"
+            },
+            {
+              "option_id": "b",
+              "text": "今朝発見したときの様子を教えてください。",
+              "is_correct": true,
+              "score_delta": 3,
+              "life_delta": 0,
+              "mother_response": "朝6時半ごろ、ベッドの横で倒れていて、呼びかけても反応がありませんでした。汗をすごくかいていました。",
+              "rationale": "発見状況、意識障害、冷汗を把握できる。"
+            },
+            {
+              "option_id": "c",
+              "text": "最近、運動はしていますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "最近はあまり外に出ていません。",
+              "rationale": "背景情報としては参考になるが、発見時の状態確認を優先する。"
+            },
+            {
+              "option_id": "d",
+              "text": "部屋は普段から片付いていますか。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": 0,
+              "mother_response": "それは今は分かりません……。",
+              "rationale": "低血糖や意識障害の評価に直結しにくい。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q2_last_known_well",
+          "speaker": "mother",
+          "text": "昨日の夜は少し元気がないように見えました。",
+          "task": "最終健常確認を行う。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "最近、友人とは会っていますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "最近はあまり会っていないと思います。",
+              "rationale": "背景としては参考になるが、まず最終健常確認が重要である。"
+            },
+            {
+              "option_id": "b",
+              "text": "昨日は外出しましたか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "昨日は家にいました。",
+              "rationale": "外出歴よりも、普段どおりだった時刻を確認したい。"
+            },
+            {
+              "option_id": "c",
+              "text": "最後に普段どおり会話できたのはいつですか。",
+              "is_correct": true,
+              "score_delta": 3,
+              "life_delta": 0,
+              "mother_response": "昨夜22時半ごろです。『食欲がない』と言っていました。",
+              "rationale": "最終健常確認と、食欲低下という低血糖リスクにつながる情報が得られる。"
+            },
+            {
+              "option_id": "d",
+              "text": "普段、何時に寝ますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "だいたい23時ごろです。",
+              "rationale": "普段の就寝時刻より、最後に普段どおりだった時刻が重要である。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q3_last_oral_intake",
+          "speaker": "mother",
+          "text": "昨日の夜は食欲がないと言っていました。",
+          "task": "最終食事を確認する。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "昨日の夕食のメニューは何でしたか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "普通の夕食でしたが、あまり食べていません。",
+              "rationale": "メニューよりも、最後に食事をした時刻を確認する。"
+            },
+            {
+              "option_id": "b",
+              "text": "好き嫌いはありますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "特に強い好き嫌いはありません。",
+              "rationale": "嗜好よりも、最終食事の確認が優先である。"
+            },
+            {
+              "option_id": "c",
+              "text": "最後に食事をしたのはいつですか。",
+              "is_correct": true,
+              "score_delta": 3,
+              "life_delta": 0,
+              "mother_response": "昨夜の夕食です。でも、半分も食べていませんでした。",
+              "rationale": "最終食事と摂取不足を確認でき、低血糖の背景を把握できる。"
+            },
+            {
+              "option_id": "d",
+              "text": "普段、間食は多いですか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "最近はあまり食べていません。",
+              "rationale": "間食習慣よりも、直近の食事状況が重要である。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q4_medication_insulin",
+          "speaker": "mother",
+          "text": "糖尿病で治療はしています。",
+          "task": "インスリン使用を確認する。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "風邪薬は飲んでいますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "風邪薬は聞いていません。",
+              "rationale": "今回の重度低血糖では、糖尿病治療とインスリン使用の確認が優先である。"
+            },
+            {
+              "option_id": "b",
+              "text": "糖尿病の治療はインスリンですか。",
+              "is_correct": true,
+              "score_delta": 3,
+              "life_delta": 0,
+              "mother_response": "はい、1型糖尿病でインスリンを使っています。昨夜もいつも通り打ったようです。",
+              "rationale": "インスリン使用を確認でき、食事摂取不足と合わせて低血糖リスクが高まる。"
+            },
+            {
+              "option_id": "c",
+              "text": "糖尿病は家系ですか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "家系かどうかは分かりません。",
+              "rationale": "家族歴よりも、現在の治療内容が重要である。"
+            },
+            {
+              "option_id": "d",
+              "text": "最近、体重は増えましたか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "むしろ少し痩せたように見えます。",
+              "rationale": "体重変化よりも、インスリン使用の有無を確認する。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q5_past_history",
+          "speaker": "mother",
+          "text": "病気のことも関係ありますか？",
+          "task": "既往歴を確認する。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "最近、旅行しましたか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "旅行はしていません。",
+              "rationale": "旅行歴よりも既往歴の確認が重要である。"
+            },
+            {
+              "option_id": "b",
+              "text": "普段の病気を教えてください。",
+              "is_correct": true,
+              "score_delta": 3,
+              "life_delta": 0,
+              "mother_response": "1型糖尿病とうつ病があります。どちらも通院しています。最近は気分が落ち込んでいました。",
+              "rationale": "1型糖尿病とうつ病という背景を把握できる。"
+            },
+            {
+              "option_id": "c",
+              "text": "過去に骨折したことはありますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "骨折は聞いたことがありません。",
+              "rationale": "今回の意識障害と低血糖リスクには直結しにくい。"
+            },
+            {
+              "option_id": "d",
+              "text": "普段、車を運転しますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "最近はあまり運転していません。",
+              "rationale": "運転歴よりも既往歴を確認する。"
+            }
+          ]
+        },
+        {
+          "turn_id": "q6_allergy",
+          "speaker": "mother",
+          "text": "薬はいつものものを使っていると思います。",
+          "task": "アレルギーを確認する。",
+          "options": [
+            {
+              "option_id": "a",
+              "text": "普段、甘いものは好きですか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "最近は甘いものもあまり食べません。",
+              "rationale": "嗜好ではなく、アレルギーの確認が必要である。"
+            },
+            {
+              "option_id": "b",
+              "text": "最近、眠れていましたか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "あまり眠れていないようでした。",
+              "rationale": "精神状態の背景としては参考になるが、SAMPLEのAとしてはアレルギー確認を行う。"
+            },
+            {
+              "option_id": "c",
+              "text": "家族に糖尿病の方はいますか。",
+              "is_correct": false,
+              "score_delta": -1,
+              "life_delta": 0,
+              "mother_response": "家族にはいません。",
+              "rationale": "家族歴よりも、投与や搬送に関わるアレルギーを確認する。"
+            },
+            {
+              "option_id": "d",
+              "text": "薬や食べ物のアレルギーは分かりますか。",
+              "is_correct": true,
+              "score_delta": 3,
+              "life_delta": 0,
+              "mother_response": "特に聞いていません。薬でアレルギーが出た話もありません。",
+              "rationale": "SAMPLEのAとしてアレルギー情報を確認できる。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "血糖測定と指示要請判断",
+      "phase": "blood_glucose_assessment",
+      "scene_goal": "血糖LOWから重度低血糖を判断し、ブドウ糖溶液投与の指示要請を行う。",
+      "ideal_flow": "JCS300の意識障害で血糖測定を行い、LOW表示を確認したら、経口投与ではなく静脈路確保およびブドウ糖溶液投与の指示要請を行う。",
+      "ideal_score_delta": 12,
+      "action_tag": "hypoglycemia_glucose_request",
+      "text": "血糖測定を行ったところ、測定器には「LOW」と表示された。測定範囲以下で数値は表示されない。",
+      "visible_data": {
+        "blood_glucose": {
+          "result": "LOW",
+          "interpretation": "測定範囲以下",
+          "consciousness": "JCS300"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "血糖測定結果を踏まえ、直ちに行うべき対応として適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "静脈路確保及び輸液を行う。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "iv_fluid_without_glucose_request"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "definitive_glucose_delayed"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "重度低血糖では、単なる輸液ではなくブドウ糖溶液投与の指示要請が必要である。"
+        },
+        {
+          "option_id": "b",
+          "text": "ブドウ糖タブレットを口に含ませる。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_oral_glucose"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "aspiration_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "JCS300の意識障害では経口摂取は誤嚥の危険が高く不適切である。"
+        },
+        {
+          "option_id": "c",
+          "text": "かかりつけの精神科医師に連絡する。",
+          "is_correct": false,
+          "score_delta": -7,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "psychiatric_delay"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "delayed_glucose"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "うつ病の既往に引っ張られず、血糖LOWに対する処置を優先する。"
+        },
+        {
+          "option_id": "d",
+          "text": "経口血糖降下薬の服用の有無を確認する。",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "history_over_treatment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "treatment_delay"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "薬剤情報の確認は必要だが、血糖LOWでJCS300なら直ちにブドウ糖投与の指示要請を行う。"
+        },
+        {
+          "option_id": "e",
+          "text": "静脈路確保及びブドウ糖溶液投与の指示要請を行う。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "glucose_order_requested"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "delayed_glucose"
+            ]
+          },
+          "rationale": "JCS300で血糖LOWのため、静脈路確保とブドウ糖溶液投与の指示要請を行う。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "ブドウ糖溶液投与の手技",
+      "phase": "glucose_administration",
+      "scene_goal": "静脈路確保後のブドウ糖溶液投与手技と注意点を理解する。",
+      "ideal_flow": "医師の指示を受けて静脈路を確保し、漏れや腫脹、意識レベルの変化に注意しながらブドウ糖溶液をゆっくり投与する。",
+      "ideal_score_delta": 12,
+      "action_tag": "glucose_administration_technique",
+      "text": "医師から静脈路確保とブドウ糖溶液投与の指示を受けた。静脈路を確保し、ブドウ糖溶液を投与する場面である。",
+      "visible_data": {
+        "procedure_context": {
+          "order": "静脈路確保、ブドウ糖溶液投与",
+          "patient_status": "JCS300、血糖LOW",
+          "care_point": "漏れ・腫脹・意識レベル変化に注意"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ブドウ糖溶液投与の手技として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "ブドウ糖溶液は急速投与し、意識レベルの変化は投与後にまとめて確認する。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "rapid_injection_poor_monitoring"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "extravasation_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "投与中も意識レベルや刺入部の状態を継続して確認する。"
+        },
+        {
+          "option_id": "b",
+          "text": "投与中は意識レベルの変化に注意しながら、確保した静脈路からゆっくり投与する。",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "glucose_administered_safely"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "extravasation_risk"
+            ]
+          },
+          "rationale": "静脈路確保後、意識レベル変化や漏れに注意しながらブドウ糖溶液を投与する。"
+        },
+        {
+          "option_id": "c",
+          "text": "末梢静脈路が確保できない場合でも、口腔内へブドウ糖溶液を注入する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -3,
+          "status_effect": {
+            "add_flags": [
+              "unsafe_oral_glucose_solution"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "aspiration_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "JCS300では経口・口腔内投与は誤嚥の危険があり不適切である。"
+        },
+        {
+          "option_id": "d",
+          "text": "血管痛や腫脹を認めても、投与速度は変えずに全量を一気に投与する。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "extravasation_ignored"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "tissue_injury_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "血管外漏出や腫脹が疑われる場合は投与を中止し、状況を確認する。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "ブドウ糖投与後の再評価",
+      "phase": "post_glucose_reassessment",
+      "scene_goal": "ブドウ糖投与後も意識、バイタル、血糖を継続して再評価する。",
+      "ideal_flow": "一時的に意識が改善しても再低下する可能性を考え、搬送中も意識レベル、バイタルサイン、血糖値を継続して確認する。",
+      "ideal_score_delta": 10,
+      "action_tag": "reassessment_after_glucose",
+      "text": "ブドウ糖溶液投与後、傷病者は呼びかけに対してわずかに反応を示すようになった。搬送を継続している。",
+      "visible_data": {
+        "post_treatment_status": {
+          "consciousness": "反応が出てきた",
+          "breathing": "呼吸状態は保たれている",
+          "risk": "搬送中に再び意識レベルが低下する可能性がある"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "ブドウ糖溶液投与後の対応として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "意識が改善すれば、その後の観察は簡略化する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "insufficient_reassessment"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "recurrent_hypoglycemia_missed"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "意識が一時的に改善しても、搬送中に再び低血糖となることがある。"
+        },
+        {
+          "option_id": "b",
+          "text": "意識・バイタル・血糖を継続して確認する。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "ongoing_reassessment_completed"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": [
+              "recurrent_hypoglycemia_missed"
+            ]
+          },
+          "rationale": "投与後も意識レベル、バイタルサイン、血糖値を継続して再評価する。再低下時は再測定し、必要に応じて医師の指示を受ける。"
+        },
+        {
+          "option_id": "c",
+          "text": "意識が戻れば、搬送せず自宅で経過を見る。",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": -2,
+          "status_effect": {
+            "add_flags": [
+              "non_transport_after_glucose"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "recurrent_hypoglycemia_risk"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "一時的に改善しても再低下の可能性があり、医療機関での評価が必要である。"
+        },
+        {
+          "option_id": "d",
+          "text": "改善しなければ、精神科疾患として対応する。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -1,
+          "status_effect": {
+            "add_flags": [
+              "psychiatric_misattribution"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "medical_cause_missed"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "改善が乏しい場合でも、まず血糖再測定や他の身体疾患を再評価する。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "低血糖の病態理解",
+      "phase": "pathophysiology",
+      "scene_goal": "低血糖で意識障害が生じる機序を理解する。",
+      "ideal_flow": "血糖低下により脳へのエネルギー供給が不足し、意識障害が生じることを理解する。",
+      "ideal_score_delta": 10,
+      "action_tag": "hypoglycemia_brain_energy",
+      "text": "この傷病者では、食事摂取不足がある一方でインスリンを使用しており、血糖が測定範囲以下となっていた。重度低血糖では意識障害を来す。",
+      "visible_data": {
+        "pathophysiology_summary": {
+          "condition": "重度低血糖",
+          "trigger": "食事摂取不足とインスリン使用",
+          "result": "脳へのエネルギー供給不足",
+          "symptom": "意識障害"
+        }
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で意識障害が生じた主な機序として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "a",
+          "text": "血糖低下により脳へのエネルギー供給が不足したため。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hypoglycemia_pathophysiology_understood"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "脳はブドウ糖への依存が高く、重度低血糖ではエネルギー供給不足により意識障害を来す。"
+        },
+        {
+          "option_id": "b",
+          "text": "うつ病により意識レベルが急激に低下したため。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "depression_cause_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "hypoglycemia_misunderstood"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "うつ病の既往は背景として重要だが、血糖LOWの意識障害は低血糖を主因に考える。"
+        },
+        {
+          "option_id": "c",
+          "text": "インスリン不足により高血糖性昏睡を来したため。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hyperglycemic_coma_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [
+              "wrong_metabolic_direction"
+            ],
+            "remove_danger_tags": []
+          },
+          "rationale": "血糖はLOWであり、高血糖性昏睡ではなく重度低血糖による意識障害である。"
+        },
+        {
+          "option_id": "d",
+          "text": "SpO₂低下により脳が低酸素状態となったため。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": {
+            "add_flags": [
+              "hypoxia_selected"
+            ],
+            "remove_flags": [],
+            "add_danger_tags": [],
+            "remove_danger_tags": []
+          },
+          "rationale": "SpO₂は保たれており、今回の意識障害は低酸素ではなく低血糖によるものと考える。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "1型糖尿病とうつ病で治療中の35歳男性が、朝に自室でJCS300の意識障害として発見された症例。母親からSAMPLEを聞き取り、昨夜の食事摂取不足、インスリン使用、冷汗を伴う発見状況を把握した。血糖測定ではLOW表示であり、重度低血糖として静脈路確保およびブドウ糖溶液投与の指示要請を行う。投与後も意識レベル、バイタルサイン、血糖値を継続して再評価し、再低下時は再測定と医師指示を考慮する。",
+    "ideal_actions": [
+      "通報段階で無理な飲食や移動を避け、安静にして待つよう母親へ伝える。",
+      "初期評価ではJCS300の意識障害として赤1相当と判断する。",
+      "母親からSAMPLEを中心に、発見状況、最終健常確認、最終食事、インスリン使用、既往歴、アレルギーを聞き取る。",
+      "食事摂取不足とインスリン使用を低血糖リスクとして結びつける。",
+      "意識障害では経口ブドウ糖を避ける。",
+      "血糖LOWを確認したら、静脈路確保とブドウ糖溶液投与の指示要請を行う。",
+      "ブドウ糖溶液投与中は意識レベル変化、刺入部の腫脹や漏れに注意する。",
+      "投与後も意識レベル、バイタルサイン、血糖値を継続して再評価する。",
+      "搬送中に再び意識レベルが低下した場合は、血糖を再測定し、低血糖であれば再投与について医師の指示を受ける。"
+    ],
+    "good_points": [
+      "JCS300を赤1相当として判断できた。",
+      "精神科既往に引っ張られず、身体疾患として低血糖を評価できた。",
+      "母親からSAMPLEを聞き取り、食事摂取不足とインスリン使用を結びつけられた。",
+      "血糖LOWを重度低血糖として捉え、ブドウ糖溶液投与の指示要請へ進めた。",
+      "投与後の再低下リスクを踏まえ、継続再評価の必要性を理解できた。"
+    ],
+    "cautions": [
+      "意識障害の傷病者にブドウ糖タブレットや飲食物を口に入れない。",
+      "SpO₂が保たれていても、JCS300の意識障害を軽視しない。",
+      "うつ病の既往だけで意識障害を説明しない。",
+      "血糖測定を行う前から低血糖を決めつけず、測定で確認する。",
+      "ブドウ糖投与後に意識が改善しても、再低下する可能性がある。",
+      "投与後は意識・バイタル・血糖を継続して確認する。",
+      "再低下時は血糖を再測定し、低血糖であれば医師の指示を受けて対応する。"
+    ]
+  }
+}

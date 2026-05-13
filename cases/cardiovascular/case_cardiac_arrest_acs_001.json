@@ -1,11 +1,16 @@
 {
   "case_id": "case_cardiac_arrest_acs_001",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "title": "胸痛後に心室細動となり心拍再開した心肺停止傷病者",
   "category": "cardiovascular",
   "difficulty": "Normal",
   "algorithm_type": "PEMEC",
   "estimated_time": "約15分",
+  "description_mode": {
+    "has_short_answer": true,
+    "scene_id": "scene6",
+    "theme": "病院連絡内容"
+  },
   "keywords": [
     "cardiac_arrest",
     "ventricular_fibrillation",
@@ -21,7 +26,7 @@
         "心室細動に対する除細動と高品質CPRを優先できる",
         "ROSC後に急性冠症候群を背景病態として評価できる",
         "外傷合併を見逃さずに主病態との優先順位を判断できる",
-        "三次救急医療機関を選定し、適切なファーストコールができる",
+        "適切な搬送先を選定し、必要な病院連絡ができる",
         "搬送中の再VFや循環不安定化を継続監視できる"
       ],
       "対象": "EMT student",
@@ -57,10 +62,10 @@
   "ideal_flow": [
     "プレアライバルコールで反応・呼吸確認、市民CPR開始、AED準備を指示する",
     "現着後はCPAとして高品質CPRとリズム確認を行い、VFなら速やかに除細動する",
-    "ROSC後は急性冠症候群を背景に想定し、循環・呼吸・意識状態を再評価する",
-    "外傷所見は把握しつつも主病態は心原性院外心停止後管理として優先する",
-    "三次救急医療機関を選定し、胸痛先行・VF・ROSC・ST上昇疑いを含めて連絡する",
-    "搬送中は再VF、低血圧、意識障害の持続などを重点観察し、悪化時は追加連絡する"
+    "ROSC後は胸痛先行の経過から循環器由来の病態を考えて再評価する",
+    "外傷所見は把握しつつも主病態との優先順位を誤らない",
+    "病院連絡では胸痛先行、CPA、VF、除細動後ROSC、循環不安定、合併外傷を整理して伝える",
+    "搬送先は高度な循環器対応が可能な医療機関を選定する"
   ],
   "result_rank": [
     {
@@ -113,7 +118,9 @@
           "職場内で大きな危険情報なし"
         ]
       },
-      "media": [],
+      "media": [
+        "scene1_cardiac_collapse_office_001.png"
+      ],
       "type": "multiple_choice",
       "prompt": "プレアライバルコールとして通報者に優先して指示する内容を2つ選べ。",
       "options": [
@@ -148,14 +155,6 @@
           "score_delta": -3,
           "action_tag": "trauma_before_cpr",
           "feedback": "心停止が疑われる状況では止血よりもCPRとAEDが優先される。"
-        },
-        {
-          "id": "E",
-          "label": "救急隊到着まで様子を見るよう伝える",
-          "ideal": false,
-          "score_delta": -6,
-          "action_tag": "wait_and_see",
-          "feedback": "蘇生開始の遅れは転帰悪化につながる。"
         }
       ]
     },
@@ -211,11 +210,6 @@
           "id": "D",
           "label": "額の挫創の詳細観察",
           "ideal_rank": 4
-        },
-        {
-          "id": "E",
-          "label": "右前腕の副子固定",
-          "ideal_rank": 5
         }
       ]
     },
@@ -223,11 +217,11 @@
       "id": "scene3",
       "title": "場面 3",
       "phase": "情報収集＋バイタル評価",
-      "scene_goal": "ROSC後に急性冠症候群を背景病態として把握し、循環不安定性を評価する。",
+      "scene_goal": "ROSC後に胸痛先行の経過を踏まえ、循環不安定性を評価する。",
       "ideal_flow": [
         "ROSC後の循環・呼吸・意識を再評価する",
-        "胸痛先行からACSを強く疑う",
-        "心原性院外心停止として捉える"
+        "胸痛先行の経過を重視する",
+        "循環器由来の病態を考える"
       ],
       "ideal_score_delta": 16,
       "action_tag": "post_rosc_assessment",
@@ -247,7 +241,7 @@
           "spo2": "93%（酸素投与前）"
         },
         "monitor": {
-          "rhythm": "洞調律様だが虚血性変化疑い"
+          "rhythm": "規則的な頻拍"
         },
         "history_from_bystander": [
           "倒れる直前に胸痛を訴えた",
@@ -255,9 +249,15 @@
           "頭部を床に打ちつけた可能性がある"
         ]
       },
+      "author_note": {
+        "hidden_assessment": [
+          "急性冠症候群を背景とした心原性院外心停止を想定する",
+          "局所外傷より循環器病態を優先する"
+        ]
+      },
       "media": [],
       "type": "multiple_choice",
-      "prompt": "ROSC後の情報から強く疑う病態として適切なものを2つ選べ。",
+      "prompt": "ROSC後の情報から強く考えるべき病態として適切なものを2つ選べ。",
       "options": [
         {
           "id": "A",
@@ -290,14 +290,6 @@
           "score_delta": -5,
           "action_tag": "trauma_as_primary",
           "feedback": "局所外傷はあるが、主病態は循環器由来の致死的不整脈と考えるべきである。"
-        },
-        {
-          "id": "E",
-          "label": "頭部外傷が心停止の主因である",
-          "ideal": false,
-          "score_delta": -4,
-          "action_tag": "head_trauma_as_primary",
-          "feedback": "頭部外傷は転倒に伴う二次的損傷として考えるのが妥当である。"
         }
       ]
     },
@@ -305,28 +297,34 @@
       "id": "scene4",
       "title": "場面 4",
       "phase": "活動方針の再判断",
-      "scene_goal": "ROSC後不安定例として搬送優先を判断し、三次救急医療機関へ搬送方針を定める。",
+      "scene_goal": "ROSC後不安定例として搬送優先を判断する。",
       "ideal_flow": [
         "ROSC後不安定例として判断する",
-        "急性冠症候群を疑う",
-        "搬送優先で三次救急医療機関を選定する"
+        "胸痛先行の経過を重視する",
+        "搬送優先で適切な医療機関を選定する"
       ],
       "ideal_score_delta": 15,
       "action_tag": "transport_priority",
-      "narrative": "ROSC後も血圧は低く、循環動態は不安定である。胸痛先行のVFであり、再度の致死的不整脈や心原性ショックが懸念される。一方で、前額部挫創と右前腕変形もある。",
-      "text": "ROSC後も血圧は低く、循環動態は不安定である。胸痛先行のVFであり、再度の致死的不整脈や心原性ショックが懸念される。一方で、前額部挫創と右前腕変形もある。",
+      "narrative": "ROSC後も血圧は低く、循環動態は不安定である。胸痛先行のVFであり、再度の致死的不整脈や循環不全が懸念される。一方で、前額部挫創と右前腕変形もある。",
+      "text": "ROSC後も血圧は低く、循環動態は不安定である。胸痛先行のVFであり、再度の致死的不整脈や循環不全が懸念される。一方で、前額部挫創と右前腕変形もある。",
       "visible_data": {
-        "current_problem_list": [
-          "ROSC後で再悪化リスクあり",
-          "急性冠症候群疑い",
-          "低血圧あり",
-          "頭部外傷合併の可能性",
-          "右前腕骨折疑い"
+        "current_status": [
+          "胸痛先行",
+          "VFに対して除細動後に心拍再開",
+          "血圧88/54 mmHg",
+          "前額部挫創あり",
+          "右前腕変形あり"
         ],
         "transport_context": {
           "nearest_secondary_center": "あり",
           "tertiary_center": "対応可能"
         }
+      },
+      "author_note": {
+        "hidden_assessment": [
+          "再悪化リスクが高い",
+          "循環器緊急対応が可能な施設を優先する"
+        ]
       },
       "media": [],
       "type": "single_choice",
@@ -342,7 +340,7 @@
         },
         {
           "id": "B",
-          "label": "軽症頭部外傷として二次救急医療機関へ搬送する",
+          "label": "頭部外傷の評価を優先して二次救急医療機関へ搬送する",
           "ideal": false,
           "score_delta": -5,
           "action_tag": "secondary_center_only",
@@ -350,27 +348,19 @@
         },
         {
           "id": "C",
-          "label": "急性冠症候群を疑い、ROSC後不安定例として搬送優先で三次救急医療機関を選定する",
+          "label": "胸痛先行で除細動後に心拍再開しており、循環動態も不安定なため、高度対応可能な医療機関へ搬送を優先する",
           "ideal": true,
           "score_delta": 15,
           "action_tag": "transport_priority",
-          "feedback": "VFによる院外心停止後で、緊急循環器対応を含む高度治療体制が必要である。"
+          "feedback": "心停止後で循環器対応を含む高度治療体制が必要である。"
         },
         {
           "id": "D",
-          "label": "いったん現場で意識回復を待ってから搬送先を決める",
+          "label": "現場で意識回復を待ってから搬送先を決める",
           "ideal": false,
           "score_delta": -4,
           "action_tag": "wait_for_recovery",
           "feedback": "ROSC後は再悪化の危険が高く、搬送遅延は避けるべきである。"
-        },
-        {
-          "id": "E",
-          "label": "糖尿病既往から内分泌代謝専門病院を優先する",
-          "ideal": false,
-          "score_delta": -4,
-          "action_tag": "wrong_specialty_choice",
-          "feedback": "既往歴よりも、現時点の致死的循環器病態への対応能力を優先する。"
         }
       ]
     },
@@ -412,7 +402,7 @@
         },
         {
           "id": "B",
-          "label": "右前腕は循環不全や疼痛に配慮しつつ保護・固定を検討する",
+          "label": "右前腕は循環や疼痛に配慮しつつ保護・固定を検討する",
           "ideal": true,
           "score_delta": 6,
           "action_tag": "protect_forearm",
@@ -433,88 +423,79 @@
           "score_delta": -5,
           "action_tag": "change_destination_for_minor_trauma",
           "feedback": "ROSC後の循環器緊急対応が必要であり搬送変更は不適切である。"
-        },
-        {
-          "id": "E",
-          "label": "右前腕変形は無視して観察記録もしない",
-          "ideal": false,
-          "score_delta": -3,
-          "action_tag": "ignore_trauma",
-          "feedback": "主病態優先でも、合併外傷の把握と申し送りは必要である。"
         }
       ]
     },
     {
       "id": "scene6",
       "title": "場面 6",
-      "phase": "評価・ファーストコール・特定行為",
-      "scene_goal": "胸痛先行、VF、ROSC、ST上昇疑い、合併外傷を整理して病院へ伝える。",
+      "phase": "病院連絡",
+      "scene_goal": "胸痛先行、VF、除細動後ROSC、不安定な循環、合併外傷を整理して病院へ伝える。",
       "ideal_flow": [
-        "胸痛先行を伝える",
-        "到着時CPA・VF・除細動後ROSCを伝える",
-        "ST上昇疑いと低血圧を伝える",
-        "頭部・前腕外傷も併せて伝える",
-        "三次救急での受け入れを依頼する"
+        "年齢・性別を伝える",
+        "胸痛先行で倒れた経過を伝える",
+        "到着時CPAでVFを確認し除細動後にROSCしたことを伝える",
+        "現在も血圧低下など循環が不安定であることを伝える",
+        "前額部挫創と右前腕変形があることを補足する"
       ],
       "ideal_score_delta": 15,
       "action_tag": "first_call_needed",
-      "narrative": "三次救急医療機関へ搬送中。現着後の受け入れ準備を依頼するため病院連絡を行う。ROSC後の院外心停止で、胸痛先行、VF、12誘導でST上昇疑い、頭部・右前腕外傷を合併している。",
-      "text": "三次救急医療機関へ搬送中。現着後の受け入れ準備を依頼するため病院連絡を行う。ROSC後の院外心停止で、胸痛先行、VF、12誘導でST上昇疑い、頭部・右前腕外傷を合併している。",
+      "narrative": "搬送中、受け入れ病院へ連絡を行う。胸痛先行で倒れ、到着時CPA。モニターでVFを確認し除細動後に心拍再開している。現在も循環は不安定で、前額部挫創と右前腕変形を認める。",
+      "text": "搬送中、受け入れ病院へ連絡を行う。胸痛先行で倒れ、到着時CPA。モニターでVFを確認し除細動後に心拍再開している。現在も循環は不安定で、前額部挫創と右前腕変形を認める。",
       "visible_data": {
-        "handover_points": [
+        "handover_materials": [
           "52歳男性",
-          "胸痛後に心肺停止",
-          "心室細動に対し電気ショックでROSC",
-          "ROSC後も血圧低め",
-          "12誘導心電図でST上昇疑い",
-          "前額部挫創・右前腕変形あり",
-          "三次救急医療機関へ搬送中"
+          "胸痛の後に倒れた",
+          "到着時は反応・呼吸・脈拍なし",
+          "VFを確認し除細動後に心拍再開",
+          "現在も血圧低下あり",
+          "前額部挫創あり",
+          "右前腕変形あり"
         ]
       },
       "media": [],
-      "type": "template_select",
-      "prompt": "この症例の病院連絡として最も適切なテンプレートを1つ選べ。",
-      "templates": [
-        {
-          "id": "A",
-          "label": "52歳男性。転倒後の前額部挫創と右前腕骨折疑いです。バイタルはやや不安定ですが、外傷中心に診療をお願いします。",
-          "ideal": false,
-          "score_delta": -5,
-          "action_tag": "trauma_focused_handover",
-          "feedback": "主病態である心原性院外心停止後・急性冠症候群疑いが伝わっていない。"
-        },
-        {
-          "id": "B",
-          "label": "52歳男性。糖尿病治療中で低血糖の可能性があります。胸痛の詳細は不明ですが、現在は意識障害があります。",
-          "ideal": false,
-          "score_delta": -4,
-          "action_tag": "anchoring_handover",
-          "feedback": "心停止、VF、ROSC、ST上昇疑いといった重要情報が欠落している。"
-        },
-        {
-          "id": "C",
-          "label": "52歳男性。胸痛を訴え倒れ、到着時CPAでした。モニターでVFを確認し除細動後ROSCしています。現在血圧は低めで、12誘導でST上昇疑いがあります。前額部挫創と右前腕変形もあります。急性冠症候群による院外心停止を疑い、三次救急として受け入れをお願いします。",
-          "ideal": true,
-          "score_delta": 15,
-          "action_tag": "first_call_complete",
-          "feedback": "主病態、経過、現在の不安定性、合併外傷、求める受け入れ先が整理されている。"
-        }
-      ]
+      "type": "short_answer",
+      "prompt": "この症例の病院連絡として、受け入れ病院へ伝えるべき内容を記せ。",
+      "scoring_keywords": {
+        "required": [
+          "52歳男性",
+          "胸痛",
+          "CPA",
+          "VF",
+          "除細動",
+          "ROSC"
+        ],
+        "recommended": [
+          "血圧低下",
+          "循環不安定",
+          "前額部挫創",
+          "右前腕変形"
+        ]
+      },
+      "expected_answer_outline": "52歳男性。胸痛の後に倒れ、到着時CPA。VFを確認し除細動後にROSC。現在も血圧低下があり循環不安定。前額部挫創と右前腕変形を合併している。",
+      "review_points": {
+        "missing_points_examples": [
+          "胸痛先行の経過が入っているか",
+          "CPA、VF、除細動後ROSCの経過が抜けていないか",
+          "現在も循環が不安定である点が伝わっているか",
+          "合併外傷を簡潔に添えられているか"
+        ]
+      }
     },
     {
       "id": "scene7",
       "title": "場面 7",
-      "phase": "車内活動",
-      "scene_goal": "搬送中は再VF、ショック進行、意識・呼吸悪化を重点観察する。",
+      "phase": "搬送先選定",
+      "scene_goal": "病院連絡内容を踏まえ、症例に適した搬送先を判断する。",
       "ideal_flow": [
-        "再致死的不整脈の出現を監視する",
-        "循環動態の変化を追う",
-        "悪化時は追加連絡を考える"
+        "胸痛先行の心停止後症例であることを重視する",
+        "循環動態が不安定であることを加味する",
+        "高度な循環器対応が可能な搬送先を選ぶ"
       ],
       "ideal_score_delta": 10,
-      "action_tag": "post_rosc_monitoring",
-      "narrative": "搬送中、モニター上は洞調律様だが頻脈傾向が続く。冷汗は持続し、反応は乏しい。血圧も80/46mmHgまで低下した。",
-      "text": "搬送中、モニター上は洞調律様だが頻脈傾向が続く。冷汗は持続し、反応は乏しい。血圧も80/46mmHgまで低下した。",
+      "action_tag": "destination_selection",
+      "narrative": "搬送中、モニター上は頻脈傾向が続き、冷汗も持続している。血圧は80/46mmHgまで低下した。病院連絡を終えたうえで、どのレベルの医療機関へ搬送するかを最終判断する。",
+      "text": "搬送中、モニター上は頻脈傾向が続き、冷汗も持続している。血圧は80/46mmHgまで低下した。病院連絡を終えたうえで、どのレベルの医療機関へ搬送するかを最終判断する。",
       "dynamic_events": [
         {
           "trigger": "scene_start",
@@ -533,51 +514,72 @@
           "consciousness": "開眼なし、うめき声のみ"
         }
       },
+      "author_note": {
+        "hidden_assessment": [
+          "ROSC後で循環不安定",
+          "高度な循環器対応を要する"
+        ]
+      },
       "media": [],
       "type": "single_choice",
-      "prompt": "搬送中の重点観察として最も優先度が高いのはどれか。",
+      "prompt": "この症例の搬送先として最も適切なのはどれか。",
       "options": [
         {
           "id": "A",
-          "label": "右前腕の変形の角度測定",
+          "label": "一次救急医療機関",
           "ideal": false,
-          "score_delta": -3,
-          "action_tag": "minor_trauma_measurement",
-          "feedback": "局所所見よりも循環・不整脈・虚血所見の監視が優先される。"
+          "score_delta": -4,
+          "action_tag": "primary_center",
+          "feedback": "心停止後で循環不安定な症例には対応が不十分である。"
         },
         {
           "id": "B",
-          "label": "再度の致死的不整脈出現と循環動態の変化",
-          "ideal": true,
-          "score_delta": 10,
-          "action_tag": "post_rosc_monitoring",
-          "feedback": "ROSC後は再VFやショック再増悪への警戒が最重要である。"
+          "label": "一般的な二次救急医療機関",
+          "ideal": false,
+          "score_delta": -3,
+          "action_tag": "secondary_center",
+          "feedback": "受け入れ可能な場合もあるが、この症例ではより高度な対応能力を優先したい。"
         },
         {
           "id": "C",
-          "label": "糖尿病治療歴の詳細聴取のみ",
-          "ideal": false,
-          "score_delta": -3,
-          "action_tag": "history_only",
-          "feedback": "病歴聴取だけに偏らず、再悪化の監視を優先する。"
+          "label": "三次救急医療機関",
+          "ideal": true,
+          "score_delta": 10,
+          "action_tag": "tertiary_center",
+          "feedback": "ROSC後で循環不安定なため、高度救命対応が可能な施設が最適である。"
         },
         {
           "id": "D",
-          "label": "前額部挫創の洗浄処置",
-          "ideal": false,
-          "score_delta": -3,
-          "action_tag": "minor_wound_care",
-          "feedback": "局所処置より再致死的不整脈・ショック進行の監視が優先される。"
-        },
-        {
-          "id": "E",
-          "label": "搬送先への連絡はせず現着まで経過観察する",
+          "label": "整形外科や外傷中心の専門医療機関",
           "ideal": false,
           "score_delta": -4,
-          "action_tag": "no_update_call",
-          "feedback": "悪化傾向があるため、必要時は追加連絡も考慮する。"
+          "action_tag": "trauma_specialty_center",
+          "feedback": "合併外傷はあるが、主病態は循環器由来の重症病態である。"
         }
       ]
     }
-  ]
+  ],
+  "debriefing": {
+    "summary": "本症例は、胸痛先行で倒れ、到着時CPA、VFに対する除細動後にROSCした症例である。胸痛先行の経過から循環器由来の病態を考え、ROSC後も循環不安定であることを踏まえて、病院連絡と搬送先選定を適切に行うことが重要である。",
+    "ideal_actions": [
+      "プレアライバルコールで市民CPRとAED準備を指示する",
+      "現着後ただちにCPAとして高品質CPRとリズム確認を行う",
+      "VFなら速やかに除細動する",
+      "ROSC後は胸痛先行の経過を踏まえて循環器由来の病態を考える",
+      "外傷所見を把握しつつ主病態との優先順位を誤らない",
+      "病院連絡で胸痛先行、CPA、VF、除細動後ROSC、循環不安定、合併外傷を簡潔に伝える",
+      "高度な循環器対応が可能な搬送先を選定する"
+    ],
+    "good_points": [
+      "胸痛先行とVFから循環器由来の病態を考えられた",
+      "ROSC後も循環不安定である点に注目できた",
+      "合併外傷に引っ張られず主病態の優先順位を保てた"
+    ],
+    "cautions": [
+      "局所外傷を主病態と誤って捉えない",
+      "ROSC後の循環不安定例で搬送判断を遅らせない",
+      "病院連絡ではCPA、VF、除細動後ROSCの経過を落とさない",
+      "搬送先は循環器緊急対応力を重視する"
+    ]
+  }
 }
