@@ -1647,14 +1647,59 @@ def render_single_choice(case: Dict[str, Any], scene: Dict[str, Any], scene_inde
     return st.radio("選択してください", labels, key=key, disabled=disabled)
 
 
+def get_required_select_count(scene: Dict[str, Any]) -> Optional[int]:
+    """設問文から「2つ選べ」「3つ選択」などの指定数を読み取る。"""
+    prompt = normalize_str(scene.get("prompt"))
+    if not prompt:
+        return None
+
+    # 半角・全角数字の両方に対応
+    table = str.maketrans("０１２３４５６７８９", "0123456789")
+    prompt = prompt.translate(table)
+
+    m = re.search(r"(\d+)\s*つ\s*(?:選べ|選択)", prompt)
+    if not m:
+        return None
+
+    try:
+        return int(m.group(1))
+    except Exception:
+        return None
+
+
 def render_multiple_choice(case: Dict[str, Any], scene: Dict[str, Any], scene_index: int, disabled: bool) -> Any:
     options = normalize_options(scene)
-    labels = [o["text"] for o in options]
-    key = f"multi_{case['case_id']}_{scene_index}"
-    if not labels:
+    key_base = f"multi_{case['case_id']}_{scene_index}"
+
+    if not options:
         st.warning("選択肢がありません。")
         return []
-    return st.multiselect("該当するものを選択してください", labels, key=key, disabled=disabled)
+
+    required_count = get_required_select_count(scene)
+
+    if required_count:
+        st.caption(f"{required_count}つ選択してください。")
+    else:
+        st.caption("該当するものを選択してください。")
+
+    selected: List[str] = []
+    for i, opt in enumerate(options, start=1):
+        label = opt["text"]
+        checked = st.checkbox(
+            label,
+            key=f"{key_base}_{i}",
+            disabled=disabled,
+        )
+        if checked:
+            selected.append(label)
+
+    if required_count and not disabled:
+        if len(selected) > required_count:
+            st.warning(f"{required_count}つまで選択してください。現在 {len(selected)}つ 選択されています。")
+        elif 0 < len(selected) < required_count:
+            st.info(f"あと {required_count - len(selected)}つ 選択してください。")
+
+    return selected
 
 
 def render_template_select(case: Dict[str, Any], scene: Dict[str, Any], scene_index: int, disabled: bool) -> Any:

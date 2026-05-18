@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide",
 )
 
-APP_VERSION = "ROGER_LEVEL_PLAYER_BODYMAP_FIX_2026_05_13"
+APP_VERSION = "ROGER_LEVEL_PLAYER_2026_05_13"
 APP_TITLE = "救急救命士向け 臨床推論シミュレーション"
 
 REPO_ROOT = Path(__file__).resolve().parent
@@ -783,17 +783,6 @@ def mark_level_completed(level_name: str, challenge_case_ids: List[str], percent
 # Level build / challenge
 # =========================================================
 def normalize_scene_type(scene: Dict[str, Any]) -> str:
-    """
-    Scene typeを正規化する。
-    安全策：
-    - JSON側のtypeが single_choice / 未設定でも、visible_data.body_regions があれば
-      body_map_select として扱う。
-    - これにより、人体図Sceneのtype指定漏れをAPP側で吸収する。
-    """
-    visible = scene.get("visible_data", {})
-    if isinstance(visible, dict) and isinstance(visible.get("body_regions"), list):
-        return "body_map_select"
-
     t = normalize_lower(scene.get("type"))
     aliases = {
         "single": "single_choice",
@@ -1658,14 +1647,59 @@ def render_single_choice(case: Dict[str, Any], scene: Dict[str, Any], scene_inde
     return st.radio("選択してください", labels, key=key, disabled=disabled)
 
 
+def get_required_select_count(scene: Dict[str, Any]) -> Optional[int]:
+    """設問文から「2つ選べ」「3つ選択」などの指定数を読み取る。"""
+    prompt = normalize_str(scene.get("prompt"))
+    if not prompt:
+        return None
+
+    # 半角・全角数字の両方に対応
+    table = str.maketrans("０１２３４５６７８９", "0123456789")
+    prompt = prompt.translate(table)
+
+    m = re.search(r"(\d+)\s*つ\s*(?:選べ|選択)", prompt)
+    if not m:
+        return None
+
+    try:
+        return int(m.group(1))
+    except Exception:
+        return None
+
+
 def render_multiple_choice(case: Dict[str, Any], scene: Dict[str, Any], scene_index: int, disabled: bool) -> Any:
     options = normalize_options(scene)
-    labels = [o["text"] for o in options]
-    key = f"multi_{case['case_id']}_{scene_index}"
-    if not labels:
+    key_base = f"multi_{case['case_id']}_{scene_index}"
+
+    if not options:
         st.warning("選択肢がありません。")
         return []
-    return st.multiselect("該当するものを選択してください", labels, key=key, disabled=disabled)
+
+    required_count = get_required_select_count(scene)
+
+    if required_count:
+        st.caption(f"{required_count}つ選択してください。")
+    else:
+        st.caption("該当するものを選択してください。")
+
+    selected: List[str] = []
+    for i, opt in enumerate(options, start=1):
+        label = opt["text"]
+        checked = st.checkbox(
+            label,
+            key=f"{key_base}_{i}",
+            disabled=disabled,
+        )
+        if checked:
+            selected.append(label)
+
+    if required_count and not disabled:
+        if len(selected) > required_count:
+            st.warning(f"{required_count}つまで選択してください。現在 {len(selected)}つ 選択されています。")
+        elif 0 < len(selected) < required_count:
+            st.info(f"あと {required_count - len(selected)}つ 選択してください。")
+
+    return selected
 
 
 def render_template_select(case: Dict[str, Any], scene: Dict[str, Any], scene_index: int, disabled: bool) -> Any:
@@ -1715,8 +1749,6 @@ def render_body_map_select(case: Dict[str, Any], scene: Dict[str, Any], scene_in
     regions = []
     template = ""
 
-    st.info("試作版では、人体図を直接クリックする方式ではなく、下の部位リストから観察部位を選択します。")
-
     if isinstance(visible, dict):
         template = normalize_str(visible.get("body_map_template"))
         if isinstance(visible.get("body_regions"), list):
@@ -1736,10 +1768,6 @@ def render_body_map_select(case: Dict[str, Any], scene: Dict[str, Any], scene_in
             label = normalize_str(r.get("label") or r.get("region_id") or "部位")
             labels.append(label)
             region_map[label] = r
-
-    if not labels:
-        st.warning("body_regions が見つからないため、観察部位を表示できません。JSONの visible_data.body_regions を確認してください。")
-        return []
 
     key = f"bodymap_{case['case_id']}_{scene_index}"
     selected = st.multiselect("観察したい部位を選択してください", labels, key=key, disabled=disabled)
