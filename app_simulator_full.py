@@ -22,12 +22,12 @@ import streamlit.components.v1 as components
 # =========================================================
 
 st.set_page_config(
-    page_title="臨床推論シミュレーション",
+    page_title="「国試から学ぶ」救急救命士臨床推論シミュレーション",
     page_icon="🚑",
     layout="wide",
 )
 
-APP_VERSION = "ROGER_LEVEL_PLAYER_2026_05_18_SCROLL_FIX"
+APP_VERSION = "ROGER_FULL_CLEAN_2026_05_18_AUDIO_BODYMAP"
 APP_TITLE = "「国試から学ぶ」救急救命士臨床推論シミュレーション"
 
 REPO_ROOT = Path(__file__).resolve().parent
@@ -749,7 +749,6 @@ def default_player_data(player_name: str) -> Dict[str, Any]:
         "is_guest": False,
         "created_at": now_text(),
         "last_login_at": now_text(),
-        "is_guest": False,
         "current_level": 1,
         "completed_levels": [],
         "played_case_ids": [],
@@ -1078,13 +1077,37 @@ def render_media(scene: Dict[str, Any]) -> None:
     if not media_values:
         return
 
-    st.markdown('<div class="section-title">画像・資料</div>', unsafe_allow_html=True)
+    # body_map_select の人体図テンプレートは、render_body_map_select 側で表示する。
+    # ここで表示すると重複表示や内部ファイル名ヒントの原因になる。
+    skip_names = set()
+    visible = scene.get("visible_data", {})
+    body_map_config = scene.get("body_map_config", {})
+    if isinstance(visible, dict):
+        for key in ("body_map_template", "body_map_back_template"):
+            raw = normalize_str(visible.get(key))
+            if raw:
+                skip_names.add(Path(raw).name)
+    if isinstance(body_map_config, dict):
+        for key in ("front_template", "back_template"):
+            raw = normalize_str(body_map_config.get(key))
+            if raw:
+                skip_names.add(Path(raw).name)
+
+    rendered_any = False
     for raw in media_values:
+        if Path(str(raw)).name in skip_names:
+            continue
+
         path = resolve_media_path(raw)
         if path:
+            if not rendered_any:
+                st.markdown('<div class="section-title">画像・資料</div>', unsafe_allow_html=True)
+                rendered_any = True
+            # キャプションは出さない。ファイル名や波形名がヒントになるため。
             safe_image(path)
         else:
             st.warning(f"画像ファイルが見つかりません：{raw}")
+
 
 
 
@@ -1146,7 +1169,8 @@ def render_audio_player(audio: Any) -> None:
     if path:
         st.audio(str(path))
     else:
-        st.warning(f"音声ファイルが見つかりません：{raw_file}")
+        # 音源は公開GitHubに置かない方針なので、Cloudでは警告ではなく案内にする。
+        st.info("音声ファイルはローカルまたは非公開環境で確認できます。")
 
     if attribution:
         st.caption(f"音源：{attribution}")
@@ -1493,7 +1517,7 @@ def score_body_map(scene: Dict[str, Any], selected_regions: List[str]) -> Dict[s
     for r in regions:
         if not isinstance(r, dict):
             continue
-        if r.get("is_correct") or r.get("important") or r.get("priority"):
+        if r.get("is_correct") or r.get("is_key_finding") or r.get("important") or r.get("priority"):
             important.append(normalize_str(r.get("label") or r.get("region_id")))
 
     if not important:
@@ -1550,6 +1574,70 @@ def evaluate_scene(scene: Dict[str, Any], answer: Any) -> Dict[str, Any]:
         return score_free_text(scene, normalize_str(answer))
 
     return score_single(scene, normalize_str(answer))
+
+
+
+def validate_scene_answer(scene: Dict[str, Any], answer: Any) -> Tuple[bool, str]:
+    stype = normalize_scene_type(scene)
+
+    if stype in ("single_choice", "template_select"):
+        if not normalize_str(answer):
+            return False, "選択肢を選んでください。"
+
+    if stype == "multiple_choice":
+        selected = answer if isinstance(answer, list) else []
+        required = get_required_select_count(scene)
+        if required is not None and len(selected) != required:
+            return False, f"{required}つ選択してください。現在 {len(selected)}つ選択されています。"
+        if required is None and not selected:
+            return False, "少なくとも1つ選択してください。"
+
+    if stype == "ranking":
+        selected = answer if isinstance(answer, list) else []
+        items = normalize_ranking_items(scene)
+        if items and len(selected) != len(items):
+            return False, "すべての順位を選択してください。"
+
+    if stype == "body_map_select":
+        selected = answer if isinstance(answer, list) else []
+
+        min_select = None
+        max_select = None
+
+        if isinstance(scene.get("body_map_config"), dict):
+            try:
+                min_select = int(scene["body_map_config"].get("min_selected_to_continue"))
+            except Exception:
+                min_select = None
+            try:
+                max_select = int(scene["body_map_config"].get("max_selectable"))
+            except Exception:
+                max_select = None
+
+        if isinstance(scene.get("progress_rule"), dict):
+            if min_select is None:
+                try:
+                    min_select = int(scene["progress_rule"].get("min_selected"))
+                except Exception:
+                    min_select = None
+            if max_select is None:
+                try:
+                    max_select = int(scene["progress_rule"].get("max_selected"))
+                except Exception:
+                    max_select = None
+
+        if min_select is not None and len(selected) < min_select:
+            return False, f"{min_select}か所選択してください。現在 {len(selected)}か所です。"
+        if max_select is not None and len(selected) > max_select:
+            return False, f"{max_select}か所まで選択してください。現在 {len(selected)}か所です。"
+        if min_select is None and not selected:
+            return False, "観察する部位を選択してください。"
+
+    if stype in ("dialogue_input", "free_text"):
+        if not normalize_str(answer):
+            return False, "入力してください。"
+
+    return True, ""
 
 
 # =========================================================
@@ -1745,8 +1833,20 @@ def render_visible_data(value: Any) -> None:
     if not value:
         return
 
+    # プレイ中に表示するとヒントや内部ファイル名になる項目は隠す。
+    hidden_keys = {
+        "body_regions",
+        "body_map_template",
+        "body_map_back_template",
+        "front_template",
+        "back_template",
+        "observation_instruction",
+        "audio",
+        "audio_instruction",
+    }
+
     if isinstance(value, dict):
-        normal_items = {k: v for k, v in value.items() if k not in ("body_regions",)}
+        normal_items = {k: v for k, v in value.items() if str(k) not in hidden_keys}
         if normal_items:
             st.markdown('<div class="section-title">表示情報</div>', unsafe_allow_html=True)
             for k, v in normal_items.items():
@@ -2392,6 +2492,11 @@ def screen_scene(cases: List[Dict[str, Any]]) -> None:
 
     if not submitted:
         if st.button("回答する", type="primary"):
+            valid, message = validate_scene_answer(scene, answer)
+            if not valid:
+                st.warning(message)
+                return
+
             set_answer(case_id, scene_index, answer)
             feedback = evaluate_scene(scene, answer)
             set_feedback(case_id, scene_index, feedback)
