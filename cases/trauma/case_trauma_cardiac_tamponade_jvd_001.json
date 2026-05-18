@@ -4,7 +4,7 @@
   "title": "頸静脈怒張を伴う胸部外傷から心タンポナーデを疑う症例",
   "category": "trauma",
   "difficulty": "Hard",
-  "algorithm_type": "JPTEC",
+  "algorithm_type": "trauma_protocol",
   "estimated_time": 10,
   "keywords": [
     "胸部外傷",
@@ -344,7 +344,7 @@
       "action_tag": [
         "transport_priority",
         "obstructive_shock",
-        "jptec"
+        "trauma_protocol"
       ],
       "text": "胸壁前面打撲と頸静脈怒張があり、末梢冷感も認める。呼吸音左右差や皮下気腫がなく、緊張性気胸以外の閉塞性ショックも考慮する必要がある。",
       "visible_data": {

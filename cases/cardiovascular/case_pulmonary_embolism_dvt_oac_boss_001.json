@@ -5,7 +5,7 @@
   "category": "cardiovascular",
   "difficulty": "Hard",
   "boss_candidate": true,
-  "boss_candidate_reason": "人体図観察で頸部・胸部・左下腿を評価し、肺血栓塞栓症を推論したうえで病院連絡を記述する必要があるため。",
+  "boss_candidate_reason": "人体図観察で頸部・胸部・左下肢を評価し、肺血栓塞栓症を推論したうえで病院連絡を対話式に整理する必要があるため。",
   "algorithm_type": "循環器プロトコル",
   "estimated_time": 12,
   "keywords": [
@@ -311,22 +311,48 @@
       "id": "scene4",
       "title": "人体図による追加観察",
       "phase": "focused_observation",
-      "scene_goal": "病態把握のために頸部、胸部、左下腿を重点的に観察する。",
+      "scene_goal": "病態把握のために頸部、胸部、左下肢を重点的に観察する。",
       "ideal_flow": "呼吸困難の原因を肺音だけで判断せず、右心負荷を示す頸部所見、DVTを示す下肢所見、胸部聴診所見を組み合わせて評価する。",
       "ideal_score_delta": 12,
       "action_tag": "body_map_observation_pe",
       "text": "酸素投与と安静保持を行いながら、病態把握のために追加観察を行う。人体図から優先して観察したい部位を選択する。",
       "visible_data": {
-        "instruction": "人体図を用いて追加観察を行う。"
+        "instruction": "人体図を用いて追加観察を行う。",
+        "selection_count": "3か所選択"
       },
       "media": [
         "media/neutral_mannequin_body_diagram_template.png"
       ],
-      "type": "observation_points",
+      "type": "body_map_select",
       "prompt": "病態把握のため、追加で優先して観察したい部位を3つ選べ。",
-      "observation_points": [
+      "selection_rule": {
+        "min_select": 3,
+        "max_select": 3,
+        "correct_part_ids": [
+          "neck",
+          "chest",
+          "left_lower_limb"
+        ]
+      },
+      "body_parts": [
         {
-          "point_id": "neck",
+          "part_id": "head",
+          "label": "頭部",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな頭部外傷や片麻痺を示す所見はない。",
+          "rationale": "意識清明で神経局在症状を疑う場面ではなく、今回の病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "face",
+          "label": "顔面",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "顔面蒼白はややあるが、口唇周囲の明らかな外傷や気道閉塞を示す所見はない。",
+          "rationale": "全身状態の把握には参考になるが、肺血栓塞栓症を疑う根拠としては頸部・胸部・左下肢を優先する。"
+        },
+        {
+          "part_id": "neck",
           "label": "頸部",
           "is_correct": true,
           "score_delta": 4,
@@ -334,7 +360,7 @@
           "rationale": "肺血管抵抗上昇や右心負荷を示唆する所見として重要である。"
         },
         {
-          "point_id": "chest",
+          "part_id": "chest",
           "label": "胸部",
           "is_correct": true,
           "score_delta": 4,
@@ -348,55 +374,78 @@
           "rationale": "強い呼吸困難と低酸素がある一方で、肺雑音に乏しい点は病態推論上の重要な違和感である。"
         },
         {
-          "point_id": "left_lower_leg",
-          "label": "左下腿",
-          "is_correct": true,
-          "score_delta": 4,
-          "finding": "左下腿に浮腫を認める。健側より腫脹しており、本人は1週前から痛みを感じていたと話す。",
-          "rationale": "深部静脈血栓症を疑う所見として重要である。"
-        },
-        {
-          "point_id": "right_fingers",
-          "label": "右手指",
-          "is_correct": false,
-          "score_delta": -1,
-          "finding": "明らかなばち指は認めない。",
-          "rationale": "慢性的な低酸素を示す所見として参考にはなるが、今回の急性発症の主病態把握では優先度は低い。"
-        },
-        {
-          "point_id": "abdomen",
+          "part_id": "abdomen",
           "label": "腹部",
           "is_correct": false,
           "score_delta": -1,
           "finding": "明らかな腹部膨満や圧痛を認めない。",
           "rationale": "腹部疾患を疑う主訴ではなく、今回の病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "pelvis",
+          "label": "骨盤",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "骨盤部の疼痛や不安定性を示す情報はない。",
+          "rationale": "外傷や骨盤部痛を疑う状況ではなく、今回の病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "back",
+          "label": "背部",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな背部痛や外傷所見はない。",
+          "rationale": "背部観察も必要に応じて行うが、今回の追加観察では頸部・胸部・左下肢を優先する。"
+        },
+        {
+          "part_id": "right_upper_limb",
+          "label": "右上肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかなばち指や末梢チアノーゼは目立たない。",
+          "rationale": "慢性的な低酸素を示す所見として参考にはなるが、今回の急性発症の主病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "left_upper_limb",
+          "label": "左上肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな外傷や麻痺はない。",
+          "rationale": "今回の突然の呼吸困難とDVTリスク評価では優先度は低い。"
+        },
+        {
+          "part_id": "right_lower_limb",
+          "label": "右下肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな腫脹や圧痛は目立たない。",
+          "rationale": "下肢評価は重要だが、症状がある左下肢を優先して観察する。"
+        },
+        {
+          "part_id": "left_lower_limb",
+          "label": "左下肢",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "左下腿に浮腫を認める。健側より腫脹しており、本人は1週前から痛みを感じていたと話す。",
+          "rationale": "深部静脈血栓症を疑う所見として重要である。"
         }
-      ],
-      "selection_rule": {
-        "min_select": 3,
-        "max_select": 3,
-        "correct_point_ids": [
-          "neck",
-          "chest",
-          "left_lower_leg"
-        ]
-      }
+      ]
     },
     {
       "id": "scene5",
       "title": "病態推論",
       "phase": "diagnostic_reasoning",
       "scene_goal": "バイタル、問診、人体図観察から肺血栓塞栓症を推論する。",
-      "ideal_flow": "突然の呼吸困難、低酸素、頻脈、血圧低下傾向、左下腿痛・浮腫、経口避妊薬、正常呼吸音、頸静脈怒張を組み合わせて肺血栓塞栓症を疑う。",
+      "ideal_flow": "突然の呼吸困難、低酸素、頻脈、血圧低下傾向、左下肢痛・浮腫、経口避妊薬、正常呼吸音、頸静脈怒張を組み合わせて肺血栓塞栓症を疑う。",
       "ideal_score_delta": 12,
       "action_tag": "suspect_pulmonary_embolism",
-      "text": "追加観察では、頸静脈怒張、正常呼吸音、左下腿浮腫を認めた。低酸素と頻脈は持続している。",
+      "text": "追加観察では、頸静脈怒張、正常呼吸音、左下肢浮腫を認めた。低酸素と頻脈は持続している。",
       "visible_data": {
         "key_findings": {
           "respiratory": "突然の呼吸困難、SpO₂ 82％、正常呼吸音",
           "circulation": "脈拍148回/分、血圧92/74mmHg、頸静脈怒張",
           "history": "1週前から左下肢痛、経口避妊薬服用",
-          "limb": "左下腿浮腫"
+          "limb": "左下肢浮腫"
         }
       },
       "media": [],
@@ -486,79 +535,61 @@
           "onset": "階段昇降後に突然の呼吸困難",
           "vital_signs": "意識清明、呼吸数24回/分、脈拍148回/分整、血圧92/74mmHg、SpO₂82％",
           "history": "胸痛なし、1週前から左下肢痛、経口避妊薬服用中",
-          "findings": "頸静脈怒張、正常呼吸音、左下腿浮腫",
+          "findings": "頸静脈怒張、正常呼吸音、左下肢浮腫",
           "care": "高濃度酸素投与、安静保持、モニター管理"
         }
       },
       "media": [],
-      "type": "free_text",
-      "prompt": "搬送先医療機関へ第1報を行う。疑う病態と根拠が伝わるように、病院連絡を記載せよ。",
-      "templates": [
+      "type": "dialogue_input",
+      "prompt": "搬送先医療機関への第1報として最も適切な内容を選べ。",
+      "dialogue_turns": [
         {
-          "template_id": "model_answer",
-          "title": "模範病院連絡",
-          "text": "42歳女性です。自宅2階へ階段を昇った直後に突然の呼吸困難を訴えています。意識清明、呼吸数24回/分、脈拍148回/分整、血圧92/74mmHg、SpO₂82％です。胸痛はありません。1週前から左下肢痛があり、左下腿浮腫を認めます。経口避妊薬を服用中です。胸部聴診では左右差や副雑音はなく、頸静脈怒張を認めるため、深部静脈血栓症を背景とした肺血栓塞栓症を疑っています。高濃度酸素投与下で搬送します。"
+          "turn_id": "s6_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "s6_t1",
+              "text": "42歳女性です。自宅2階へ階段を昇った直後に突然の呼吸困難を訴えています。意識清明、呼吸数24回/分、脈拍148回/分整、血圧92/74mmHg、SpO₂82％です。胸痛はありません。1週前から左下肢痛があり、左下肢浮腫を認めます。経口避妊薬を服用中です。胸部聴診では左右差や副雑音はなく、頸静脈怒張を認めるため、深部静脈血栓症を背景とした肺血栓塞栓症を疑っています。高濃度酸素投与下で搬送します。",
+              "is_correct": true,
+              "score_delta": 15,
+              "life_delta": 0,
+              "status_effect": [],
+              "speaker_response": "分かりました。低酸素が強く、DVT背景の肺血栓塞栓症疑いですね。受け入れ準備します。",
+              "rationale": "年齢・性別、発症状況、重症バイタル、下肢所見、経口避妊薬、正常呼吸音、頸静脈怒張、疑う病態、処置が簡潔にまとまっている。"
+            },
+            {
+              "template_id": "s6_t2",
+              "text": "42歳女性です。呼吸苦がありますが、胸痛はありません。意識は清明なので、酸素投与しながら搬送します。",
+              "is_correct": false,
+              "score_delta": -8,
+              "life_delta": 0,
+              "status_effect": [],
+              "speaker_response": "それでは重症度が分かりません。SpO₂、脈拍、血圧、下肢所見、疑う病態を具体的にください。",
+              "rationale": "胸痛なしと意識清明に寄りすぎており、低酸素、頻脈、血圧低下傾向、DVTを疑う下肢所見が抜けている。"
+            },
+            {
+              "template_id": "s6_t3",
+              "text": "42歳女性です。経口避妊薬を飲んでいるので肺血栓塞栓症だと思います。詳しいバイタルは到着後に伝えます。",
+              "is_correct": false,
+              "score_delta": -7,
+              "life_delta": 0,
+              "status_effect": [],
+              "speaker_response": "内服歴だけでは判断できません。低酸素の程度、循環状態、下肢所見を今ください。",
+              "rationale": "経口避妊薬だけで病態を決めつけており、受け入れ準備に必要な重症度と根拠が不足している。"
+            },
+            {
+              "template_id": "s6_t4",
+              "text": "42歳女性です。過換気のように見えます。呼吸は速いですが、呼吸音はきれいです。近くの病院へ向かいます。",
+              "is_correct": false,
+              "score_delta": -10,
+              "life_delta": 0,
+              "status_effect": [],
+              "speaker_response": "SpO₂82％で過換気扱いは危険です。頻脈、血圧、下肢所見、頸静脈怒張は確認していますか。",
+              "rationale": "正常呼吸音を過換気と誤解し、低酸素、頻脈、血圧低下傾向、下肢DVT所見を軽視している。"
+            }
+          ]
         }
-      ],
-      "scoring_keywords": [
-        {
-          "keyword": "42歳女性",
-          "score_delta": 1
-        },
-        {
-          "keyword": "突然の呼吸困難",
-          "score_delta": 2
-        },
-        {
-          "keyword": "SpO₂82％",
-          "score_delta": 2
-        },
-        {
-          "keyword": "頻脈",
-          "score_delta": 2
-        },
-        {
-          "keyword": "血圧低下傾向",
-          "score_delta": 1
-        },
-        {
-          "keyword": "左下肢痛",
-          "score_delta": 2
-        },
-        {
-          "keyword": "左下腿浮腫",
-          "score_delta": 2
-        },
-        {
-          "keyword": "経口避妊薬",
-          "score_delta": 2
-        },
-        {
-          "keyword": "正常呼吸音",
-          "score_delta": 1
-        },
-        {
-          "keyword": "頸静脈怒張",
-          "score_delta": 2
-        },
-        {
-          "keyword": "肺血栓塞栓症",
-          "score_delta": 3
-        },
-        {
-          "keyword": "深部静脈血栓症",
-          "score_delta": 2
-        },
-        {
-          "keyword": "酸素投与",
-          "score_delta": 1
-        }
-      ],
-      "minimum_pass_keywords": [
-        "突然の呼吸困難",
-        "SpO₂82％",
-        "左下腿浮腫",
-        "肺血栓塞栓症"
       ]
     },
     {
@@ -569,7 +600,7 @@
       "ideal_flow": "肺動脈の血流障害により右心系への圧負荷が増大し、頸静脈怒張が出現することを理解する。",
       "ideal_score_delta": 10,
       "action_tag": "right_heart_strain_mechanism",
-      "text": "この傷病者では、突然の呼吸困難、低酸素、頻脈、左下腿浮腫、経口避妊薬服用歴から肺血栓塞栓症が疑われる。頸静脈怒張は右心負荷を示す重要な所見である。",
+      "text": "この傷病者では、突然の呼吸困難、低酸素、頻脈、左下肢浮腫、経口避妊薬服用歴から肺血栓塞栓症が疑われる。頸静脈怒張は右心負荷を示す重要な所見である。",
       "visible_data": {
         "pathophysiology_summary": {
           "suspected_condition": "肺血栓塞栓症",
@@ -650,22 +681,22 @@
     }
   ],
   "debriefing": {
-    "summary": "階段昇降後に突然呼吸困難を訴えた42歳女性の症例。低酸素、頻脈、血圧低下傾向を認め、1週前からの左下肢痛、左下腿浮腫、経口避妊薬服用歴がある。胸部聴診では正常呼吸音で、頸静脈怒張も認めることから、深部静脈血栓症を背景とした肺血栓塞栓症を疑う。肺動脈の血流障害により右心負荷が増大し、頸静脈怒張が出現する。",
+    "summary": "階段昇降後に突然呼吸困難を訴えた42歳女性の症例。低酸素、頻脈、血圧低下傾向を認め、1週前からの左下肢痛、左下肢浮腫、経口避妊薬服用歴がある。胸部聴診では正常呼吸音で、頸静脈怒張も認めることから、深部静脈血栓症を背景とした肺血栓塞栓症を疑う。肺動脈の血流障害により右心負荷が増大し、頸静脈怒張が出現する。",
     "ideal_actions": [
       "通報段階で無理に移動させず、楽な姿勢で安静を保たせる。",
       "初期評価ではABCDに沿って、特に呼吸状態の異常を意識して確認する。",
       "低酸素、頻脈、血圧低下傾向を重症所見として捉える。",
       "経口避妊薬服用歴だけで病態を決めつけず、追加観察で根拠を集める。",
-      "頸部、胸部、左下腿を重点的に観察する。",
+      "頸部、胸部、左下肢を重点的に観察する。",
       "正常呼吸音でも低酸素が強い場合、肺血栓塞栓症を鑑別に入れる。",
-      "左下腿痛・浮腫から深部静脈血栓症を疑う。",
+      "左下肢痛・浮腫から深部静脈血栓症を疑う。",
       "肺血栓塞栓症疑いとして、高濃度酸素投与、安静保持、モニター管理、早期搬送を行う。",
       "病院連絡では、疑う病態と根拠を簡潔に伝える。"
     ],
     "good_points": [
       "呼吸困難を訴える症例で、呼吸音だけに依存せず全身観察へ進めた。",
       "低酸素、頻脈、血圧低下傾向を重症所見として評価できた。",
-      "左下腿痛・浮腫と経口避妊薬服用歴をDVTリスクとして結びつけられた。",
+      "左下肢痛・浮腫と経口避妊薬服用歴をDVTリスクとして結びつけられた。",
       "頸静脈怒張を右心負荷の所見として理解できた。",
       "観察結果をもとに肺血栓塞栓症を推論し、病院連絡で言語化できた。"
     ],
@@ -673,7 +704,7 @@
       "経口避妊薬服用歴だけで肺血栓塞栓症と決めつけない。",
       "呼吸音が正常でも、肺血栓塞栓症では重度低酸素を来すことがある。",
       "胸痛がないことを理由に緊急性を低く見積もらない。",
-      "左下腿の浮腫や疼痛をマッサージしない。",
+      "左下肢の浮腫や疼痛をマッサージしない。",
       "SpO₂低値と頻脈を認める傷病者を歩かせて評価しない。",
       "病院連絡では病名だけでなく、低酸素、頻脈、下肢所見、内服歴、頸静脈怒張などの根拠を伝える。"
     ]

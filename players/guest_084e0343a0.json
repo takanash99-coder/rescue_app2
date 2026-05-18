@@ -1,0 +1,38 @@
+{
+  "player_name": "guest",
+  "created_at": "2026-05-13 17:16:12",
+  "last_login_at": "2026-05-14 08:55:52",
+  "current_level": 1,
+  "completed_levels": [],
+  "played_case_ids": [
+    "case_pulse_present_apnea_bvm_airway_device_001",
+    "trauma_lower_leg_compartment_syndrome_5p_001"
+  ],
+  "case_history": {
+    "case_pulse_present_apnea_bvm_airway_device_001": {
+      "title": "脈あり無呼吸の高齢女性に対するBVM換気と気道管理デバイスの検討",
+      "category": "respiratory",
+      "difficulty": "Easy",
+      "last_percent": 100.0,
+      "best_percent": 100.0,
+      "last_played_at": "2026-05-14 08:53:23",
+      "play_count": 1,
+      "mode": "level",
+      "level": "Level1"
+    },
+    "trauma_lower_leg_compartment_syndrome_5p_001": {
+      "title": "飲酒後転落し長時間経過した右下腿外傷で急性阻血症状の5Pを評価する症例",
+      "category": "trauma",
+      "difficulty": "Normal",
+      "last_percent": 100.0,
+      "best_percent": 100.0,
+      "last_played_at": "2026-05-14 08:57:02",
+      "play_count": 1,
+      "mode": "level",
+      "level": "Level1"
+    }
+  },
+  "level_history": {},
+  "total_play_count": 2,
+  "best_total_score_percent": 100.0
+}

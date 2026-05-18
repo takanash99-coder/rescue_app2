@@ -53,9 +53,57 @@
       "media": [
         "media/firestation_japanese_female_firefighter_dissociative_amnesia_scene1.png"
       ],
-      "type": "free_text",
-      "prompt": "出場前に、この症例でまず注意すべき現場安全と初動の視点を簡潔に記せ。",
-      "sample_answer": "事故現場の安全確認と追加傷病者の有無を確認する。軽微な事故でも頭部外傷や神経学的異常など器質的原因を念頭に置き、精神症状と決めつけず対応する。"
+      "type": "dialogue_input",
+      "prompt": "出場前に、この症例でまず注意すべき現場安全と初動の視点として適切な隊内共有を選べ。",
+      "dialogue_turns": [
+        {
+          "turn_id": "s1_turn_1",
+          "speaker": "救急隊",
+          "target": "隊内",
+          "templates": [
+            {
+              "template_id": "s1_t1",
+              "text": "自損事故なので、現場安全と追加傷病者の有無を確認する。軽微な事故と聞いても、急な記憶障害があるため頭部外傷や神経学的異常など器質的原因を念頭に置いて対応する。",
+              "is_correct": true,
+              "score_delta": 10,
+              "life_delta": 0,
+              "status_effect": "現場安全と器質的原因を意識して初動できる",
+              "speaker_response": "了解。精神症状と決めつけず、まず安全確認と身体的原因の評価から入ろう。",
+              "rationale": "事故現場の安全確認、追加傷病者確認、頭部外傷・神経学的異常など器質的原因の想定が含まれている。"
+            },
+            {
+              "template_id": "s1_t2",
+              "text": "外傷は軽微で本人も会話可能なので、精神的な混乱として対応し、現場安全や追加傷病者の確認は簡略化する。",
+              "is_correct": false,
+              "score_delta": -6,
+              "life_delta": 0,
+              "status_effect": "初動で現場安全と身体的原因の確認が不足する",
+              "speaker_response": "それは危ない。事故現場なら安全確認と追加傷病者の確認は省略できないよ。",
+              "rationale": "会話可能でも事故現場の安全確認は必須であり、急性記憶障害を精神症状だけで片づけるのは不適切である。"
+            },
+            {
+              "template_id": "s1_t3",
+              "text": "本人は病院受診後に記憶がないと話しているため、まず解離性健忘と判断し、頭部外傷や低血糖などの身体的原因は後回しにする。",
+              "is_correct": false,
+              "score_delta": -8,
+              "life_delta": 0,
+              "status_effect": "器質的原因の除外が遅れる",
+              "speaker_response": "決めつけが早い。急な記憶障害なら、身体的原因の除外を先に考えて。",
+              "rationale": "解離症状を疑う前に、頭部外傷、脳血管障害、低血糖、中毒などの器質的原因を除外する必要がある。"
+            },
+            {
+              "template_id": "s1_t4",
+              "text": "高エネルギー外傷ではないため、事故の状況確認よりも本人の記憶内容を詳しく聞くことを最優先にする。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": 0,
+              "status_effect": "受傷機転と危険認識が不十分になる",
+              "speaker_response": "聞き取りは必要だけど、順番が逆。まず現場と受傷機転を押さえよう。",
+              "rationale": "記憶内容の聴取は重要だが、初動では現場安全、追加傷病者、受傷機転、身体的緊急性の確認を優先する。"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "scene2",

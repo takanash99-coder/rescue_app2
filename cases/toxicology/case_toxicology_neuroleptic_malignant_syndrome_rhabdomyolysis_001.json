@@ -635,78 +635,89 @@
         ]
       },
       "media": [],
-      "type": "template_select",
-      "prompt": "最も適切な申し送り内容を選べ。",
-      "templates": [
+      "type": "dialogue_input",
+      "prompt": "医療機関への申し送りとして最も適切な内容を選べ。",
+      "dialogue_turns": [
         {
-          "template_id": "q7_o1",
-          "text": "70代男性。2日前から全身倦怠感と筋力低下があり本日歩行不能。意識JCS2、呼吸32、脈拍124整、血圧80/62、体温38.5℃。新規向精神薬開始後で、赤黒色尿あり。悪性症候群と横紋筋融解、高カリウム血症を疑い、AED装着、静脈路確保、乳酸リンゲル液投与中です。",
-          "is_correct": true,
-          "score_delta": 10,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "appropriate_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [],
-            "remove_danger_tags": []
-          },
-          "rationale": "病歴、重症度、推定病態、実施処置が簡潔にまとまっている。"
-        },
-        {
-          "template_id": "q7_o2",
-          "text": "70代男性。歩けないので整形外科疾患を疑っています。発熱がありますが詳細は不明です。",
-          "is_correct": false,
-          "score_delta": -3,
-          "life_delta": -2,
-          "status_effect": {
-            "add_flags": [
-              "misleading_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "handoff_quality_low"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "病態把握が不十分で、重症度や薬剤歴が欠落している。"
-        },
-        {
-          "template_id": "q7_o3",
-          "text": "70代男性。SpO2が保たれているので緊急性は低いと思われます。",
-          "is_correct": false,
-          "score_delta": -4,
-          "life_delta": -3,
-          "status_effect": {
-            "add_flags": [
-              "spo2_bias"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "handoff_undertriage"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "ショックと不整脈リスクを見落としている。"
-        },
-        {
-          "template_id": "q7_o4",
-          "text": "高齢で衰弱しているようです。とりあえず搬送します。",
-          "is_correct": false,
-          "score_delta": -2,
-          "life_delta": -1,
-          "status_effect": {
-            "add_flags": [
-              "vague_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "handoff_quality_low"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "重要な薬剤歴、尿所見、循環不安定、実施処置が抜けている。"
+          "turn_id": "s7_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "q7_o1",
+              "text": "70代男性です。2日前から全身倦怠感と筋力低下があり、本日歩行不能となりました。現在JCS2、呼吸数32、脈拍124整、血圧80/62、体温38.5℃です。1週間前から新規向精神薬が開始されており、赤黒色尿を認めています。悪性症候群、横紋筋融解、高カリウム血症を疑っています。心電図で高カリウム血症を示唆する波形変化があり、AED装着、静脈路確保、乳酸リンゲル液投与、継続モニタリングを行い搬送中です。",
+              "is_correct": true,
+              "score_delta": 20,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "appropriate_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "了解しました。新規向精神薬後の発熱、赤黒色尿、ショック、心電図異常ですね。高カリウム血症と不整脈リスクを想定して受け入れ準備します。",
+              "rationale": "病歴、重症度、薬剤歴、尿所見、疑い病態、心電図変化、実施処置が簡潔にまとまっている。"
+            },
+            {
+              "template_id": "q7_o2",
+              "text": "70代男性です。歩けないので整形外科疾患を疑っています。発熱がありますが詳細は不明です。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "status_effect": {
+                "add_flags": [
+                  "misleading_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_quality_low"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "整形外科でよい根拠が弱いです。血圧、体温、薬剤歴、尿の色、心電図変化を整理してください。",
+              "rationale": "歩行不能に引っ張られており、ショック、薬剤歴、赤黒色尿、心電図異常が抜けている。"
+            },
+            {
+              "template_id": "q7_o3",
+              "text": "70代男性です。SpO2が保たれているので緊急性は低いと思われます。念のため搬送します。",
+              "is_correct": false,
+              "score_delta": -6,
+              "life_delta": -3,
+              "status_effect": {
+                "add_flags": [
+                  "spo2_bias"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_undertriage"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "SpO2だけでは判断できません。血圧80台、発熱、心電図異常があるなら重症として伝えてください。",
+              "rationale": "SpO2に偏っており、ショックと不整脈リスクを見落としている。"
+            },
+            {
+              "template_id": "q7_o4",
+              "text": "高齢で衰弱しているようです。詳しいことは分かりませんが、とりあえず搬送します。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "vague_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_quality_low"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "それでは受け入れ準備ができません。薬剤歴、赤黒色尿、バイタル、心電図、実施処置を具体的にください。",
+              "rationale": "重要な薬剤歴、尿所見、循環不安定、心電図変化、実施処置が抜けている。"
+            }
+          ]
         }
       ]
     }

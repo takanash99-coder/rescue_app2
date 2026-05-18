@@ -579,78 +579,89 @@
         ]
       },
       "media": [],
-      "type": "template_select",
+      "type": "dialogue_input",
       "prompt": "医療機関へのファーストコールとして最も適切な内容を選べ。",
-      "templates": [
+      "dialogue_turns": [
         {
-          "template_id": "q6_o1",
-          "text": "43歳女性、薬物乱用疑い。事情聴取中に反応低下。JCS20、RR36、HR124、BP200/110、SpO2 95%。発汗著明、散瞳あり。アンフェタミン系中毒を疑い、循環器合併症と高体温に注意して搬送したい。",
-          "is_correct": true,
-          "score_delta": 10,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "first_call_completed"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [],
-            "remove_danger_tags": []
-          },
-          "rationale": "所見、重症度、推定原因、懸念点が簡潔に整理されている。"
-        },
-        {
-          "template_id": "q6_o2",
-          "text": "薬物中毒っぽい患者です。詳細は不明ですが受け入れをお願いします。",
-          "is_correct": false,
-          "score_delta": -5,
-          "life_delta": -3,
-          "status_effect": {
-            "add_flags": [
-              "poor_hospital_handoff"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "acceptance_delay_risk"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "要点が乏しく受入判断に不十分である。"
-        },
-        {
-          "template_id": "q6_o3",
-          "text": "散瞳なのでオピオイド中毒は否定できず、ナロキソン前提で搬送したい。",
-          "is_correct": false,
-          "score_delta": -5,
-          "life_delta": -3,
-          "status_effect": {
-            "add_flags": [
-              "wrong_agent_reported"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "misleading_handoff"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "所見はオピオイドよりアンフェタミン系に合致する。"
-        },
-        {
-          "template_id": "q6_o4",
-          "text": "警察案件のため身体情報は省略し、事情聴取内容だけを伝える。",
-          "is_correct": false,
-          "score_delta": -6,
-          "life_delta": -4,
-          "status_effect": {
-            "add_flags": [
-              "medical_report_omitted"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "handoff_failure"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "医療情報が第一報の中心であるべきである。"
+          "turn_id": "s6_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "q6_o1",
+              "text": "43歳女性、薬物乱用疑いです。事情聴取中に反応低下がありました。現在JCS20、呼吸数36、脈拍124整、血圧200/110、SpO2 95％です。発汗が著明で瞳孔散大があり、アンフェタミン系中毒を疑います。循環器合併症、高体温、けいれんに注意が必要と判断し、搬送したいです。",
+              "is_correct": true,
+              "score_delta": 10,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "first_call_completed"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "了解。交感神経刺激症候群でアンフェタミン系疑いですね。バイタル監視を継続して搬送してください。",
+              "rationale": "所見、重症度、推定原因、懸念合併症が簡潔に整理されている。"
+            },
+            {
+              "template_id": "q6_o2",
+              "text": "薬物中毒っぽい患者です。詳細は不明ですが、受け入れをお願いします。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -3,
+              "status_effect": {
+                "add_flags": [
+                  "poor_hospital_handoff"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "acceptance_delay_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "それでは判断できません。意識、血圧、脈拍、呼吸、瞳孔、発汗など具体的にください。",
+              "rationale": "中毒疑いという情報だけで、バイタル、重症度、症候群、懸念合併症が不足している。"
+            },
+            {
+              "template_id": "q6_o3",
+              "text": "散瞳なのでオピオイド中毒は否定できず、ナロキソン前提で搬送したいです。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -3,
+              "status_effect": {
+                "add_flags": [
+                  "wrong_agent_reported"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "misleading_handoff"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "所見が合いません。オピオイドなら縮瞳と呼吸抑制が典型です。現在のバイタルと中毒症候群を整理してください。",
+              "rationale": "散瞳、発汗、頻脈、高血圧はオピオイドよりアンフェタミン系の交感神経刺激症候群に合致する。"
+            },
+            {
+              "template_id": "q6_o4",
+              "text": "警察案件のため、身体情報は省略します。事情聴取中に反応が鈍くなった女性です。",
+              "is_correct": false,
+              "score_delta": -6,
+              "life_delta": -4,
+              "status_effect": {
+                "add_flags": [
+                  "medical_report_omitted"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_failure"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "警察案件かどうかより、医療情報が必要です。意識、呼吸、循環、疑う中毒を伝えてください。",
+              "rationale": "病院連絡では警察事情より、医学的重症度、バイタル、所見、疑う病態を優先して伝える必要がある。"
+            }
+          ]
         }
       ]
     },

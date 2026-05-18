@@ -4,7 +4,7 @@
   "title": "シートベルト痕を伴う高齢運転者の腹部外傷",
   "category": "trauma",
   "difficulty": "Hard",
-  "algorithm_type": "JPTEC",
+  "algorithm_type": "trauma_protocol",
   "estimated_time": 10,
   "keywords": [
     "シートベルト痕",
@@ -437,32 +437,51 @@
         ]
       },
       "media": [],
-      "type": "template_select",
-      "prompt": "最も適切な申し送り内容を選べ。",
-      "templates": [
+      "type": "dialogue_input",
+      "prompt": "医療機関への申し送りとして最も適切な内容を選べ。",
+      "dialogue_turns": [
         {
-          "template_id": "q7_t1",
-          "text": "86歳男性。乗用車運転中にブレーキなしで電柱へ衝突し、受傷30分後に救出。JCS2、呼吸32/分、脈拍142/分整、血圧76/58mmHg、SpO2 98%。腹痛を訴え、胸郭動揺・皮下気腫・頸静脈怒張・外出血は認めません。前胸部から上腹部にシートベルト痕があり、腹腔内出血による出血性ショックを疑っています。",
-          "is_correct": true,
-          "score_delta": 5,
-          "life_delta": 0,
-          "rationale": "受傷機転、バイタル、陰性所見、推定病態が簡潔にまとまっている。"
-        },
-        {
-          "template_id": "q7_t2",
-          "text": "86歳男性。胸部外傷が主と思われ、緊張性気胸を第一に考えています。",
-          "is_correct": false,
-          "score_delta": -3,
-          "life_delta": -2,
-          "rationale": "胸部所見と一致しない。"
-        },
-        {
-          "template_id": "q7_t3",
-          "text": "86歳男性。外出血がないためショックは否定的です。",
-          "is_correct": false,
-          "score_delta": -4,
-          "life_delta": -3,
-          "rationale": "内出血を見落としている。"
+          "turn_id": "s7_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "q7_t1",
+              "text": "86歳男性です。乗用車運転中にブレーキなしで電柱へ衝突し、受傷約30分後に救出されています。現在JCS2、呼吸数32/分、脈拍142/分整、血圧76/58mmHg、SpO2 98％です。腹痛を訴えており、胸郭動揺、皮下気腫、頸静脈怒張、明らかな外出血は認めません。前胸部から上腹部にシートベルト痕があり、腹腔内出血による出血性ショックを疑っています。",
+              "is_correct": true,
+              "score_delta": 10,
+              "life_delta": 0,
+              "speaker_response": "了解しました。高エネルギー腹部外傷で、シートベルト痕とショックですね。腹腔内出血を想定して受け入れ準備します。",
+              "rationale": "受傷機転、バイタル、腹部所見、陰性所見、推定病態が簡潔にまとまっている。"
+            },
+            {
+              "template_id": "q7_t2",
+              "text": "86歳男性です。胸部外傷が主と思われ、緊張性気胸を第一に考えています。SpO2は98％です。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -2,
+              "speaker_response": "緊張性気胸を疑う根拠は何ですか。呼吸音、皮下気腫、頸静脈怒張、腹部所見を整理してください。",
+              "rationale": "胸部所見に乏しく、腹痛とシートベルト痕、ショックを中心に伝えるべきである。"
+            },
+            {
+              "template_id": "q7_t3",
+              "text": "86歳男性です。外出血はありません。SpO2も保たれているため、ショックは否定的です。腹部は少し痛いようです。",
+              "is_correct": false,
+              "score_delta": -6,
+              "life_delta": -3,
+              "speaker_response": "血圧76/58、脈拍142ならショックです。外出血がなくても内出血を疑ってください。",
+              "rationale": "低血圧と頻脈を軽視し、腹腔内出血による出血性ショックを見落としている。"
+            },
+            {
+              "template_id": "q7_t4",
+              "text": "86歳男性です。電柱に衝突していますが、画像上はシートベルト痕があります。詳しいバイタルは到着後に伝えます。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "speaker_response": "受け入れ準備に必要です。今の血圧、脈拍、意識、腹部所見、疑う病態を先にください。",
+              "rationale": "受傷機転と画像所見だけでは不十分で、ショックを示すバイタルと推定病態を伝える必要がある。"
+            }
+          ]
         }
       ]
     }

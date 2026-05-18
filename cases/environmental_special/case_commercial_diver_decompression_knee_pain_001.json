@@ -1,433 +1,551 @@
 {
-  "case_id": "environmental_special_commercial_diver_decompression_knee_pain_001",
+  "case_id": "case_cardiac_arrest_acs_001",
   "version": "2.0",
-  "title": "潜水作業中の急浮上後に両膝痛を訴え、減圧症を疑う症例",
-  "category": "environmental_special",
+  "title": "胸痛後に心室細動となり心拍再開した心肺停止傷病者",
+  "category": "cardiovascular",
   "difficulty": "Normal",
-  "estimated_time": 9,
+  "algorithm_type": "cardiovascular_protocol",
+  "estimated_time": 15,
+  "scene_count": 7,
   "keywords": [
-    "減圧症",
-    "潜水作業",
-    "急浮上",
-    "関節痛",
-    "高気圧酸素療法"
+    "心肺停止",
+    "心室細動",
+    "心拍再開",
+    "急性冠症候群",
+    "ROSC後管理"
   ],
+  "patient_profile": {
+    "age": 52,
+    "sex": "男性",
+    "chief_complaint": "胸痛の後に倒れた",
+    "background": "職場で勤務中に強い胸痛を訴えた直後に倒れた。糖尿病で治療中。目撃者は同僚で、職場にはAEDがある。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": [
+      "acs_risk",
+      "arrhythmia_risk",
+      "time_critical",
+      "transport_priority"
+    ],
+    "danger_tags": [
+      "cardiac_arrest",
+      "ventricular_fibrillation",
+      "post_rosc",
+      "circulatory_instability",
+      "possible_acute_coronary_syndrome"
+    ]
+  },
   "scenes": [
     {
-      "id": "scene1",
-      "title": "通報内容とプレアライバルコール",
-      "phase": "dispatch_pac",
-      "scene_goal": "通報内容から潜水後症状を疑い、発症時期を確認する。",
+      "id": "scene_1",
+      "title": "通報内容と口頭指導",
+      "phase": "dispatch_briefing",
+      "scene_goal": "市民CPRとAED使用をできるだけ早く開始させる。",
       "ideal_flow": [
-        "潜水作業中の急浮上という情報を重視する",
-        "浮上後から症状出現までの時間を確認する",
-        "膝痛だけで単純な外傷と決めつけない",
-        "しびれや力の入りにくさなど神経症状の有無も確認する"
+        "心停止を疑う",
+        "反応と呼吸確認を急がせる",
+        "胸骨圧迫開始を指示する",
+        "AEDを持参・準備させる"
       ],
-      "ideal_score_delta": 10,
-      "action_tag": "dispatch_pac_diving_injury",
-      "text": "30歳の男性。水深15mでの作業中、トラブルのため急に水面に浮上したところ、膝の痛みを感じたため救急要請した。",
+      "ideal_score_delta": 16,
+      "action_tag": "bystander_cpr_aed",
+      "text": "出場途上、指令情報として『52歳男性、職場で胸が痛いと言った直後に倒れた。反応がなく呼吸もよく分からない』と入電した。通報者は同僚で、現場にはAEDがある。",
       "visible_data": {
         "dispatch_information": [
-          "水深15mで作業していた",
-          "トラブルにより急に水面へ浮上した",
-          "浮上後に膝の痛みを訴えている",
-          "港湾工事現場からの通報である"
+          "52歳男性",
+          "胸痛を訴えた直後に倒れた",
+          "反応なし",
+          "呼吸不明",
+          "同僚が目撃",
+          "職場にAEDあり"
+        ],
+        "scene_safety": [
+          "職場内で大きな危険情報なし"
         ]
       },
       "media": [
-        "media/commercial_diver_decompression_knee_pain_harbor_scene1.png"
+        "media/scene1_cardiac_collapse_office_001.png"
       ],
-      "type": "single_choice",
-      "prompt": "通報内容から、救急隊が追加で確認すべき情報として最も適切なのはどれか。1つ選べ。",
+      "type": "multiple_choice",
+      "prompt": "口頭指導として通報者に優先して指示する内容を2つ選べ。",
       "options": [
         {
-          "option_id": "1",
-          "text": "膝関節部の皮膚色に変化があるか。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "局所所見として参考になるが、潜水後症状の評価では発症時期の確認がより重要である。"
-        },
-        {
-          "option_id": "2",
-          "text": "普段から膝痛の既往があるか。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "既往は参考になるが、急浮上後の症状では浮上後からの経過を優先して確認する。"
-        },
-        {
-          "option_id": "3",
-          "text": "急浮上後から膝痛が出るまでの時間。",
+          "option_id": "s1_o1",
+          "text": "反応と呼吸の確認を急がせ、異常なら胸骨圧迫を開始するよう指示する",
           "is_correct": true,
-          "score_delta": 10,
+          "score_delta": 8,
           "life_delta": 0,
-          "rationale": "潜水後症状では、浮上後から症状出現までの時間が病態把握に重要である。"
+          "status_effect": [],
+          "rationale": "胸痛後の突然の無反応は心原性心停止を強く疑う。市民による胸骨圧迫の開始が最優先である。"
         },
         {
-          "option_id": "4",
-          "text": "しびれや力の入りにくさがあるか。",
-          "is_correct": false,
-          "score_delta": 0,
+          "option_id": "s1_o2",
+          "text": "AEDを至急持ってこさせ、装着準備を進めるよう指示する",
+          "is_correct": true,
+          "score_delta": 8,
           "life_delta": 0,
-          "rationale": "神経症状の確認は重要だが、通報段階でまず把握したいのは急浮上後から症状出現までの時間である。"
+          "status_effect": [],
+          "rationale": "心室細動の可能性があり、早期除細動が救命率に直結する。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "糖尿病があるため砂糖水を飲ませるよう指示する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "無反応傷病者に経口摂取をさせるのは誤嚥リスクがあり不適切である。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "まず額の傷の止血を優先するよう指示する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "心停止が疑われる状況では、局所外傷よりCPRとAEDが優先される。"
         }
       ]
     },
     {
-      "id": "scene2",
-      "title": "潜水状況の情報収集",
-      "phase": "history_taking",
-      "scene_goal": "潜水条件を確認し、潜水後症状として評価する視点を持つ。",
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "initial_assessment",
+      "scene_goal": "CPAとして高品質CPR、リズム確認、除細動を最優先する。",
       "ideal_flow": [
-        "潜水深度を確認する",
-        "潜水時間を確認する",
-        "浮上速度を確認する",
-        "反復潜水の有無を確認する",
-        "症状出現までの時間を確認する"
+        "胸骨圧迫を継続する",
+        "心電図リズムを確認する",
+        "除細動適応なら直ちにショックする",
+        "局所外傷に引っ張られずCPA対応を優先する"
       ],
-      "ideal_score_delta": 10,
-      "action_tag": "diving_history_assessment",
-      "text": "作業関係者によると、傷病者はアクアラングを使用して港湾工事に従事していた。作業中のトラブルで通常より急いで水面へ浮上したという。",
+      "ideal_score_delta": 20,
+      "action_tag": "resuscitation_priority",
+      "text": "現場到着。傷病者は床上に仰臥位。反応なく、普段どおりの呼吸はみられず、頸動脈は触知しない。前額部に出血を伴う挫創があり、右前腕は変形している。AEDパッドは同僚により装着済みで、胸骨圧迫が行われている。",
       "visible_data": {
-        "history_information": [
-          "アクアラングを使用していた",
-          "港湾工事中の潜水作業である",
-          "通常より急いで浮上した",
-          "浮上後に両膝痛を訴えている"
+        "primary_survey": [
+          "反応なし",
+          "普段どおりの呼吸なし",
+          "頸動脈触知なし",
+          "胸骨圧迫継続中",
+          "AEDパッド装着済み"
         ],
-        "important_diving_history": [
-          "潜水深度",
-          "潜水時間",
-          "浮上速度",
-          "症状出現時刻",
-          "反復潜水の有無"
+        "external_findings": [
+          "前額部挫創あり",
+          "右前腕変形あり"
         ]
       },
       "media": [],
-      "type": "single_choice",
-      "prompt": "潜水作業後の症状として評価するため、作業関係者から追加で確認すべき情報として最も適切なのはどれか。1つ選べ。",
-      "options": [
+      "type": "ranking",
+      "prompt": "この時点での活動優先順位として最も適切な順に並べよ。",
+      "ranking": [
         {
-          "option_id": "1",
-          "text": "水面に浮上した後の歩行状態。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "歩行状態も参考になるが、潜水後症状の評価では潜水条件の確認が優先される。"
+          "option_id": "s2_r1",
+          "text": "胸骨圧迫の継続",
+          "ideal_rank": 1,
+          "rationale": "CPAと判断されるため、高品質な胸骨圧迫を中断しないことが最優先である。"
         },
         {
-          "option_id": "2",
-          "text": "潜水していた深さ。",
-          "is_correct": true,
-          "score_delta": 10,
-          "life_delta": 0,
-          "rationale": "潜水深度は体内に溶け込む不活性ガス量に関係し、減圧障害の評価に重要である。"
+          "option_id": "s2_r2",
+          "text": "心電図リズム確認と除細動適応判断",
+          "ideal_rank": 2,
+          "rationale": "VFなど除細動適応波形を早期に確認する必要がある。"
         },
         {
-          "option_id": "3",
-          "text": "膝関節をぶつけた可能性。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "外傷の有無も確認するが、急浮上後の両膝痛では潜水深度の確認がより重要である。"
+          "option_id": "s2_r3",
+          "text": "必要時ただちに電気ショック実施",
+          "ideal_rank": 3,
+          "rationale": "VFであれば早期除細動が救命に直結する。"
         },
         {
-          "option_id": "4",
-          "text": "過去に同じ症状があったか。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "既往は参考になるが、現在の病態把握では潜水条件を優先して確認する。"
+          "option_id": "s2_r4",
+          "text": "額の挫創の詳細観察",
+          "ideal_rank": 4,
+          "rationale": "外傷評価は必要だが、CPA対応より優先してはいけない。"
         }
       ]
     },
     {
-      "id": "scene3",
-      "title": "バイタルサインと身体所見",
-      "phase": "vital_signs_and_findings",
-      "scene_goal": "バイタルサインが安定していても、潜水後症状として評価する。",
+      "id": "scene_3",
+      "title": "心拍再開後の再評価",
+      "phase": "post_rosc_assessment",
+      "scene_goal": "ROSC後に胸痛先行の経過を踏まえ、循環不安定性を評価する。",
       "ideal_flow": [
-        "バイタルサインを確認する",
-        "両膝関節痛を確認する",
-        "呼吸困難の有無を確認する",
-        "しびれや麻痺の有無を確認する",
-        "潜水後症状として評価する"
+        "ROSC後の循環・呼吸・意識を再評価する",
+        "胸痛先行の経過を重視する",
+        "VFの原因として循環器由来の病態を考える",
+        "合併外傷に引っ張られすぎない"
       ],
-      "ideal_score_delta": 10,
-      "action_tag": "vital_signs_diving_assessment",
-      "text": "救急隊到着時観察所見：意識清明。呼吸数24/分。脈拍80/分、整。血圧122/80mmHg。体温35.0℃。SpO2値98％。両膝関節部に拍動性の疼痛を認める。呼吸困難、しびれ、麻痺は認めない。",
+      "ideal_score_delta": 16,
+      "action_tag": "post_rosc_assessment",
+      "text": "モニターで心室細動を確認し除細動を実施。その後、心拍再開を認めた。傷病者はうめき声程度で開眼せず、自発呼吸あり。顔面蒼白で冷汗を認める。同僚から『倒れる前に強い胸痛を訴えていた』との情報を得た。",
       "visible_data": {
-        "vital_signs": {
-          "consciousness": "意識清明",
-          "respiratory_rate": "24/分",
-          "pulse": "80/分、整",
-          "blood_pressure": "122/80mmHg",
-          "temperature": "35.0℃",
-          "spo2": "98%"
-        },
-        "findings": [
-          "両膝関節部に拍動性の疼痛を認める",
-          "呼吸困難は認めない",
-          "しびれは認めない",
-          "麻痺は認めない"
+        "post_rosc_status": [
+          "意識 JCS300相当",
+          "自発呼吸あり",
+          "脈拍触知あり",
+          "顔面蒼白",
+          "冷汗あり"
+        ],
+        "vital_signs": [
+          "血圧 88/54mmHg",
+          "脈拍 118/分",
+          "呼吸数 22/分",
+          "SpO2 93％（酸素投与前）"
+        ],
+        "history_from_bystander": [
+          "倒れる直前に強い胸痛を訴えた",
+          "突然その場に崩れ落ちた",
+          "頭部を床に打ちつけた可能性がある"
         ]
       },
       "media": [],
-      "type": "single_choice",
-      "prompt": "この所見から判断として適切なのはどれか。1つ選べ。",
+      "type": "multiple_choice",
+      "prompt": "ROSC後の情報から強く考えるべき病態として適切なものを2つ選べ。",
       "options": [
         {
-          "option_id": "1",
-          "text": "SpO2が98％であるため、潜水に関連した病態は否定できる。",
-          "is_correct": false,
-          "score_delta": -1,
-          "life_delta": 0,
-          "rationale": "SpO2が保たれていても、潜水後症状は否定できない。"
-        },
-        {
-          "option_id": "2",
-          "text": "体温35.0℃であるため、膝痛は低体温のみで説明できる。",
-          "is_correct": false,
-          "score_delta": -1,
-          "life_delta": 0,
-          "rationale": "低体温への対応は必要だが、急浮上後の関節痛を低体温のみで説明してはならない。"
-        },
-        {
-          "option_id": "3",
-          "text": "呼吸困難がないため、高濃度酸素投与は不要である。",
-          "is_correct": false,
-          "score_delta": -1,
-          "life_delta": 0,
-          "rationale": "潜水後症状では呼吸困難がなくても高濃度酸素投与を考慮する。"
-        },
-        {
-          "option_id": "4",
-          "text": "バイタルサインが安定していても、潜水後症状として評価する。",
+          "option_id": "s3_o1",
+          "text": "急性冠症候群",
           "is_correct": true,
-          "score_delta": 10,
+          "score_delta": 8,
           "life_delta": 0,
-          "rationale": "急浮上後の関節痛は、バイタルサインが安定していても潜水後症状として評価する。"
+          "status_effect": [],
+          "rationale": "胸痛先行、VF、ROSC後の循環不安定は急性冠症候群を強く示唆する。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "心原性心停止",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "胸痛に続くVFは、心原性の院外心停止として矛盾しない。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "単純な低血糖発作",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "糖尿病があっても、胸痛先行とVFを低血糖のみで説明するのは不適切である。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "右前腕骨折のみを主病態と考える",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "局所外傷はあるが、主病態は循環器由来の致死的不整脈と考えるべきである。"
         }
       ]
     },
     {
-      "id": "scene4",
-      "title": "症状変化の確認",
-      "phase": "symptom_monitoring",
-      "scene_goal": "関節痛だけで軽症と判断せず、神経症状や呼吸症状の出現を確認する。",
+      "id": "scene_4",
+      "title": "活動方針の再判断",
+      "phase": "transport_priority",
+      "scene_goal": "ROSC後不安定例として搬送優先を判断する。",
       "ideal_flow": [
-        "関節痛の程度と変化を確認する",
-        "しびれや力の入りにくさを確認する",
-        "呼吸困難や胸部症状を確認する",
-        "意識変化を確認する"
-      ],
-      "ideal_score_delta": 10,
-      "action_tag": "deterioration_monitoring_diving",
-      "text": "現時点では両膝関節部の疼痛が中心で、意識障害、呼吸困難、しびれ、麻痺は認めない。",
-      "visible_data": {
-        "current_symptoms": [
-          "両膝関節部の疼痛",
-          "意識障害なし",
-          "呼吸困難なし",
-          "しびれなし",
-          "麻痺なし"
-        ]
-      },
-      "media": [],
-      "type": "single_choice",
-      "prompt": "この傷病者で、今後特に確認すべき症状はどれか。1つ選べ。",
-      "options": [
-        {
-          "option_id": "1",
-          "text": "食欲低下と口渇。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "確認する価値はあるが、潜水後症状の悪化確認としては優先度が低い。"
-        },
-        {
-          "option_id": "2",
-          "text": "しびれや力の入りにくさ。",
-          "is_correct": true,
-          "score_delta": 10,
-          "life_delta": 0,
-          "rationale": "神経症状の出現は重症化を示す可能性があり、継続して確認する必要がある。"
-        },
-        {
-          "option_id": "3",
-          "text": "鼻汁と咽頭痛。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "上気道症状はこの病態の悪化確認としては優先度が低い。"
-        },
-        {
-          "option_id": "4",
-          "text": "皮膚のかゆみのみ。",
-          "is_correct": false,
-          "score_delta": 0,
-          "life_delta": 0,
-          "rationale": "皮膚症状も参考になるが、ここでは神経症状の出現確認がより重要である。"
-        }
-      ]
-    },
-    {
-      "id": "scene5",
-      "title": "国試の芯：判断と対応",
-      "phase": "core_question",
-      "scene_goal": "急浮上後の関節痛から、減圧症に対する適切な対応を選択する。",
-      "ideal_flow": [
-        "急浮上後の関節痛を重視する",
-        "減圧症を疑う",
-        "高濃度酸素投与を考慮する",
-        "高気圧酸素療法が可能な医療機関を考慮する",
-        "二酸化炭素ではなく窒素の気泡化を理解する"
+        "ROSC後不安定例として判断する",
+        "胸痛先行の経過を重視する",
+        "合併外傷を把握する",
+        "循環器対応が可能な医療機関を選定する"
       ],
       "ideal_score_delta": 15,
-      "action_tag": "decompression_sickness_core",
-      "text": "水深15mでの作業中、トラブルのため急に水面に浮上した後、両膝関節部に拍動性の疼痛を認めている。",
+      "action_tag": "transport_priority",
+      "text": "ROSC後も血圧は低く、循環動態は不安定である。胸痛先行のVFであり、再度の致死的不整脈や循環不全が懸念される。一方で、前額部挫創と右前腕変形もある。",
       "visible_data": {
-        "core_findings": [
-          "水深15mでの潜水作業",
-          "トラブルによる急浮上",
-          "両膝関節部の拍動性疼痛",
-          "意識清明",
-          "呼吸困難なし",
-          "しびれや麻痺なし"
+        "current_status": [
+          "胸痛先行",
+          "VFに対して除細動後に心拍再開",
+          "血圧 88/54mmHg",
+          "前額部挫創あり",
+          "右前腕変形あり"
+        ],
+        "transport_context": [
+          "直近二次医療機関あり",
+          "高度対応可能な医療機関あり"
         ]
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "この傷病者に対する判断および対応として正しいのはどれか。1つ選べ。",
+      "prompt": "この時点での搬送方針として最も適切なのはどれか。",
       "options": [
         {
-          "option_id": "1",
-          "text": "II型減圧症である。",
+          "option_id": "s4_o1",
+          "text": "外傷所見があるため整形外科単科病院へ搬送する",
           "is_correct": false,
-          "score_delta": -1,
+          "score_delta": -5,
           "life_delta": 0,
-          "rationale": "神経症状や呼吸循環障害は認めず、関節痛が中心である。"
+          "status_effect": [],
+          "rationale": "主病態は心停止後の循環器病態であり、整形外科単科病院は不適切である。"
         },
         {
-          "option_id": "2",
-          "text": "航空機搬送を優先する。",
+          "option_id": "s4_o2",
+          "text": "頭部外傷の評価を優先して二次救急医療機関へ搬送する",
           "is_correct": false,
-          "score_delta": -1,
+          "score_delta": -5,
           "life_delta": 0,
-          "rationale": "航空機搬送では気圧変化が問題となることがあり、単純に優先とはいえない。"
+          "status_effect": [],
+          "rationale": "外傷評価は必要だが、ROSC後で循環器的緊急対応が必要な状態である。"
         },
         {
-          "option_id": "3",
-          "text": "頭部を低くして搬送する。",
-          "is_correct": false,
-          "score_delta": -1,
-          "life_delta": 0,
-          "rationale": "頭低位搬送は標準的対応ではない。安静、保温、高濃度酸素投与を考える。"
-        },
-        {
-          "option_id": "4",
-          "text": "高気圧酸素療法の適応である。",
+          "option_id": "s4_o3",
+          "text": "胸痛先行で除細動後に心拍再開しており、循環動態も不安定なため、高度対応可能な医療機関へ搬送を優先する",
           "is_correct": true,
           "score_delta": 15,
           "life_delta": 0,
-          "rationale": "急浮上後の関節痛から減圧症を疑い、高気圧酸素療法が可能な医療機関への搬送を考慮する。"
+          "status_effect": [],
+          "rationale": "心停止後で循環器対応を含む高度治療体制が必要である。"
         },
         {
-          "option_id": "5",
-          "text": "組織中の二酸化炭素が気泡となっている。",
+          "option_id": "s4_o4",
+          "text": "現場で意識回復を待ってから搬送先を決める",
           "is_correct": false,
-          "score_delta": -1,
+          "score_delta": -4,
           "life_delta": 0,
-          "rationale": "気泡の主因は二酸化炭素ではなく、体内に溶け込んだ窒素である。"
+          "status_effect": [],
+          "rationale": "ROSC後は再悪化の危険が高く、搬送遅延は避けるべきである。"
         }
       ]
     },
     {
-      "id": "scene6",
-      "title": "病態理解：高気圧酸素療法の理由",
-      "phase": "clinical_reasoning",
-      "scene_goal": "減圧症で高気圧酸素療法が必要となる理由を理解する。",
+      "id": "scene_5",
+      "title": "全身観察",
+      "phase": "secondary_assessment",
+      "scene_goal": "外傷を把握しつつも、主病態はROSC後管理として優先順位を崩さない。",
       "ideal_flow": [
-        "急浮上により窒素が気泡化することを理解する",
-        "高圧環境で気泡を小さくする意味を理解する",
-        "高濃度酸素で窒素排出を促す意味を理解する",
-        "高気圧酸素療法の目的を整理する"
+        "全身観察で外傷を把握する",
+        "主病態はROSC後管理として優先する",
+        "前腕外傷は保護・固定を検討する",
+        "搬送優先を維持する"
+      ],
+      "ideal_score_delta": 13,
+      "action_tag": "secondary_trauma_assessment",
+      "text": "搬送準備を進めながら全身観察を行う。前額部に挫創、右前腕に腫脹と変形を認める。胸郭に明らかな変形なし。腹部は平坦、骨盤不安定性なし。四肢冷感を認めるが、他に大きな外表損傷はない。",
+      "visible_data": {
+        "head_to_toe_assessment": [
+          "頭部：前額部挫創あり",
+          "頸部：著明な変形なし",
+          "胸部：明らかな外傷なし",
+          "腹部：平坦、圧痛評価困難",
+          "骨盤：不安定性なし",
+          "四肢：右前腕変形・腫脹あり",
+          "四肢冷感あり"
+        ]
+      },
+      "media": [],
+      "type": "multiple_choice",
+      "prompt": "全身観察後の対応として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "外表損傷を確認しつつも、主病態はROSC後管理として優先する",
+          "is_correct": true,
+          "score_delta": 7,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "外傷評価は必要だが、主病態は心原性心停止後の循環不安定である。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "右前腕は循環や疼痛に配慮しつつ保護・固定を検討する",
+          "is_correct": true,
+          "score_delta": 6,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "致死的問題への対応を妨げない範囲で局所外傷の保護を行う。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "外傷があるため循環器病態の評価は後回しにする",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "循環器病態が最優先であり、後回しは危険である。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "前額部挫創のみを問題として近隣外科へ搬送変更する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "ROSC後の循環器緊急対応が必要であり、搬送先変更は不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "病院連絡",
+      "phase": "hospital_handover",
+      "scene_goal": "胸痛先行、VF、除細動後ROSC、不安定な循環、合併外傷を整理して病院へ伝える。",
+      "ideal_flow": [
+        "年齢・性別を伝える",
+        "胸痛先行で倒れた経過を伝える",
+        "到着時CPAでVFを確認し除細動後にROSCしたことを伝える",
+        "現在も血圧低下など循環が不安定であることを伝える",
+        "前額部挫創と右前腕変形があることを補足する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "hospital_handover",
+      "text": "搬送中、受け入れ病院へ連絡を行う。胸痛先行で倒れ、到着時CPA。モニターでVFを確認し除細動後に心拍再開している。現在も循環は不安定で、前額部挫創と右前腕変形を認める。",
+      "visible_data": {
+        "handover_materials": [
+          "52歳男性",
+          "胸痛の後に倒れた",
+          "到着時は反応・呼吸・脈拍なし",
+          "VFを確認し除細動後に心拍再開",
+          "現在も血圧低下あり",
+          "前額部挫創あり",
+          "右前腕変形あり"
+        ]
+      },
+      "media": [],
+      "type": "dialogue_input",
+      "prompt": "受け入れ病院への連絡として、最も適切な内容を選べ。",
+      "dialogue_turns": [
+        {
+          "turn_id": "s6_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "s6_t1",
+              "text": "52歳男性です。勤務中に強い胸痛を訴えた直後に倒れました。現着時は反応・呼吸・頸動脈拍動を認めずCPAと判断しました。モニターでVFを確認し、除細動後にROSCしています。現在も血圧低下があり循環不安定です。前額部挫創と右前腕変形も認めます。受け入れをお願いします。",
+              "is_correct": true,
+              "score_delta": 15,
+              "life_delta": 0,
+              "status_effect": [],
+              "speaker_response": "VFで除細動後ROSCですね。循環不安定も了解。到着予定時刻をください。",
+              "rationale": "胸痛先行、CPA、VF、除細動後ROSC、循環不安定、合併外傷が整理されており、受け入れ判断に必要な情報が伝わる。"
+            },
+            {
+              "template_id": "s6_t2",
+              "text": "52歳男性です。職場で倒れて頭部と右前腕を負傷しています。前額部挫創と右前腕変形があります。外傷の受け入れをお願いします。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "status_effect": [],
+              "speaker_response": "外傷だけでは判断できません。CPAの経過と現在の循環状態を先にください。",
+              "rationale": "外傷情報は必要だが、胸痛先行、CPA、VF、除細動後ROSC、循環不安定が抜けており、主病態が伝わらない。"
+            },
+            {
+              "template_id": "s6_t3",
+              "text": "52歳男性です。糖尿病治療中で職場で倒れました。意識が戻らないため低血糖の可能性があります。血圧は低めです。受け入れをお願いします。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -2,
+              "status_effect": [],
+              "speaker_response": "糖尿病だけでは説明になりません。胸痛後に倒れた経過とモニター所見は？",
+              "rationale": "糖尿病情報だけに引っ張られており、胸痛先行のVF・ROSC後症例という重要情報が抜けている。"
+            },
+            {
+              "template_id": "s6_t4",
+              "text": "52歳男性です。胸痛後に倒れ、現着時CPAでした。現在は心拍再開しています。詳細は到着後に説明しますので、受け入れをお願いします。",
+              "is_correct": false,
+              "score_delta": -2,
+              "life_delta": -1,
+              "status_effect": [],
+              "speaker_response": "それでは足りません。VFか、除細動の有無、今の血圧をください。",
+              "rationale": "大枠は伝わるが、VF、除細動後ROSC、現在の循環不安定、合併外傷が不足しており、病院側の準備には不十分である。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "搬送先選定",
+      "phase": "destination_selection",
+      "scene_goal": "病院連絡内容を踏まえ、症例に適した搬送先を判断する。",
+      "ideal_flow": [
+        "胸痛先行の心停止後症例であることを重視する",
+        "循環動態が不安定であることを加味する",
+        "高度な循環器対応が可能な搬送先を選ぶ"
       ],
       "ideal_score_delta": 10,
-      "action_tag": "hyperbaric_oxygen_reasoning",
-      "text": "減圧症では、急浮上により体内に溶けていた窒素が気泡化し、関節痛や神経症状などを起こす。",
+      "action_tag": "destination_selection",
+      "text": "搬送中、モニター上は頻脈傾向が続き、冷汗も持続している。血圧は80/46mmHgまで低下した。病院連絡を終えたうえで、どのレベルの医療機関へ搬送するかを最終判断する。",
       "visible_data": {
-        "clinical_focus": [
-          "急浮上",
-          "窒素の気泡化",
-          "関節痛",
-          "高気圧酸素療法"
+        "transport_status": [
+          "血圧 80/46mmHg",
+          "脈拍 132/分",
+          "開眼なし",
+          "うめき声のみ",
+          "冷汗持続",
+          "循環動態がさらに悪化"
         ]
       },
       "media": [],
       "type": "single_choice",
-      "prompt": "減圧症で高気圧酸素療法が必要となる理由として最も適切なのはどれか。1つ選べ。",
+      "prompt": "この症例の搬送先として最も適切なのはどれか。",
       "options": [
         {
-          "option_id": "1",
-          "text": "体温を上昇させ、関節内の炎症を直接冷却するため。",
+          "option_id": "s7_o1",
+          "text": "一次救急医療機関",
           "is_correct": false,
-          "score_delta": -1,
+          "score_delta": -4,
           "life_delta": 0,
-          "rationale": "高気圧酸素療法の主目的は体温上昇や関節炎の冷却ではない。"
+          "status_effect": [],
+          "rationale": "心停止後で循環不安定な症例には対応が不十分である。"
         },
         {
-          "option_id": "2",
-          "text": "二酸化炭素を気泡化させ、肺から一気に排出するため。",
+          "option_id": "s7_o2",
+          "text": "一般的な二次救急医療機関",
           "is_correct": false,
-          "score_delta": -1,
+          "score_delta": -3,
           "life_delta": 0,
-          "rationale": "減圧症の主因は二酸化炭素ではなく窒素の気泡化である。"
+          "status_effect": [],
+          "rationale": "受け入れ可能な場合もあるが、この症例ではより高度な循環器対応能力を優先したい。"
         },
         {
-          "option_id": "3",
-          "text": "高圧環境で気泡を小さくし、高濃度酸素により窒素の排出を促すため。",
+          "option_id": "s7_o3",
+          "text": "三次救急医療機関",
           "is_correct": true,
           "score_delta": 10,
           "life_delta": 0,
-          "rationale": "高気圧酸素療法は気泡を縮小させ、高濃度酸素により窒素の排出を促す治療である。"
+          "status_effect": [],
+          "rationale": "ROSC後で循環不安定なため、高度救命対応が可能な施設が最適である。"
         },
         {
-          "option_id": "4",
-          "text": "血圧を低下させ、関節痛を感じにくくするため。",
+          "option_id": "s7_o4",
+          "text": "整形外科や外傷中心の専門医療機関",
           "is_correct": false,
-          "score_delta": -1,
+          "score_delta": -4,
           "life_delta": 0,
-          "rationale": "血圧低下や鎮痛が主目的ではない。"
+          "status_effect": [],
+          "rationale": "合併外傷はあるが、主病態は循環器由来の重症病態である。"
         }
       ]
     }
   ],
   "debriefing": {
-    "summary": "30歳男性の潜水士が、水深15mでの港湾作業中にトラブルで急浮上し、浮上後に両膝関節部の拍動性疼痛を訴えた症例。意識清明でSpO2は保たれていても、潜水後の関節痛は減圧症を疑う重要な症状である。現場では潜水深度、潜水時間、浮上速度、症状出現時刻を確認し、高濃度酸素投与、安静、保温を行い、高気圧酸素療法が可能な医療機関への搬送を考慮する。",
+    "summary": "本症例は、胸痛先行で倒れ、到着時CPA、VFに対する除細動後にROSCした症例である。胸痛先行の経過から循環器由来の病態を考え、ROSC後も循環不安定であることを踏まえて、病院連絡と搬送先選定を適切に行うことが重要である。",
     "ideal_actions": [
-      "急浮上後から症状出現までの時間を確認する",
-      "潜水深度、潜水時間、浮上速度、反復潜水の有無を確認する",
-      "バイタルサインが安定していても潜水後症状として評価する",
-      "しびれや力の入りにくさなど神経症状の出現を確認する",
-      "高濃度酸素投与、安静、保温を考慮する",
-      "高気圧酸素療法が可能な医療機関への搬送を考える",
-      "減圧症の主因は窒素の気泡化であると理解する"
+      "口頭指導で市民CPRとAED準備を指示する",
+      "現着後ただちにCPAとして高品質CPRとリズム確認を行う",
+      "VFなら速やかに除細動する",
+      "ROSC後は胸痛先行の経過を踏まえて循環器由来の病態を考える",
+      "外傷所見を把握しつつ主病態との優先順位を誤らない",
+      "病院連絡で胸痛先行、CPA、VF、除細動後ROSC、循環不安定、合併外傷を簡潔に伝える",
+      "高度な循環器対応が可能な搬送先を選定する"
     ],
     "good_points": [
-      "潜水後の関節痛を単なる膝痛として扱わない視点を学べる",
-      "PACで確認すべき発症時期と、現場で確認すべき潜水条件を整理できる",
-      "国試の選択肢である高気圧酸素療法の理由まで理解できる",
-      "I型とII型の違いを意識しながら神経症状の有無を確認できる"
+      "胸痛先行とVFから循環器由来の病態を考えられた",
+      "ROSC後も循環不安定である点に注目できた",
+      "合併外傷に引っ張られず主病態の優先順位を保てた",
+      "病院連絡で必要情報を簡潔に整理できた"
     ],
     "cautions": [
-      "SpO2が正常でも減圧症を否定しない",
-      "膝痛だけで整形外科的外傷と決めつけない",
-      "航空機搬送を安易に優先しない",
-      "頭低位搬送を選択しない",
-      "二酸化炭素ではなく窒素の気泡化を考える"
+      "局所外傷を主病態と誤って捉えない",
+      "ROSC後の循環不安定例で搬送判断を遅らせない",
+      "病院連絡ではCPA、VF、除細動後ROSCの経過を落とさない",
+      "搬送先は循環器緊急対応力を重視する",
+      "対話式では相手が親切に全部聞き出してくれる前提にせず、必要情報を自分から整理して伝える"
     ]
   }
 }

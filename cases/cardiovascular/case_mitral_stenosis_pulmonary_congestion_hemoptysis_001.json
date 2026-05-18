@@ -316,22 +316,48 @@
       "id": "scene4",
       "title": "人体図による追加観察",
       "phase": "focused_observation",
-      "scene_goal": "病態把握のため、頸部、胸部、口元・喀痰を重点的に観察する。",
-      "ideal_flow": "血性泡沫状痰だけで判断せず、頸部所見、胸部聴診、喀痰性状を組み合わせて循環器由来の呼吸障害を評価する。",
+      "scene_goal": "病態把握のため、頸部、胸部、顔面・口元を重点的に観察する。",
+      "ideal_flow": "血性泡沫状痰だけで判断せず、頸部所見、胸部聴診、口元の喀痰性状を組み合わせて循環器由来の呼吸障害を評価する。",
       "ideal_score_delta": 12,
       "action_tag": "body_map_observation_pulmonary_congestion",
       "text": "酸素投与と座位安静を保ちながら、病態把握のために追加観察を行う。人体図から優先して観察したい部位を選択する。",
       "visible_data": {
-        "instruction": "人体図を用いて追加観察を行う。"
+        "instruction": "人体図を用いて追加観察を行う。",
+        "selection_count": "3か所選択"
       },
       "media": [
         "media/neutral_mannequin_body_diagram_template.png"
       ],
-      "type": "observation_points",
+      "type": "body_map_select",
       "prompt": "病態把握のため、追加で優先して観察したい部位を3つ選べ。",
-      "observation_points": [
+      "selection_rule": {
+        "min_select": 3,
+        "max_select": 3,
+        "correct_part_ids": [
+          "neck",
+          "chest",
+          "face"
+        ]
+      },
+      "body_parts": [
         {
-          "point_id": "neck",
+          "part_id": "head",
+          "label": "頭部",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな頭部外傷や片麻痺を示す所見はない。",
+          "rationale": "意識清明で神経局在症状を疑う場面ではなく、今回の病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "face",
+          "label": "顔面・口元",
+          "is_correct": true,
+          "score_delta": 4,
+          "finding": "口元にピンク色の泡沫状血性痰を認める。",
+          "rationale": "泡沫状血性痰は肺うっ血や肺水腫を考える重要な所見である。"
+        },
+        {
+          "part_id": "neck",
           "label": "頸部",
           "is_correct": true,
           "score_delta": 4,
@@ -339,7 +365,7 @@
           "rationale": "肺循環負荷や右心負荷を示す所見として重要である。"
         },
         {
-          "point_id": "chest",
+          "part_id": "chest",
           "label": "胸部",
           "is_correct": true,
           "score_delta": 4,
@@ -353,39 +379,62 @@
           "rationale": "肺うっ血を疑ううえで、湿性ラ音は重要な胸部所見である。"
         },
         {
-          "point_id": "mouth_sputum",
-          "label": "口元・喀痰",
-          "is_correct": true,
-          "score_delta": 4,
-          "finding": "ピンク色の泡沫状血性痰を認める。",
-          "rationale": "泡沫状血性痰は肺うっ血や肺水腫を考える重要な所見である。"
-        },
-        {
-          "point_id": "eyes",
-          "label": "眼球",
-          "is_correct": false,
-          "score_delta": -1,
-          "finding": "明らかな眼球突出は認めない。",
-          "rationale": "甲状腺機能亢進症を疑う情報としては参考になるが、今回の病態把握では優先度は低い。"
-        },
-        {
-          "point_id": "abdomen",
+          "part_id": "abdomen",
           "label": "腹部",
           "is_correct": false,
           "score_delta": -1,
           "finding": "明らかな腹部膨満や圧痛を認めない。",
           "rationale": "腹部疾患を主に疑う状況ではなく、今回の優先観察部位ではない。"
+        },
+        {
+          "part_id": "pelvis",
+          "label": "骨盤",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "骨盤部の疼痛や不安定性を示す情報はない。",
+          "rationale": "外傷や骨盤部痛を疑う状況ではなく、今回の病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "back",
+          "label": "背部",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな背部痛や外傷所見はない。",
+          "rationale": "背部観察も必要に応じて行うが、今回の追加観察では頸部、胸部、口元を優先する。"
+        },
+        {
+          "part_id": "right_upper_limb",
+          "label": "右上肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな麻痺や外傷所見はない。",
+          "rationale": "四肢の観察は重要だが、今回の肺うっ血を疑う材料としては優先度が低い。"
+        },
+        {
+          "part_id": "left_upper_limb",
+          "label": "左上肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな麻痺や外傷所見はない。",
+          "rationale": "四肢の観察は重要だが、今回の肺うっ血を疑う材料としては優先度が低い。"
+        },
+        {
+          "part_id": "right_lower_limb",
+          "label": "右下肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな浮腫や疼痛は目立たない。",
+          "rationale": "深部静脈血栓症を疑う場面では重要だが、今回の主な病態把握では優先度は低い。"
+        },
+        {
+          "part_id": "left_lower_limb",
+          "label": "左下肢",
+          "is_correct": false,
+          "score_delta": -1,
+          "finding": "明らかな浮腫や疼痛は目立たない。",
+          "rationale": "深部静脈血栓症を疑う場面では重要だが、今回の主な病態把握では優先度は低い。"
         }
-      ],
-      "selection_rule": {
-        "min_select": 3,
-        "max_select": 3,
-        "correct_point_ids": [
-          "neck",
-          "chest",
-          "mouth_sputum"
-        ]
-      }
+      ]
     },
     {
       "id": "scene5",
@@ -673,7 +722,7 @@
       "初期評価では意識、気道、呼吸、循環を確認し、特に呼吸異常を重視する。",
       "低酸素と頻呼吸を認めたら酸素投与と安静保持を行う。",
       "僧帽弁狭窄症と心房細動の既往を、呼吸困難の背景として評価する。",
-      "頸部、胸部、口元・喀痰を重点的に観察する。",
+      "頸部、胸部、顔面・口元を重点的に観察する。",
       "湿性ラ音と泡沫状血性痰から肺うっ血を疑う。",
       "頸静脈怒張を右心負荷の所見として捉える。",
       "呼吸器症状でも循環器疾患が背景にある可能性を考える。"
@@ -683,7 +732,7 @@
       "僧帽弁狭窄症と心房細動を病態推論に結びつけられた。",
       "湿性ラ音と低酸素を肺うっ血の根拠として整理できた。",
       "頸静脈怒張を肺循環負荷・右心負荷と関連づけて理解できた。",
-      "観察選択で頸部、胸部、喀痰を優先できた。"
+      "観察選択で頸部、胸部、顔面・口元を優先できた。"
     ],
     "cautions": [
       "血性痰だけで気道異物や外傷と決めつけない。",

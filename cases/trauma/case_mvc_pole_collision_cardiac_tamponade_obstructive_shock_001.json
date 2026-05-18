@@ -4,7 +4,7 @@
   "title": "電柱衝突後のショックで心タンポナーデを疑う症例",
   "category": "trauma",
   "difficulty": "Normal",
-  "algorithm_type": "外傷プロトコル",
+  "algorithm_type": "trauma_protocol",
   "estimated_time": 8,
   "keywords": [
     "交通外傷",

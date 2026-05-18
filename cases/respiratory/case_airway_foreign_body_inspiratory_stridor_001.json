@@ -4,316 +4,495 @@
   "title": "食事中の急な咳込みと吸気性喘鳴から上気道異物を疑う症例",
   "category": "respiratory",
   "difficulty": "Normal",
-
-  "scene1": {
-    "id": "scene1",
-    "title": "出場指令：食事中に急に咳込み呼吸が荒くなった高齢男性",
-    "phase": "dispatch",
-    "scene_goal": "食事中の急な咳込みと呼吸苦から、気道異物による上気道閉塞を想定する。",
-    "ideal_flow": "食事中の発症、急な咳込み、呼吸苦という情報から、誤嚥・気道異物を疑い、気道管理と異物除去を想定して出場準備を行う。",
-    "ideal_score_delta": 10,
-    "action_tag": "出場途上の情報整理",
-    "text": "あなたたちは自宅からの救急要請を受けて出場した。傷病者は80歳男性。家族によると、食事中に急に咳込み、その後から呼吸が荒くなったという。",
-    "visible_data": [
-      "80歳男性",
-      "自宅で食事中に発症",
-      "急に咳込み始めた",
-      "呼吸が荒くなった",
-      "家族が救急要請"
-    ],
-    "media": [
-      "media/airway_foreign_body_dining_scene1.png"
-    ],
-    "type": "single_choice",
-    "prompt": "この通報内容から最も疑うべき病態はどれか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "気道異物による上気道閉塞",
-        "is_correct": true
-      },
-      {
-        "option_id": "B",
-        "text": "自然気胸",
-        "is_correct": false
-      },
-      {
-        "option_id": "C",
-        "text": "過換気症候群",
-        "is_correct": false
-      },
-      {
-        "option_id": "D",
-        "text": "胸部外傷",
-        "is_correct": false
-      }
+  "scene_count": 7,
+  "overview": {
+    "chief_complaint": "食事中の急な咳込みと呼吸苦",
+    "final_diagnosis": "気道異物による上気道閉塞疑い",
+    "learning_points": [
+      "食事中の急な咳込みから気道異物を疑う",
+      "咳や発声の有無から部分閉塞と完全閉塞に近い状態を判断する",
+      "吸気性喘鳴は上気道狭窄を示唆し、頸部前面で強く聴取されやすいことを理解する",
+      "咳が可能な部分閉塞では咳を促し、呼吸状態を観察しながら搬送準備を進める",
+      "発声不能や換気不十分となった場合は異物除去処置へ移行する",
+      "反応消失時はCPA対応へ移行し、口腔内に見える異物があれば除去する"
     ]
   },
-
-  "scene2": {
-    "id": "scene2",
-    "title": "現着：努力様呼吸と咳込みを認める",
-    "phase": "initial_assessment",
-    "scene_goal": "気道閉塞の程度を評価し、部分閉塞か完全閉塞かを判断する。",
-    "ideal_flow": "意識、発声、咳の強さ、呼吸の有無、努力様呼吸、SpO2を確認し、まず気道閉塞の程度を評価する。",
-    "ideal_score_delta": 15,
-    "action_tag": "初期評価",
-    "text": "現場では、男性は椅子に座ったまま前かがみになり、苦しそうに呼吸している。咳込みは続いており、短い言葉で返答できる。顔色はやや不良で、努力様呼吸を認める。",
-    "visible_data": [
-      "椅子座位で前かがみ",
-      "咳込みあり",
-      "短い言葉で返答可能",
-      "努力様呼吸あり",
-      "顔色やや不良"
-    ],
-    "media": [],
-    "type": "single_choice",
-    "prompt": "この時点で最も優先して確認すべきことはどれか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "咳や発声が可能か、呼吸が保たれているか",
-        "is_correct": true
+  "scenes": [
+    {
+      "id": "scene1",
+      "title": "出場指令：食事中に急に咳込み呼吸が荒くなった高齢男性",
+      "phase": "dispatch",
+      "scene_goal": "食事中の急な咳込みと呼吸苦から、気道異物による上気道閉塞を想定する。",
+      "ideal_flow": [
+        "食事中の発症を確認する",
+        "急な咳込みと呼吸苦を重視する",
+        "気道異物による上気道閉塞を疑う",
+        "気道管理と異物除去を想定して出場準備を行う"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "prearrival_airway_foreign_body_assessment",
+      "text": "あなたたちは自宅からの救急要請を受けて出場した。傷病者は80歳男性。家族によると、食事中に急に咳込み、その後から呼吸が荒くなったという。",
+      "visible_data": {
+        "dispatch_information": [
+          "80歳男性",
+          "自宅で食事中に発症",
+          "急に咳込み始めた",
+          "呼吸が荒くなった",
+          "家族が救急要請"
+        ]
       },
-      {
-        "option_id": "B",
-        "text": "食事内容をすべて聞き取ること",
-        "is_correct": false
+      "media": [
+        "media/airway_foreign_body_dining_scene1.png"
+      ],
+      "type": "single_choice",
+      "prompt": "この通報内容から最も疑うべき病態はどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "気道異物による上気道閉塞",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "食事中の急な咳込みと呼吸苦は、誤嚥や気道異物による上気道閉塞を強く疑う所見である。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "自然気胸",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "自然気胸でも呼吸苦は起こるが、食事中の急な咳込みという発症状況からは気道異物を優先する。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "過換気症候群",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "食事中の急な咳込みと呼吸苦からは、まず気道異物を疑うべきである。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "胸部外傷",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "外傷機転の情報はなく、食事中発症という経過から胸部外傷は優先しにくい。"
+        }
+      ]
+    },
+    {
+      "id": "scene2",
+      "title": "現着：努力様呼吸と咳込みを認める",
+      "phase": "initial_assessment",
+      "scene_goal": "気道閉塞の程度を評価し、部分閉塞か完全閉塞かを判断する。",
+      "ideal_flow": [
+        "意識の有無を確認する",
+        "発声が可能か確認する",
+        "咳の強さを確認する",
+        "呼吸が保たれているか確認する",
+        "気道閉塞の程度を判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "initial_airway_obstruction_assessment",
+      "text": "現場では、男性は椅子に座ったまま前かがみになり、苦しそうに呼吸している。咳込みは続いており、短い言葉で返答できる。顔色はやや不良で、努力様呼吸を認める。",
+      "visible_data": {
+        "initial_findings": [
+          "椅子座位で前かがみ",
+          "咳込みあり",
+          "短い言葉で返答可能",
+          "努力様呼吸あり",
+          "顔色やや不良"
+        ]
       },
-      {
-        "option_id": "C",
-        "text": "既往歴の詳細を最後まで確認すること",
-        "is_correct": false
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も優先して確認すべきことはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "咳や発声が可能か、呼吸が保たれているか",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "気道異物では、咳や発声が可能か、呼吸が保たれているかを確認し、閉塞の程度を判断することが重要である。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "食事内容をすべて聞き取ること",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "食事内容も参考になるが、まずは気道閉塞の程度を評価する必要がある。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "既往歴の詳細を最後まで確認すること",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "既往歴聴取よりも、現在の気道・呼吸状態の評価が優先される。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "血圧測定だけを優先すること",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "血圧測定も必要だが、気道異物疑いでは気道閉塞の程度確認が最優先である。"
+        }
+      ]
+    },
+    {
+      "id": "scene3",
+      "title": "聴診：吸気性喘鳴を強く聴取する部位",
+      "phase": "focused_assessment",
+      "scene_goal": "吸気性喘鳴が上気道狭窄を示唆し、頸部で強く聴取されやすいことを理解する。",
+      "ideal_flow": [
+        "食事中発症を整理する",
+        "努力様呼吸を確認する",
+        "吸気性喘鳴を評価する",
+        "上気道狭窄を疑う",
+        "頸部前面を中心に呼吸音を確認する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "inspiratory_stridor_assessment",
+      "text": "観察を進めると、意識はJCS1、呼吸数32/分、脈拍100/分、血圧160/88mmHg、SpO2は93％であった。努力様呼吸があり、吸気時に高い音が聴こえる。",
+      "visible_data": {
+        "vital_signs": [
+          "意識 JCS1",
+          "呼吸数 32/分",
+          "脈拍 100/分",
+          "血圧 160/88mmHg",
+          "SpO2 93％"
+        ],
+        "respiratory_findings": [
+          "努力様呼吸あり",
+          "吸気時に高い音を聴取"
+        ]
       },
-      {
-        "option_id": "D",
-        "text": "血圧測定だけを優先すること",
-        "is_correct": false
-      }
-    ]
-  },
-
-  "scene3": {
-    "id": "scene3",
-    "title": "聴診：吸気性喘鳴を強く聴取する部位",
-    "phase": "focused_assessment",
-    "scene_goal": "吸気性喘鳴が上気道狭窄を示唆し、頸部で強く聴取されやすいことを理解する。",
-    "ideal_flow": "食事中発症、努力様呼吸、吸気性喘鳴から上気道狭窄を疑い、頸部前面を中心に呼吸音を確認する。",
-    "ideal_score_delta": 15,
-    "action_tag": "呼吸音評価",
-    "text": "観察を進めると、意識はJCS1、呼吸数32/分、脈拍100/分、血圧160/88mmHg、SpO2は93％であった。努力様呼吸があり、吸気時に高い音が聴こえる。",
-    "visible_data": [
-      "意識：JCS1",
-      "呼吸数：32/分",
-      "脈拍：100/分",
-      "血圧：160/88mmHg",
-      "SpO2：93％",
-      "努力様呼吸あり",
-      "吸気時に高い音を聴取"
-    ],
-    "media": [],
-    "type": "single_choice",
-    "prompt": "この傷病者で吸気時喘鳴を最も強く聴取しやすい部位はどこか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "背部下肺野",
-        "is_correct": false
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で吸気時喘鳴を最も強く聴取しやすい部位はどこか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "背部下肺野",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "背部下肺野では末梢肺野の呼吸音評価はできるが、上気道狭窄による吸気性喘鳴の主な聴取部位ではない。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "側胸部",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "側胸部は肺音評価部位の一つだが、上気道狭窄を示す吸気性喘鳴は頸部で強く聴取されやすい。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "心窩部周囲",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "心窩部周囲は吸気性喘鳴の主な聴取部位ではない。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "頸部前面",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "喉頭や気管上部などの上気道が狭窄すると、吸気時に乱流が生じ、頸部前面で高調な喘鳴として聴取されやすい。"
+        },
+        {
+          "option_id": "s3_o5",
+          "text": "前胸部下部",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "前胸部下部は肺音評価部位ではあるが、上気道狭窄を示す吸気性喘鳴の主な聴取部位ではない。"
+        }
+      ]
+    },
+    {
+      "id": "scene4",
+      "title": "部分閉塞時の対応",
+      "phase": "management",
+      "scene_goal": "咳と発声が保たれている部分閉塞では、いきなり腹部突き上げをせず、咳を促して観察する判断を学ぶ。",
+      "ideal_flow": [
+        "咳ができることを確認する",
+        "短い発声が可能であることを確認する",
+        "呼吸が保たれていることを確認する",
+        "部分閉塞と判断する",
+        "強い咳を促しながら酸素投与と搬送準備を進める"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "partial_airway_obstruction_management",
+      "text": "男性は苦しそうだが、まだ咳をすることができ、短い言葉で返答できる。吸気性喘鳴はあるが、完全に呼吸が止まっている状態ではない。",
+      "visible_data": {
+        "current_findings": [
+          "咳が可能",
+          "短い発声が可能",
+          "呼吸は保たれている",
+          "吸気性喘鳴あり",
+          "SpO2 93％"
+        ]
       },
-      {
-        "option_id": "B",
-        "text": "側胸部",
-        "is_correct": false
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "ただちに腹部突き上げ法を行う",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "咳や発声が可能な部分閉塞では、いきなり腹部突き上げを行わず、咳を促して状態を観察する。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "強い咳を促し、呼吸状態を観察しながら酸素投与と搬送準備を進める",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "咳が可能な部分閉塞では、強い咳を促し、呼吸状態を観察しながら酸素投与と搬送準備を進める。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "口腔内を盲目的に指で探る",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "見えない異物を盲目的に指で探ると、異物を奥へ押し込む危険がある。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "直ちに胸骨圧迫を開始する",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "反応と呼吸が保たれている段階で胸骨圧迫を開始するのは不適切である。"
+        }
+      ]
+    },
+    {
+      "id": "scene5",
+      "title": "状態悪化：咳が弱くなり声が出せない",
+      "phase": "clinical_judgment",
+      "scene_goal": "部分閉塞から完全閉塞に近い状態へ悪化した場面で、異物除去処置へ移行する判断を学ぶ。",
+      "ideal_flow": [
+        "咳が弱くなったことを確認する",
+        "発声不能を確認する",
+        "換気不十分を疑う",
+        "完全閉塞に近い状態として判断する",
+        "成人の気道異物除去手順に移行する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "foreign_body_removal",
+      "text": "観察中、男性の咳は急に弱くなり、声を出せなくなった。苦悶表情が強くなり、吸気音も弱くなっている。",
+      "visible_data": {
+        "deterioration_findings": [
+          "咳が弱くなった",
+          "声が出せない",
+          "苦悶表情が強い",
+          "吸気音が弱い",
+          "換気不十分が疑われる"
+        ]
       },
-      {
-        "option_id": "C",
-        "text": "心窩部周囲",
-        "is_correct": false
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この変化を認めた時点で、次に行うべき対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "咳が止まったため、そのまま経過観察を続ける",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "咳が弱くなり発声不能となっており、換気不十分が疑われるため、経過観察のみでは危険である。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "水を飲ませて異物を流し込む",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "気道異物疑いで水を飲ませるのは誤嚥や状態悪化につながるため不適切である。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "成人の気道異物除去手順に従い、背部叩打や腹部突き上げ法を実施する",
+          "is_correct": true,
+          "score_delta": 20,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "咳が弱くなり発声不能となった場合は、完全閉塞に近い状態として、成人の気道異物除去手順に従って対応する。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "見えない異物を指でかき出す",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "見えない異物を盲目的に指でかき出すのは危険であり、異物をさらに奥へ押し込む可能性がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene6",
+      "title": "反応消失時の対応",
+      "phase": "deterioration",
+      "scene_goal": "異物除去中に反応が消失した場合、CPA対応へ移行する判断を学ぶ。",
+      "ideal_flow": [
+        "反応消失を確認する",
+        "呼吸と脈拍を確認する",
+        "CPAであれば胸骨圧迫を開始する",
+        "口腔内を確認する",
+        "見える異物があれば除去する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "cardiac_arrest_transition_for_foreign_body",
+      "text": "異物除去処置を試みている途中で、男性はぐったりして反応がなくなった。呼吸は確認できない。",
+      "visible_data": {
+        "collapse_findings": [
+          "反応消失",
+          "呼吸確認できず",
+          "気道異物が背景にある",
+          "急変を認める"
+        ]
       },
-      {
-        "option_id": "D",
-        "text": "頸部前面",
-        "is_correct": true
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点での対応として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "座位のまま背部叩打だけを続ける",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "反応が消失し呼吸が確認できない場合は、座位のまま背部叩打だけを続ける段階ではない。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "CPA対応へ移行し、胸骨圧迫を開始する。口腔内に見える異物があれば除去する",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "反応消失・呼吸なしではCPA対応へ移行する。気道異物が背景にあるため、口腔内を確認し、見える異物があれば除去する。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "水を飲ませて反応を確認する",
+          "is_correct": false,
+          "score_delta": -8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "反応がない傷病者に水を飲ませるのは危険であり不適切である。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "搬送先到着まで処置を行わず観察する",
+          "is_correct": false,
+          "score_delta": -10,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "反応消失と呼吸停止が疑われるため、直ちにCPA対応を開始する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene7",
+      "title": "病態理解：吸気性喘鳴と上気道狭窄",
+      "phase": "pathophysiology",
+      "scene_goal": "吸気性喘鳴が頸部で強く聴取される理由を、上気道狭窄の病態として理解する。",
+      "ideal_flow": [
+        "食事中の急な咳込みを整理する",
+        "努力様呼吸と吸気性喘鳴を整理する",
+        "上気道異物を疑う",
+        "吸気時の乱流と頸部での喘鳴を理解する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "pathophysiology_of_inspiratory_stridor",
+      "text": "この症例では、食事中の急な咳込み、努力様呼吸、吸気性喘鳴から、気道異物による上気道狭窄が疑われた。",
+      "visible_data": {
+        "pathophysiology_points": [
+          "食事中の急な咳込み",
+          "努力様呼吸",
+          "吸気性喘鳴",
+          "頸部で強く聴取される呼吸音",
+          "上気道異物疑い"
+        ]
       },
-      {
-        "option_id": "E",
-        "text": "前胸部下部",
-        "is_correct": false
-      }
-    ]
-  },
-
-  "scene4": {
-    "id": "scene4",
-    "title": "部分閉塞時の対応",
-    "phase": "management",
-    "scene_goal": "咳と発声が保たれている部分閉塞では、いきなり腹部突き上げをせず、咳を促して観察する判断を学ぶ。",
-    "ideal_flow": "咳ができ、短い返答も可能なため部分閉塞と判断し、強い咳を促しながら酸素投与、状態観察、搬送準備を進める。",
-    "ideal_score_delta": 15,
-    "action_tag": "部分閉塞への対応",
-    "text": "男性は苦しそうだが、まだ咳をすることができ、短い言葉で返答できる。吸気性喘鳴はあるが、完全に呼吸が止まっている状態ではない。",
-    "visible_data": [
-      "咳が可能",
-      "短い発声が可能",
-      "呼吸は保たれている",
-      "吸気性喘鳴あり",
-      "SpO2：93％"
-    ],
-    "media": [],
-    "type": "single_choice",
-    "prompt": "この時点での対応として最も適切なのはどれか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "ただちに腹部突き上げ法を行う",
-        "is_correct": false
-      },
-      {
-        "option_id": "B",
-        "text": "強い咳を促し、呼吸状態を観察しながら酸素投与と搬送準備を進める",
-        "is_correct": true
-      },
-      {
-        "option_id": "C",
-        "text": "口腔内を盲目的に指で探る",
-        "is_correct": false
-      },
-      {
-        "option_id": "D",
-        "text": "直ちに胸骨圧迫を開始する",
-        "is_correct": false
-      }
-    ]
-  },
-
-  "scene5": {
-    "id": "scene5",
-    "title": "状態悪化：咳が弱くなり声が出せない",
-    "phase": "clinical_judgment",
-    "scene_goal": "部分閉塞から完全閉塞に近い状態へ悪化した場面で、異物除去処置へ移行する判断を学ぶ。",
-    "ideal_flow": "咳が弱くなり、発声不能、換気不十分となった時点で、成人の気道異物除去手順に従い、背部叩打や腹部突き上げ法を実施する。",
-    "ideal_score_delta": 20,
-    "action_tag": "異物除去",
-    "text": "観察中、男性の咳は急に弱くなり、声を出せなくなった。苦悶表情が強くなり、吸気音も弱くなっている。",
-    "visible_data": [
-      "咳が弱くなった",
-      "声が出せない",
-      "苦悶表情が強い",
-      "吸気音が弱い",
-      "換気不十分が疑われる"
-    ],
-    "media": [],
-    "type": "single_choice",
-    "prompt": "この変化を認めた時点で、次に行うべき対応として最も適切なのはどれか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "咳が止まったため、そのまま経過観察を続ける",
-        "is_correct": false
-      },
-      {
-        "option_id": "B",
-        "text": "水を飲ませて異物を流し込む",
-        "is_correct": false
-      },
-      {
-        "option_id": "C",
-        "text": "成人の気道異物除去手順に従い、背部叩打や腹部突き上げ法を実施する",
-        "is_correct": true
-      },
-      {
-        "option_id": "D",
-        "text": "見えない異物を指でかき出す",
-        "is_correct": false
-      }
-    ]
-  },
-
-  "scene6": {
-    "id": "scene6",
-    "title": "反応消失時の対応",
-    "phase": "deterioration",
-    "scene_goal": "異物除去中に反応が消失した場合、CPA対応へ移行する判断を学ぶ。",
-    "ideal_flow": "反応が消失したら、呼吸と脈拍を確認し、CPAであれば胸骨圧迫を開始する。口腔内を確認し、見える異物があれば除去する。",
-    "ideal_score_delta": 15,
-    "action_tag": "急変対応",
-    "text": "異物除去処置を試みている途中で、男性はぐったりして反応がなくなった。呼吸は確認できない。",
-    "visible_data": [
-      "反応消失",
-      "呼吸確認できず",
-      "気道異物が背景にある",
-      "急変を認める"
-    ],
-    "media": [],
-    "type": "single_choice",
-    "prompt": "この時点での対応として最も適切なのはどれか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "座位のまま背部叩打だけを続ける",
-        "is_correct": false
-      },
-      {
-        "option_id": "B",
-        "text": "CPA対応へ移行し、胸骨圧迫を開始する。口腔内に見える異物があれば除去する",
-        "is_correct": true
-      },
-      {
-        "option_id": "C",
-        "text": "水を飲ませて反応を確認する",
-        "is_correct": false
-      },
-      {
-        "option_id": "D",
-        "text": "搬送先到着まで処置を行わず観察する",
-        "is_correct": false
-      }
-    ]
-  },
-
-  "scene7": {
-    "id": "scene7",
-    "title": "病態理解：吸気性喘鳴と上気道狭窄",
-    "phase": "pathophysiology",
-    "scene_goal": "吸気性喘鳴が頸部で強く聴取される理由を、上気道狭窄の病態として理解する。",
-    "ideal_flow": "喉頭・気管上部などの上気道が狭窄すると、吸気時に乱流が生じ、頸部で高調な喘鳴として聴取されやすいことを理解する。",
-    "ideal_score_delta": 15,
-    "action_tag": "病態理解",
-    "text": "この症例では、食事中の急な咳込み、努力様呼吸、吸気性喘鳴から、気道異物による上気道狭窄が疑われた。",
-    "visible_data": [
-      "食事中の急な咳込み",
-      "努力様呼吸",
-      "吸気性喘鳴",
-      "頸部で強く聴取される呼吸音",
-      "上気道異物疑い"
-    ],
-    "media": [],
-    "type": "single_choice",
-    "prompt": "この傷病者で吸気性喘鳴が頸部で強く聴取される理由として最も適切なのはどれか。1つ選べ。",
-    "options": [
-      {
-        "option_id": "A",
-        "text": "肺胞内に液体が貯留し、呼気時に末梢気道が閉塞するため",
-        "is_correct": false
-      },
-      {
-        "option_id": "B",
-        "text": "心不全により胸水が貯留し、背部で振動音が生じるため",
-        "is_correct": false
-      },
-      {
-        "option_id": "C",
-        "text": "喉頭・気管上部などの上気道が狭窄し、吸気時に乱流が生じるため",
-        "is_correct": true
-      },
-      {
-        "option_id": "D",
-        "text": "横隔膜のけいれんにより腹部で振動が生じるため",
-        "is_correct": false
-      }
-    ]
-  },
-
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この傷病者で吸気性喘鳴が頸部で強く聴取される理由として最も適切なのはどれか。1つ選べ。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "肺胞内に液体が貯留し、呼気時に末梢気道が閉塞するため",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "肺胞内液体貯留や末梢気道閉塞は、上気道狭窄による吸気性喘鳴とは異なる病態である。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "心不全により胸水が貯留し、背部で振動音が生じるため",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "胸水貯留は呼吸音減弱などにつながるが、頸部で強く聴取される吸気性喘鳴の説明にはならない。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "喉頭・気管上部などの上気道が狭窄し、吸気時に乱流が生じるため",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "喉頭や気管上部などの上気道が狭窄すると、吸気時に乱流が生じ、頸部で高調な喘鳴として聴取されやすい。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "横隔膜のけいれんにより腹部で振動が生じるため",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "横隔膜けいれんは、上気道狭窄による吸気性喘鳴の主な原因ではない。"
+        }
+      ]
+    }
+  ],
   "debriefing": {
     "summary": "本症例は、食事中に急な咳込みと呼吸苦を呈した高齢男性に対し、気道異物による上気道閉塞を疑い、吸気性喘鳴の聴取部位、部分閉塞時の対応、完全閉塞に近づいた際の異物除去処置、反応消失時のCPA対応までを学ぶ症例である。",
     "ideal_actions": [

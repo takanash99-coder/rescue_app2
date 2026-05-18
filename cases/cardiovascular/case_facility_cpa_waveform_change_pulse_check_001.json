@@ -401,7 +401,7 @@
       "ideal_score_delta": 10,
       "action_tag": [
         "hospital_handoff",
-        "template_select",
+        "dialogue_input",
         "rosc"
       ],
       "text": "波形B確認後に頸動脈拍動を確認したところ、拍動を触知した。自己心拍再開（ROSC）と判断し、胸骨圧迫を終了した。受入医療機関へ第1報を行う。",
@@ -414,23 +414,95 @@
         "current_status": "ROSC後も意識回復なし。自発呼吸不十分のため換気補助中。脈拍48回/分、血圧86/52mmHg"
       },
       "media": [],
-      "type": "template_select",
-      "prompt": "受入医療機関への第1報として、伝えるべき内容を簡潔に記述せよ。",
+      "type": "dialogue_input",
+      "prompt": "受け入れ医療機関への第1報として、最も適切な内容を選べ。",
+      "dialogue_role": "hospital_handover",
+      "dialogue_target": "受け入れ病院の医師",
+      "dialogue_style": {
+        "ui": "chat_like",
+        "input_mode": "template_select",
+        "speaker": "医師",
+        "tone": "brief_realistic",
+        "avoid_over_guidance": true,
+        "opening_message": "経過を簡潔にください。"
+      },
       "templates": [
         {
-          "template_id": "T1",
-          "label": "病院連絡テンプレート",
-          "fields": [
-            "患者属性",
-            "発症状況",
-            "現着時状態",
-            "実施した処置",
-            "ROSC確認までの経過",
-            "現在の状態",
-            "受入要請内容"
-          ]
+          "template_id": "s7_t1",
+          "text": "82歳女性、介護施設入所中です。施設内で突然卒倒し、職員から通報、口頭指導によりバイスタンダーCPRが開始されていました。現着時はJCS300、呼吸なし、頸動脈拍動触知せず、CPAと判断しました。胸骨圧迫を継続し、初期波形はPEAとして対応しました。静脈路を確保し、アドレナリン投与の指示を取得しましたが、投与前に波形Bへ変化し、頸動脈拍動を確認してROSCしました。アドレナリンは未投与です。現在も意識回復はなく、自発呼吸不十分のため換気補助中です。脈拍48回/分、血圧86/52mmHgです。ROSC後管理が必要と判断し、受け入れをお願いします。",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "action_tag": "appropriate_rosc_handover",
+          "speaker_response": "ROSC後ですね。アドレナリン未投与も了解。換気補助継続、到着予定時刻をください。",
+          "feedback": "現着時CPA、PEA対応、アドレナリン指示取得、投与前ROSC、現在の意識・呼吸・循環状態が整理されている。"
+        },
+        {
+          "template_id": "s7_t2",
+          "text": "82歳女性です。介護施設で倒れてCPAでした。薬剤準備中です。受け入れをお願いします。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "action_tag": "handover_too_brief",
+          "speaker_response": "それでは足りません。ROSCしたのか、現在の脈拍と血圧は？",
+          "feedback": "CPAだったことは伝わるが、ROSC確認、アドレナリン未投与、現在の状態が不足している。"
+        },
+        {
+          "template_id": "s7_t3",
+          "text": "82歳女性です。PEAでCPA継続中です。アドレナリン投与準備ができています。受け入れをお願いします。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -2,
+          "action_tag": "handover_missed_rosc",
+          "speaker_response": "CPA継続中ですか？波形変化後の脈拍確認結果をください。",
+          "feedback": "ROSC後なのにCPA継続中として伝えており、波形変化後の頸動脈拍動確認と現在状態が抜けている。"
+        },
+        {
+          "template_id": "s7_t4",
+          "text": "82歳女性です。心電図波形が変化しました。病院で確認をお願いします。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "action_tag": "handover_waveform_only",
+          "speaker_response": "波形だけでは判断できません。頸動脈拍動は？ROSCしたのですか？",
+          "feedback": "波形変化だけを伝えており、頸動脈拍動確認、ROSC判断、現在の意識・呼吸・循環状態が不足している。"
         }
-      ]
+      ],
+      "dialogue_feedback_rules": {
+        "must_include": [
+          "82歳女性",
+          "介護施設入所中",
+          "突然卒倒",
+          "バイスタンダーCPR",
+          "現着時CPA",
+          "PEA",
+          "静脈路確保",
+          "アドレナリン指示取得",
+          "投与前に波形変化",
+          "頸動脈拍動確認",
+          "ROSC",
+          "アドレナリン未投与",
+          "現在の意識状態",
+          "現在の呼吸状態",
+          "現在の循環状態",
+          "受入要請"
+        ],
+        "should_include": [
+          "換気補助中",
+          "脈拍48回/分",
+          "血圧86/52mmHg",
+          "ROSC後管理",
+          "到着予定時刻"
+        ],
+        "dangerous_omissions": [
+          "ROSC後なのにCPA継続中として連絡する",
+          "波形変化だけを伝え、頸動脈拍動確認を伝えない",
+          "アドレナリン投与済みか未投与かを曖昧にする",
+          "現在の意識・呼吸・循環状態を伝えない",
+          "受入要請ではなく経過説明だけで終わる"
+        ],
+        "response_tone_rule": "相手役は親切に情報を全部聞き出しすぎず、不足情報があれば短く確認・指摘する。人格否定や暴言は避ける。"
+      }
     }
   ],
   "debriefing": {

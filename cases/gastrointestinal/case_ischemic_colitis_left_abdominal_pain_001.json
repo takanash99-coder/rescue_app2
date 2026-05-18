@@ -1,12 +1,13 @@
 {
-  "case_id": "ischemic_colitis_left_abdominal_pain_001",
+  "case_id": "case_ischemic_colitis_left_abdominal_pain_001",
   "version": "2.0",
   "title": "左側腹部から下腹部痛と血性下痢から結腸病変を疑う症例",
   "category": "gastrointestinal",
   "difficulty": "Normal",
   "boss_candidate": false,
-  "algorithm_type": "内因性腹痛プロトコル",
+  "algorithm_type": "gastrointestinal_protocol",
   "estimated_time": 9,
+  "scene_count": 7,
   "keywords": [
     "血性下痢",
     "左側腹部痛",
@@ -15,24 +16,48 @@
     "虚血性大腸炎",
     "腹部観察"
   ],
+  "patient_profile": {
+    "age": 82,
+    "sex": "男性",
+    "chief_complaint": "突然の腹痛と血性下痢",
+    "background": "自宅で突然の腹痛を訴え、その後に血性下痢があった。家族が救急要請した。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "bloody_diarrhea",
+      "abdominal_pain",
+      "elderly_patient",
+      "possible_colon_ischemia",
+      "circulatory_worsening_risk"
+    ]
+  },
   "scenes": [
     {
-      "id": "scene1",
-      "title": "通報内容とプレアライバルコール",
+      "id": "scene_1",
+      "title": "通報内容と口頭指導",
       "phase": "dispatch",
       "scene_goal": "血性下痢を伴う腹痛に対して、安静保持と状態変化の観察を指示する。",
-      "ideal_flow": "高齢者の突然の腹痛と血性下痢を軽視せず、無理に動かさず安静を保たせ、意識・顔色・呼吸状態、血便の回数や量を見守るよう家族へ指示する。",
+      "ideal_flow": [
+        "高齢者の突然の腹痛と血性下痢を軽視しない",
+        "無理に動かさず安静を保たせる",
+        "意識・顔色・呼吸状態を見守るよう伝える",
+        "血便の回数や量を確認しておくよう伝える"
+      ],
       "ideal_score_delta": 10,
       "action_tag": "pac_abdominal_pain_bloody_diarrhea",
       "text": "82歳男性。自宅で突然の腹痛を訴え、その後に血性下痢があったため家族が救急要請した。現在は居間のソファに座り、腹部を押さえて苦しそうにしている。",
       "visible_data": {
-        "dispatch_information": {
-          "caller": "家族",
-          "location": "自宅居間",
-          "chief_complaint": "突然の腹痛と血性下痢",
-          "current_condition": "意識はあり、座位で腹部を押さえている",
-          "risk": "高齢者の血性下痢を伴う腹痛であり、循環状態の悪化に注意が必要"
-        }
+        "dispatch_information": [
+          "通報者：家族",
+          "場所：自宅居間",
+          "主訴：突然の腹痛と血性下痢",
+          "現在は意識あり",
+          "座位で腹部を押さえている",
+          "高齢者の血性下痢を伴う腹痛であり、循環状態の悪化に注意が必要"
+        ]
       },
       "media": [
         "media/elderly_man_in_pain_at_home.png"
@@ -41,7 +66,7 @@
       "prompt": "現着前に家族へ伝える内容として最も適切なのはどれか。",
       "options": [
         {
-          "option_id": "a",
+          "option_id": "s1_o1",
           "text": "血便の確認のため、トイレまで歩かせて再度排便させる。",
           "is_correct": false,
           "score_delta": -8,
@@ -60,7 +85,7 @@
           "rationale": "高齢者の腹痛と血性下痢では、無理に歩かせず安静を保つ。"
         },
         {
-          "option_id": "b",
+          "option_id": "s1_o2",
           "text": "楽な姿勢で安静にし、意識・顔色・呼吸状態と血便の回数を見守る。",
           "is_correct": true,
           "score_delta": 10,
@@ -79,7 +104,7 @@
           "rationale": "血性下痢を伴う腹痛では、安静保持と状態変化の観察を行い、救急隊到着を待つ。"
         },
         {
-          "option_id": "c",
+          "option_id": "s1_o3",
           "text": "腹痛の部位を確認するため、腹部を強く押してもらう。",
           "is_correct": false,
           "score_delta": -6,
@@ -97,7 +122,7 @@
           "rationale": "家族に腹部を強く押させる必要はなく、痛みを悪化させる可能性がある。"
         },
         {
-          "option_id": "d",
+          "option_id": "s1_o4",
           "text": "反跳痛がなければ緊急性は低いため、普段どおり待機させる。",
           "is_correct": false,
           "score_delta": -8,
@@ -117,23 +142,29 @@
       ]
     },
     {
-      "id": "scene2",
+      "id": "scene_2",
       "title": "初期評価",
       "phase": "primary_assessment",
       "scene_goal": "初期評価で循環異常の可能性に注意する。",
-      "ideal_flow": "意識、気道、呼吸、循環を確認し、血性下痢を伴う腹痛では脱水や出血、循環状態の変化に注意する。",
+      "ideal_flow": [
+        "意識を確認する",
+        "気道を確認する",
+        "呼吸を確認する",
+        "循環を確認する",
+        "血性下痢に伴う脱水や出血、循環状態の変化に注意する"
+      ],
       "ideal_score_delta": 10,
       "action_tag": "primary_assessment_circulation_focus",
       "text": "接触時、傷病者は座位で会話可能。意識は清明で、気道は開通している。呼吸はやや速い。橈骨動脈は触知できるが、やや速く不整な印象がある。顔色はやや不良である。",
       "visible_data": {
-        "primary_assessment": {
-          "consciousness": "清明。質問に答えられる。",
-          "airway": "開通",
-          "breathing": "やや速い",
-          "circulation": "橈骨動脈触知可能。やや速く不整な印象。",
-          "skin": "顔色やや不良",
-          "critical_impression": "循環状態の変化に注意が必要"
-        }
+        "primary_assessment": [
+          "意識：清明。質問に答えられる",
+          "気道：開通",
+          "呼吸：やや速い",
+          "循環：橈骨動脈触知可能。やや速く不整な印象",
+          "皮膚：顔色やや不良",
+          "循環状態の変化に注意が必要"
+        ]
       },
       "media": [
         "media/elderly_man_in_pain_at_home.png"
@@ -142,7 +173,7 @@
       "prompt": "初期評価で特に注意して確認すべき項目はどれか。",
       "options": [
         {
-          "option_id": "a",
+          "option_id": "s2_o1",
           "text": "意識",
           "is_correct": false,
           "score_delta": -2,
@@ -158,7 +189,7 @@
           "rationale": "意識評価は必須だが、接触時は清明であり、血性下痢を伴う腹痛では循環状態にも注意する。"
         },
         {
-          "option_id": "b",
+          "option_id": "s2_o2",
           "text": "気道",
           "is_correct": false,
           "score_delta": -2,
@@ -174,7 +205,7 @@
           "rationale": "気道は開通しており、今回の主問題は腹痛と血性下痢に伴う全身状態の評価である。"
         },
         {
-          "option_id": "c",
+          "option_id": "s2_o3",
           "text": "呼吸",
           "is_correct": false,
           "score_delta": -1,
@@ -190,7 +221,7 @@
           "rationale": "呼吸はやや速いが、血性下痢と高齢者の腹痛では循環状態の評価が特に重要である。"
         },
         {
-          "option_id": "d",
+          "option_id": "s2_o4",
           "text": "循環",
           "is_correct": true,
           "score_delta": 10,
@@ -208,35 +239,42 @@
       ]
     },
     {
-      "id": "scene3",
+      "id": "scene_3",
       "title": "情報収集とバイタル評価",
       "phase": "history_and_vitals",
       "scene_goal": "血性下痢を伴う腹痛を軽視せず、慎重な評価へつなげる。",
-      "ideal_flow": "バイタルサインと血性下痢の情報から、反跳痛がなくても慎重に腹部評価を行う必要性を判断する。",
+      "ideal_flow": [
+        "バイタルサインを確認する",
+        "腹痛の発症様式を確認する",
+        "血性下痢の有無を確認する",
+        "腹部所見を確認する",
+        "反跳痛がなくても慎重に評価する"
+      ],
       "ideal_score_delta": 10,
       "action_tag": "evaluate_bloody_diarrhea_abdominal_pain",
       "text": "傷病者は突然の腹痛を訴え、その後に血性下痢があった。腹部には圧痛を認めるが、反跳痛は認めない。",
       "visible_data": {
-        "vital_signs": {
-          "consciousness": "清明",
-          "respiratory_rate": "24回/分",
-          "pulse": "108回/分、不整",
-          "blood_pressure": "108/60mmHg",
-          "body_temperature": "37.8℃",
-          "spo2": "94％"
-        },
-        "history": {
-          "onset": "突然の腹痛",
-          "bowel_symptom": "その後に血性下痢あり",
-          "abdominal_finding": "圧痛あり、反跳痛なし"
-        }
+        "vital_signs": [
+          "意識：清明",
+          "呼吸数：24回/分",
+          "脈拍：108回/分、不整",
+          "血圧：108/60mmHg",
+          "体温：37.8℃",
+          "SpO2：94％"
+        ],
+        "history": [
+          "突然の腹痛",
+          "その後に血性下痢あり",
+          "腹部に圧痛あり",
+          "反跳痛なし"
+        ]
       },
       "media": [],
       "type": "single_choice",
       "prompt": "この時点での対応として最も適切なのはどれか。",
       "options": [
         {
-          "option_id": "a",
+          "option_id": "s3_o1",
           "text": "反跳痛がないため、軽症として経過を見る。",
           "is_correct": false,
           "score_delta": -8,
@@ -254,7 +292,7 @@
           "rationale": "反跳痛がなくても、血性下痢を伴う高齢者の腹痛は慎重に評価する。"
         },
         {
-          "option_id": "b",
+          "option_id": "s3_o2",
           "text": "血性下痢を伴う腹痛として慎重に評価する。",
           "is_correct": true,
           "score_delta": 10,
@@ -272,7 +310,7 @@
           "rationale": "高齢者の突然の腹痛と血性下痢では、反跳痛がなくても腸管病変を考えて評価する。"
         },
         {
-          "option_id": "c",
+          "option_id": "s3_o3",
           "text": "腹痛の程度を確認するため、立位や歩行で変化をみる。",
           "is_correct": false,
           "score_delta": -8,
@@ -291,7 +329,7 @@
           "rationale": "腹痛と血性下痢がある高齢者を歩かせて評価する必要はなく、安静を保つ。"
         },
         {
-          "option_id": "d",
+          "option_id": "s3_o4",
           "text": "酸素化が保たれているため、腹部評価は後回しにする。",
           "is_correct": false,
           "score_delta": -6,
@@ -306,92 +344,120 @@
             ],
             "remove_danger_tags": []
           },
-          "rationale": "SpO₂が比較的保たれていても、主訴である腹痛と血性下痢の評価は必要である。"
+          "rationale": "SpO2が比較的保たれていても、主訴である腹痛と血性下痢の評価は必要である。"
         }
       ]
     },
     {
-      "id": "scene4",
+      "id": "scene_4",
       "title": "人体図による腹部観察",
       "phase": "focused_observation",
       "scene_goal": "人体図を用いて腹痛の部位を確認する。",
-      "ideal_flow": "病変部位を推論するため、腹痛の部位を人体図で確認し、左側腹部から左下腹部にかけての痛みを把握する。",
+      "ideal_flow": [
+        "人体図から観察すべき部位を選択する",
+        "腹部の痛みの部位を確認する",
+        "左側腹部から左下腹部にかけての圧痛を把握する",
+        "痛みの部位から結腸病変を考える"
+      ],
       "ideal_score_delta": 12,
       "action_tag": "body_map_abdominal_pain_location",
-      "text": "腹痛の部位を確認するため、人体図を用いて最も痛みが強い部位を選択する。",
+      "text": "腹痛の部位を確認するため、人体図を用いて観察すべき部位を選択する。",
       "visible_data": {
-        "instruction": "人体図を用いて腹痛の部位を確認する。"
+        "instruction": [
+          "人体図を用いて腹痛の部位を確認する",
+          "固定部位リストから観察する部位を選ぶ"
+        ]
       },
       "media": [
         "media/neutral_mannequin_body_diagram_template.png"
       ],
-      "type": "observation_points",
-      "prompt": "腹痛の部位を確認する。人体図で最も痛みが強い部位を選べ。",
-      "observation_points": [
-        {
-          "point_id": "epigastrium",
-          "label": "上腹部中央",
-          "is_correct": false,
-          "score_delta": -2,
-          "finding": "上腹部中央の痛みは主ではない。",
-          "rationale": "十二指腸や胃などを考える部位だが、今回の主訴とは一致しない。"
-        },
-        {
-          "point_id": "right_lower_abdomen",
-          "label": "右下腹部",
-          "is_correct": false,
-          "score_delta": -2,
-          "finding": "右下腹部の痛みは主ではない。",
-          "rationale": "虫垂炎や回盲部病変を考える部位だが、今回の主訴とは一致しない。"
-        },
-        {
-          "point_id": "left_flank_left_lower_abdomen",
-          "label": "左側腹部〜左下腹部",
-          "is_correct": true,
-          "score_delta": 12,
-          "finding": "左側腹部から左下腹部にかけて圧痛を認める。反跳痛は認めない。",
-          "rationale": "左側腹部から左下腹部の痛みは、下行結腸からS状結腸の病変を考える重要な情報である。"
-        },
-        {
-          "point_id": "perianal_region",
-          "label": "肛門周囲",
-          "is_correct": false,
-          "score_delta": -2,
-          "finding": "肛門周囲の痛みは主ではない。",
-          "rationale": "肛門病変では肛門周囲の疼痛や出血を考えるが、今回の腹痛部位とは異なる。"
-        }
-      ],
-      "selection_rule": {
+      "type": "body_map_select",
+      "prompt": "腹痛の部位を確認する。人体図で観察すべき部位を選べ。",
+      "body_map_select": {
         "min_select": 1,
         "max_select": 1,
-        "correct_point_ids": [
-          "left_flank_left_lower_abdomen"
+        "correct_part_ids": [
+          "abdomen"
+        ],
+        "parts": [
+          {
+            "part_id": "head",
+            "label": "頭部",
+            "is_correct": false,
+            "score_delta": -2,
+            "finding": "頭部症状は主訴ではない。",
+            "rationale": "今回の主訴は腹痛と血性下痢であり、腹部観察を優先する。"
+          },
+          {
+            "part_id": "chest",
+            "label": "胸部",
+            "is_correct": false,
+            "score_delta": -2,
+            "finding": "胸部症状は主訴ではない。",
+            "rationale": "呼吸循環の確認は必要だが、痛みの局在確認としては腹部を選ぶ。"
+          },
+          {
+            "part_id": "abdomen",
+            "label": "腹部",
+            "is_correct": true,
+            "score_delta": 12,
+            "finding": "左側腹部から左下腹部にかけて圧痛を認める。反跳痛は認めない。",
+            "rationale": "左側腹部から左下腹部の痛みは、下行結腸からS状結腸の病変を考える重要な情報である。"
+          },
+          {
+            "part_id": "pelvis",
+            "label": "骨盤部",
+            "is_correct": false,
+            "score_delta": -2,
+            "finding": "骨盤部の痛みは主ではない。",
+            "rationale": "下腹部痛と混同しやすいが、今回確認すべき中心は腹部である。"
+          },
+          {
+            "part_id": "right_lower_limb",
+            "label": "右下肢",
+            "is_correct": false,
+            "score_delta": -2,
+            "finding": "右下肢の痛みは主ではない。",
+            "rationale": "下肢症状ではなく、腹痛と血性下痢の評価が中心である。"
+          },
+          {
+            "part_id": "left_lower_limb",
+            "label": "左下肢",
+            "is_correct": false,
+            "score_delta": -2,
+            "finding": "左下肢の痛みは主ではない。",
+            "rationale": "左側の痛みではあるが、痛みの部位は下肢ではなく腹部である。"
+          }
         ]
       }
     },
     {
-      "id": "scene5",
+      "id": "scene_5",
       "title": "病変部位の推論",
       "phase": "anatomical_reasoning",
       "scene_goal": "腹痛部位と血性下痢から、病変部位として結腸を推論する。",
-      "ideal_flow": "左側腹部から左下腹部にかけての痛みと血性下痢を組み合わせ、下行結腸からS状結腸を含む結腸病変を考える。",
+      "ideal_flow": [
+        "左側腹部から左下腹部の痛みを整理する",
+        "血性下痢を整理する",
+        "下行結腸からS状結腸を含む結腸病変を考える"
+      ],
       "ideal_score_delta": 12,
       "action_tag": "identify_colon_lesion",
       "text": "腹痛は左側腹部から左下腹部にかけて強く、血性下痢を伴っている。反跳痛は認めない。",
       "visible_data": {
-        "key_findings": {
-          "pain_location": "左側腹部〜左下腹部",
-          "bowel_symptom": "血性下痢",
-          "peritoneal_sign": "反跳痛なし",
-          "suspected_area": "下行結腸〜S状結腸領域"
-        }
+        "key_findings": [
+          "腹痛部位：左側腹部〜左下腹部",
+          "血性下痢あり",
+          "反跳痛なし",
+          "下行結腸〜S状結腸領域が疑われる"
+        ]
       },
       "media": [],
       "type": "single_choice",
       "prompt": "この傷病者の病変部位として可能性が高いのはどれか。",
       "options": [
         {
-          "option_id": "a",
+          "option_id": "s5_o1",
           "text": "十二指腸",
           "is_correct": false,
           "score_delta": -4,
@@ -407,7 +473,7 @@
           "rationale": "十二指腸病変では上腹部痛を考えることが多く、左下腹部痛と血性下痢の組み合わせとは合いにくい。"
         },
         {
-          "option_id": "b",
+          "option_id": "s5_o2",
           "text": "空腸",
           "is_correct": false,
           "score_delta": -4,
@@ -423,7 +489,7 @@
           "rationale": "空腸病変は左下腹部痛と血性下痢の典型的な組み合わせとしては考えにくい。"
         },
         {
-          "option_id": "c",
+          "option_id": "s5_o3",
           "text": "回腸",
           "is_correct": false,
           "score_delta": -4,
@@ -439,7 +505,7 @@
           "rationale": "回腸病変では右下腹部や回盲部周辺を考えることが多く、今回の部位とは異なる。"
         },
         {
-          "option_id": "d",
+          "option_id": "s5_o4",
           "text": "結腸",
           "is_correct": true,
           "score_delta": 12,
@@ -455,7 +521,7 @@
           "rationale": "左側腹部から左下腹部痛と血性下痢から、下行結腸からS状結腸を含む結腸病変を考える。"
         },
         {
-          "option_id": "e",
+          "option_id": "s5_o5",
           "text": "肛門",
           "is_correct": false,
           "score_delta": -4,
@@ -473,30 +539,36 @@
       ]
     },
     {
-      "id": "scene6",
+      "id": "scene_6",
       "title": "病態推論",
       "phase": "diagnostic_reasoning",
       "scene_goal": "高齢者、突然の左側腹部痛、血性下痢、不整脈から虚血性大腸炎を疑う。",
-      "ideal_flow": "高齢者の突然の左側腹部から下腹部痛と血性下痢、頻脈不整を組み合わせ、結腸の血流障害による虚血性大腸炎を考える。",
+      "ideal_flow": [
+        "高齢者であることを整理する",
+        "突然の左側腹部から左下腹部痛を整理する",
+        "血性下痢を整理する",
+        "脈拍不整を背景因子として考える",
+        "結腸の血流障害による虚血性大腸炎を疑う"
+      ],
       "ideal_score_delta": 12,
       "action_tag": "suspect_ischemic_colitis",
       "text": "傷病者は高齢で、脈拍は不整である。突然の左側腹部から左下腹部の痛みと血性下痢を認め、病変部位として結腸が疑われる。",
       "visible_data": {
-        "key_findings": {
-          "age": "82歳",
-          "pulse": "108回/分、不整",
-          "pain_location": "左側腹部〜左下腹部",
-          "bowel_symptom": "血性下痢",
-          "lesion_area": "結腸疑い",
-          "peritoneal_sign": "反跳痛なし"
-        }
+        "key_findings": [
+          "82歳",
+          "脈拍 108回/分、不整",
+          "左側腹部〜左下腹部痛",
+          "血性下痢",
+          "結腸病変疑い",
+          "反跳痛なし"
+        ]
       },
       "media": [],
       "type": "single_choice",
       "prompt": "この傷病者で考えやすい病態として最も適切なのはどれか。",
       "options": [
         {
-          "option_id": "a",
+          "option_id": "s6_o1",
           "text": "十二指腸潰瘍穿孔",
           "is_correct": false,
           "score_delta": -5,
@@ -512,7 +584,7 @@
           "rationale": "穿孔では強い腹膜刺激症状を伴いやすく、左下腹部痛と血性下痢の説明としては合いにくい。"
         },
         {
-          "option_id": "b",
+          "option_id": "s6_o2",
           "text": "虚血性大腸炎",
           "is_correct": true,
           "score_delta": 12,
@@ -528,7 +600,7 @@
           "rationale": "高齢者の突然の左側腹部痛と血性下痢では、結腸の血流障害による虚血性大腸炎を疑う。"
         },
         {
-          "option_id": "c",
+          "option_id": "s6_o3",
           "text": "急性虫垂炎",
           "is_correct": false,
           "score_delta": -4,
@@ -544,7 +616,7 @@
           "rationale": "急性虫垂炎では右下腹部痛を考えることが多く、今回の部位とは合わない。"
         },
         {
-          "option_id": "d",
+          "option_id": "s6_o4",
           "text": "痔核出血",
           "is_correct": false,
           "score_delta": -4,
@@ -562,28 +634,32 @@
       ]
     },
     {
-      "id": "scene7",
+      "id": "scene_7",
       "title": "病態理解",
       "phase": "pathophysiology",
       "scene_goal": "結腸の血流障害により血性下痢が出現する機序を理解する。",
-      "ideal_flow": "結腸粘膜の血流障害により粘膜障害が起こり、腹痛と血性下痢が生じることを理解する。",
+      "ideal_flow": [
+        "虚血性大腸炎を疑う",
+        "結腸粘膜の血流障害を理解する",
+        "粘膜障害により腹痛と血性下痢が起こることを理解する"
+      ],
       "ideal_score_delta": 10,
       "action_tag": "colon_mucosal_ischemia_mechanism",
       "text": "虚血性大腸炎では、結腸の血流が一時的に障害されることで腸管粘膜が障害され、腹痛や血性下痢を来すことがある。",
       "visible_data": {
-        "pathophysiology_summary": {
-          "suspected_condition": "虚血性大腸炎",
-          "lesion": "下行結腸〜S状結腸を含む結腸領域",
-          "mechanism": "腸管血流障害による粘膜障害",
-          "symptoms": "左側腹部〜左下腹部痛、血性下痢"
-        }
+        "pathophysiology_summary": [
+          "疑う病態：虚血性大腸炎",
+          "病変部位：下行結腸〜S状結腸を含む結腸領域",
+          "機序：腸管血流障害による粘膜障害",
+          "症状：左側腹部〜左下腹部痛、血性下痢"
+        ]
       },
       "media": [],
       "type": "single_choice",
       "prompt": "この傷病者で血性下痢が出現した機序として最も適切なのはどれか。",
       "options": [
         {
-          "option_id": "a",
+          "option_id": "s7_o1",
           "text": "胃酸により十二指腸粘膜が障害されるため。",
           "is_correct": false,
           "score_delta": -4,
@@ -599,7 +675,7 @@
           "rationale": "十二指腸粘膜障害では上腹部症状を考えることが多く、今回の血性下痢の主機序ではない。"
         },
         {
-          "option_id": "b",
+          "option_id": "s7_o2",
           "text": "小腸で吸収不良が起こるため。",
           "is_correct": false,
           "score_delta": -4,
@@ -615,7 +691,7 @@
           "rationale": "吸収不良は慢性的な下痢などで考えるが、突然の腹痛と血性下痢の説明としては不十分である。"
         },
         {
-          "option_id": "c",
+          "option_id": "s7_o3",
           "text": "大腸粘膜の血流障害により粘膜障害を来すため。",
           "is_correct": true,
           "score_delta": 10,
@@ -631,7 +707,7 @@
           "rationale": "虚血性大腸炎では、大腸粘膜の血流障害により粘膜障害が起こり、腹痛や血性下痢を来す。"
         },
         {
-          "option_id": "d",
+          "option_id": "s7_o4",
           "text": "肛門部の静脈瘤から出血するため。",
           "is_correct": false,
           "score_delta": -4,
@@ -650,26 +726,26 @@
     }
   ],
   "debriefing": {
-    "summary": "突然の腹痛と血性下痢を訴えた82歳男性の症例。初期評価では意識清明だが、脈拍は不整でやや速く、血性下痢を伴う腹痛として慎重な評価が必要である。人体図で痛みの部位を確認すると左側腹部から左下腹部に圧痛を認め、病変部位として下行結腸からS状結腸を含む結腸が疑われる。高齢者の突然の左側腹部痛と血性下痢では、結腸の血流障害による虚血性大腸炎を考える。",
+    "summary": "突然の腹痛と血性下痢を訴えた82歳男性の症例。初期評価では意識清明だが、脈拍は不整でやや速く、血性下痢を伴う腹痛として慎重な評価が必要である。人体図で腹部を選択して観察すると、左側腹部から左下腹部に圧痛を認め、病変部位として下行結腸からS状結腸を含む結腸が疑われる。高齢者の突然の左側腹部痛と血性下痢では、結腸の血流障害による虚血性大腸炎を考える。",
     "ideal_actions": [
       "通報段階で無理に歩かせず、楽な姿勢で安静を保たせる。",
-      "初期評価ではABCDを確認し、血性下痢に伴う循環状態の変化に注意する。",
+      "初期評価では反応、気道、呼吸、循環を確認し、血性下痢に伴う循環状態の変化に注意する。",
       "反跳痛がなくても、血性下痢を伴う高齢者の腹痛を軽視しない。",
-      "腹痛の部位を人体図で確認し、左側腹部から左下腹部の痛みを把握する。",
+      "人体図で腹部を選択し、左側腹部から左下腹部の痛みを把握する。",
       "左側腹部から左下腹部痛と血性下痢から、結腸病変を考える。",
       "高齢者、不整脈、突然の腹痛、血性下痢から虚血性大腸炎を疑う。",
       "搬送中も意識、血圧、脈拍、腹痛、血便の変化を再評価する。"
     ],
     "good_points": [
       "血性下痢を伴う腹痛を軽症と判断せず、慎重に評価できた。",
-      "腹痛部位を人体図で確認し、解剖学的に結腸病変へつなげられた。",
+      "人体図で腹部を選択し、所見から結腸病変へつなげられた。",
       "左側腹部から左下腹部痛を下行結腸〜S状結腸領域と関連づけられた。",
       "高齢者と不整脈を腸管血流障害の背景として考えられた。",
       "虚血性大腸炎の機序を大腸粘膜の血流障害として理解できた。"
     ],
     "cautions": [
       "反跳痛がないことだけで緊急性が低いと判断しない。",
-      "SpO₂が保たれていても、腹部症状の評価を後回しにしない。",
+      "SpO2が保たれていても、腹部症状の評価を後回しにしない。",
       "高齢者の血性下痢では、脱水や循環状態の変化にも注意する。",
       "腹痛の評価で歩行させる必要はない。",
       "血便だけで肛門病変と決めつけず、腹痛部位と全身状態を組み合わせて考える。",

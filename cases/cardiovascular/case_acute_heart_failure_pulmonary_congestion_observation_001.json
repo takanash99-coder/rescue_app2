@@ -194,18 +194,19 @@
     },
     {
       "id": "scene3",
-      "title": "観察場所の選択",
+      "title": "人体図による重点観察",
       "phase": "観察選択",
-      "scene_goal": "汎用ボディマップを使い、呼吸困難の原因推定に必要な頸部・胸部所見を自分で取りに行く。",
+      "scene_goal": "固定部位リストから観察すべき部位を選び、所見から急性心不全による肺うっ血を疑う。",
       "ideal_flow": [
-        "頸部を観察して頸静脈怒張の有無を確認する",
-        "胸部を視診して努力様呼吸や体位を確認する",
-        "左右の肺を聴診してラ音の有無を確認する",
-        "得られた所見を急性心不全の判断につなげる"
+        "全身固定部位リストから観察部位を選ぶ",
+        "頸部を観察して頸静脈怒張を確認する",
+        "胸部を観察して努力様呼吸と起座位傾向を確認する",
+        "背部を聴診して両肺野の断続性ラ音を確認する",
+        "得られた所見を急性心不全による肺うっ血の判断につなげる"
       ],
       "ideal_score_delta": 14,
-      "action_tag": "focused_observation",
-      "text": "呼吸困難の原因を評価するため、観察したい場所を選ぶ。2つ以上の観察所見を取得すると次に進める。",
+      "action_tag": "body_map_observation",
+      "text": "呼吸困難の原因を評価するため、人体図と固定部位リストから観察したい部位を選ぶ。必要と思う部位を3か所選択し、得られた所見から病態を判断する。",
       "visible_data": {
         "vital_signs": [
           "意識 JCS2",
@@ -216,107 +217,167 @@
           "冷汗あり"
         ],
         "observation_instruction": [
-          "ボディマップ上の観察場所を選択する",
-          "頸部・胸部を中心に観察する",
+          "人体図を参考に、固定部位リストから観察したい部位を選択する",
+          "必要と思う部位を3か所選ぶ",
+          "選択した部位の所見が表示される",
+          "得られた観察所見から疑う病態を考える",
           "聴診音は現時点ではテキスト所見で提示する",
           "音声ファイルは承認後に追加予定"
+        ],
+        "body_regions": [
+          {
+            "region_id": "head",
+            "label": "頭部",
+            "target_area": "head",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "明らかな外傷や瞳孔不同は認めない。",
+            "rationale": "意識障害の鑑別として頭部所見は確認できるが、本症例の呼吸困難の主因を示す所見ではない。"
+          },
+          {
+            "region_id": "face",
+            "label": "顔面",
+            "target_area": "face",
+            "is_key_finding": false,
+            "score_delta": 1,
+            "life_delta": 0,
+            "finding": "顔色不良で冷汗を認める。口唇チアノーゼは明らかではない。",
+            "rationale": "顔色不良や冷汗は重症感を示すが、心不全を直接判断するには頸部や胸部所見が重要である。"
+          },
+          {
+            "region_id": "neck",
+            "label": "頸部",
+            "target_area": "neck",
+            "is_key_finding": true,
+            "score_delta": 5,
+            "life_delta": 0,
+            "finding": "頸静脈怒張を認める。",
+            "rationale": "頸静脈怒張は静脈圧上昇やうっ血を示唆し、急性心不全を疑う重要所見である。"
+          },
+          {
+            "region_id": "chest",
+            "label": "胸部",
+            "target_area": "chest",
+            "is_key_finding": true,
+            "score_delta": 5,
+            "life_delta": 0,
+            "finding": "呼吸数は多く、努力様呼吸を認める。本人は起座位を保とうとしている。胸郭に明らかな外傷や左右差はない。",
+            "rationale": "起座呼吸や努力様呼吸は肺うっ血や呼吸仕事量増大を考える手がかりとなる。"
+          },
+          {
+            "region_id": "abdomen",
+            "label": "腹部",
+            "target_area": "abdomen",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "腹部膨満や強い圧痛は認めない。",
+            "rationale": "腹部所見は鑑別上確認できるが、本症例では呼吸困難の主因を示す所見ではない。"
+          },
+          {
+            "region_id": "pelvis",
+            "label": "骨盤部",
+            "target_area": "pelvis",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "骨盤部に明らかな疼痛や変形は認めない。",
+            "rationale": "外傷や出血性ショックを疑う状況では重要だが、本症例の主病態判断には優先度が低い。"
+          },
+          {
+            "region_id": "back",
+            "label": "背部",
+            "target_area": "back",
+            "is_key_finding": true,
+            "score_delta": 5,
+            "life_delta": 0,
+            "finding": "背側からの聴診で、両肺野に断続性ラ音を聴取する。",
+            "rationale": "両肺野の断続性ラ音は肺うっ血を示唆し、急性心不全を疑う根拠となる。",
+            "audio": {
+              "audio_id": "bilateral_lung_crackles",
+              "file": null,
+              "rights_status": "pending",
+              "display_text": "音声は承認後に追加予定"
+            }
+          },
+          {
+            "region_id": "right_upper_limb",
+            "label": "右上肢",
+            "target_area": "right_upper_limb",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "明らかな麻痺や外傷は認めない。橈骨動脈は触知可能。",
+            "rationale": "循環評価の補助にはなるが、急性心不全の判断では頸部・胸部・背部所見がより重要である。"
+          },
+          {
+            "region_id": "left_upper_limb",
+            "label": "左上肢",
+            "target_area": "left_upper_limb",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "明らかな麻痺や外傷は認めない。",
+            "rationale": "神経所見や外傷評価として確認できるが、本症例の主病態判断には優先度が低い。"
+          },
+          {
+            "region_id": "right_lower_limb",
+            "label": "右下肢",
+            "target_area": "right_lower_limb",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "明らかな外傷は認めない。著明な片側性腫脹はない。",
+            "rationale": "血栓塞栓症などの鑑別では下肢所見も参考になるが、本症例では肺うっ血所見が中心である。"
+          },
+          {
+            "region_id": "left_lower_limb",
+            "label": "左下肢",
+            "target_area": "left_lower_limb",
+            "is_key_finding": false,
+            "score_delta": 0,
+            "life_delta": 0,
+            "finding": "明らかな外傷は認めない。著明な片側性腫脹はない。",
+            "rationale": "血栓塞栓症などの鑑別では下肢所見も参考になるが、本症例では肺うっ血所見が中心である。"
+          }
         ]
       },
       "media": [
         "media/neutral_mannequin_body_diagram_template.png"
       ],
-      "type": "observation_select",
-      "prompt": "呼吸困難の原因を評価するため、観察したい場所を選んでください。2つ以上選択すると次へ進めます。",
-      "observation_bar": {
+      "type": "body_map_select",
+      "prompt": "観察したい部位を3か所選べ。得られた所見から、この呼吸困難の原因を考える。",
+      "body_map_config": {
         "display": true,
-        "title": "観察場所",
-        "style": "horizontal_buttons",
-        "position": "below_media",
-        "instruction": "観察したい部位を選択してください。",
+        "selection_style": "region_list_below_image",
+        "instruction": "人体図の下に表示される固定部位リストから、観察したい部位を3か所選択してください。",
+        "show_all_regions": true,
         "show_selected_findings": true,
-        "min_selected_to_continue": 2
+        "min_selected_to_continue": 3,
+        "max_selectable": 3,
+        "fixed_region_set": true,
+        "recommended_regions": [
+          "neck",
+          "chest",
+          "back"
+        ]
       },
-      "observation_points": [
-        {
-          "point_id": "neck_observation",
-          "label": "頸部を観察する",
-          "target_area": "neck",
-          "button_group": "観察場所",
-          "is_key_finding": true,
-          "score_delta": 4,
-          "life_delta": 0,
-          "media": [],
-          "audio": null,
-          "audio_status": "not_used",
-          "finding_text": "頸静脈怒張を認める。",
-          "rationale": "頸静脈怒張は静脈圧上昇やうっ血を示唆し、心不全を疑う重要所見である。"
-        },
-        {
-          "point_id": "chest_inspection",
-          "label": "胸部を視診する",
-          "target_area": "chest",
-          "button_group": "観察場所",
-          "is_key_finding": true,
-          "score_delta": 3,
-          "life_delta": 0,
-          "media": [],
-          "audio": null,
-          "audio_status": "not_used",
-          "finding_text": "呼吸数は多く、努力様呼吸を認める。本人は起座位を保とうとしている。",
-          "rationale": "起座呼吸や努力様呼吸は肺うっ血や呼吸仕事量増大を考える手がかりとなる。"
-        },
-        {
-          "point_id": "right_lung_auscultation",
-          "label": "右胸部を聴診する",
-          "target_area": "right_chest",
-          "button_group": "観察場所",
-          "is_key_finding": true,
-          "score_delta": 4,
-          "life_delta": 0,
-          "media": [],
-          "audio": {
-            "audio_id": "lung_crackles_right",
-            "file": null,
-            "rights_status": "pending",
-            "display_text": "音声は承認後に追加予定"
-          },
-          "audio_status": "pending_permission",
-          "finding_text": "右肺野で断続性ラ音を聴取する。",
-          "rationale": "断続性ラ音は肺胞や末梢気道周囲の液体貯留を示唆し、肺うっ血の判断材料となる。"
-        },
-        {
-          "point_id": "left_lung_auscultation",
-          "label": "左胸部を聴診する",
-          "target_area": "left_chest",
-          "button_group": "観察場所",
-          "is_key_finding": true,
-          "score_delta": 4,
-          "life_delta": 0,
-          "media": [],
-          "audio": {
-            "audio_id": "lung_crackles_left",
-            "file": null,
-            "rights_status": "pending",
-            "display_text": "音声は承認後に追加予定"
-          },
-          "audio_status": "pending_permission",
-          "finding_text": "左肺野で断続性ラ音を聴取する。",
-          "rationale": "両肺野で断続性ラ音を認める場合、心原性肺うっ血を疑う根拠が強くなる。"
-        }
-      ],
       "progress_rule": {
-        "min_selected": 2,
+        "min_selected": 3,
+        "max_selected": 3,
         "allow_continue_after_min": true,
         "summary_after_selection": true,
         "recommended_key_findings": [
-          "neck_observation",
-          "right_lung_auscultation",
-          "left_lung_auscultation"
+          "neck",
+          "chest",
+          "back"
         ]
       },
       "summary_template": {
         "title": "取得した観察所見",
-        "items_source": "selected_observation_points"
+        "items_source": "selected_body_regions",
+        "reasoning_prompt": "取得した所見から最も疑う病態を考える。"
       }
     },
     {
@@ -622,26 +683,25 @@
     "ideal_actions": [
       "出動途上で会話可否、体位、冷汗、顔色、呼吸状態を確認する",
       "初期評価でCPAではないが重度呼吸障害として認識する",
-      "ボディマップから頸部を選択し、頸静脈怒張を確認する",
-      "胸部視診で努力様呼吸と起座位傾向を確認する",
-      "左右肺野を聴診し断続性ラ音を確認する",
-      "急性心不全による肺うっ血を疑う",
+      "人体図から頸部、胸部、背部を選択し、頸静脈怒張、努力様呼吸、両肺ラ音を確認する",
+      "取得した所見から急性心不全による肺うっ血を疑う",
       "内因性L&Gとして酸素投与、安楽体位、搬送準備を進める",
       "早期に医療機関へ第1報を入れる",
       "車内でモニター装着、SpO2、血圧、呼吸状態を再評価する"
     ],
     "good_points": [
       "呼吸困難を呼吸器疾患だけで判断せず、心原性呼吸困難を考えられた",
+      "人体図の固定部位リストから必要な観察部位を選択できた",
       "頸静脈怒張と両肺野ラ音を肺うっ血の所見として整理できた",
       "重症呼吸障害をハイリスク徴候として扱い、内因性L&Gにつなげられた",
-      "国試知識の交感神経緊張を、冷汗や頻脈、高血圧と関連づけて理解できた",
-      "観察場所を自分で選び、必要な所見を取りに行く流れを体験できた"
+      "国試知識の交感神経緊張を、冷汗や頻脈、高血圧と関連づけて理解できた"
     ],
     "cautions": [
       "発熱がないことだけで緊急度を下げない",
       "呼吸音左右差が目立たないことを理由に現場観察を長引かせない",
       "高血圧に意識を奪われ、救急隊が現場で降圧を目標にしない",
       "頸静脈怒張だけで右心不全に固定せず、両肺ラ音と高血圧から急性心不全・肺うっ血を考える",
+      "人体図Sceneでは、正解部位だけを機械的に選ぶのではなく、観察所見から病態を推論する",
       "音声教材は承認前にアプリへ同梱せず、当面はテキスト所見で運用する"
     ]
   }

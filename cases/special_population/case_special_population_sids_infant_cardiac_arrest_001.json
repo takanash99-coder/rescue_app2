@@ -615,78 +615,89 @@
         "external_abnormality": "なし"
       },
       "media": [],
-      "type": "template_select",
-      "prompt": "最も適切な申し送り内容を選べ。",
-      "templates": [
+      "type": "dialogue_input",
+      "prompt": "医療機関への申し送りとして最も適切な内容を選べ。",
+      "dialogue_turns": [
         {
-          "template_id": "q7_o1",
-          "text": "生後4か月乳児。前夜20時に哺乳後ベビーベッドで就寝。翌朝、母親が顔色不良と無呼吸に気付き要請。到着時JCS300、CPA、心静止、体温35.0℃、皮膚蒼白、外表異常なし。SIDSを含め鑑別しつつ蘇生継続中です。",
-          "is_correct": true,
-          "score_delta": 10,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "appropriate_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [],
-            "remove_danger_tags": []
-          },
-          "rationale": "発見状況、重症度、所見が簡潔にまとまっている。"
-        },
-        {
-          "template_id": "q7_o2",
-          "text": "乳児ですが外傷がないので問題ないと思われます。",
-          "is_correct": false,
-          "score_delta": -4,
-          "life_delta": -2,
-          "status_effect": {
-            "add_flags": [
-              "inappropriate_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "critical_information_missing"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "不適切である。"
-        },
-        {
-          "template_id": "q7_o3",
-          "text": "喫煙歴の確認だけできたので他情報はありません。",
-          "is_correct": false,
-          "score_delta": -2,
-          "life_delta": -1,
-          "status_effect": {
-            "add_flags": [
-              "incomplete_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "critical_information_missing"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "CPA情報と発見状況が重要である。"
-        },
-        {
-          "template_id": "q7_o4",
-          "text": "今朝から機嫌が悪かった以外は詳しく分かりません。",
-          "is_correct": false,
-          "score_delta": -2,
-          "life_delta": -1,
-          "status_effect": {
-            "add_flags": [
-              "vague_handover"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "critical_information_missing"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "把握できている重要情報を整理して伝える必要がある。"
+          "turn_id": "s7_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "q7_o1",
+              "text": "生後4か月乳児です。前夜20時に哺乳後、ベビーベッドで就寝。翌朝、母親が顔色不良と無呼吸に気付き救急要請しました。到着時JCS300、呼吸なし、CPA、モニターは心静止、体温35.0℃、皮膚蒼白です。明らかな外表異常はありません。SIDSを含めて鑑別しつつ、蘇生を継続しながら搬送中です。",
+              "is_correct": true,
+              "score_delta": 20,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "appropriate_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "了解しました。乳児CPA、心静止、SIDS含め鑑別ですね。蘇生継続で搬送してください。受け入れ準備します。",
+              "rationale": "発見状況、最後に元気であった時刻、就寝状況、CPA所見、心静止、外表異常の有無、蘇生継続状況が簡潔にまとまっている。"
+            },
+            {
+              "template_id": "q7_o2",
+              "text": "乳児ですが、外傷がないので問題ないと思われます。詳しい状況は到着後に説明します。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -2,
+              "status_effect": {
+                "add_flags": [
+                  "inappropriate_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "critical_information_missing"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "問題ない、では困ります。CPAか、心電図波形、発見状況、蘇生状況を具体的に伝えてください。",
+              "rationale": "外傷がないことだけで過小評価しており、CPA情報、発見状況、蘇生状況が不足している。"
+            },
+            {
+              "template_id": "q7_o3",
+              "text": "喫煙歴の確認だけできています。SIDSの危険因子として重要なので、それを中心に搬送します。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "incomplete_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "critical_information_missing"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "危険因子だけでは足りません。現在CPAなのか、波形、蘇生状況、発見状況を先にください。",
+              "rationale": "危険因子情報は参考になるが、搬送連絡ではCPA所見、心静止、発見状況、蘇生継続状況を優先して伝える必要がある。"
+            },
+            {
+              "template_id": "q7_o4",
+              "text": "今朝から機嫌が悪かったようですが、詳しくは分かりません。乳児なので小児対応をお願いします。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "vague_handover"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "critical_information_missing"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "情報が曖昧です。最後に元気だった時刻、発見時の状態、CPA所見、心電図波形を整理してください。",
+              "rationale": "把握できている重要情報を伝えられておらず、受け入れ準備に必要な情報が不足している。"
+            }
+          ]
         }
       ]
     }

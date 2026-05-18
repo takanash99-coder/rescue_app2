@@ -16,7 +16,7 @@
   ],
   "scenes": [
     {
-      "id": "scene_1",
+      "id": "scene1",
       "title": "通報内容と出場途上の確認",
       "phase": "dispatch",
       "scene_goal": "大型トラックへの追突事故から高エネルギー外傷を予測し、追加確認すべき情報を整理する。",
@@ -126,7 +126,7 @@
       ]
     },
     {
-      "id": "scene_2",
+      "id": "scene2",
       "title": "国試の芯：直ちに行う対応",
       "phase": "initial_assessment",
       "scene_goal": "顔面外傷、ゴロゴロ音、不穏から、直ちに頸椎保護と気道確保を優先する。",
@@ -238,7 +238,7 @@
       ]
     },
     {
-      "id": "scene_3",
+      "id": "scene3",
       "title": "気道管理の具体化",
       "phase": "airway_management",
       "scene_goal": "頸椎保護下で行う気道確保の具体的手技を選択する。",
@@ -353,7 +353,7 @@
       ]
     },
     {
-      "id": "scene_4",
+      "id": "scene4",
       "title": "受傷機転から考える全身観察",
       "phase": "rapid_trauma_survey",
       "scene_goal": "顔面外傷に目を奪われず、追突事故の受傷機転から見落としてはいけない損傷を予測する。",
@@ -463,7 +463,7 @@
       ]
     },
     {
-      "id": "scene_5",
+      "id": "scene5",
       "title": "車内収容後の活動とファーストコール",
       "phase": "ambulance_care",
       "scene_goal": "外傷症例では車内収容後に酸素投与、モニター装着、バイタル測定、MIST連絡を行う。",
@@ -568,7 +568,7 @@
       ]
     },
     {
-      "id": "scene_6",
+      "id": "scene6",
       "title": "顔面外傷で気道閉塞が起こる理由",
       "phase": "pathophysiology",
       "scene_goal": "顔面外傷で血液、分泌物、腫脹により気道閉塞が起こる機序を理解する。",
@@ -662,7 +662,7 @@
       ]
     },
     {
-      "id": "scene_7",
+      "id": "scene7",
       "title": "搬送先判断",
       "phase": "transport_destination",
       "scene_goal": "気道リスクを伴う高エネルギー外傷として、気道管理と外傷診療に対応できる医療機関を選定する。",

@@ -232,13 +232,23 @@
         }
       },
       "media": [],
-      "type": "dialogue",
+      "type": "dialogue_input",
       "prompt": "母親からSAMPLEを中心に情報収集を行う。適切な問いかけを選べ。",
-      "dialogue": [
+      "dialogue_role": "family_sample_interview",
+      "dialogue_target": "母親",
+      "dialogue_style": {
+        "ui": "chat_like",
+        "input_mode": "template_select",
+        "speaker": "母親",
+        "tone": "anxious_realistic",
+        "avoid_over_guidance": true,
+        "opening_message": "朝、起こしに行ったら返事がなくて……。"
+      },
+      "dialogue_turns": [
         {
           "turn_id": "q1_symptom_discovery",
           "speaker": "mother",
-          "text": "朝、起こしに行ったら返事がなくて……。",
+          "speaker_message": "朝、起こしに行ったら返事がなくて……。",
           "task": "発見状況を確認する。",
           "options": [
             {
@@ -247,7 +257,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "普段は6時半ごろですが、今日は返事がありませんでした。",
+              "speaker_response": "普段は6時半ごろです。でも今は、それより様子が変で……。",
               "rationale": "起床時間よりも、発見時の状態を直接確認したい。"
             },
             {
@@ -256,7 +266,7 @@
               "is_correct": true,
               "score_delta": 3,
               "life_delta": 0,
-              "mother_response": "朝6時半ごろ、ベッドの横で倒れていて、呼びかけても反応がありませんでした。汗をすごくかいていました。",
+              "speaker_response": "朝6時半ごろ、ベッドの横で倒れていて、呼びかけても反応がありませんでした。汗をすごくかいていました。",
               "rationale": "発見状況、意識障害、冷汗を把握できる。"
             },
             {
@@ -265,7 +275,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "最近はあまり外に出ていません。",
+              "speaker_response": "最近はあまり外に出ていません。それより、今の状態が心配で……。",
               "rationale": "背景情報としては参考になるが、発見時の状態確認を優先する。"
             },
             {
@@ -274,7 +284,7 @@
               "is_correct": false,
               "score_delta": -2,
               "life_delta": 0,
-              "mother_response": "それは今は分かりません……。",
+              "speaker_response": "それは今は分かりません……。倒れていたことしか。",
               "rationale": "低血糖や意識障害の評価に直結しにくい。"
             }
           ]
@@ -282,7 +292,7 @@
         {
           "turn_id": "q2_last_known_well",
           "speaker": "mother",
-          "text": "昨日の夜は少し元気がないように見えました。",
+          "speaker_message": "昨日の夜は少し元気がないように見えました。",
           "task": "最終健常確認を行う。",
           "options": [
             {
@@ -291,7 +301,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "最近はあまり会っていないと思います。",
+              "speaker_response": "最近はあまり会っていないと思います。",
               "rationale": "背景としては参考になるが、まず最終健常確認が重要である。"
             },
             {
@@ -300,7 +310,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "昨日は家にいました。",
+              "speaker_response": "昨日は家にいました。",
               "rationale": "外出歴よりも、普段どおりだった時刻を確認したい。"
             },
             {
@@ -309,7 +319,7 @@
               "is_correct": true,
               "score_delta": 3,
               "life_delta": 0,
-              "mother_response": "昨夜22時半ごろです。『食欲がない』と言っていました。",
+              "speaker_response": "昨夜22時半ごろです。『食欲がない』と言っていました。",
               "rationale": "最終健常確認と、食欲低下という低血糖リスクにつながる情報が得られる。"
             },
             {
@@ -318,7 +328,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "だいたい23時ごろです。",
+              "speaker_response": "だいたい23時ごろです。ただ、昨日は元気がなかったです。",
               "rationale": "普段の就寝時刻より、最後に普段どおりだった時刻が重要である。"
             }
           ]
@@ -326,7 +336,7 @@
         {
           "turn_id": "q3_last_oral_intake",
           "speaker": "mother",
-          "text": "昨日の夜は食欲がないと言っていました。",
+          "speaker_message": "昨日の夜は食欲がないと言っていました。",
           "task": "最終食事を確認する。",
           "options": [
             {
@@ -335,8 +345,8 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "普通の夕食でしたが、あまり食べていません。",
-              "rationale": "メニューよりも、最後に食事をした時刻を確認する。"
+              "speaker_response": "普通の夕食でしたが、あまり食べていません。",
+              "rationale": "メニューよりも、最後に食事をした時刻と摂取量を確認する。"
             },
             {
               "option_id": "b",
@@ -344,7 +354,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "特に強い好き嫌いはありません。",
+              "speaker_response": "特に強い好き嫌いはありません。",
               "rationale": "嗜好よりも、最終食事の確認が優先である。"
             },
             {
@@ -353,7 +363,7 @@
               "is_correct": true,
               "score_delta": 3,
               "life_delta": 0,
-              "mother_response": "昨夜の夕食です。でも、半分も食べていませんでした。",
+              "speaker_response": "昨夜の夕食です。でも、半分も食べていませんでした。",
               "rationale": "最終食事と摂取不足を確認でき、低血糖の背景を把握できる。"
             },
             {
@@ -362,7 +372,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "最近はあまり食べていません。",
+              "speaker_response": "最近はあまり食べていません。",
               "rationale": "間食習慣よりも、直近の食事状況が重要である。"
             }
           ]
@@ -370,7 +380,7 @@
         {
           "turn_id": "q4_medication_insulin",
           "speaker": "mother",
-          "text": "糖尿病で治療はしています。",
+          "speaker_message": "糖尿病で治療はしています。",
           "task": "インスリン使用を確認する。",
           "options": [
             {
@@ -379,7 +389,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "風邪薬は聞いていません。",
+              "speaker_response": "風邪薬は聞いていません。",
               "rationale": "今回の重度低血糖では、糖尿病治療とインスリン使用の確認が優先である。"
             },
             {
@@ -388,7 +398,7 @@
               "is_correct": true,
               "score_delta": 3,
               "life_delta": 0,
-              "mother_response": "はい、1型糖尿病でインスリンを使っています。昨夜もいつも通り打ったようです。",
+              "speaker_response": "はい、1型糖尿病でインスリンを使っています。昨夜もいつも通り打ったようです。",
               "rationale": "インスリン使用を確認でき、食事摂取不足と合わせて低血糖リスクが高まる。"
             },
             {
@@ -397,7 +407,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "家系かどうかは分かりません。",
+              "speaker_response": "家系かどうかは分かりません。",
               "rationale": "家族歴よりも、現在の治療内容が重要である。"
             },
             {
@@ -406,7 +416,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "むしろ少し痩せたように見えます。",
+              "speaker_response": "むしろ少し痩せたように見えます。",
               "rationale": "体重変化よりも、インスリン使用の有無を確認する。"
             }
           ]
@@ -414,7 +424,7 @@
         {
           "turn_id": "q5_past_history",
           "speaker": "mother",
-          "text": "病気のことも関係ありますか？",
+          "speaker_message": "病気のことも関係ありますか？",
           "task": "既往歴を確認する。",
           "options": [
             {
@@ -423,7 +433,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "旅行はしていません。",
+              "speaker_response": "旅行はしていません。",
               "rationale": "旅行歴よりも既往歴の確認が重要である。"
             },
             {
@@ -432,7 +442,7 @@
               "is_correct": true,
               "score_delta": 3,
               "life_delta": 0,
-              "mother_response": "1型糖尿病とうつ病があります。どちらも通院しています。最近は気分が落ち込んでいました。",
+              "speaker_response": "1型糖尿病とうつ病があります。どちらも通院しています。最近は気分が落ち込んでいました。",
               "rationale": "1型糖尿病とうつ病という背景を把握できる。"
             },
             {
@@ -441,7 +451,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "骨折は聞いたことがありません。",
+              "speaker_response": "骨折は聞いたことがありません。",
               "rationale": "今回の意識障害と低血糖リスクには直結しにくい。"
             },
             {
@@ -450,7 +460,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "最近はあまり運転していません。",
+              "speaker_response": "最近はあまり運転していません。",
               "rationale": "運転歴よりも既往歴を確認する。"
             }
           ]
@@ -458,7 +468,7 @@
         {
           "turn_id": "q6_allergy",
           "speaker": "mother",
-          "text": "薬はいつものものを使っていると思います。",
+          "speaker_message": "薬はいつものものを使っていると思います。",
           "task": "アレルギーを確認する。",
           "options": [
             {
@@ -467,7 +477,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "最近は甘いものもあまり食べません。",
+              "speaker_response": "最近は甘いものもあまり食べません。",
               "rationale": "嗜好ではなく、アレルギーの確認が必要である。"
             },
             {
@@ -476,7 +486,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "あまり眠れていないようでした。",
+              "speaker_response": "あまり眠れていないようでした。",
               "rationale": "精神状態の背景としては参考になるが、SAMPLEのAとしてはアレルギー確認を行う。"
             },
             {
@@ -485,7 +495,7 @@
               "is_correct": false,
               "score_delta": -1,
               "life_delta": 0,
-              "mother_response": "家族にはいません。",
+              "speaker_response": "家族にはいません。",
               "rationale": "家族歴よりも、投与や搬送に関わるアレルギーを確認する。"
             },
             {
@@ -494,12 +504,38 @@
               "is_correct": true,
               "score_delta": 3,
               "life_delta": 0,
-              "mother_response": "特に聞いていません。薬でアレルギーが出た話もありません。",
+              "speaker_response": "特に聞いていません。薬でアレルギーが出た話もありません。",
               "rationale": "SAMPLEのAとしてアレルギー情報を確認できる。"
             }
           ]
         }
-      ]
+      ],
+      "dialogue_feedback_rules": {
+        "must_include": [
+          "発見状況",
+          "最終健常確認",
+          "最終食事",
+          "インスリン使用",
+          "既往歴",
+          "アレルギー"
+        ],
+        "should_include": [
+          "冷汗",
+          "昨夜の食欲低下",
+          "食事摂取不足",
+          "1型糖尿病",
+          "うつ病",
+          "最近の気分低下"
+        ],
+        "dangerous_omissions": [
+          "食事摂取不足を確認しない",
+          "インスリン使用を確認しない",
+          "精神科既往だけに引っ張られる",
+          "発見状況を確認しない",
+          "アレルギーを確認しない"
+        ],
+        "response_tone_rule": "家族役は親切に情報を全部出しすぎず、質問に応じて短く答える。不安は表現するが、誘導しすぎない。"
+      }
     },
     {
       "id": "scene4",

@@ -1,0 +1,543 @@
+{
+  "case_id": "case_environmental_special_accidental_hypothermia_indoor_001",
+  "version": "2.0",
+  "title": "屋内で発見された偶発性低体温症",
+  "category": "environmental_special",
+  "difficulty": "Normal",
+  "algorithm_type": "environmental_special_protocol",
+  "estimated_time": 10,
+  "scene_count": 7,
+  "keywords": [
+    "偶発性低体温症",
+    "意識障害",
+    "ロード＆ゴー",
+    "致死性不整脈",
+    "保温"
+  ],
+  "patient_profile": {
+    "age": 70,
+    "sex": "男性",
+    "chief_complaint": "室内で倒れている、反応がない",
+    "background": "独居。真冬の朝、自宅廊下で倒れているところを隣に住む家族が発見した。暖房はついておらず、発見時刻は不明。"
+  },
+  "initial_state": {
+    "life": 100,
+    "score": 0,
+    "flags": [],
+    "danger_tags": [
+      "accidental_hypothermia",
+      "altered_consciousness",
+      "bradypnea",
+      "bradycardia",
+      "arrhythmia_risk"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "scene_1",
+      "title": "出場途上の情報整理",
+      "phase": "dispatch_briefing",
+      "scene_goal": "指令情報から偶発性低体温症を疑い、重症化の可能性を意識して現着方針を共有する。",
+      "ideal_flow": [
+        "真冬の朝という環境情報を確認する",
+        "独居高齢男性であることを把握する",
+        "屋内廊下で倒れているという発見状況を整理する",
+        "発見遅れの可能性を考える",
+        "偶発性低体温症を念頭に置いて現着後の評価方針を共有する"
+      ],
+      "ideal_score_delta": 10,
+      "action_tag": "dispatch_briefing",
+      "text": "真冬の朝、70歳の独居男性が室内の廊下で倒れているところを、隣に住む家族が発見して救急要請した。いつから倒れていたかは不明で、暖房はついていなかったという。救急隊は出場途上で活動方針を共有する。",
+      "visible_data": {
+        "dispatch_information": [
+          "真冬の朝",
+          "70歳の独居男性",
+          "室内廊下で倒れていた",
+          "発見時刻不明",
+          "暖房はついていない"
+        ]
+      },
+      "media": [
+        "media/concern_in_the_hallway_endoftext.png"
+      ],
+      "type": "multiple_choice",
+      "prompt": "出場途上の共有事項として適切なものを2つ選べ。",
+      "options": [
+        {
+          "option_id": "s1_o1",
+          "text": "屋内発見であっても偶発性低体温症の可能性を考える",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "偶発性低体温症は屋外だけでなく屋内でも起こりうる。"
+        },
+        {
+          "option_id": "s1_o2",
+          "text": "独居、冬季、発見遅れの可能性から重症化を意識する",
+          "is_correct": true,
+          "score_delta": 5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "低体温症の背景因子として独居や発見遅れは重要である。"
+        },
+        {
+          "option_id": "s1_o3",
+          "text": "屋内発見なので低体温症は除外して意識障害だけを考える",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "屋内でも低体温症は起こりうるため、環境情報と発見状況を軽視してはいけない。"
+        },
+        {
+          "option_id": "s1_o4",
+          "text": "直近二次医療機関への搬送だけを前提に活動を開始する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "現着後評価の結果次第で高次医療機関搬送を考慮する必要がある。"
+        }
+      ]
+    },
+    {
+      "id": "scene_2",
+      "title": "初期評価",
+      "phase": "primary_assessment",
+      "scene_goal": "数値に頼らず重症感を把握し、早期収容の判断につなげる。",
+      "ideal_flow": [
+        "意識状態を確認する",
+        "呼吸の有無と速さを慎重に確認する",
+        "脈拍の有無と速さを慎重に確認する",
+        "皮膚冷感やシバリングの有無をみる",
+        "重症感から早期収容を判断する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "primary_assessment",
+      "text": "傷病者は廊下に仰臥位で倒れており、呼びかけや痛み刺激に反応しない。呼吸はかなり遅く浅い。脈は遅いが触知できる。皮膚は冷たく、明らかなシバリングはみられない。救急隊は現場滞在を最小限にすべきか判断する。",
+      "visible_data": {
+        "initial_findings": [
+          "痛み刺激にも反応なし",
+          "呼吸はかなり遅く浅い",
+          "脈は遅いが触知できる",
+          "皮膚冷感あり",
+          "明らかなシバリングなし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点の判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s2_o1",
+          "text": "現場で十分な詳細観察を完了してから搬送方針を決める",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "重症感が強く、詳細観察を優先して現場滞在を延ばすべきではない。"
+        },
+        {
+          "option_id": "s2_o2",
+          "text": "早期収容が必要な状態と判断し、必要最小限の処置で速やかに車内へ移行する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "重度意識障害、著しい徐呼吸・徐脈、冷感から重症低体温を疑い、早期収容が妥当である。"
+        },
+        {
+          "option_id": "s2_o3",
+          "text": "意識障害があるため、主病態にかかわらず意識障害プロトコルのみで進める",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "意識障害は重要だが、この時点では低体温が主病態として強く疑われる。"
+        },
+        {
+          "option_id": "s2_o4",
+          "text": "脈拍が触知できるので重症度は低いと判断する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "脈拍が触知できても、徐脈や低体温所見があれば重症低体温は否定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_3",
+      "title": "全身観察",
+      "phase": "rapid_assessment",
+      "scene_goal": "外傷が前景でないことを確認し、低体温が主病態らしいことを固める。",
+      "ideal_flow": [
+        "頭部から四肢までざっと観察する",
+        "外傷所見の有無を確認する",
+        "衣類の濡れや冷感を確認する",
+        "シバリングの有無を確認する",
+        "低体温が主病態と判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "rapid_overview",
+      "text": "全身観察では、明らかな外傷所見はない。衣類に大きな水濡れはなく、体表は冷たく乾いている。四肢はやや硬く、シバリングはみられない。室内発見であるが、低体温が主病態として疑われる。",
+      "visible_data": {
+        "rapid_assessment": [
+          "明らかな外傷所見なし",
+          "衣類に大きな水濡れなし",
+          "体表冷感あり",
+          "四肢やや硬い",
+          "シバリングなし"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "全身観察を踏まえた判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s3_o1",
+          "text": "軽度低体温症であり、シバリングが高頻度にみられる段階である",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "シバリングがみられず、意識障害や徐呼吸・徐脈もあり、軽度とは考えにくい。"
+        },
+        {
+          "option_id": "s3_o2",
+          "text": "外傷よりも偶発性低体温症が主病態として前景である",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "外傷所見に乏しく、低体温を示唆する所見が主体である。"
+        },
+        {
+          "option_id": "s3_o3",
+          "text": "室内発見なので環境因子は関係なく、低体温症は考えにくい",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "屋内でも暖房不使用や発見遅れがあれば偶発性低体温症は発生しうる。"
+        },
+        {
+          "option_id": "s3_o4",
+          "text": "四肢の硬さから死後硬直のみを考え、救命可能性は低いと判断する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "低体温では慎重な評価が必要であり、救命可能性を即断してはいけない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_4",
+      "title": "現場処置と収容",
+      "phase": "treatment_and_transport",
+      "scene_goal": "早期収容を進めつつ、車内収容後は低体温を主病態として管理する。",
+      "ideal_flow": [
+        "愛護的に取り扱う",
+        "体動を最小限にする",
+        "保温を開始する",
+        "呼吸・循環管理を継続する",
+        "車内収容後は低体温管理を主軸にする"
+      ],
+      "ideal_score_delta": 25,
+      "action_tag": "transport_and_algorithm_switch",
+      "text": "現場では早期収容として活動を進める。傷病者は重度意識障害を呈しているが、呼吸・脈拍ともに存在しており、皮膚冷感が強い。車内収容後、どの病態を主軸に置いて管理するか判断する。",
+      "visible_data": {
+        "transport_considerations": [
+          "早期収容が必要",
+          "重度意識障害",
+          "呼吸あり",
+          "脈拍あり",
+          "皮膚冷感強い",
+          "偶発性低体温を強く疑う"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この場面で最も適切な考え方はどれか。",
+      "options": [
+        {
+          "option_id": "s4_o1",
+          "text": "意識障害があるため、主病態に関係なく意識障害のみを主軸に進める",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "意識障害は結果であり、この症例では低体温が主病態として前景にある。"
+        },
+        {
+          "option_id": "s4_o2",
+          "text": "低体温が主病態と考え、車内収容後は保温、愛護的取り扱い、呼吸循環管理を主軸にする",
+          "is_correct": true,
+          "score_delta": 12,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "この症例では低体温を主病態として扱い、保温と呼吸循環管理を継続するのが自然である。"
+        },
+        {
+          "option_id": "s4_o3",
+          "text": "徐脈があるため、まず強く体を揺すって反応を確認する",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "粗雑な体動は致死性不整脈を誘発しうるため避ける。"
+        },
+        {
+          "option_id": "s4_o4",
+          "text": "低体温症では保温よりも四肢の強い加温を最優先する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "四肢の強い加温ではなく、体幹中心の保温と愛護的な取り扱いが重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_5",
+      "title": "車内収容後の詳細バイタル",
+      "phase": "vital_signs",
+      "scene_goal": "詳細バイタルから中等度から高度の低体温を裏づける。",
+      "ideal_flow": [
+        "呼吸数を測定する",
+        "脈拍数を測定する",
+        "血圧を測定する",
+        "可能な範囲で体温を測定する",
+        "SpO2を確認する",
+        "重症低体温の数値所見を整理する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "measure_vitals",
+      "text": "車内収容後に詳細なバイタルを測定した。意識JCS300、呼吸数6/分、脈拍40/分、血圧70/40mmHgである。体温は測定困難で32℃未満と考えられる。SpO2は室内気で90％、フェイスマスク酸素6L投与下で92％であった。",
+      "visible_data": {
+        "vital_signs": [
+          "意識 JCS300",
+          "呼吸数 6/分",
+          "脈拍 40/分",
+          "血圧 70/40mmHg",
+          "体温測定困難（32℃未満を疑う）",
+          "SpO2 90％（室内気）",
+          "SpO2 92％（酸素6L）"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この時点で最も適切な評価はどれか。",
+      "options": [
+        {
+          "option_id": "s5_o1",
+          "text": "軽度低体温症である",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "意識障害、徐呼吸、徐脈、低血圧があり、軽度低体温症の所見とは一致しない。"
+        },
+        {
+          "option_id": "s5_o2",
+          "text": "中等度から高度の偶発性低体温症を疑う",
+          "is_correct": true,
+          "score_delta": 8,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "著しい徐呼吸、徐脈、低血圧、体温32℃未満疑いから重症低体温を疑う。"
+        },
+        {
+          "option_id": "s5_o3",
+          "text": "意識障害のみを主病態とし、低体温は副次的である",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "低体温が意識障害、徐呼吸、徐脈、低血圧を説明する主病態である。"
+        },
+        {
+          "option_id": "s5_o4",
+          "text": "SpO2が92％であるため循環不全は否定的である",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "徐脈と低血圧があり、SpO2だけで循環不全を否定できない。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "title": "詳細観察",
+      "phase": "detailed_assessment",
+      "scene_goal": "重症低体温に伴う致死性不整脈リスクを理解し、モニター管理と愛護的対応の必要性を学ぶ。",
+      "ideal_flow": [
+        "心電図モニターを装着する",
+        "徐脈や波形変化を確認する",
+        "シバリングの有無を再確認する",
+        "不整脈リスクを評価する",
+        "必要な気道・呼吸管理を継続する"
+      ],
+      "ideal_score_delta": 20,
+      "action_tag": "ecg_and_hypothermia_assessment",
+      "text": "心電図モニター管理を開始した。重度低体温ではJ波などの波形変化や致死性不整脈の発生に注意が必要である。傷病者はシバリングを認めず、呼吸・循環ともに著明に低下している。",
+      "visible_data": {
+        "detailed_findings": [
+          "心電図モニター管理中",
+          "重度低体温疑い",
+          "シバリングなし",
+          "呼吸循環低下あり",
+          "不整脈リスク高い"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この病態について適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s6_o1",
+          "text": "軽度低体温症である",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "所見は軽度低体温症と一致しない。"
+        },
+        {
+          "option_id": "s6_o2",
+          "text": "致死性不整脈が発生しやすい",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "中等度から高度の低体温では、心室細動などの致死性不整脈リスクが高まる。"
+        },
+        {
+          "option_id": "s6_o3",
+          "text": "直近二次医療機関を選定する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "重症低体温では高次医療機関での集中管理や再加温を考慮する。"
+        },
+        {
+          "option_id": "s6_o4",
+          "text": "シバリングは高頻度に観察される",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "重症低体温ではシバリングは減弱または消失しうる。"
+        },
+        {
+          "option_id": "s6_o5",
+          "text": "ラリンゲアルマスク挿入の指示要請を必ず優先する",
+          "is_correct": false,
+          "score_delta": -3,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "気道管理の必要性は評価するが、まず低体温全体の管理と適切な呼吸循環管理が重要である。"
+        }
+      ]
+    },
+    {
+      "id": "scene_7",
+      "title": "継続観察と搬送先判断",
+      "phase": "reassessment_and_destination",
+      "scene_goal": "愛護的取り扱い、保温、モニター継続を行いながら高次医療機関搬送を判断する。",
+      "ideal_flow": [
+        "呼吸・脈拍・血圧を繰り返し確認する",
+        "心電図モニターで不整脈を監視する",
+        "保温を継続する",
+        "体動を最小限に保つ",
+        "高次医療機関搬送を判断する"
+      ],
+      "ideal_score_delta": 15,
+      "action_tag": "reassessment_and_destination",
+      "text": "搬送中も呼吸、脈拍、血圧を慎重に再評価し、心電図モニターを継続する。保温を続けつつ、粗雑な体動を避ける。再加温や集中治療が可能な医療機関への搬送が必要と考えられる。",
+      "visible_data": {
+        "reassessment": [
+          "継続観察中",
+          "モニター継続",
+          "保温継続",
+          "体動最小限",
+          "高次医療機関搬送を考慮"
+        ]
+      },
+      "media": [],
+      "type": "single_choice",
+      "prompt": "この症例の最終判断として最も適切なのはどれか。",
+      "options": [
+        {
+          "option_id": "s7_o1",
+          "text": "愛護的に取り扱い、保温とモニター管理を継続し、高次医療機関へ搬送する",
+          "is_correct": true,
+          "score_delta": 10,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "重症低体温症としての基本対応と搬送先判断を正しくまとめている。"
+        },
+        {
+          "option_id": "s7_o2",
+          "text": "意識障害があるため、低体温対応より神経学的精査を優先して近隣搬送する",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "主病態は低体温であり、高次医療機関搬送が望ましい。"
+        },
+        {
+          "option_id": "s7_o3",
+          "text": "反応がないため救命困難と判断し、保温やモニターは不要である",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "低体温では慎重な管理が必要であり、救命可能性を軽々に否定しない。"
+        },
+        {
+          "option_id": "s7_o4",
+          "text": "体温上昇を急ぐため四肢を強くマッサージしながら搬送する",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": 0,
+          "status_effect": [],
+          "rationale": "粗雑な取り扱いは不整脈を誘発しうるため避ける。"
+        }
+      ]
+    }
+  ],
+  "debriefing": {
+    "summary": "真冬の朝に屋内で発見された偶発性低体温症症例である。初期評価で重症感を捉え、現場滞在を最小限にしながら愛護的に取り扱い、保温と必要最小限の処置を行って収容する。車内収容後は意識障害そのものではなく低体温を主病態と捉え、呼吸循環管理、モニター管理、保温、高次医療機関搬送を行う。重症低体温では致死性不整脈が起こりやすく、粗雑な体動を避けることが重要である。",
+    "ideal_actions": [
+      "屋内でも偶発性低体温症を疑う",
+      "初期評価で重症感を捉える",
+      "現場での滞在を最小限にする",
+      "愛護的に取り扱う",
+      "保温を開始する",
+      "車内収容後は低体温を主病態として管理する",
+      "詳細バイタルを測定する",
+      "心電図モニターを装着する",
+      "致死性不整脈を警戒する",
+      "高次医療機関へ搬送する"
+    ],
+    "good_points": [
+      "屋内発見でも低体温症を疑えた",
+      "数値なしの初期評価で重症感を捉えられた",
+      "早期収容の判断ができた",
+      "意識障害より低体温を主病態として整理できた",
+      "致死性不整脈リスクを理解できた"
+    ],
+    "cautions": [
+      "初期評価で数値のバイタルに頼りすぎない",
+      "呼吸・脈拍の確認は慎重に行う",
+      "粗雑な体動は避ける",
+      "重症低体温ではシバリングがみられないことがある",
+      "近隣二次医療機関ではなく高次医療機関搬送を考慮する"
+    ]
+  }
+}

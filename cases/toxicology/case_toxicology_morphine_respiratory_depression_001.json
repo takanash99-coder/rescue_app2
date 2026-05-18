@@ -552,78 +552,89 @@
         ]
       },
       "media": [],
-      "type": "template_select",
+      "type": "dialogue_input",
       "prompt": "医療機関へのファーストコールとして最も適切な内容を選べ。",
-      "templates": [
+      "dialogue_turns": [
         {
-          "template_id": "q6_o1",
-          "text": "在宅療養中の74歳男性です。モルヒネ増量後に意識低下を認め、JCS100、瞳孔1mm、血圧72/40mmHg。オピオイド過量投与による呼吸抑制疑いで搬送中です。",
-          "is_correct": true,
-          "score_delta": 10,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "effective_first_call"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [],
-            "remove_danger_tags": []
-          },
-          "rationale": "背景、経過、重症度、病態評価が簡潔にまとまっている。"
-        },
-        {
-          "template_id": "q6_o2",
-          "text": "末期がんなので看取り搬送になるかもしれません。",
-          "is_correct": false,
-          "score_delta": -2,
-          "life_delta": 0,
-          "status_effect": {
-            "add_flags": [
-              "insufficient_first_call"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "handoff_risk"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "現在の急性病態が伝わらず不十分である。"
-        },
-        {
-          "template_id": "q6_o3",
-          "text": "詳細は到着してから説明します。",
-          "is_correct": false,
-          "score_delta": -3,
-          "life_delta": -1,
-          "status_effect": {
-            "add_flags": [
-              "poor_communication"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "handoff_risk"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "重症中毒では早期連絡による受け入れ準備が重要である。"
-        },
-        {
-          "template_id": "q6_o4",
-          "text": "疼痛コントロール不良の患者さんです。鎮痛の相談をお願いします。",
-          "is_correct": false,
-          "score_delta": -4,
-          "life_delta": -2,
-          "status_effect": {
-            "add_flags": [
-              "wrong_focus_report"
-            ],
-            "remove_flags": [],
-            "add_danger_tags": [
-              "misleading_handoff"
-            ],
-            "remove_danger_tags": []
-          },
-          "rationale": "現状の主問題は鎮痛不足ではなく、過量投与による呼吸抑制疑いである。"
+          "turn_id": "s6_turn_1",
+          "speaker": "救急隊",
+          "target": "医師",
+          "templates": [
+            {
+              "template_id": "q6_o1",
+              "text": "在宅療養中の74歳男性です。末期直腸がんで在宅緩和ケア中、中心静脈ラインから鎮痛薬を投与されています。ここ数日モルヒネが増量され、その後に意識低下を認めています。現在JCS100、瞳孔は両側1mm、血圧72/40mmHgです。オピオイド過量投与による呼吸抑制疑いで搬送中です。",
+              "is_correct": true,
+              "score_delta": 15,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "effective_first_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "了解しました。モルヒネ増量後の意識低下、縮瞳、低血圧でオピオイド過量投与疑いですね。呼吸状態を継続評価しながら搬送してください。",
+              "rationale": "在宅緩和ケア中という背景、モルヒネ増量歴、意識障害、縮瞳、低血圧、オピオイド過量投与による呼吸抑制疑いが簡潔にまとまっている。"
+            },
+            {
+              "template_id": "q6_o2",
+              "text": "末期がんなので看取り搬送になるかもしれません。痛み止めを使っているようですが、詳細は到着後に説明します。",
+              "is_correct": false,
+              "score_delta": -4,
+              "life_delta": 0,
+              "status_effect": {
+                "add_flags": [
+                  "insufficient_first_call"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "それでは急性病態が分かりません。意識、呼吸、血圧、瞳孔、モルヒネ増量歴を具体的にください。",
+              "rationale": "終末期背景に寄りすぎており、現在の急性病態、重症度、オピオイド過量投与疑いが伝わらない。"
+            },
+            {
+              "template_id": "q6_o3",
+              "text": "詳細は到着してから説明します。とりあえず在宅療養中の意識障害です。",
+              "is_correct": false,
+              "score_delta": -5,
+              "life_delta": -1,
+              "status_effect": {
+                "add_flags": [
+                  "poor_communication"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "handoff_risk"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "受け入れ準備ができません。低血圧や呼吸抑制の疑いがあるなら先に伝えてください。",
+              "rationale": "重症中毒では早期連絡による受け入れ準備が重要であり、詳細を到着後に回すのは不適切である。"
+            },
+            {
+              "template_id": "q6_o4",
+              "text": "疼痛コントロール不良の患者さんです。鎮痛の相談をお願いします。",
+              "is_correct": false,
+              "score_delta": -6,
+              "life_delta": -2,
+              "status_effect": {
+                "add_flags": [
+                  "wrong_focus_report"
+                ],
+                "remove_flags": [],
+                "add_danger_tags": [
+                  "misleading_handoff"
+                ],
+                "remove_danger_tags": []
+              },
+              "speaker_response": "今の問題は疼痛ですか、呼吸抑制ですか。意識レベル、瞳孔、血圧を整理してください。",
+              "rationale": "現状の主問題は鎮痛不足ではなく、過量投与による呼吸抑制疑いである。"
+            }
+          ]
         }
       ]
     },

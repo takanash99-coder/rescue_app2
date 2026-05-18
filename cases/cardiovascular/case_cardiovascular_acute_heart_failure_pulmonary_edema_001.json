@@ -7,7 +7,8 @@
   "algorithm_type": "PEMEC",
   "estimated_time": "約15分",
   "description_mode": {
-    "has_short_answer": true,
+    "has_short_answer": false,
+    "has_dialogue_input": true,
     "scene_id": "scene7",
     "theme": "病院連絡内容"
   },
@@ -464,48 +465,104 @@
       "action_tag": "hospital_contact_and_destination",
       "text": "搬送先候補の医療機関へ連絡する。短時間で要点を整理して伝えたうえで、どのレベルの医療機関へ搬送するか判断する必要がある。",
       "visible_data": {
-        "must_report": [
+        "handover_materials": [
           "68歳女性",
           "主訴は呼吸困難",
           "JCS1",
-          "RR 32/分",
-          "HR 110/分",
-          "BP 180/110mmHg",
+          "呼吸数 32/分",
+          "脈拍 110/分",
+          "血圧 180/110mmHg",
           "SpO2 86％",
           "ピンク色の痰",
           "全肺野で水泡音",
-          "両下肢浮腫"
+          "両下肢浮腫",
+          "急性心不全による肺水腫疑い",
+          "酸素投与開始",
+          "循環器・救急対応可能な医療機関へ搬送希望"
         ]
       },
       "media": [],
-      "type": "short_answer",
-      "prompt": "この症例の病院連絡として、受け入れ医療機関へ伝えるべき内容を記せ。",
-      "scoring_keywords": {
-        "required": [
+      "type": "dialogue_input",
+      "prompt": "受け入れ医療機関への連絡として、最も適切な内容を選べ。",
+      "dialogue_role": "hospital_handover",
+      "dialogue_target": "受け入れ病院の医師",
+      "dialogue_style": {
+        "ui": "chat_like",
+        "input_mode": "template_select",
+        "speaker": "医師",
+        "tone": "brief_realistic",
+        "avoid_over_guidance": true,
+        "opening_message": "状況は？"
+      },
+      "templates": [
+        {
+          "template_id": "s7_t1",
+          "text": "68歳女性、主訴は呼吸困難です。JCS1、呼吸数32/分、脈拍110/分、血圧180/110mmHg、SpO2 86％です。ピンク色の痰、全肺野の水泡音、両下肢浮腫を認め、急性心不全による肺水腫を疑っています。酸素投与を開始し、循環器・救急対応可能な医療機関への受け入れをお願いします。",
+          "is_correct": true,
+          "score_delta": 18,
+          "life_delta": 0,
+          "action_tag": "appropriate_handover_and_destination",
+          "speaker_response": "肺水腫疑いですね。酸素投与後のSpO2と到着予定時刻をください。",
+          "feedback": "年齢、主訴、バイタル、主要所見、推定病態、搬送先に必要な対応力が整理されており、受け入れ判断に必要な情報が伝わる。"
+        },
+        {
+          "template_id": "s7_t2",
+          "text": "68歳女性です。息苦しさがあります。詳しいことは到着後に説明しますので、受け入れをお願いします。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "action_tag": "handover_too_vague",
+          "speaker_response": "それでは判断できません。SpO2、呼吸数、肺音、疑っている病態をください。",
+          "feedback": "主訴のみで、重症度、バイタル、主要所見、推定病態が不足している。"
+        },
+        {
+          "template_id": "s7_t3",
+          "text": "68歳女性です。ピンク色の痰があり、呼吸器疾患が疑われます。呼吸器外来での対応をお願いします。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "action_tag": "handover_respiratory_only",
+          "speaker_response": "呼吸器だけで片づけないでください。血圧と肺水腫を疑う所見は？",
+          "feedback": "ピンク色痰だけに注目しており、高血圧、全肺野の水泡音、下肢浮腫、急性心不全疑いが抜けている。"
+        },
+        {
+          "template_id": "s7_t4",
+          "text": "68歳女性です。高血圧があり、下肢に浮腫があります。今は自宅で座っています。受け入れをお願いします。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "action_tag": "handover_missing_respiratory_failure",
+          "speaker_response": "呼吸状態が分かりません。SpO2、呼吸数、肺音を具体的にください。",
+          "feedback": "高血圧と浮腫は伝わるが、重症呼吸不全を示すSpO2、呼吸数、水泡音、ピンク色痰が不足している。"
+        }
+      ],
+      "dialogue_feedback_rules": {
+        "must_include": [
           "68歳女性",
           "呼吸困難",
-          "RR32",
-          "SpO2 86",
+          "呼吸数32/分",
+          "SpO2 86％",
           "ピンク色の痰",
-          "水泡音"
+          "全肺野で水泡音",
+          "急性心不全または肺水腫疑い"
         ],
-        "recommended": [
+        "should_include": [
           "JCS1",
-          "HR110",
-          "BP180/110",
+          "脈拍110/分",
+          "血圧180/110mmHg",
           "両下肢浮腫",
-          "急性心不全",
-          "肺水腫"
-        ]
-      },
-      "expected_answer_outline": "68歳女性、主訴は呼吸困難。JCS1、呼吸数32/分、脈拍110/分、血圧180/110mmHg、SpO2 86％。ピンク色の痰、全肺野で水泡音、両下肢浮腫を認め、急性心不全による肺水腫を疑っています。循環器・救急対応可能な医療機関への受け入れをお願いします。",
-      "review_points": {
-        "missing_points_examples": [
-          "主訴と重症度が伝わっているか",
-          "バイタルが具体的に入っているか",
-          "主要所見と推定病態が整理されているか",
-          "搬送先として循環器・救急対応可能な施設を意識できているか"
-        ]
+          "酸素投与",
+          "循環器・救急対応可能な医療機関",
+          "到着予定時刻"
+        ],
+        "dangerous_omissions": [
+          "SpO2低下を伝えない",
+          "呼吸数を伝えない",
+          "肺水腫を疑う所見を伝えない",
+          "呼吸器疾患だけとして伝える",
+          "搬送先に必要な対応力を考えない"
+        ],
+        "response_tone_rule": "相手役は親切に情報を全部聞き出しすぎず、不足情報があれば短く確認・指摘する。人格否定や暴言は避ける。"
       },
       "destination_choice": {
         "prompt": "この症例の搬送先として最も適切なのはどこか。",
@@ -552,13 +609,15 @@
     "good_points": [
       "ピンク色の痰と水泡音を心不全の所見として捉えられた",
       "高血圧と下肢浮腫を病態理解につなげられた",
-      "低酸素血症に対して優先すべき対応を選択できた"
+      "低酸素血症に対して優先すべき対応を選択できた",
+      "病院連絡で重症度、主要所見、推定病態を整理できた"
     ],
     "cautions": [
       "呼吸困難を喘息や過換気だけで決めつけない",
       "肺うっ血が疑われる症例で大量輸液を選ばない",
       "現場で長くとどまりすぎず、搬送判断を遅らせない",
-      "病院連絡では具体的なバイタルと主要所見を添える"
+      "病院連絡では具体的なバイタルと主要所見を添える",
+      "対話式では相手が親切に全部聞き出してくれる前提にせず、必要情報を自分から整理して伝える"
     ]
   }
 }

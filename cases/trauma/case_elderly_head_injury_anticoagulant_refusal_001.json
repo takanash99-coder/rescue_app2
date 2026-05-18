@@ -157,7 +157,7 @@
       "scene_goal": "本人の拒否理由を尊重しつつ、施設職員から既往・内服薬を確認し、搬送の必要性を丁寧に説明する。",
       "ideal_flow": [
         "本人の搬送拒否理由を確認する",
-        "転倒時の状況を施設職員から確認する",
+        "施設職員から転倒状況を確認する",
         "意識消失、頭痛、嘔吐、麻痺の有無を確認する",
         "既往歴と内服薬を確認する",
         "抗凝固薬内服による遅発性頭蓋内出血リスクを説明する",
@@ -165,12 +165,12 @@
       ],
       "ideal_score_delta": 20,
       "action_tag": [
-        "dialogue",
+        "dialogue_input",
         "negotiation",
         "anticoagulant",
         "transport_refusal"
       ],
-      "text": "本人は搬送を拒否している。本人と施設職員に必要な確認を行い、リスクを丁寧に説明して搬送につなげよう。",
+      "text": "本人は搬送を拒否している。本人と施設職員から必要な情報を確認し、リスクを丁寧に説明して搬送につなげる。",
       "visible_data": {
         "current_status": {
           "本人": "意識清明、会話可能、搬送拒否あり",
@@ -179,160 +179,57 @@
         }
       },
       "media": [],
-      "type": "dialogue",
-      "prompt": "本人と施設職員に質問・説明して、搬送判断に必要な情報を集めよう。",
-      "dialogue": {
-        "max_turns": 10,
-        "targets": [
-          {
-            "target_id": "patient",
-            "label": "傷病者本人",
-            "recommended_framework": "拒否理由の確認とリスク説明",
-            "persona": {
-              "age": 82,
-              "sex": "男性",
-              "attitude": "少し頑固で、病院に行くのを面倒がっている",
-              "reliability": "現在の自覚症状については答えられるが、薬の名前は曖昧"
+      "type": "dialogue_input",
+      "prompt": "本人と施設職員への確認・説明として最も適切な内容を選べ。",
+      "dialogue_turns": [
+        {
+          "turn_id": "s3_turn_1",
+          "speaker": "救急隊",
+          "target": "本人・施設職員",
+          "templates": [
+            {
+              "template_id": "s3_t1",
+              "text": "ご本人には、まず病院に行きたくない理由を確認します。あわせて職員さんに、転倒状況、意識消失の有無、普段との違い、既往歴、内服薬を確認します。抗凝固薬を飲んでいる場合、今は元気に見えても後から頭の中で出血することがあるため、検査目的で医療機関受診を勧めます。",
+              "is_correct": true,
+              "score_delta": 20,
+              "life_delta": 0,
+              "status_effect": "拒否理由とリスク情報を整理し、搬送受諾につなげる",
+              "speaker_response": "本人は『大げさにしたくない』と話す。職員は『後ろへ倒れて後頭部をぶつけました。意識消失はなく、普段と会話は変わりません。心房細動があり、血液をさらさらにする薬を飲んでいます』と答える。説明後、本人は『後から出血することがあるなら診てもらう』と受診に同意する。",
+              "rationale": "拒否理由を確認し、施設職員から受傷機転・意識消失・普段との差・既往歴・内服薬を確認できている。さらに抗凝固薬による遅発性頭蓋内出血リスクを威圧せず説明できており、最も適切である。"
+            },
+            {
+              "template_id": "s3_t2",
+              "text": "本人が病院に行きたくないと言っているため、拒否意思を尊重して活動を終了します。職員さんには、何かあればまた呼んでくださいと伝えます。",
+              "is_correct": false,
+              "score_delta": -8,
+              "life_delta": -2,
+              "status_effect": "リスク説明と必要情報の確認が不足する",
+              "speaker_response": "職員は『血液をさらさらにする薬を飲んでいるんですが、本当にこのままで大丈夫ですか』と不安そうにしている。",
+              "rationale": "本人の意思尊重は重要だが、搬送拒否の理由、内服薬、抗凝固薬リスクの確認と説明を省略しており不適切である。"
+            },
+            {
+              "template_id": "s3_t3",
+              "text": "高齢者の頭部外傷なので、本人には拒否できないと強く伝え、すぐに搬送準備を進めます。職員からの情報収集は搬送後でよいと判断します。",
+              "is_correct": false,
+              "score_delta": -7,
+              "life_delta": -1,
+              "status_effect": "威圧的説明となり信頼関係を損なう",
+              "speaker_response": "本人は『そんな言い方をされるなら、なおさら行きたくない』と拒否を強める。",
+              "rationale": "搬送の必要性は高いが、威圧的な説明は不適切である。本人の拒否理由を聞き、リスクを具体的に説明する必要がある。"
+            },
+            {
+              "template_id": "s3_t4",
+              "text": "現在は意識清明で嘔吐や麻痺もないため、抗凝固薬の有無は確認せず、皮下血腫の冷却と施設内経過観察を勧めます。",
+              "is_correct": false,
+              "score_delta": -10,
+              "life_delta": -3,
+              "status_effect": "抗凝固薬リスクを見落とす",
+              "speaker_response": "職員は『心房細動の薬を飲んでいるはずですが、確認しなくて大丈夫ですか』と話す。",
+              "rationale": "高齢者頭部外傷では、意識清明でも抗凝固薬内服による頭蓋内出血リスクがある。内服薬確認を省略するのは危険である。"
             }
-          },
-          {
-            "target_id": "staff",
-            "label": "施設職員",
-            "recommended_framework": "SAMPLE",
-            "persona": {
-              "attitude": "心配しており協力的",
-              "reliability": "転倒状況、既往、内服薬を把握している"
-            }
-          }
-        ],
-        "answers": [
-          {
-            "id": "patient_refusal_reason",
-            "target_id": "patient",
-            "category": "拒否理由",
-            "keywords": ["行きたくない", "理由", "病院", "どうして", "拒否"],
-            "response": "いや、病院なんて大げさだよ。頭は少し痛いけど、いつも通りだし、行かなくていい。",
-            "score_tag": "refusal_reason"
-          },
-          {
-            "id": "patient_symptoms_headache",
-            "target_id": "patient",
-            "category": "自覚症状",
-            "keywords": ["頭痛", "痛み", "頭", "どこが痛い"],
-            "response": "ぶつけたところは痛いけど、我慢できるくらいだよ。",
-            "score_tag": "headache"
-          },
-          {
-            "id": "patient_symptoms_vomiting",
-            "target_id": "patient",
-            "category": "嘔吐",
-            "keywords": ["吐き気", "嘔吐", "気持ち悪い", "吐いた"],
-            "response": "吐き気はないし、吐いてもいないよ。",
-            "score_tag": "vomiting"
-          },
-          {
-            "id": "patient_neuro_symptoms",
-            "target_id": "patient",
-            "category": "神経症状",
-            "keywords": ["しびれ", "麻痺", "手足", "力", "ろれつ"],
-            "response": "手足は普通に動くよ。しびれもない。",
-            "score_tag": "neuro_symptoms"
-          },
-          {
-            "id": "patient_explanation_bad",
-            "target_id": "patient",
-            "category": "不適切な説明",
-            "keywords": ["絶対", "行きなさい", "拒否できない", "危ないから黙って"],
-            "response": "そんな言い方をされるなら、なおさら行きたくないね。",
-            "score_tag": "poor_communication"
-          },
-          {
-            "id": "patient_explanation_good_anticoagulant",
-            "target_id": "patient",
-            "category": "リスク説明",
-            "keywords": ["血をさらさら", "薬", "出血", "後から", "頭の中", "検査", "安全"],
-            "response": "薬のせいで、後から頭の中で出血することがあるのか……。それなら診てもらった方が安心なのかな。",
-            "score_tag": "risk_explanation"
-          },
-          {
-            "id": "patient_accept_transport",
-            "target_id": "patient",
-            "category": "搬送受諾",
-            "keywords": ["検査", "確認", "安全", "念のため", "一度診てもらう"],
-            "response": "そこまで心配なら、一度診てもらうよ。職員さんにも迷惑かけたくないしね。",
-            "score_tag": "transport_acceptance"
-          },
-          {
-            "id": "staff_mechanism",
-            "target_id": "staff",
-            "category": "受傷機転",
-            "keywords": ["転倒", "どう転んだ", "状況", "見ていた", "機転"],
-            "response": "廊下で足を滑らせるように後ろへ倒れて、後頭部を床にぶつけました。",
-            "score_tag": "mechanism"
-          },
-          {
-            "id": "staff_loss_of_consciousness",
-            "target_id": "staff",
-            "category": "意識消失",
-            "keywords": ["意識消失", "気を失った", "失神", "すぐ反応"],
-            "response": "気を失った様子はなく、すぐに返事をしていました。",
-            "score_tag": "loc"
-          },
-          {
-            "id": "staff_baseline",
-            "target_id": "staff",
-            "category": "普段との違い",
-            "keywords": ["普段", "いつも", "変化", "様子"],
-            "response": "今のところ会話は普段と変わりません。ただ、頭をぶつけているので心配です。",
-            "score_tag": "baseline"
-          },
-          {
-            "id": "staff_past_history",
-            "target_id": "staff",
-            "category": "既往歴",
-            "keywords": ["既往", "病気", "心房細動", "持病"],
-            "response": "心房細動があります。",
-            "score_tag": "past_history"
-          },
-          {
-            "id": "staff_medication_general",
-            "target_id": "staff",
-            "category": "内服薬",
-            "keywords": ["薬", "内服", "飲んでいる", "服薬", "薬手帳"],
-            "response": "心房細動の薬を飲んでいます。薬手帳もあります。",
-            "score_tag": "medication"
-          },
-          {
-            "id": "staff_anticoagulant",
-            "target_id": "staff",
-            "category": "抗凝固薬",
-            "keywords": ["抗凝固", "血液さらさら", "ワーファリン", "DOAC", "アピキサバン", "リバーロキサバン", "エドキサバン", "ダビガトラン"],
-            "response": "血液をさらさらにする薬を飲んでいます。薬手帳では抗凝固薬と書かれています。",
-            "score_tag": "anticoagulant"
-          },
-          {
-            "id": "staff_transport_concern",
-            "target_id": "staff",
-            "category": "職員の心配",
-            "keywords": ["心配", "搬送", "病院", "どうしたい"],
-            "response": "ご本人は嫌がっていますが、薬のこともあるので病院で診てもらった方がいいと思っています。",
-            "score_tag": "staff_concern"
-          }
-        ],
-        "must_ask": [
-          "mechanism",
-          "loc",
-          "headache",
-          "vomiting",
-          "neuro_symptoms",
-          "past_history",
-          "medication",
-          "anticoagulant",
-          "refusal_reason",
-          "risk_explanation"
-        ],
-        "fallback": "すみません、そこまではわかりません。"
-      }
+          ]
+        }
+      ]
     },
     {
       "id": "scene4",

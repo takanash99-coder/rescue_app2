@@ -257,18 +257,83 @@
         ]
       },
       "media": [],
-      "type": "free_text",
-      "prompt": "この時点の観察結果と判断を簡潔に記せ。",
-      "scoring_keywords": [
-        "反応消失",
-        "死戦期呼吸",
-        "正常呼吸ではない",
-        "CPA",
-        "心停止対応"
-      ],
+      "type": "dialogue_input",
+      "prompt": "急変直後の観察結果と判断として、最も適切な内容を選べ。",
+      "dialogue_role": "team_report",
+      "dialogue_target": "隊長または隊員間の状況共有",
+      "dialogue_style": {
+        "ui": "chat_like",
+        "input_mode": "template_select",
+        "speaker": "隊長",
+        "tone": "brief_realistic",
+        "avoid_over_guidance": true,
+        "opening_message": "今の状態を短く言って。"
+      },
       "templates": [
-        "反応が消失し、死戦期呼吸を認める。正常呼吸ではなくCPAと判断し、直ちに心停止対応へ移行する。"
-      ]
+        {
+          "template_id": "s5_t1",
+          "text": "反応が消失しています。口をパクパクさせるような呼吸は死戦期呼吸と判断します。正常呼吸ではないためCPAとして扱い、直ちに胸骨圧迫と除細動準備へ移行します。",
+          "is_correct": true,
+          "score_delta": 15,
+          "life_delta": 0,
+          "action_tag": "recognize_cpa_and_start_resuscitation",
+          "speaker_response": "了解。CPA判断。圧迫開始、パッド準備。",
+          "feedback": "反応消失、死戦期呼吸、正常呼吸ではないこと、CPA判断、心停止対応への移行が整理されている。"
+        },
+        {
+          "template_id": "s5_t2",
+          "text": "口を動かしているので呼吸はあります。まず血圧を測定して状態を確認します。",
+          "is_correct": false,
+          "score_delta": -6,
+          "life_delta": -4,
+          "action_tag": "misread_agonal_breathing",
+          "speaker_response": "違います。死戦期呼吸を正常呼吸にしないで。反応と脈は？",
+          "feedback": "死戦期呼吸を正常呼吸と誤認しており、CPA対応が遅れる危険がある。"
+        },
+        {
+          "template_id": "s5_t3",
+          "text": "反応がなくなりました。呼吸はよく分からないので、まず詳しい病歴を家族に確認します。",
+          "is_correct": false,
+          "score_delta": -5,
+          "life_delta": -3,
+          "action_tag": "delay_cpa_response",
+          "speaker_response": "病歴は後です。反応消失なら呼吸と脈を確認してCPA対応に入って。",
+          "feedback": "急変直後に病歴聴取を優先しており、心停止対応への移行が遅れる。"
+        },
+        {
+          "template_id": "s5_t4",
+          "text": "急に反応が悪くなりました。とりあえずモニター波形だけを見てから判断します。",
+          "is_correct": false,
+          "score_delta": -4,
+          "life_delta": -2,
+          "action_tag": "monitor_only_judgment",
+          "speaker_response": "波形だけで止まらないで。反応、呼吸、脈でCPA判断を。",
+          "feedback": "モニター確認は重要だが、反応消失と死戦期呼吸があるため、身体所見からCPA判断を急ぐ必要がある。"
+        }
+      ],
+      "dialogue_feedback_rules": {
+        "must_include": [
+          "反応消失",
+          "死戦期呼吸",
+          "正常呼吸ではない",
+          "CPA",
+          "心停止対応"
+        ],
+        "should_include": [
+          "胸骨圧迫開始",
+          "除細動準備",
+          "脈拍確認",
+          "中断を最小限にする"
+        ],
+        "dangerous_omissions": [
+          "死戦期呼吸を正常呼吸と判断する",
+          "反応消失を軽視する",
+          "血圧測定を優先する",
+          "詳細病歴聴取を優先する",
+          "モニター波形だけで判断し身体所見を見ない"
+        ],
+        "response_tone_rule": "相手役は親切に情報を全部聞き出しすぎず、不足情報があれば短く確認・指摘する。人格否定や暴言は避ける。"
+      }
     },
     {
       "id": "scene6",
@@ -392,12 +457,14 @@
       "死戦期呼吸を適切に認識できた",
       "トルサード・ド・ポワント様波形を致死性不整脈として捉えられた",
       "胸骨圧迫と除細動準備を優先できた",
-      "高リスク胸部症状例として最初から急変を想定できた"
+      "高リスク胸部症状例として最初から急変を想定できた",
+      "急変直後の観察結果を短く共有し、CPA対応へ移行できた"
     ],
     "cautions": [
       "歩行可能だからといって安心しない",
       "死戦期呼吸を正常呼吸と誤認しない",
       "血圧測定や詳細聴取を蘇生より先にしない",
+      "モニター波形だけに頼らず、反応・呼吸・脈拍からCPAを判断する",
       "車内でもCPRの質とショック適応判断を維持する"
     ]
   }
