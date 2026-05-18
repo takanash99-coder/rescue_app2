@@ -221,8 +221,8 @@
           "必要と思う部位を3か所選ぶ",
           "選択した部位の所見が表示される",
           "得られた観察所見から疑う病態を考える",
-          "聴診音は現時点ではテキスト所見で提示する",
-          "音声ファイルは承認後に追加予定"
+          "背部を選択した場合、両肺野の断続性ラ音を音声で確認できる",
+          "音声は教育用音源として、承認済み範囲で非公開環境から実装する"
         ],
         "body_regions": [
           {
@@ -296,9 +296,14 @@
             "rationale": "両肺野の断続性ラ音は肺うっ血を示唆し、急性心不全を疑う根拠となる。",
             "audio": {
               "audio_id": "bilateral_lung_crackles",
-              "file": null,
-              "rights_status": "pending",
-              "display_text": "音声は承認後に追加予定"
+              "file": "audio/crackles_bilateral_lung_fields.mp4",
+              "label": "両肺野の断続性ラ音",
+              "audio_type": "crackles",
+              "target_area": "back",
+              "play_timing": "when_region_selected",
+              "rights_status": "approved_for_private_educational_trial",
+              "attribution": "長坂行雄先生の金芳堂の著書からの音源",
+              "display_text": "背部を選択すると、両肺野の断続性ラ音を確認できます。"
             }
           },
           {
@@ -341,10 +346,13 @@
             "finding": "明らかな外傷は認めない。著明な片側性腫脹はない。",
             "rationale": "血栓塞栓症などの鑑別では下肢所見も参考になるが、本症例では肺うっ血所見が中心である。"
           }
-        ]
+        ],
+        "body_map_template": "media/neutral_mannequin_body_diagram_template.png",
+        "body_map_back_template": "media/neutral_mannequin_body_diagram_back_template.png"
       },
       "media": [
-        "media/neutral_mannequin_body_diagram_template.png"
+        "media/neutral_mannequin_body_diagram_template.png",
+        "media/neutral_mannequin_body_diagram_back_template.png"
       ],
       "type": "body_map_select",
       "prompt": "観察したい部位を3か所選べ。得られた所見から、この呼吸困難の原因を考える。",
@@ -361,7 +369,11 @@
           "neck",
           "chest",
           "back"
-        ]
+        ],
+        "front_template": "media/neutral_mannequin_body_diagram_template.png",
+        "back_template": "media/neutral_mannequin_body_diagram_back_template.png",
+        "audio_enabled": true,
+        "audio_instruction": "音声アイコンがある部位では、所見表示とあわせて呼吸音を確認できる。"
       },
       "progress_rule": {
         "min_selected": 3,
@@ -702,7 +714,7 @@
       "高血圧に意識を奪われ、救急隊が現場で降圧を目標にしない",
       "頸静脈怒張だけで右心不全に固定せず、両肺ラ音と高血圧から急性心不全・肺うっ血を考える",
       "人体図Sceneでは、正解部位だけを機械的に選ぶのではなく、観察所見から病態を推論する",
-      "音声教材は承認前にアプリへ同梱せず、当面はテキスト所見で運用する"
+      "呼吸音は長坂行雄先生の金芳堂著書由来の音源であることを教材内に明示し、公開配信前には改めて確認する。"
     ]
   }
 }

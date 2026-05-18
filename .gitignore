@@ -1,1 +1,11 @@
 .venv/ 
+
+cases/audio/
+
+*.bak
+
+patch_*.py
+
+pick_audio_candidates.py
+
+audio_bodymap_candidates.csv

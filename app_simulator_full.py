@@ -33,6 +33,8 @@ APP_TITLE = "「国試から学ぶ」救急救命士臨床推論シミュレー�
 REPO_ROOT = Path(__file__).resolve().parent
 CASES_DIR = REPO_ROOT / "cases"
 CASE_MEDIA_DIR = CASES_DIR / "media"
+CASE_AUDIO_DIR = CASES_DIR / "audio"
+CASE_LUNG_SOUNDS_DIR = CASES_DIR / "lung_sounds"
 ROOT_MEDIA_DIR = REPO_ROOT / "media"
 PLAYERS_DIR = REPO_ROOT / "players"
 
@@ -1080,9 +1082,77 @@ def render_media(scene: Dict[str, Any]) -> None:
     for raw in media_values:
         path = resolve_media_path(raw)
         if path:
-            safe_image(path, caption=Path(raw).name)
+            safe_image(path)
         else:
             st.warning(f"画像ファイルが見つかりません：{raw}")
+
+
+
+def resolve_audio_path(raw: str) -> Optional[Path]:
+    if not raw:
+        return None
+
+    raw = raw.strip().replace("\\", "/")
+    name = Path(raw).name
+
+    candidates = [
+        REPO_ROOT / raw,
+        CASES_DIR / raw,
+        CASE_AUDIO_DIR / name,
+        CASE_LUNG_SOUNDS_DIR / name,
+        Path(raw),
+    ]
+
+    for p in candidates:
+        try:
+            if p.exists() and p.is_file():
+                return p
+        except Exception:
+            continue
+
+    return None
+
+
+def render_audio_player(audio: Any) -> None:
+    if not isinstance(audio, dict):
+        return
+
+    raw_file = normalize_str(audio.get("file"))
+    label = normalize_str(audio.get("label") or "聴診音")
+    display_text = normalize_str(audio.get("display_text"))
+    attribution = normalize_str(audio.get("attribution"))
+    rights_status = normalize_str(audio.get("rights_status"))
+
+    if not raw_file:
+        if display_text:
+            st.caption(display_text)
+        return
+
+    path = resolve_audio_path(raw_file)
+
+    st.markdown(
+        f"""
+        <div class="good-box">
+            <div class="label">聴診音</div>
+            <div style="line-height:1.8;">
+                {label}<br>
+                {display_text if display_text else ""}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if path:
+        st.audio(str(path))
+    else:
+        st.warning(f"音声ファイルが見つかりません：{raw_file}")
+
+    if attribution:
+        st.caption(f"音源：{attribution}")
+
+    if rights_status:
+        st.caption(f"使用区分：{rights_status}")
 
 
 # =========================================================
@@ -1874,18 +1944,37 @@ def render_body_map_select(case: Dict[str, Any], scene: Dict[str, Any], scene_in
     visible = scene.get("visible_data", {})
     regions = []
     template = ""
+    back_template = ""
+
+    body_map_config = scene.get("body_map_config", {})
+    if not isinstance(body_map_config, dict):
+        body_map_config = {}
 
     if isinstance(visible, dict):
-        template = normalize_str(visible.get("body_map_template"))
+        template = normalize_str(visible.get("body_map_template") or body_map_config.get("front_template"))
+        back_template = normalize_str(visible.get("body_map_back_template") or body_map_config.get("back_template"))
+
         if isinstance(visible.get("body_regions"), list):
             regions = visible.get("body_regions")
 
-    if template:
-        path = resolve_media_path(template)
-        if path:
-            safe_image(path, caption="人体図")
-        else:
-            st.warning(f"人体図テンプレートが見つかりません：{template}")
+    front_path = resolve_media_path(template) if template else None
+    back_path = resolve_media_path(back_template) if back_template else None
+
+    if front_path or back_path:
+        st.markdown('<div class="section-title">人体図</div>', unsafe_allow_html=True)
+
+        if front_path and back_path:
+            col1, col2 = st.columns(2)
+            with col1:
+                safe_image(front_path)
+            with col2:
+                safe_image(back_path)
+        elif front_path:
+            safe_image(front_path)
+        elif back_path:
+            safe_image(back_path)
+    elif template:
+        st.warning(f"人体図テンプレートが見つかりません：{template}")
 
     labels = []
     region_map = {}
@@ -1896,12 +1985,31 @@ def render_body_map_select(case: Dict[str, Any], scene: Dict[str, Any], scene_in
             region_map[label] = r
 
     key = f"bodymap_{case['case_id']}_{scene_index}"
+
+    max_select = None
+    if isinstance(scene.get("body_map_config"), dict):
+        try:
+            max_select = int(scene["body_map_config"].get("max_selectable"))
+        except Exception:
+            max_select = None
+
+    if max_select is None and isinstance(scene.get("progress_rule"), dict):
+        try:
+            max_select = int(scene["progress_rule"].get("max_selected"))
+        except Exception:
+            max_select = None
+
     selected = st.multiselect("観察したい部位を選択してください", labels, key=key, disabled=disabled)
+
+    if max_select is not None and len(selected) > max_select:
+        st.warning(f"{max_select}か所まで選択してください。現在 {len(selected)}か所 選択されています。")
 
     for label in selected:
         r = region_map.get(label, {})
         finding = normalize_str(r.get("finding"))
-        meaning = normalize_str(r.get("clinical_meaning"))
+        meaning = normalize_str(r.get("clinical_meaning") or r.get("rationale"))
+        audio = r.get("audio")
+
         st.markdown(
             f"""
             <div class="info-box">
@@ -1914,6 +2022,9 @@ def render_body_map_select(case: Dict[str, Any], scene: Dict[str, Any], scene_in
             """,
             unsafe_allow_html=True,
         )
+
+        if isinstance(audio, dict):
+            render_audio_player(audio)
 
     return selected
 

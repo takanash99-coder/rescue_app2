@@ -229,13 +229,35 @@
             "region_id": "right_chest",
             "label": "右側胸部",
             "finding": "右側胸部に約5cmの創を認める。血液を含む泡が呼吸に合わせて吹き出している。",
-            "clinical_meaning": "胸壁から空気が出入りしている可能性があり、呼吸状態悪化に注意する。"
+            "clinical_meaning": "胸壁から空気が出入りしている可能性があり、呼吸状態悪化に注意する。",
+            "audio": {
+              "audio_id": "right_chest_decreased_breath_sound",
+              "file": "audio/decreased_breath_sound_right_chest.mp4",
+              "label": "右胸部の呼吸音減弱",
+              "audio_type": "decreased_breath_sound",
+              "target_area": "right_chest",
+              "play_timing": "when_region_selected",
+              "rights_status": "approved_for_private_educational_trial",
+              "attribution": "長坂行雄先生の金芳堂の著書からの音源",
+              "display_text": "右側胸部を選択すると、右呼吸音減弱を確認できます。"
+            }
           },
           {
             "region_id": "left_chest",
             "label": "左胸部",
             "finding": "明らかな創や胸郭変形はない。",
-            "clinical_meaning": "左胸部外傷を示す所見は目立たない。"
+            "clinical_meaning": "左胸部外傷を示す所見は目立たない。",
+            "audio": {
+              "audio_id": "left_chest_normal_breath_sound",
+              "file": "audio/normal_breath_sound_left_chest.mp4",
+              "label": "左胸部の正常呼吸音",
+              "audio_type": "normal_breath_sound",
+              "target_area": "left_chest",
+              "play_timing": "when_region_selected",
+              "rights_status": "approved_for_private_educational_trial",
+              "attribution": "長坂行雄先生の金芳堂の著書からの音源",
+              "display_text": "左胸部を選択すると、比較用の正常呼吸音を確認できます。"
+            }
           },
           {
             "region_id": "abdomen",
@@ -295,7 +317,25 @@
           "life_delta": 0,
           "rationale": "胸壁動揺への対応に近い考え方であり、この症例では胸部創からの空気流入を抑える処置が優先される。"
         }
-      ]
+      ],
+      "body_map_config": {
+        "display": true,
+        "front_template": "media/neutral_mannequin_body_diagram_template.png",
+        "audio_enabled": true,
+        "audio_instruction": "音声アイコンがある部位では、所見表示とあわせて呼吸音を確認できる。右胸部と左胸部を比較する。",
+        "recommended_regions": [
+          "right_chest",
+          "left_chest",
+          "neck"
+        ]
+      },
+      "progress_rule": {
+        "recommended_key_findings": [
+          "right_chest",
+          "left_chest",
+          "neck"
+        ]
+      }
     },
     {
       "id": "scene5",
@@ -509,7 +549,8 @@
       "胸部創を出血量だけで評価しない",
       "呼吸に合わせて泡立つ血液を見逃さない",
       "胸壁動揺への固定処置と胸部開放創の被覆処置を混同しない",
-      "創部被覆後も呼吸状態や循環の悪化を継続評価する"
+      "創部被覆後も呼吸状態や循環の悪化を継続評価する",
+      "呼吸音は長坂行雄先生の金芳堂著書由来の音源であることを教材内に明示し、公開配信前には改めて確認する。"
     ]
   }
 }
