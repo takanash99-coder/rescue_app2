@@ -31,7 +31,7 @@ st.set_page_config(
     layout="wide",
 )
 
-APP_VERSION = "ROGER_VERTICAL_WIDE_LEVEL_BUTTONS_2026_05_18"
+APP_VERSION = "ROGER_LEVEL_HTML_CARDS_2026_05_18"
 APP_TITLE = "「国試から学ぶ」救急救命士臨床推論シミュレーション"
 
 REPO_ROOT = Path(__file__).resolve().parent
@@ -665,6 +665,245 @@ def inject_css() -> None:
 
             .simple-level-ambulance {
                 font-size: 2.35rem !important;
+            }
+        }
+
+
+        /* =========================================================
+           Level selection bar UI: button only, mobile-first
+           ========================================================= */
+        .level-bar-wrap {
+            max-width: 560px;
+            margin: 0 auto 20px auto;
+            padding: 10px 6px 18px 6px;
+        }
+
+        .level-bar-row {
+            margin: 12px 0;
+        }
+
+        .level-bar-row div[data-testid="stButton"] > button {
+            width: 100% !important;
+            min-height: 96px !important;
+            border-radius: 999px !important;
+            border: 5px solid #ffffff !important;
+            font-size: 1.85rem !important;
+            font-weight: 1000 !important;
+            letter-spacing: 0.03em !important;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14) !important;
+        }
+
+        .level-bar-row.completed div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, #34d399 0%, #16a34a 100%) !important;
+            color: #ffffff !important;
+        }
+
+        .level-bar-row.current div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 8px rgba(14,165,233,0.18), 0 14px 30px rgba(2,132,199,0.24) !important;
+        }
+
+        .level-bar-row.locked div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, #d1d5db 0%, #6b7280 100%) !important;
+            color: #ffffff !important;
+            opacity: 0.92 !important;
+        }
+
+        .level-bar-row.boss div[data-testid="stButton"] > button {
+            min-height: 112px !important;
+            background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 8px rgba(239,68,68,0.18), 0 16px 34px rgba(153,27,27,0.30) !important;
+        }
+
+        @media (max-width: 768px) {
+            .level-bar-wrap {
+                max-width: 100%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .level-bar-row {
+                margin: 13px 0;
+            }
+
+            .level-bar-row div[data-testid="stButton"] > button {
+                min-height: 104px !important;
+                font-size: 1.78rem !important;
+                border-radius: 999px !important;
+                border-width: 5px !important;
+            }
+
+            .level-bar-row.boss div[data-testid="stButton"] > button {
+                min-height: 122px !important;
+                font-size: 1.72rem !important;
+            }
+        }
+
+
+        /* =========================================================
+           Huge center level cards: smartphone-first final override
+           ========================================================= */
+        .level-bar-wrap {
+            max-width: 620px !important;
+            width: min(96vw, 620px) !important;
+            margin: 0 auto 22px auto !important;
+            padding: 4px 0 18px 0 !important;
+        }
+
+        .level-bar-row {
+            width: 100% !important;
+            margin: 16px auto !important;
+        }
+
+        .level-bar-row div[data-testid="stButton"] > button {
+            width: 100% !important;
+            min-height: 150px !important;
+            border-radius: 34px !important;
+            border: 6px solid #ffffff !important;
+            font-size: 2.35rem !important;
+            font-weight: 1000 !important;
+            letter-spacing: 0.04em !important;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16) !important;
+        }
+
+        .level-bar-row.completed div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, #34d399 0%, #16a34a 100%) !important;
+            color: #ffffff !important;
+        }
+
+        .level-bar-row.current div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 10px rgba(14,165,233,0.18), 0 18px 40px rgba(2,132,199,0.28) !important;
+        }
+
+        .level-bar-row.locked div[data-testid="stButton"] > button {
+            background: linear-gradient(180deg, #d1d5db 0%, #6b7280 100%) !important;
+            color: #ffffff !important;
+            opacity: 0.92 !important;
+        }
+
+        .level-bar-row.boss div[data-testid="stButton"] > button {
+            min-height: 175px !important;
+            border-radius: 40px !important;
+            background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 0 11px rgba(239,68,68,0.18), 0 20px 46px rgba(153,27,27,0.32) !important;
+        }
+
+        @media (max-width: 768px) {
+            .level-bar-wrap {
+                width: 94vw !important;
+                max-width: 94vw !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .level-bar-row {
+                margin: 17px auto !important;
+            }
+
+            .level-bar-row div[data-testid="stButton"] > button {
+                min-height: 31vh !important;
+                max-height: 240px !important;
+                border-radius: 34px !important;
+                font-size: clamp(2.05rem, 8vw, 2.75rem) !important;
+                border-width: 6px !important;
+            }
+
+            .level-bar-row.boss div[data-testid="stButton"] > button {
+                min-height: 34vh !important;
+                max-height: 260px !important;
+                font-size: clamp(1.95rem, 7vw, 2.55rem) !important;
+                border-radius: 40px !important;
+            }
+        }
+
+
+        /* =========================================================
+           HTML Level cards: true huge tappable cards
+           Streamlit st.button is not used here because markdown divs
+           cannot reliably wrap Streamlit widgets.
+           ========================================================= */
+        .html-level-wrap {
+            width: min(94vw, 760px);
+            margin: 0 auto 24px auto;
+            padding: 4px 0 18px 0;
+        }
+
+        .html-level-card,
+        .html-level-card-disabled {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 150px;
+            margin: 18px auto;
+            border-radius: 34px;
+            border: 6px solid #ffffff;
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.16);
+            text-decoration: none !important;
+            font-size: clamp(2.0rem, 6vw, 3.0rem);
+            font-weight: 1000;
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        .html-level-card.completed {
+            background: linear-gradient(180deg, #34d399 0%, #16a34a 100%);
+            color: #ffffff !important;
+        }
+
+        .html-level-card.current {
+            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+            color: #ffffff !important;
+            box-shadow: 0 0 0 10px rgba(14,165,233,0.18), 0 18px 42px rgba(2,132,199,0.28);
+        }
+
+        .html-level-card.boss {
+            min-height: 178px;
+            border-radius: 42px;
+            background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
+            color: #ffffff !important;
+            box-shadow: 0 0 0 11px rgba(239,68,68,0.18), 0 22px 48px rgba(153,27,27,0.32);
+        }
+
+        .html-level-card-disabled {
+            background: linear-gradient(180deg, #d1d5db 0%, #6b7280 100%);
+            color: #ffffff !important;
+            opacity: 0.72;
+            cursor: not-allowed;
+        }
+
+        .html-level-card:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.03);
+        }
+
+        @media (max-width: 768px) {
+            .html-level-wrap {
+                width: 94vw;
+            }
+
+            .html-level-card,
+            .html-level-card-disabled {
+                min-height: 31vh;
+                max-height: 260px;
+                margin: 18px auto;
+                border-radius: 34px;
+                font-size: clamp(2.1rem, 8.2vw, 3.0rem);
+                border-width: 6px;
+            }
+
+            .html-level-card.boss {
+                min-height: 34vh;
+                max-height: 290px;
+                font-size: clamp(2.0rem, 7.4vw, 2.8rem);
+                border-radius: 42px;
             }
         }
 
@@ -1440,6 +1679,66 @@ def go(screen: str) -> None:
     rerun_top()
 
 
+
+def get_query_param_first(name: str) -> str:
+    try:
+        value = st.query_params.get(name, "")
+        if isinstance(value, list):
+            return str(value[0]) if value else ""
+        return str(value)
+    except Exception:
+        try:
+            params = st.experimental_get_query_params()
+            value = params.get(name, [""])
+            return str(value[0]) if isinstance(value, list) and value else str(value)
+        except Exception:
+            return ""
+
+
+def clear_query_params() -> None:
+    try:
+        st.query_params.clear()
+    except Exception:
+        try:
+            st.experimental_set_query_params()
+        except Exception:
+            pass
+
+
+def handle_level_query(cases: List[Dict[str, Any]]) -> None:
+    player = get_player()
+    if not player:
+        return
+    raw = get_query_param_first("go_level")
+    if not raw:
+        return
+    try:
+        level_num = int(raw)
+    except Exception:
+        clear_query_params()
+        return
+    clear_query_params()
+    if 1 <= level_num <= LEVEL_COUNT and can_play_level(player, level_num):
+        start_level_challenge(cases, f"Level{level_num}")
+    else:
+        st.warning("このLevelはまだ選択できません。")
+
+
+def html_level_label(level_num: int, state: str) -> str:
+    if level_num == 10:
+        if state == "completed":
+            return "✅ Final 10"
+        if state == "current":
+            return "🚑 Final 10"
+        return "🔒 Final 10"
+
+    if state == "completed":
+        return f"✅ Level {level_num}"
+    if state == "current":
+        return f"🚑 Level {level_num}"
+    return f"🔒 Level {level_num}"
+
+
 # =========================================================
 # Render: login / home / level map
 # =========================================================
@@ -1568,19 +1867,7 @@ def render_level_decorations() -> None:
         st.markdown(f'<div class="map-deco" style="left:{x}%; top:{y}px;">{emoji}</div>', unsafe_allow_html=True)
 
 def level_button_label(level_num: int, state: str) -> str:
-    if level_num == 10:
-        # 表示はFinalに統一。短くてスマホでも読みやすい。
-        if state == "locked":
-            return "🔒 Final.10"
-        if state == "completed":
-            return "✅ Final.10"
-        return "🚑 Final.10"
-
-    if state == "completed":
-        return f"✅ Lv.{level_num}"
-    if state == "current":
-        return f"🚑 Lv.{level_num}"
-    return f"🔒 Lv.{level_num}"
+    return html_level_label(level_num, state)
 
 
 def render_level_map(cases: List[Dict[str, Any]]) -> None:
@@ -1588,63 +1875,24 @@ def render_level_map(cases: List[Dict[str, Any]]) -> None:
     if not player:
         return
 
-    st.markdown('<div class="simple-level-wrap">', unsafe_allow_html=True)
-
-    current = int(player.get("current_level", 1))
+    st.markdown('<div class="html-level-wrap">', unsafe_allow_html=True)
 
     for n in range(1, LEVEL_COUNT + 1):
         state = level_state(player, n)
-        row_class = f"simple-level-row {state}"
-        if n == 10:
-            row_class += " boss"
+        playable = can_play_level(player, n)
+        label = html_level_label(n, state)
 
-        animal = LEVEL_ANIMALS.get(n, "●")
-        left_animal = ""
-        right_animal = ""
-
-        # 動物を左右交互に配置。救急車は現在レベルの反対側に置く。
-        if n % 2 == 1:
-            left_animal = animal
-            if n == current and n < 10:
-                right_animal = "🚑"
+        if playable:
+            cls = f"html-level-card {state}"
+            if n == 10:
+                cls += " boss"
+            href = f"?go_level={n}"
+            st.markdown(f'<a class="{cls}" href="{href}" target="_self">{label}</a>', unsafe_allow_html=True)
         else:
-            right_animal = animal
-            if n == current and n < 10:
-                left_animal = "🚑"
-
-        if n == 10:
-            right_animal = "🦁"
-            if current >= 10:
-                left_animal = "🚑"
-
-        st.markdown(f'<div class="{row_class}">', unsafe_allow_html=True)
-        c1, c2, c3 = st.columns([1, 1.55, 1])
-
-        with c1:
-            if left_animal == "🚑":
-                st.markdown('<div class="simple-level-ambulance">🚑</div>', unsafe_allow_html=True)
-            else:
-                cls = "simple-level-animal boss" if n == 10 and left_animal else "simple-level-animal"
-                st.markdown(f'<div class="{cls}">{left_animal}</div>', unsafe_allow_html=True)
-
-        with c2:
-            playable = can_play_level(player, n)
-            label = level_button_label(n, state)
-            if st.button(label, key=f"level_map_btn_{n}", disabled=not playable, type="primary" if state == "current" else "secondary"):
-                start_level_challenge(cases, f"Level{n}")
-
-        with c3:
-            if right_animal == "🚑":
-                st.markdown('<div class="simple-level-ambulance">🚑</div>', unsafe_allow_html=True)
-            else:
-                cls = "simple-level-animal boss" if n == 10 else "simple-level-animal"
-                st.markdown(f'<div class="{cls}">{right_animal}</div>', unsafe_allow_html=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
-        if n < LEVEL_COUNT:
-            spacer_class = "completed" if n < current else ""
-            st.markdown(f'<div class="simple-level-spacer {spacer_class}"></div>', unsafe_allow_html=True)
+            cls = "html-level-card-disabled"
+            if n == 10:
+                cls += " boss"
+            st.markdown(f'<div class="{cls}">{label}</div>', unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -2185,6 +2433,10 @@ def main() -> None:
     render_pending_scroll_to_top()
 
     cases, errors = load_cases()
+
+    # HTML Levelカードのクリックを受け取る
+    if get_player():
+        handle_level_query(cases)
 
     screen = st.session_state.get("screen", "login")
 
