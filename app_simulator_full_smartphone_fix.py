@@ -396,9 +396,14 @@ def inject_css() -> None:
     )
 
 
-def scroll_to_top() -> None:
-    # Streamlit は rerun 後にスクロール位置が残ることがあるため、
-    # 複数回・少し時間差をつけて先頭へ戻す。スマホ対策。
+def request_scroll_to_top() -> None:
+    st.session_state["_scroll_to_top_requested"] = True
+
+
+def render_pending_scroll_to_top() -> None:
+    if st.session_state.get("_scroll_to_top_requested"):
+        scroll_to_top()
+        st.session_state["_scroll_to_top_requested"] = False
     components.html(
         """
         <script>
